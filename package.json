@@ -1,0 +1,52 @@
+{
+  "name": "shdc-wechat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "supervisor -w ./server.js server.js",
+    "build:css": "webpack --config webpack-handle-css.js --progress --color",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@zeit/next-sass": "^0.2.0",
+    "antd-mobile": "^2.1.11",
+    "axios": "^0.18.0",
+    "es6-promise": "^4.2.4",
+    "next": "^6.0.3",
+    "next-redux-saga": "^3.0.0-beta.1",
+    "next-redux-wrapper": "^2.0.0-beta.6",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-saga": "^0.16.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-import": "^1.7.0",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "cross-env": "^5.1.6",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.9.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "less": "^2.7.3",
+    "less-loader": "^4.1.0",
+    "node-sass": "^4.9.0",
+    "redux-devtools-extension": "^2.13.2",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "supervisor": "^0.12.0",
+    "url-loader": "^1.0.1",
+    "webpack": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.13.1"
+  }
+}
