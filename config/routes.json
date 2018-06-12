@@ -9,7 +9,7 @@
     "id": "2",
     "desc": "注册",
     "path": "/register",
-    "page": "/resgiter"
+    "page": "/register"
   }, {
     "id": "3",
     "desc": "找回密码",

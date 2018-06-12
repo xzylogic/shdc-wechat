@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@zeit/next-sass": "^0.2.0",
-    "antd-mobile": "^2.1.11",
+    "antd-mobile": "^2.1.8",
     "axios": "^0.18.0",
     "es6-promise": "^4.2.4",
     "next": "^6.0.3",

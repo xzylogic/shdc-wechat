@@ -1,0 +1,52 @@
+.login__icon {
+  color: #18a6e0;
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+.login__forget {
+  color: #999;
+}
+
+.login__register {
+  float: right;
+  color: #18a6e0;
+}
+
+.login__desc {
+  padding: 15px;
+  line-height: 1.75;
+  background: #fff;
+  border: 1px #808080 dashed;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #666;
+  .content {
+    position: relative;
+    i {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    p {
+      padding-left: 25px;
+    }
+  }
+}
+
+.register__error {
+  line-height: 1.75;
+  color: #ff6a00;
+}
+
+.register__agreement{
+  i {
+    margin-right: 5px;
+  }
+  i.checked {
+    color: #18a6e0;
+  }
+  span{
+    color: #ff6a00;
+  }
+}
