@@ -15,11 +15,11 @@
 
 .login__desc {
   padding: 15px;
-  line-height: 1.75;
+  line-height: 1.5;
   background: #fff;
   border: 1px #808080 dashed;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 14px;
   color: #666;
   .content {
     position: relative;
@@ -27,9 +27,10 @@
       position: absolute;
       top: 0;
       left: 0;
+      font-size: 14px;
     }
     p {
-      padding-left: 25px;
+      padding-left: 20px;
     }
   }
 }
