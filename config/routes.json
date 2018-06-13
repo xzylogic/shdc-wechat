@@ -14,7 +14,7 @@
     "id": "3",
     "desc": "找回密码",
     "path": "/resetpwd",
-    "page": "/reserpwd"
+    "page": "/resetpwd"
   }, {
     "id": "4",
     "desc": "预约就诊-医院列表",
@@ -75,5 +75,10 @@
     "desc": "余额查询",
     "path": "/personal/balance",
     "page": "/personal/balance"
+  }, {
+    "id": "16",
+    "desc": "用户注册协议",
+    "path": "/agreement",
+    "page": "/agreement"
   }]
 }
