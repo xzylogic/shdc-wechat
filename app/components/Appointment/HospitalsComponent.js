@@ -17,7 +17,7 @@ class Index extends React.Component {
       <div>
         <SearchBar placeholder='请输入医院名称、科室、专家姓名' maxLength={8} />
         <Tabs tabs={tabs}
-          initialPage={1}
+          initialPage={0}
           onChange={(tab, index) => { console.log('onChange', index, tab); }}
           onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
         >
