@@ -1,27 +1,28 @@
 import React from 'react'
+import Link from 'next/link'
+import { SearchBar } from 'antd-mobile'
 
-const TabTitle = ({tabs, style}) => (
-  <div className={style}>{
-    tabs.map(tab => <div>{tab.title}</div>)
-  }</div>
-)
+import { Tabs, Tab } from '../Common/Tabs'
 
-const Tabs = ({tabs}) => (
-  <TabTitle tabs={tabs} />
-)
+import './appointment.scss'
 
 class Index extends React.Component {
   render() {
     const tabs = [
-      { title: '耳鼻咽喉科室' },
-      { title: '儿科' },
-      { title: '儿童保健科' },
-      { title: '口腔科' },
-      { title: '皮肤科' },
+      { title: '耳鼻咽喉科室', content: ['耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科'] },
+      { title: '儿科', content: ['儿科','耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科'] },
+      { title: '儿童保健科', content: ['耳鼻咽喉科室','耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科'] },
+      { title: '口腔科', content: ['儿科','耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科'] },
+      { title: '皮肤科', content: ['耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科'] },
     ]
     return (
       <div>
-        123
+        <SearchBar placeholder='请输入子科室名称进行搜索' maxLength={8} />
+        <Tabs>{
+          tabs.map(tab => <Tab title={tab.title}>{
+            tab.content.map(content => <Link href='/appointment/detail'><div className='department__content'>{content}</div></Link>)
+          }</Tab>)
+        }</Tabs>
       </div>
     )
   }
