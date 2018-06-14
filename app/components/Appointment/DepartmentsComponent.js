@@ -19,9 +19,12 @@ class Index extends React.Component {
       <div>
         <SearchBar placeholder='请输入子科室名称进行搜索' maxLength={8} />
         <Tabs>{
-          tabs.map(tab => <Tab title={tab.title}>{
-            tab.content.map(content => <Link href='/appointment/detail'><div className='department__content'>{content}</div></Link>)
-          }</Tab>)
+          tabs.map((tab,index) => <Tab title={tab.title} key={index}>{
+            tab.content.map((content, index) => (
+              <Link href='/appointment/detail' key={index}>
+                <div className='department__content'>{content}</div>
+              </Link>
+            ))}</Tab>)
         }</Tabs>
       </div>
     )

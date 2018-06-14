@@ -1,29 +1,31 @@
+@import '../theme';
+
 .tabs__container {
-  background: #fff;
+  background: $color-white;
   overflow: hidden;
-  height: calc(100vh - 44px);
+  height: $height-without-search-bar;
 }
 
 .tabs__titles {
   position: relative;
   float: left;
-  width: 30%;
+  width: 35%;
   height: 100%;
-  background: #f5f5f9;
+  background: $color-background;
   .title {
     padding: 10px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid $color-border-light;
     text-align: center;
   }
   .title.active {
-    background: #fff;
+    background: $color-white;
   }
 }
 
 .tabs__content {
   position: relative;
   float: left;
-  width: 70%;
+  width: 65%;
   height: 100%;
   overflow: scroll;
 }
