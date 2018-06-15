@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import Head from '../../app/components/Common/Head'
+
 class Index extends React.Component {
   static async getInitialProps(ctx) {
     console.log(ctx)
@@ -8,7 +10,10 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div>detail</div>
+      <div>
+        <Head title='预约就诊-预约信息' />
+        detail
+      </div>
     )
   }
 }
