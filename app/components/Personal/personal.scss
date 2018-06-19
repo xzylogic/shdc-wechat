@@ -1,0 +1,12 @@
+@import '../theme';
+
+.user__desc {
+  padding: 15px 0;
+  line-height: 1.5;
+  color: $color-text-second;
+  .name {
+    color: $color-text-primary;
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
