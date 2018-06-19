@@ -1,4 +1,10 @@
 @import '../theme';
+
+.full__container {
+  min-height: 100vh;
+  background: $color-white;
+}
+
 .mylist {
   position: relative;
   min-height: 100px;
@@ -160,4 +166,10 @@
   transform-origin: 50% 100%;
   transform: scaleY(.5);
   background: $color-border;
+}
+
+.detail__icon {
+  color: $color-primary;
+  font-size: 16px;
+  margin-right: 5px;
 }

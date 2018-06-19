@@ -1,6 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import Head from '../../app/components/Common/Head'
+import SuccessComponent from '../../app/components/Appointment/SuccessComponent'
+
 class Index extends React.Component {
   static async getInitialProps(ctx) {
     console.log(ctx)
@@ -8,7 +11,10 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div>Success</div>
+      <div>
+        <Head title='预约就诊-预约成功' />
+        <SuccessComponent />
+      </div>
     )
   }
 }
