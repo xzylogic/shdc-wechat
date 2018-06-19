@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import Head from '../app/components/Common/Head'
-import LoginComponent from '../app/components/Login/LoginComponent'
+import Head from '../../app/components/Common/Head'
+import LoginComponent from '../../app/components/Login/LoginComponent'
 
 class LoginPage extends React.Component {
   static async getInitialProps(ctx) {
