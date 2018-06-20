@@ -45,7 +45,7 @@ class Index extends React.Component {
         </List>
         <WhiteSpace size='lg' />
         <WingBlank>
-          <p class='user__resettips'>注：密码需要填写6-20位字符；支持半角的数字，字母和特殊字符组合，不包括/\[]"等。</p>
+          <p className='user__resettips'>注：密码需要填写6-20位字符；支持半角的数字，字母和特殊字符组合，不包括/\[]"等。</p>
         </WingBlank>
         <WhiteSpace size='lg' />
         <WhiteSpace size='lg' />
