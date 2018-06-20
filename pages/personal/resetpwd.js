@@ -1,6 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import Head from '../../app/components/Common/Head'
+import ResetPasswordComponent from '../../app/components/Personal/ResetPasswordComponent'
+
 class Index extends React.Component {
   static async getInitialProps(ctx) {
     console.log(ctx)
@@ -8,7 +11,10 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div>Register</div>
+      <div>
+        <Head title='修改密码' />
+        <ResetPasswordComponent />
+      </div>
     )
   }
 }

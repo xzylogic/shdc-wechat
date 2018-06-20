@@ -20,7 +20,7 @@ class Index extends React.Component {
             type='password'
             placeholder='登录密码'
             labelNumber={6}
-          ><i className='anticon icon-unlock login__icon' />密码</InputItem>
+          ><i className='anticon icon-lock login__icon' />密码</InputItem>
         </List>
         <WhiteSpace size='xl' />
         <WingBlank size='lg'>

@@ -3,7 +3,6 @@ import { List, WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
 import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
 
-import '../Appointment/appointment.scss'
 import './personal.scss'
 
 class Index extends React.Component {

@@ -24,9 +24,9 @@
 .user__arraw {
   position: absolute;
   top: 50%;
-  margin-top: -12px;
+  margin-top: -10px;
   right: 10px;
-  font-size: 20px;
+  font-size: 18px;
   color: $color-text-second;
 }
 
@@ -37,4 +37,18 @@
 .user__tips {
   font-size: 16px;
   color: $color-text-second;
+}
+
+.user__ownlist {
+  padding: 15px;
+  font-size: 16px;
+  i {
+    padding-right: 10px;
+  }
+}
+
+.user__resettips {
+  font-size: 14px;
+  color: $color-text-third;
+  line-height: 1.75;
 }

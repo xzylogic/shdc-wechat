@@ -20,13 +20,13 @@ class Index extends React.Component {
             type='password'
             placeholder='请输入密码（必填）'
             labelNumber={7}
-          ><i className='anticon icon-unlock login__icon' />密码</InputItem>
+          ><i className='anticon icon-lock login__icon' />密码</InputItem>
           <InputItem 
             name='confirmpassword'
             type='password'
             placeholder='请输入密码（必填）'
             labelNumber={7}
-          ><i className='anticon icon-unlock login__icon' />确认密码</InputItem>
+          ><i className='anticon icon-lock login__icon' />确认密码</InputItem>
           <InputItem 
             name='name'
             type='text'
@@ -39,14 +39,14 @@ class Index extends React.Component {
             cols={1}
             cascade={false}
           >
-            <List.Item arrow='horizontal'><i className='anticon icon-creditcard login__icon' />证件类型</List.Item>
+            <List.Item arrow='horizontal'><i className='anticon icon-idcard login__icon' />证件类型</List.Item>
           </Picker>
           <InputItem 
             name='password'
             type='password'
             placeholder='请输入证件号（必填）'
             labelNumber={7}
-          ><i className='anticon icon-creditcard login__icon' />证件号</InputItem>
+          ><i className='anticon icon-idcard login__icon' />证件号</InputItem>
         </List>
         <WhiteSpace size='md' />
         <List>
@@ -59,7 +59,7 @@ class Index extends React.Component {
           <InputItem 
             name='password'
             type='password'
-            placeholder='请输入密码（必填）'
+            placeholder='请输入验证码（必填）'
             labelNumber={7}
             extra='获取验证码'
           ><i className='anticon icon-mobile1 login__icon' />验证码</InputItem>
