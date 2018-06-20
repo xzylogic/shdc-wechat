@@ -1,0 +1,51 @@
+@import '../theme';
+
+.flex__list {
+  position: relative;
+  background: $color-white;
+  .list__main,
+  .list__left,
+  .list__right {
+    float: left;
+  }
+  .list__main {
+    width: 100%;
+  }
+}
+
+.flex__list::before,
+.flex__list::after {
+  content: '';
+  display: table;
+  height: 0;
+  clear: both;
+}
+
+.flex__list.flex__list__border::after {
+  width: 100%;
+  height: 1px !important;
+  background: $color-border;
+}
+
+.flex__list.flex__list__href::after {
+  width: 100%;
+  height: 1px !important;
+  transform-origin: 50% 100%;
+  transform: scaleY(.5);
+  background: $color-border;
+}
+
+.flex__list.flex__list__dash::after {
+  width: 100%;
+  border-bottom: 1px $color-border dashed;
+  // transform-origin: 50% 100%;
+  // transform: scaleY(.5);
+}
+
+.image__container {
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}

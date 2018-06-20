@@ -10,3 +10,31 @@
     font-weight: 500;
   }
 }
+
+.user__accounts {
+  padding: 15px;
+  line-height: 2;
+  color: $color-text-third;
+}
+
+.user__avatar {
+  border-radius: 50%;
+}
+
+.user__arraw {
+  position: absolute;
+  top: 50%;
+  margin-top: -12px;
+  right: 10px;
+  font-size: 20px;
+  color: $color-text-second;
+}
+
+.user__tipicon {
+  color: $color-primary;
+}
+
+.user__tips {
+  font-size: 16px;
+  color: $color-text-second;
+}
