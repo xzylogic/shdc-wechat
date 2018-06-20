@@ -2,15 +2,9 @@ import React from 'react'
 import Router from 'next/router'
 import { WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
-import { FlexList, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
+import { FlexList, MainContainer, FlexListConfigEntity, SubContent } from '../Common/FlexList'
 
 import './personal.scss'
-
-const SubContent = ({title, icon}) => (
-  <MainContainer mainClass='user__ownlist'>
-    <p><i className={`anticon icon-${icon} user__tipicon`} />{title}</p>
-  </MainContainer>
-)
 
 class Index extends React.Component {
   render() {

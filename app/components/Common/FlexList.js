@@ -59,3 +59,9 @@ export const MainContainer = ({children, mainClass}) => (
     {children}
   </div>
 )
+
+export const SubContent = ({title, icon}) => (
+  <MainContainer mainClass='user__ownlist'>
+    <p><i className={`anticon icon-${icon} user__tipicon`} />{title}</p>
+  </MainContainer>
+)
