@@ -9,7 +9,7 @@ const dev = process.env.NODE_ENV !== 'production'
 module.exports = withSass({
   // Disable serving each file in /pages under a pathname matching the filename
   // and use custom routing
-  // useFileSystemPublicRoutes: false,
+  useFileSystemPublicRoutes: false,
   // Use /build instead of /.next as the build directory
   // distDir: '',
 
@@ -18,9 +18,9 @@ module.exports = withSass({
   // import getConfig from 'next/config'
   // const {serverRuntimeConfig, publicRuntimeConfig} = getConfig()
   // console.log(publicRuntimeConfig.appConfig)
-  // publicRuntimeConfig: {
-  //   appConfig: dev ? require('./config/enviroment.dev') : require('./config/enviroment')
-  // },
+  publicRuntimeConfig: {
+    appConfig: dev ? require('./config/enviroment.dev') : require('./config/enviroment')
+  },
 
   // You may only need to add assetPrefix in the production.
   // assetPrefix: dev ? 'https://cdn.mydomain.com' : '',
