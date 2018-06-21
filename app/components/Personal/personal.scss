@@ -32,6 +32,11 @@
 
 .user__tipicon {
   color: $color-primary;
+  padding-right: 10px;
+}
+
+.user__primary {
+  color: $color-primary;
 }
 
 .user__tips {
@@ -42,9 +47,6 @@
 .user__ownlist {
   padding: 15px;
   font-size: 16px;
-  i {
-    padding-right: 10px;
-  }
 }
 
 .user__resettips {
