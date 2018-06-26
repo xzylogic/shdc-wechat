@@ -1,5 +1,4 @@
-
-import { put, takeLatest } from 'redux-saga/effects'
+import { put, takeLatest, call } from 'redux-saga/effects'
 import { actionTypes, updateAccount } from '../../actions/login.action'
 
 import { HttpToastService } from '../../../utilities/httpService'
@@ -14,7 +13,7 @@ function* loadLoginSaga() {
 
 function* login(formData) {
   try {
-    yield HttpToastService.post('/api/user/login', formData)
+    const res = yield  call(HttpToastService.post, '/api/user/login', formData)
   } catch (err) {
 
   }
