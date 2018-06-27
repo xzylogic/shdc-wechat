@@ -1,4 +1,5 @@
 module.exports =  {
-  apiUrl: 'http://test-cloud.medicine-tec.cn:45675',
-  appid: '1232'
+  apiUrl: 'http://wechat-yilian.medicine-tec.cn',
+  appId: 'wx56d7123f5687bfe8',
+  defaultPort: 3009
 }

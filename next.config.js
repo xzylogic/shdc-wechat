@@ -9,7 +9,7 @@ const dev = process.env.NODE_ENV !== 'production'
 module.exports = withSass({
   // Disable serving each file in /pages under a pathname matching the filename
   // and use custom routing
-  useFileSystemPublicRoutes: false,
+  // useFileSystemPublicRoutes: false,
   // Use /build instead of /.next as the build directory
   // distDir: '',
 

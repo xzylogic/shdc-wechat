@@ -62,39 +62,34 @@ app.prepare().then(() => {
       // app.render(req, res, actualPage, queryParams)
 
       if (accessToken) {
+        // 如果有 accessToken 则直接将 accessToken 作为 param 值传给页面
+        logger.info(`accessToken is existed.`)
+        queryParams.accessToken = accessToken
         app.render(req, res, actualPage, queryParams)
-      //   // 如果有 openId 则直接将 openId 作为 param 值传给页面
-      //   logger.info(`OpenId is existed.`)
-      //   if (route.render) {
-      //     require(rendersFilePath + route.render)(openId).then(data => {
-      //       app.render(req, res, actualPage, data)
-      //     })
-      //   } else {
-      //     app.render(req, res, actualPage, queryParams)
-      //   }
 
       } else if (!accessToken && code) {
-        app.render(req, res, actualPage, queryParams)
-      //   // 如果没有 openId 但是有 code 则请求接口获取 openId
-      //   auth.getOpenIdFromCode(code).then(openId => {
-      //     if (openId) {
-      //       util.setCookies(res, 'openId', openId)
-      //       if (route.render) {
-      //         require(rendersFilePath + route.render)(openId).then(data => {
-      //           app.render(req, res, actualPage, data)
-      //         })
-      //       } else {
-      //         app.render(req, res, actualPage, queryParams)
-      //       }
-      //     } else {
-      //       app.render(req, res, actualPage, {
-      //         code: -101,
-      //         data: null
-      //       })
-      //     }
-      //   })
+        // 如果没有 accessToken 但是有 code 则请求接口获取 accessToken 
+        utilities.getAccessTokenFromCode(code).then(sres => {
+          if (sres.code===200 && sres.data && sres.data.accessToken) {
+            util.setCookies(res, 'accessToken', sres.data.accessToken)
+            queryParams = sres.data.accessToken
+            app.render(req, res, actualPage, queryParams)
+          } else if(sres.code===200 && sres.data && !sres.data.accessToken && sres.data.weChatId) {
+            queryParams.weChatId = sres.data.weChatId
+            app.render(req, res, actualPage, queryParams)
+          } else {
+            logger.info(`[getAccessTokenFromCode]${sres.errorMsg || 'UNKNOWN ERROR'}`)
+            queryParams.errorMsg = sres.msg || '未知错误'
+            app.render(req, res, actualPage, queryParams)
+          }
+        }).catch(err => {
+          logger.info(`[getAccessTokenFromCode]NETWORK ERROR`)
+          queryParams.error = err.message || '未知错误'
+          app.render(req, res, '/error', queryParams)
+        })
       } else {
-        const originUrl = `${req.protocol}://${req.headers.host}${req.path}`
+        // const originUrl = `${req.protocol}://${req.headers.host}${req.path}`
+        const originUrl = `${req.protocol}://${config.domain}${req.path}`
         const redirectUrl = utilities.setRedirectUrl(originUrl, state)
         res.redirect(redirectUrl)
       }
@@ -106,16 +101,14 @@ app.prepare().then(() => {
   })
 
 }).catch((ex) => {
-  console.log(ex.stack)
-  // logger.info(ex.stack)
+  logger.info(ex.stack)
   process.exit(1)
 })
 
 server.listen(port, (err) => {
   if (err)
     throw err
-  console.log(`> Ready on http://localhost:${port}`)
-  // logger.info(`> Ready on http://localhost:${port}`)
+  logger.info(`> Ready on http://localhost:${port}`)
 })
 
 module.exports = app

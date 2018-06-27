@@ -14,7 +14,7 @@ export const initAccount = () => {
 
 export const updateAccount = (data) => {
   return {
-    type: actionTypes.updateAccount,
+    type: actionTypes.UPDATE_ACCOUNT,
     data: data
   }
 }

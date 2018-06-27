@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 class Index extends React.Component {
   static async getInitialProps(ctx) {
-    console.log(ctx)
+    const {store, query} = props.ctx
   }
 
   render() {

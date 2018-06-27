@@ -4,9 +4,12 @@ import { connect } from 'react-redux'
 import Head from '../../app/components/Common/Head'
 import ResetSuccessComponent from '../../app/components/Login/ResetSuccessComponent'
 
+import { updateState } from '../../app/store/actions/global.action'
+
 class Index extends React.Component {
-  static async getInitialProps(ctx) {
-    console.log(ctx)
+  static async getInitialProps(props) {
+    const {store, query} = props.ctx
+    store.dispatch(updateState(query))
   }
 
   render() {

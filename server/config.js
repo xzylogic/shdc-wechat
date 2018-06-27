@@ -1,8 +1,8 @@
 'use strict'
 
 const config = process.env.NODE_ENV !== 'production'
-               ? require('../../config/enviroment.dev')
-               : require('../../config/enviroment')
+               ? require('../config/enviroment.dev')
+               : require('../config/enviroment')
 
 module.exports = {
   dev: process.env.NODE_ENV !== 'production',

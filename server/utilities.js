@@ -2,10 +2,20 @@
 
 const logger = require('log4js').getLogger('utilities.js')
 const config = require('./config')
+const axios = require('axios')
 
-const util = {}
+const PATH = {
+  getAccessTokenFromCode: '/api/weChat/auth'
+}
 
-util.setRedirectUrl = (url, state) => {
+const utilities = {}
+
+/**
+ * 设置重定向地址
+ * @param {*} url 
+ * @param {*} state 
+ */
+utilities.setRedirectUrl = (url, state) => {
   let wechatUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize'
   let uri = encodeURIComponent(url)
   let query = `appid=${config.appId}&redirect_uri=${uri}&response_type=code&scope=snsapi_base&state=${state}`
@@ -14,13 +24,28 @@ util.setRedirectUrl = (url, state) => {
   return redirectUrl
 }
 
-util.setCookies = (res, key, value) => {
+/**
+ * 设置cookie
+ * @param {*} res 
+ * @param {*} key 
+ * @param {*} value 
+ */
+utilities.setCookies = (res, key, value) => {
   logger.info(`[SetCookie][key:${key}][value:${value}]`)
   res.cookie(key, value, {
     maxAge: 72000000,
-    httpOnly: true,
+    httpOnly: true, 
     signed: true
   })
 }
 
-module.exports = util
+/**
+ * 通过code请求后台接口获取accessToken
+ * @param code
+ * @returns data {accessToken, weChatId}
+ */
+utilities.getAccessTokenFromCode = (code) => {
+  return axios.post(`${config.apiUrl}${PATH.getAccessTokenFromCode}?code=${code}`).then(res => res.data)
+}
+
+module.exports = utilities

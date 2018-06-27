@@ -4,9 +4,12 @@ import { connect } from 'react-redux'
 import Head from '../../app/components/Common/Head'
 import RegisterComponent from '../../app/components/Login/RegisterComponent'
 
+import { updateState } from '../../app/store/actions/global.action'
+
 class RegisterPage extends React.Component {
-  static async getInitialProps(ctx) {
-    console.log(ctx)
+  static async getInitialProps(props) {
+    const {store, query} = props.ctx
+    store.dispatch(updateState(query))
   }
 
   render() {

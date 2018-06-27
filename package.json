@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "supervisor -w ./server.js server.js",
+    "dev": "supervisor -w ./server.js,./server,./config server.js",
     "build:css": "webpack --config webpack-handle-css.js --progress --color",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
