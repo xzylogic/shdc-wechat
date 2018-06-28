@@ -20,18 +20,18 @@ utilities.setRedirectUrl = (url, state) => {
   let uri = encodeURIComponent(url)
   let query = `appid=${config.appId}&redirect_uri=${uri}&response_type=code&scope=snsapi_base&state=${state}`
   let redirectUrl = `${wechatUrl}?${query}#wechat_redirect`
-  logger.info(`[redirectUrl:${redirectUrl}]`)
+  logger.info(`[redirectUrl] ${redirectUrl}`)
   return redirectUrl
 }
 
 /**
- * 设置cookie
+ * 设置 cookie
  * @param {*} res 
  * @param {*} key 
  * @param {*} value 
  */
 utilities.setCookies = (res, key, value) => {
-  logger.info(`[SetCookie][key:${key}][value:${value}]`)
+  logger.info(`[SetSignedCookie] - key:${key} - value:${value}`)
   res.cookie(key, value, {
     maxAge: 72000000,
     httpOnly: true, 
@@ -40,7 +40,7 @@ utilities.setCookies = (res, key, value) => {
 }
 
 /**
- * 通过code请求后台接口获取accessToken
+ * 通过 code 请求后台接口获取 accessToken 和 weChatId
  * @param code
  * @returns data {accessToken, weChatId}
  */

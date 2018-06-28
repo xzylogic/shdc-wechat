@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { List, InputItem, WingBlank, WhiteSpace, Button, Toast } from 'antd-mobile'
 import { createForm } from 'rc-form'
 
+import Head from '../Common/Head'
+
 import './login.scss'
 
 class Index extends React.Component {
@@ -35,6 +37,7 @@ class Index extends React.Component {
     const { getFieldProps, getFieldError } = this.props.form
     return (
       <div>
+        <Head title='用户登录' />
         <List>
           <InputItem
             {...getFieldProps('username', {rules: [{validator: this.checkUsername}]})}

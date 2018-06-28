@@ -22,6 +22,15 @@ export const globalReducer = (state = initialGlobalState, action = {}) => {
         ...state,
         ...returnData
       }
+    case actionTypes.CURRENT:
+      console.log({
+        ...state,
+        ...{currentPage: action.data}
+      })
+      return {
+        ...state,
+        ...{currentPage: action.data}
+      }
     default:
       return state
   }

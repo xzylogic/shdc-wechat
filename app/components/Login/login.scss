@@ -43,12 +43,7 @@
 }
 
 .register__agreement{
-  i {
-    margin-right: 5px;
-  }
-  i.checked {
-    color: $color-primary;
-  }
+  line-height: 1.75;
   span{
     color: $color-primary-orange;
   }

@@ -3,7 +3,8 @@ import Error from './Error'
 
 class PageError extends React.Component {
   onButtonClick = () => {
-    window.location.href = window.location.href.split('?')[0]
+    let redirectHref = window.location.href.split('?')[0]
+    window.location.href = redirectHref
   }
 
   render() {

@@ -54,41 +54,44 @@ app.prepare().then(() => {
       const code = req.query.code || ''
       const state = req.query.state || ''
 
+      // 从 signedCookies 中获取 accessToken 和 WeChatId
       const accessToken = req.signedCookies.accessToken || ''
+      const weChatId = req.signedCookies.weChatId || ''
 
       const actualPage = route.page
       const queryParams = req.params
 
-      // app.render(req, res, actualPage, queryParams)
-
-      if (accessToken) {
+      if (accessToken || weChatId) {
         // 如果有 accessToken 则直接将 accessToken 作为 param 值传给页面
-        logger.info(`accessToken is existed.`)
+        logger.info(`accessToken - ${accessToken}`)
+        logger.info(`weChatId - ${weChatId}`)
         queryParams.accessToken = accessToken
+        queryParams.weChatId = weChatId
         app.render(req, res, actualPage, queryParams)
 
-      } else if (!accessToken && code) {
-        // 如果没有 accessToken 但是有 code 则请求接口获取 accessToken 
+      } else if (!accessToken && !weChatId && code) {
+        // 如果没有 accessToken 但是有 code 则请求接口获取 accessToken 或者 weChatId
         utilities.getAccessTokenFromCode(code).then(sres => {
-          if (sres.code===200 && sres.data && sres.data.accessToken) {
-            util.setCookies(res, 'accessToken', sres.data.accessToken)
-            queryParams = sres.data.accessToken
-            app.render(req, res, actualPage, queryParams)
-          } else if(sres.code===200 && sres.data && !sres.data.accessToken && sres.data.weChatId) {
-            queryParams.weChatId = sres.data.weChatId
+          if (sres.code === 200 && sres.data) {
+            logger.info(`[getAccessTokenFromCode] - accessToken: ${sres.data.accessToken || ''}`)
+            logger.info(`[getAccessTokenFromCode] - weChatId: ${sres.data.weChatId || ''}`)
+            utilities.setCookies(res, 'accessToken', sres.data.accessToken || '')
+            utilities.setCookies(res, 'weChatId', sres.data.weChatId || '')
+            queryParams = sres.data.accessToken || ''
+            queryParams.weChatId = sres.data.weChatId || ''
             app.render(req, res, actualPage, queryParams)
           } else {
-            logger.info(`[getAccessTokenFromCode]${sres.errorMsg || 'UNKNOWN ERROR'}`)
+            logger.error(`[getAccessTokenFromCode] ${sres.errorMsg || 'UNKNOWN ERROR'}`)
             queryParams.errorMsg = sres.msg || '未知错误'
             app.render(req, res, actualPage, queryParams)
           }
         }).catch(err => {
-          logger.info(`[getAccessTokenFromCode]NETWORK ERROR`)
+          logger.error(`[getAccessTokenFromCode] NETWORK ERROR`)
           queryParams.error = err.message || '未知错误'
           app.render(req, res, '/error', queryParams)
         })
+
       } else {
-        // const originUrl = `${req.protocol}://${req.headers.host}${req.path}`
         const originUrl = `${req.protocol}://${config.domain}${req.path}`
         const redirectUrl = utilities.setRedirectUrl(originUrl, state)
         res.redirect(redirectUrl)
