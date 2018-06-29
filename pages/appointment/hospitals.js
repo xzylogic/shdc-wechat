@@ -2,15 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
-import RenderPage from '../../app/components/Common/RenderPage'
+// import RenderPage from '../../app/components/Common/RenderPage'
 import HospitalsComponent from '../../app/components/Appointment/HospitalsComponent'
 
 import { updateState, updateCurrent } from '../../app/store/actions/global.action'
+import { loadHospitals } from '../../app/store/actions/hospitals.action'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
     store.dispatch(updateState(query))
+    store.dispatch(loadHospitals())
   }
 
   componentDidMount() {
@@ -19,12 +21,20 @@ class Index extends React.Component {
   }
 
   render() {
+    const { hospitalsReducer } = this.props
+    const { hospitalsAll, hospitalsZH, hospitalsZY, hospitalsZK } = hospitalsReducer
+    console.log(hospitalsReducer)
     return (
       <div>
         <Head title='预约就诊-医院列表' />
-        <RenderPage>
-          <HospitalsComponent />
-        </RenderPage>
+        {/* <RenderPage> */}
+        <HospitalsComponent 
+          hospitalsAll={hospitalsAll} 
+          hospitalsZH={hospitalsZH} 
+          hospitalsZY={hospitalsZY} 
+          hospitalsZK={hospitalsZK} 
+        />
+        {/* </RenderPage> */}
       </div>
     )
   }

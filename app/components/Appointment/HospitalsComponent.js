@@ -21,10 +21,10 @@ class Index extends React.Component {
           onChange={(tab, index) => { console.log('onChange', index, tab); }}
           onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
         >
-          <HospitalList />
-          <HospitalList />
-          <HospitalList />
-          <HospitalList />
+          <HospitalList hospitals={this.props.hospitalsAll} />
+          <HospitalList hospitals={this.props.hospitalsZH} />
+          <HospitalList hospitals={this.props.hospitalsZY} />
+          <HospitalList hospitals={this.props.hospitalsZK} />
         </Tabs> 
       </div>
     )
