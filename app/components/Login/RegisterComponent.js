@@ -11,8 +11,7 @@ import { HttpToastService } from '../../utilities/httpService'
 import './login.scss'
 
 const PATH = {
-  getCode: '/api/user/sendValidCode',
-  register: '/api/register'
+  getCode: '/api/user/sendValidCode'
 }
 
 class Index extends React.Component {
@@ -28,7 +27,7 @@ class Index extends React.Component {
 
   getCode = () => {
     const form =  this.props.form
-    if (this.state.codeMsg === '获取验证码'&&form.getFieldValue('mobile')) {
+    if (this.state.codeMsg === '获取验证码'&&!form.getFieldError('mobile')&&form.getFieldValue('mobile')) {
       let time = 60
       const codeTimer = setInterval(() => {
         this.setState({
@@ -50,8 +49,8 @@ class Index extends React.Component {
             })
           }
         })
-    } else if(!form.getFieldValue('mobile')) {
-      Toast.info('请输入手机号')
+    } else if(form.getFieldError('mobile')||!form.getFieldValue('mobile')) {
+      Toast.info('请输入正确的手机号')
     }
   }
  
@@ -91,18 +90,18 @@ class Index extends React.Component {
   }
 
   render() {
-    const { getFieldProps, getFieldError, getFieldsError, isFieldTouched, setFieldsValue } = this.props.form
+    const { getFieldProps, getFieldError, getFieldsError, isFieldTouched } = this.props.form
     return (
       <div>
         <List>
-          <InputItem
-            {...getFieldProps('username', {rules: [{required: true, message: '请输入用户名'}]})}
-            type='text' 
-            placeholder='请输入用户名（必填）'
+          <InputItem 
+            {...getFieldProps('username', {rules: [{required: true, message: '请输入真实姓名'}]})}
+            type='text'
+            placeholder='请输入真实姓名（必填）'
             labelNumber={7}
             error={isFieldTouched('username')&&getFieldError('username')}
             onErrorClick={() => Toast.info(getFieldError('username'))}
-          ><i className='anticon icon-user login__icon' />用户名</InputItem>
+          ><i className='anticon icon-user login__icon' />真实姓名</InputItem>
           <InputItem 
             {...getFieldProps('password', {rules: [{validator: this.checkPassword}]})}
             type='password'
@@ -119,14 +118,6 @@ class Index extends React.Component {
             error={isFieldTouched('passwordconfirm')&&getFieldError('passwordconfirm')}
             onErrorClick={() => Toast.info(getFieldError('passwordconfirm'))}
           ><i className='anticon icon-lock login__icon' />确认密码</InputItem>
-          <InputItem 
-            {...getFieldProps('realName', {rules: [{required: true, message: '请输入真实姓名'}]})}
-            type='text'
-            placeholder='请输入真实姓名（必填）'
-            labelNumber={7}
-            error={isFieldTouched('realName')&&getFieldError('realName')}
-            onErrorClick={() => Toast.info(getFieldError('realName'))}
-          ><i className='anticon icon-user login__icon' />真实姓名</InputItem>
           <Picker 
             {...getFieldProps('cardType', {initialValue: [1]})}
             data={[[{label:'身份证',value:1},{label:'军官证（士兵证）',value:2},{label:'护照',value:3},{label:'港澳居民来往内地通行证',value:4},{label:'居民户口簿',value:5},{label:'驾驶执照',value:6},{label:'台湾居民来往内地通行证',value:7}]]}
@@ -147,7 +138,7 @@ class Index extends React.Component {
         <WhiteSpace size='md' />
         <List>
           <InputItem
-            {...getFieldProps('mobile', {rules: [{required: true, message: '请输入手机号'}, {pattern: /1\d{10}/, message: '请输入正确的手机号'}]})}
+            {...getFieldProps('mobile', {rules: [{required: true, message: '请输入手机号'}, {pattern: /1\d{10}\b/, message: '请输入正确的11位手机号'}]})}
             type='number' 
             placeholder='请输入手机号（必填）'
             labelNumber={7}

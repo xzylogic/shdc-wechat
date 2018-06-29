@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button, WhiteSpace, WingBlank } from 'antd-mobile'
 
+import './error.scss'
+
 class Error extends React.Component {
   render() {
     return (

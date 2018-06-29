@@ -23,13 +23,15 @@ export const globalReducer = (state = initialGlobalState, action = {}) => {
         ...returnData
       }
     case actionTypes.CURRENT:
-      console.log({
-        ...state,
-        ...{currentPage: action.data}
-      })
+      window.localStorage.setItem('currentPage', action.data)
       return {
         ...state,
         ...{currentPage: action.data}
+      }
+    case actionTypes.GET_CURRENT:
+      return {
+        ...state,
+        ...{currentPage: window.localStorage.getItem('currentPage') || '/'}
       }
     default:
       return state

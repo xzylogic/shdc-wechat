@@ -1,69 +1,78 @@
 import React from 'react'
 import Link from 'next/link'
+import { connect } from 'react-redux'
 import { List, InputItem, WingBlank, WhiteSpace, Button, Toast } from 'antd-mobile'
 import { createForm } from 'rc-form'
 
 import Head from '../Common/Head'
 
+import { updateState } from '../../store/actions/global.action'
+import { HttpHostService } from '../../utilities/httpService'
+
 import './login.scss'
 
-class Index extends React.Component {
-  checkUsername = (rule, value, callback) => {
-    if(!value) {
-      callback([new Error('请输入用户名')])
-    } else {
-      callback([])
-    }
-  }
+const PATH = {
+  login: '/api/login'
+}
 
-  checkPassword = (rule, value, callback) => {
-    if(!value) {
-      callback([new Error('请输入密码')])
-    } else if(value.length < 6) {
-      callback([new Error('密码不能少于6位')])
-    } else {
-      callback([])
-    }
-  }
+class Index extends React.Component {
 
   handleLogin = () => {
-    console.log('submit')
+    const store = this.props
     this.props.form.validateFields((error, value) => {
-      console.log(error, value);
+      if(!error) {
+        const formData = {
+          deviceType: navigator.userAgent,
+          origin: 'wx',
+          password: value.password,
+          username: value.username,
+          wechatId: store.globalReducer.weChatId
+        }
+        HttpHostService.post(`${PATH.login}`, formData).then(res => {
+          console.log(res)
+          if(res) {
+            store.dispatch(updateState({accessToken: res.accessToken}))
+          }
+        })
+      }
     });
   }
 
+  hasErrors = (fieldsError) => {
+    return Object.keys(fieldsError).some(field => fieldsError[field]);
+  }
+
   render() {
-    const { getFieldProps, getFieldError } = this.props.form
+    const { getFieldProps, getFieldError, getFieldsError, isFieldTouched } = this.props.form
     return (
       <div>
         <Head title='用户登录' />
         <List>
           <InputItem
-            {...getFieldProps('username', {rules: [{validator: this.checkUsername}]})}
+            {...getFieldProps('username', {rules: [{required: true, message: '请输入证件号/手机号'}]})}
             type='text' 
             placeholder='证件号/手机号'
             labelNumber={6}
-            error={getFieldError('username')}
+            error={isFieldTouched('username')&&getFieldError('username')}
             onErrorClick={() => Toast.info(getFieldError('username'))}
           ><i className='anticon icon-user login__icon' />用户名</InputItem>
           <InputItem 
-            {...getFieldProps('password', {rules: [{validator: this.checkPassword}]})}
+            {...getFieldProps('password', {rules: [{required: true, message: '请输入登录密码'}]})}
             type='password'
             placeholder='登录密码'
             labelNumber={6}
-            error={getFieldError('password')}
+            error={isFieldTouched('password')&&getFieldError('password')}
             onErrorClick={() => Toast.info(getFieldError('password'))}
           ><i className='anticon icon-lock login__icon' />密码</InputItem>
         </List>
         <WhiteSpace size='xl' />
         <WingBlank size='lg'>
-          <Link href='/resetpwd'><span className='login__forget'>忘记密码</span></Link>
-          <Link href='/register'><span className='login__register'>新用户注册 ></span></Link>
+          <Link href={`/resetpwd`}><span className='login__forget'>忘记密码</span></Link>
+          <Link href={`/register`}><span className='login__register'>新用户注册 ></span></Link>
         </WingBlank>
         <WhiteSpace size='xl' />
         <WingBlank size='lg'>
-          <Button type='primary' onClick={this.handleLogin}>登录</Button>
+          <Button type='primary' disabled={this.hasErrors(getFieldsError())} onClick={this.handleLogin}>登录</Button>
         </WingBlank>
         <WhiteSpace size='xl' />
         <WhiteSpace size='xl' />
@@ -85,4 +94,4 @@ class Index extends React.Component {
   }
 }
 
-export default createForm()(Index)
+export default connect(state => state)(createForm()(Index))

@@ -9,6 +9,7 @@ const log4js = require('log4js')
 
 const config = require('./server/config')
 const utilities = require('./server/utilities')
+const LoginController = require('./server/controllers/login')
 
 log4js.configure({
   appenders: {
@@ -48,6 +49,9 @@ server.use(express.static(path.join(__dirname, 'static')))
 
 app.prepare().then(() => {
 
+  server.use(router.post('/api/login', LoginController.login))
+  server.use(router.post('/api/register', LoginController.register))
+
   myRoutes.routes.forEach(route => {
     server.use(router.get(route.path, (req, res) => {
       // 从 query 获取微信返回的 code 和 state
@@ -75,14 +79,19 @@ app.prepare().then(() => {
           if (sres.code === 200 && sres.data) {
             logger.info(`[getAccessTokenFromCode] - accessToken: ${sres.data.accessToken || ''}`)
             logger.info(`[getAccessTokenFromCode] - weChatId: ${sres.data.weChatId || ''}`)
+
             utilities.setCookies(res, 'accessToken', sres.data.accessToken || '')
             utilities.setCookies(res, 'weChatId', sres.data.weChatId || '')
-            queryParams = sres.data.accessToken || ''
+
+            queryParams.accessToken = sres.data.accessToken || ''
             queryParams.weChatId = sres.data.weChatId || ''
+
             app.render(req, res, actualPage, queryParams)
           } else {
             logger.error(`[getAccessTokenFromCode] ${sres.errorMsg || 'UNKNOWN ERROR'}`)
+
             queryParams.errorMsg = sres.msg || '未知错误'
+
             app.render(req, res, actualPage, queryParams)
           }
         }).catch(err => {

@@ -1,12 +1,12 @@
 'use strict'
 
 const logger = require('log4js').getLogger('login.controller.js')
-const http = require('../utilities/httpService')
-const CODE = require('../../config/status-code')
+const http = require('../httpService')
+const utilities = require('../utilities')
 
 const PATH = {
-  login: 'api/user/login',
-  register: 'api/user/register'
+  login: '/api/user/login',
+  register: '/api/user/register'
 }
 
 module.exports = {
@@ -16,27 +16,33 @@ module.exports = {
    * @param res
    */
   login: (req, res) => {
-    auth.getOpenId(req, res).then((openId) => {
-      logger.info(`[request body]`, req.body)
-      let postData = req.body
-      postData.openId = openId
-      http.microService.post(`${PATH.login}`, postData).then(data => {
-        res.send(data)
-      })
+    logger.info(`[login request body]`, req.body)
+    let postData = req.body
+    http.HttpService.post(`${PATH.login}`, postData).then(sres => {
+      if (sres) {
+        utilities.setCookies(res, 'accessToken', sres.data && sres.data.accessToken || '')
+        res.send(sres)
+      } else {
+        res.send({
+          code: 404,
+          msg: '请求网络错误',
+          errorMsg: '请求网络错误'
+        })
+      }
     })
   },
 
   /**
-   * @param req req.body - {tel: string, code: string, password: string}
+   * @param req req.body - {}
    * @param res
    */
   register: (req, res) => {
-    logger.info(`[request body]`, req.body)
+    logger.info(`[register request body]`, req.body)
     let postData = req.body
-    postData.openId = openId
-    http.microService.post(`${PATH.register}`, postData).then(data => {
-      if (data) {
-        res.send(data)
+    http.HttpService.post(`${PATH.register}`, postData).then(sres => {
+      if (sres) {
+        utilities.setCookies(res, 'accessToken', sres.data && sres.data.accessToken || '')
+        res.send(sres)
       } else {
         res.send({
           code: 404,
