@@ -1,99 +1,29 @@
 import React from 'react'
-import { Button } from 'antd-mobile';
 
-const renderList = ({hosImage, hosName, hospitalAdd}, index) => {
-  return (
-    <div key={index} className='mylist'>
-      <div className='list__main'>
-        <div className='list__content'>
-          <div className='hospital__desc'>
-            <p>{hosName}</p>
-            <p>地址：{hospitalAdd} <i className='anticon icon-enviroment hospital__location' /></p>
-          </div>
-        </div>
-      </div>
-      <div className='list__left'>
-        <div className='hospital__img'>
-          <img src={`https://shdcapp.wondersgroup.com/mobilemedicalplatform${hosImage}`} />
-        </div>
-      </div>
-    </div>
-  )
-}
+import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
 
 class Index extends React.Component {
   render() {
-    // console.log('HospitalList')
-    const data = [{
-      img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-      title: '儿科医院儿科医院儿科医院儿科医院儿科医院儿科医院',
-      des: '地址：不是所有的兼职汪都需要风吹日晒不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-      title: '儿童医学中心',
-      des: '地址：不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-      title: '儿童医学中心',
-      des: '地址：不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-      title: '儿童医学中心',
-      des: '地址：不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-      title: '儿童医学中心',
-      des: '地址：不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-      title: '儿童医学中心',
-      des: '地址：不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-      title: '儿童医学中心',
-      des: '地址：不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-      title: '儿童医学中心',
-      des: '地址：不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-      title: '儿童医学中心',
-      des: '地址：不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-      title: '儿童医学中心',
-      des: '地址：不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-      title: '儿童医学中心',
-      des: '地址：不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-      title: '儿童医学中心',
-      des: '地址：不是所有的兼职汪都需要风吹日晒',
-    },
-    {
-      img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-      title: '儿童医院（北京西路园区）',
-      des: '地址：不是所有的兼职汪都需要风吹日晒',
-    }]
-    // console.log(data)
     const hospitals = this.props.hospitals
+    const config = new FlexListConfigEntity({
+      leftWidth: '100px',
+      rightWidth: '15px', 
+      minHeight: '80px',
+      withBorder: 'href'
+    })
     return (
       <div>{
-        hospitals.map((obj, index) => renderList(obj, index))
+        hospitals.map((obj, index) => (
+          <FlexList 
+            key={index}
+            sub={<ImageContainer imageUrl={`https://shdcapp.wondersgroup.com/mobilemedicalplatform${obj.hosImage}`} />}
+            config={config}>
+            <MainContainer mainClass='hospital__desc'>
+              <p>{obj.hosName}</p>
+              <p>地址：{obj.hospitalAdd} <i className='anticon icon-enviroment hospital__location' /></p>
+            </MainContainer>
+          </FlexList>
+        ))
       }</div>
     )
   }
