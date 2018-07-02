@@ -13,6 +13,11 @@ export class Tabs extends React.Component {
     return this.state.currentIndex === index ? 'title active' : 'title'
   }
 
+  handleTabClick = (index) => {
+    this.setState({currentIndex: index})
+    this.props.handleTabClick(index)
+  }
+
   render() {
     return (
       <div className={this.props.containerClass || 'tabs__container'}>
@@ -20,7 +25,7 @@ export class Tabs extends React.Component {
           {
             React.Children.map(this.props.children, (element, index) => {
               return (
-                <div className={this.getTabTitleClass(index)} onClick={() => this.setState({currentIndex: index})}>
+                <div className={this.getTabTitleClass(index)} onClick={this.handleTabClick.bind(this, index)}>
                   {element.props.title}
                 </div>
               )

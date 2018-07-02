@@ -13,14 +13,15 @@ class Index extends React.Component {
       { title: '中医' },
       { title: '专科' }
     ]
+    const { params } = this.props
     return (
       <div>
         <WhiteSpace size='lg' />
         <WingBlank size='lg'>
           <List className='entrance__list'>
-            <List.Item arrow='horizontal' onClick={() => Router.push('/appointment/departments')}>专家门诊</List.Item>
-            <List.Item arrow='horizontal' onClick={() => Router.push('/appointment/departments')}>专病门诊</List.Item>
-            <List.Item arrow='horizontal' onClick={() => Router.push('/appointment/departments')}>普通门诊</List.Item>
+            <List.Item arrow='horizontal' onClick={() => Router.push(`/appointment/departments/${params}/1`)}>专家门诊</List.Item>
+            <List.Item arrow='horizontal' onClick={() => Router.push(`/appointment/departments/${params}/2`)}>专病门诊</List.Item>
+            <List.Item arrow='horizontal' onClick={() => Router.push(`/appointment/departments/${params}/1`)}>普通门诊</List.Item>
           </List>
         </WingBlank>
         <WhiteSpace size='lg' />

@@ -8,21 +8,16 @@ import './appointment.scss'
 
 class Index extends React.Component {
   render() {
-    const tabs = [
-      { title: '耳鼻咽喉科室', content: ['耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科'] },
-      { title: '儿科', content: ['儿科','耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科'] },
-      { title: '儿童保健科', content: ['耳鼻咽喉科室','耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科'] },
-      { title: '口腔科', content: ['儿科','耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科'] },
-      { title: '皮肤科', content: ['耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科','耳鼻咽喉科室', '儿科'] },
-    ]
+    const tabs = this.props.parent
+    const content = this.props.child
     return (
       <div>
         <SearchBar placeholder='请输入子科室名称进行搜索' maxLength={8} />
-        <Tabs>{
-          tabs.map((tab,index) => <Tab title={tab.title} key={index}>{
-            tab.content.map((content, index) => (
+        <Tabs handleTabClick={this.props.handleTabClick}>{
+          tabs.map((tab,index) => <Tab title={tab.deptName} key={index}>{
+            content.map((content, index) => (
               <Link href='/appointment/detail' key={index}>
-                <div className='department__content'>{content}</div>
+                <div className='department__content'>{content.deptName}</div>
               </Link>
             ))}</Tab>)
         }</Tabs>

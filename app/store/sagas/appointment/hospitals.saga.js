@@ -1,7 +1,7 @@
 import { put, takeLatest, call } from 'redux-saga/effects'
 
 import { actionTypes, updateHospitals } from '../../actions/hospitals.action'
-import { HttpToastService, HttpService } from '../../../utilities/httpService'
+import { HttpService } from '../../../utilities/httpService'
 
 const PATH = {
   queryHospitals: '/api/hospital/query_hospital'
