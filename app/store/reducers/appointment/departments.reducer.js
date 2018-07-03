@@ -7,7 +7,8 @@ export const departmentsReducer = (state = initialDepartmentsState, action = {})
       return {
         ...state,
         ...{hosOrgCode: action.hosOrgCode},
-        ...{deptType: action.deptType}
+        ...{deptType: action.deptType},
+        ...{pageType: action.pageType}
       }
     }
     case actionTypes.UPDATE_DEPARTMENTS_PARENT:

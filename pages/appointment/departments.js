@@ -4,28 +4,19 @@ import { connect } from 'react-redux'
 import Head from '../../app/components/Common/Head'
 import DepartmentsComponent from '../../app/components/Appointment/DepartmentsComponent'
 import { updateState, updateCurrent } from '../../app/store/actions/global.action'
-import { loadDepartments, loadDepartmentsChild } from '../../app/store/actions/departments.action'
+import { loadDepartments } from '../../app/store/actions/departments.action'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
     const { store, query } = props.ctx
-    store.dispatch(loadDepartments(query.hosOrgCode, query.deptType))
-  }
-
-  handleTabClick = (index) => {
-    const store = this.props
-    const { departmentsReducer } = store
-    const { hosOrgCode, deptType, departmentsParent} = departmentsReducer
-    store.dispatch(loadDepartmentsChild(hosOrgCode, deptType, departmentsParent[index].hosDeptCode))
+    store.dispatch(loadDepartments(query.hosOrgCode, query.deptType, query.type))
   }
 
   render() {
-    const { departmentsReducer } = this.props
-    const { departmentsParent, departmentsChild } = departmentsReducer
     return (
       <div>
         <Head title='预约就诊-科室列表' />
-        <DepartmentsComponent parent={departmentsParent} child={departmentsChild} handleTabClick={this.handleTabClick} />
+        <DepartmentsComponent />
       </div>
     )
   }

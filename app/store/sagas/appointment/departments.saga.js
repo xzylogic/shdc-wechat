@@ -24,7 +24,7 @@ const getDepartmentsChild = (hosOrgCode, deptType, parentId) => {
 function* loadDepartments(actions) {
   try {
     const data = yield call(getDepartments, actions.hosOrgCode, actions.deptType)
-    yield put(initCodeAndType(actions.hosOrgCode, actions.deptType))
+    yield put(initCodeAndType(actions.hosOrgCode, actions.deptType, actions.pageType))
     yield put(updateDepartmentsParent(data || []))
     yield put(updateDepartmentsChild(data && data[0] && data[0].children || []))
   } catch (err) {

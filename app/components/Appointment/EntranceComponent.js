@@ -19,9 +19,9 @@ class Index extends React.Component {
         <WhiteSpace size='lg' />
         <WingBlank size='lg'>
           <List className='entrance__list'>
-            <List.Item arrow='horizontal' onClick={() => Router.push(`/appointment/departments/${params}/1`)}>专家门诊</List.Item>
-            <List.Item arrow='horizontal' onClick={() => Router.push(`/appointment/departments/${params}/2`)}>专病门诊</List.Item>
-            <List.Item arrow='horizontal' onClick={() => Router.push(`/appointment/departments/${params}/1`)}>普通门诊</List.Item>
+            <List.Item arrow='horizontal' onClick={() => Router.push(`/appointment/departments/${params}/1/1`)}>专家门诊</List.Item>
+            <List.Item arrow='horizontal' onClick={() => Router.push(`/appointment/departments/${params}/2/2`)}>专病门诊</List.Item>
+            <List.Item arrow='horizontal' onClick={() => Router.push(`/appointment/departments/${params}/1/3`)}>普通门诊</List.Item>
           </List>
         </WingBlank>
         <WhiteSpace size='lg' />

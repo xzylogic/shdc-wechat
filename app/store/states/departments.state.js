@@ -1,7 +1,8 @@
 export const initialDepartmentsState = {
   departmentsParent: [],
   departmentsChild: [],
-  deptType: '',
   hosOrgCode: '',
+  deptType: '',
+  pageType: '',
   searchParam: ''
 }

@@ -6,19 +6,21 @@ export const actionTypes = {
   LOAD_DEPARTMENTS_CHILD: 'LOAD_DEPARTMENTS_CHILD'
 }
 
-export const initCodeAndType = (hosOrgCode, deptType) => {
+export const initCodeAndType = (hosOrgCode, deptType, pageType) => {
   return {
     type: actionTypes.INIT_CODE_AND_TYPE,
     hosOrgCode: hosOrgCode,
-    deptType: deptType
+    deptType: deptType,
+    pageType: pageType
   }
 }
 
-export const loadDepartments = (hosOrgCode, deptType) => {
+export const loadDepartments = (hosOrgCode, deptType, pageType) => {
   return {
     type: actionTypes.INIT_DEPARTMENTS,
     hosOrgCode: hosOrgCode,
-    deptType: deptType
+    deptType: deptType,
+    pageType: pageType
   }
 }
 
