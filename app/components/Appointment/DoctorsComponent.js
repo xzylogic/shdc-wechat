@@ -2,13 +2,13 @@ import React from 'react'
 import { SearchBar, SegmentedControl, WingBlank, WhiteSpace } from 'antd-mobile'
 
 import DoctorList from './DoctorList'
-import DoctorDateList from './DoctorsDateList'
+import DoctorsDateList from './DoctorsDateList'
 
 import './appointment.scss'
 
 class Index extends React.Component {
   state = {
-    selectedIndex: 1
+    selectedIndex: 0
   }
 
   render() {
@@ -24,7 +24,11 @@ class Index extends React.Component {
             style={{ height: '40px', margin: '0px 10% 0 10%' }} />
         </WingBlank>
         <WhiteSpace size='lg' />
-        {this.state.selectedIndex === 0 ? <DoctorList /> : <DoctorDateList />}
+        {this.state.selectedIndex === 0 ? 
+          <div style={{height: 'calc(100vh - 114px)', overflow: 'scroll', borderTop: '1px solid #eee'}}>
+            <DoctorList />
+          </div> : <DoctorsDateList />}
+        
       </div>
     )
   }

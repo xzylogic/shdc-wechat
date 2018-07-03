@@ -5,6 +5,11 @@
   height: $height-without-search-bar;
 }
 
+.tabs__container-common {
+  background: $color-white;
+  overflow: hidden;
+}
+
 .tabs__titles {
   position: relative;
   float: left;

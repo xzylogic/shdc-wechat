@@ -7,7 +7,11 @@ class Index extends React.Component {
   render() {
     return (
       <div>
-        <Tabs contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
+        <Tabs 
+          containerClass='tabs__container-common' 
+          contentClass='tabs__content-common' 
+          titlesClass='tabs__titles-common'
+          contentStyle={{height: 'calc(100vh - 178px)'}}>
           <Tab title='12月18日（周三）'><DoctorList /></Tab>
           <Tab title='12月18日（周三）'><DoctorList /></Tab>
           <Tab title='12月18日（周三）'><DoctorList /></Tab>

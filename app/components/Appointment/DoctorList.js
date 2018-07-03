@@ -1,23 +1,24 @@
 import React from 'react'
-import { Button } from 'antd-mobile';
+
+import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
 
 const renderList = ({img, name, title, des}, index) => {
+  const config = new FlexListConfigEntity({
+    leftWidth: '100px',
+    rightWidth: '15px', 
+    minHeight: '80px',
+    withBorder: 'href'
+  })
+
   return (
-    <div key={index} className='mylist'>
-      <div className='list__main'>
-        <div className='list__content'>
-          <div className='doctor__desc'>
-            <p className='title'>{name} {title}</p>
-            <p className='desc'>{des}</p>
-          </div>
-        </div>
-      </div>
-      <div className='list__left'>
-        <div className='doctor__avatar'>
-          <img src={img} />
-        </div>
-      </div>
-    </div>
+    <FlexList
+      sub={<ImageContainer imageUrl={img} />}
+      config={config} key={index}>
+      <MainContainer mainClass='doctor__desc'>
+        <p className='title'>{name} {title}</p>
+        <p className='desc'>{des}</p>
+      </MainContainer>
+    </FlexList>
   )
 }
 

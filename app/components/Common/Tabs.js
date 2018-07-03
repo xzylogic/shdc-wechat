@@ -32,7 +32,7 @@ export class Tabs extends React.Component {
             })
           }
         </div>
-        <div className={this.props.contentClass || 'tabs__content'}>
+        <div className={this.props.contentClass || 'tabs__content'} style={this.props.contentStyle || {}}>
           {
             React.Children.map(this.props.children, (element, index) => {
               return this.state.currentIndex === index ? element : ''
