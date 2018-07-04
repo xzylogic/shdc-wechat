@@ -2,6 +2,8 @@ import { actionTypes } from '../actions/global.action'
 import { initialGlobalState } from '../states/global.state'
 import * as CODE from '../../utilities/status-code'
 
+let window
+
 export const globalReducer = (state = initialGlobalState, action = {}) => {
   switch (action.type) {
     case actionTypes.UPDATE:
@@ -23,15 +25,21 @@ export const globalReducer = (state = initialGlobalState, action = {}) => {
         ...returnData
       }
     case actionTypes.CURRENT:
-      window.localStorage.setItem('currentPage', action.data)
+      if(window) {
+        window.localStorage.setItem('currentPage', action.data)
+      }
       return {
         ...state,
         ...{currentPage: action.data}
       }
     case actionTypes.GET_CURRENT:
+    let currentPage = '/'
+      if(window){
+        currentPage = window.localStorage.getItem('currentPage') || '/'
+      }
       return {
         ...state,
-        ...{currentPage: window.localStorage.getItem('currentPage') || '/'}
+        ...{currentPage: currentPage}
       }
     default:
       return state

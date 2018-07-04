@@ -8,8 +8,14 @@ import { loadDepartments } from '../../app/store/actions/departments.action'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
-    const { store, query } = props.ctx
+    const {store, query} = props.ctx
+    store.dispatch(updateState(query))
     store.dispatch(loadDepartments(query.hosOrgCode, query.deptType, query.type))
+  }
+
+  componentDidMount() {
+    const store = this.props
+    store.dispatch(updateCurrent(`/appointment/departments/${query.hosOrgCode}/${query.deptType}/${query.type}`))
   }
 
   render() {

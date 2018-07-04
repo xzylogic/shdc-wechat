@@ -4,10 +4,18 @@ import { connect } from 'react-redux'
 import Head from '../../app/components/Common/Head'
 import EntranceComponent from '../../app/components/Appointment/EntranceComponent'
 
+import { updateState, updateCurrent } from '../../app/store/actions/global.action'
+
 class Index extends React.Component {
   static async getInitialProps(props) {
-    const { query } = props.ctx
+    const {store, query} = props.ctx
+    store.dispatch(updateState(query))
     return { hosOrgCode: query.hosOrgCode }
+  }
+
+  componentDidMount() {
+    const store = this.props
+    store.dispatch(updateCurrent(`/appointment/entrance/${query.hosOrgCode}`))
   }
 
   render() {

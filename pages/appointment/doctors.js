@@ -5,10 +5,18 @@ import Head from '../../app/components/Common/Head'
 import DoctorsComponent from '../../app/components/Appointment/DoctorsComponent'
 import { loadDoctors } from '../../app/store/actions/doctors.action'
 
+import { updateState, updateCurrent } from '../../app/store/actions/global.action'
+
 class Index extends React.Component {
   static async getInitialProps(props) {
-    const { store, query } = props.ctx
+    const {store, query} = props.ctx
+    store.dispatch(updateState(query))
     store.dispatch(loadDoctors(query.hosOrgCode, query.deptCode))
+  }
+
+  componentDidMount() {
+    const store = this.props
+    store.dispatch(updateCurrent(`/appointment/doctors/${query.hosOrgCode}/${query.deptCode}`))
   }
 
   render() {

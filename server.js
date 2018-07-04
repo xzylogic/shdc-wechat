@@ -92,14 +92,16 @@ app.prepare().then(() => {
             app.render(req, res, actualPage, queryParams)
           } else {
             logger.error(`[getAccessTokenFromCode] ${sres.errorMsg || 'UNKNOWN ERROR'}`)
-
+            
             queryParams.errorMsg = sres.msg || '未知错误'
-
-            app.render(req, res, actualPage, queryParams)
+            
+            app.render(req, res, '/error', queryParams)
           }
         }).catch(err => {
           logger.error(`[getAccessTokenFromCode] NETWORK ERROR`)
+
           queryParams.error = err.message || '未知错误'
+
           app.render(req, res, '/error', queryParams)
         })
 
