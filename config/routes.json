@@ -43,7 +43,7 @@
   }, {
     "id": "9",
     "desc": "预约就诊-医生列表",
-    "path": "/appointment/doctors/:hosOrgCode/:deptType",
+    "path": "/appointment/doctors/:hosOrgCode/:deptCode",
     "page": "/appointment/doctors"
   }, {
     "id": "10",

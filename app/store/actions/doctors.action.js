@@ -1,16 +1,46 @@
 export const actionTypes = {
-  UPDATE_DEPARTMENTS_PARENT: 'UPDATE_DEPARTMENTS_PARENT',
-  UPDATE_DEPARTMENTS_CHILD: 'UPDATE_DEPARTMENTS_CHILD',
-  INIT_DEPARTMENTS: 'INIT_DEPARTMENTS',
-  INIT_CODE_AND_TYPE: 'INIT_CODE_AND_TYPE',
-  LOAD_DEPARTMENTS_CHILD: 'LOAD_DEPARTMENTS_CHILD'
+  UPDATE_DOCTORS_BYNAME: 'UPDATE_DOCTORS_BYNAME',
+  UPDATE_DOCTORS_BYDATE: 'UPDATE_DOCTORS_BYDATE',
+  INIT_DOCTORS: 'INIT_DOCTORS',
+  INIT_DOCTORS_CODE: 'INIT_DOCTORS_CODE',
+  LOAD_DOCTORS_BYDATE: 'LOAD_DOCTORS_BYDATE'
 }
 
-export const initCodeAndType = (hosOrgCode, deptType, pageType) => {
+export const initDoctorsCode = (hosOrgCode, deptCode) => {
   return {
-    type: actionTypes.INIT_CODE_AND_TYPE,
+    type: actionTypes.INIT_DOCTORS_CODE,
     hosOrgCode: hosOrgCode,
-    deptType: deptType,
-    pageType: pageType
+    deptCode: deptCode
+  }
+}
+
+export const loadDoctors = (hosOrgCode, deptCode) => {
+  return {
+    type: actionTypes.INIT_DOCTORS,
+    hosOrgCode: hosOrgCode,
+    deptCode: deptCode
+  }
+}
+
+export const loadDoctorsByDate = (hosOrgCode, deptCode, date) => {
+  return {
+    type: actionTypes.LOAD_DOCTORS_BYDATE,
+    hosOrgCode: hosOrgCode,
+    deptCode: deptCode,
+    date: date
+  }
+}
+
+export const updateDoctorsByName = (data) => {
+  return {
+    type: actionTypes.UPDATE_DOCTORS_BYNAME,
+    data: data
+  }
+}
+
+export const updateDoctorsByDate = (data) => {
+  return {
+    type: actionTypes.UPDATE_DOCTORS_BYDATE,
+    data: data
   }
 }

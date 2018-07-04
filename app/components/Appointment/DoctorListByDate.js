@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
 
-const renderList = ({doctName, doctTile, doctorSpecialty, hosOrgCode, hosDoctCode}, index) => {
+const renderList = ({doctName, doctTile, doctInfo, hosOrgCode, hosDoctCode}, index) => {
   const config = new FlexListConfigEntity({
     leftWidth: '100px',
     rightWidth: '15px', 
@@ -16,7 +16,7 @@ const renderList = ({doctName, doctTile, doctorSpecialty, hosOrgCode, hosDoctCod
       config={config} key={index}>
       <MainContainer mainClass='doctor__desc'>
         <p className='title'>{doctName} {doctTile}</p>
-        <p className='desc'>擅长：{doctorSpecialty}</p>
+        <p className='desc'>{doctInfo}</p>
       </MainContainer>
     </FlexList>
   )

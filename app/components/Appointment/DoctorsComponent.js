@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { SearchBar, SegmentedControl, WingBlank, WhiteSpace } from 'antd-mobile'
 
 import DoctorList from './DoctorList'
@@ -12,6 +13,8 @@ class Index extends React.Component {
   }
 
   render() {
+    const { doctorsReducer } = this.props
+    const { doctorsByName } = doctorsReducer
     return (
       <div style={{background: '#fff', minHeight: '100vh'}}>
         <SearchBar placeholder='请输入医生姓名进行搜索' maxLength={8} />
@@ -26,7 +29,7 @@ class Index extends React.Component {
         <WhiteSpace size='lg' />
         {this.state.selectedIndex === 0 ? 
           <div style={{height: 'calc(100vh - 114px)', overflow: 'scroll', borderTop: '1px solid #eee'}}>
-            <DoctorList />
+            <DoctorList doctors={doctorsByName} />
           </div> : <DoctorsDateList />}
         
       </div>
@@ -34,4 +37,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index
+export default connect(state => state)(Index)
