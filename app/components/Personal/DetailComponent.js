@@ -1,10 +1,26 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Router from 'next/router'
 import { WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
 import { FlexList, MainContainer, FlexListConfigEntity, SubContent } from '../Common/FlexList'
 
 import './personal.scss'
+
+const renderSex = (sex) => {
+  switch (sex) {
+    case 1:
+      return '男'
+    case '1':
+      return '男'
+    case 2:
+      return '女'
+    case '2':
+      return '女'
+    default:
+      return '未知'
+  }
+}
 
 class Index extends React.Component {
   render() {
@@ -20,27 +36,29 @@ class Index extends React.Component {
       minHeight: '30px',
       withBorder: false
     })
+    const { accountReducer } = this.props
+    const { accountInfo } = accountReducer
     return (
       <div>
         <FlexList 
           sub={<SubContent title='真实姓名' icon='user' />}
           config={configList}>
           <MainContainer mainClass='user__ownlist'>
-            <p>石菁</p>
+            <p>{accountInfo.username}</p>
           </MainContainer>
         </FlexList>
         <FlexList 
           sub={<SubContent title='身份证号' icon='idcard' />}
           config={configList}>
           <MainContainer mainClass='user__ownlist'>
-            <p>123456789987656</p>
+            <p>{accountInfo.cardId}</p>
           </MainContainer>
         </FlexList>
         <FlexList 
           sub={<SubContent title='手机号' icon='mobile1' />}
           config={configListLast}>
           <MainContainer mainClass='user__ownlist'>
-            <p>123456789</p>
+            <p>{accountInfo.mobile}</p>
           </MainContainer>
         </FlexList>
         <WhiteSpace size='lg' />
@@ -48,21 +66,21 @@ class Index extends React.Component {
           sub={<SubContent title='性别' icon='smileo' />}
           config={configList}>
           <MainContainer mainClass='user__ownlist'>
-            <p>石菁</p>
+            <p>{renderSex(accountInfo.sex)}</p>
           </MainContainer>
         </FlexList>
         <FlexList 
           sub={<SubContent title='生日' icon='gift' />}
           config={configList}>
           <MainContainer mainClass='user__ownlist'>
-            <p>123456789987656</p>
+            <p>{accountInfo.birthday}</p>
           </MainContainer>
         </FlexList>
         <FlexList 
           sub={<SubContent title='联系地址' icon='enviromento' />}
           config={configListLast}>
           <MainContainer mainClass='user__ownlist'>
-            <p>联系地址联系地址联系地址联系地址联系地址联系地址联系地址联系地址联系地址联系地址联系地址</p>
+            <p>{accountInfo.address}</p>
           </MainContainer>
         </FlexList>
         <WhiteSpace size='lg' />
@@ -84,4 +102,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index
+export default connect(state => state)(Index)

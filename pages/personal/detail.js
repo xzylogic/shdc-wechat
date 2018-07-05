@@ -6,11 +6,13 @@ import RenderPage from '../../app/components/Common/RenderPage'
 import DetailComponent from '../../app/components/Personal/DetailComponent'
 
 import { updateState, updateCurrent } from '../../app/store/actions/global.action'
+import { initAccountInfo } from '../../app/store/actions/personal/account.action'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
     store.dispatch(updateState(query))
+    store.dispatch(initAccountInfo(query.accessToken))
   }
 
   componentDidMount() {
@@ -18,11 +20,16 @@ class Index extends React.Component {
     store.dispatch(updateCurrent(`/personal/appointment`))
   }
 
+  loadData = () => {
+    const store = this.props
+    store.dispatch(initAccountInfo(store.globalReducer.accessToken))
+  }
+
   render() {
     return (
       <div>
         <Head title='用户详情' />
-        <RenderPage>
+        <RenderPage onComplete={this.loadData}>
           <DetailComponent />
         </RenderPage>
       </div>

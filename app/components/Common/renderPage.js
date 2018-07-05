@@ -11,12 +11,12 @@ import * as CODE from '../../utilities/status-code'
  */
 class Index extends React.Component {
   render() {
-    const {globalReducer} = this.props
+    const {globalReducer, onComplete} = this.props
     switch (globalReducer.code) {
       case CODE.SUCCESS:
         return this.props.children
       case CODE.NOT_LOGIN:
-        return (<LoginComponent />)
+        return (<LoginComponent onComplete={onComplete} />)
       case CODE.ERROR:
         return (<PageError title={globalReducer.errorMsg} />)
       default:

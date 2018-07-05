@@ -32,6 +32,7 @@ class Index extends React.Component {
           console.log(res)
           if(res) {
             store.dispatch(updateState({accessToken: res.accessToken}))
+            this.props.onComplete()
           }
         })
       }

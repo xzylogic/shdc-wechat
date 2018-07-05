@@ -17,14 +17,14 @@ export class HttpHandler {
     })
   }
 
-  get(url, handle) {
-    return this.httpHandler.get(this.configUrl + url).catch(err => {
+  get(url, config = {}, handle) {
+    return this.httpHandler.get(this.configUrl + url, config).catch(err => {
       this.errorHandler(err, handle)
     })
   }
 
-  post(url, data, handle) {
-    return this.httpHandler.post(this.configUrl + url, data || {}).catch(err => {
+  post(url, data, config = {}, handle) {
+    return this.httpHandler.post(this.configUrl + url, data || {}, config).catch(err => {
       this.errorHandler(err, handle)
     })
   }
