@@ -10,10 +10,14 @@ class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
     store.dispatch(updateState(query))
+    return {
+      query: query
+    }
   }
 
   componentDidMount() {
     const store = this.props
+    const { query } = this.props
     store.dispatch(updateCurrent(`/appointment/doctor/${query.id}`))
   }
 

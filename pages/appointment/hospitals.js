@@ -5,7 +5,7 @@ import Head from '../../app/components/Common/Head'
 import HospitalsComponent from '../../app/components/Appointment/HospitalsComponent'
 
 import { updateState, updateCurrent } from '../../app/store/actions/global.action'
-import { loadHospitals } from '../../app/store/actions/hospitals.action'
+import { loadHospitals } from '../../app/store/actions/appointment/hospitals.action'
 
 class Index extends React.Component {
   static async getInitialProps(props) {

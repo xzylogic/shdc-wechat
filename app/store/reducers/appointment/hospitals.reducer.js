@@ -1,5 +1,5 @@
-import { actionTypes } from '../../actions/hospitals.action'
-import { initialHospitalsState } from '../../states/hospitals.state'
+import { actionTypes } from '../../actions/appointment/hospitals.action'
+import { initialHospitalsState } from '../../states/appointment/hospitals.state'
 
 export const hospitalsReducer = (state = initialHospitalsState, action = {}) => {
   switch (action.type) {

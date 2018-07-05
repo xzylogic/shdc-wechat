@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { SearchBar } from 'antd-mobile'
 
 import { Tabs, Tab } from '../Common/Tabs'
-import { loadDepartmentsChild } from '../../store/actions/departments.action'
+import { loadDepartmentsChild } from '../../store/actions/appointment/departments.action'
 
 import './appointment.scss'
 

@@ -1,6 +1,6 @@
 import { put, takeLatest, call } from 'redux-saga/effects'
 
-import { actionTypes, updateDoctorsByDate, updateDoctorsByName, initDoctorsCode} from '../../actions/doctors.action'
+import { actionTypes, updateDoctorsByDate, updateDoctorsByName, initDoctorsCode} from '../../actions/appointment/doctors.action'
 import { HttpToastService, HttpService } from '../../../utilities/httpService'
 
 const PATH = {

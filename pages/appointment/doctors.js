@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
 import DoctorsComponent from '../../app/components/Appointment/DoctorsComponent'
-import { loadDoctors } from '../../app/store/actions/doctors.action'
+import { loadDoctors } from '../../app/store/actions/appointment/doctors.action'
 
 import { updateState, updateCurrent } from '../../app/store/actions/global.action'
 
@@ -12,10 +12,14 @@ class Index extends React.Component {
     const {store, query} = props.ctx
     store.dispatch(updateState(query))
     store.dispatch(loadDoctors(query.hosOrgCode, query.deptCode))
+    return {
+      query: query
+    }
   }
 
   componentDidMount() {
     const store = this.props
+    const { query } = this.props
     store.dispatch(updateCurrent(`/appointment/doctors/${query.hosOrgCode}/${query.deptCode}`))
   }
 
