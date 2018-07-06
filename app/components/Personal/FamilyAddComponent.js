@@ -1,58 +1,90 @@
 import React from 'react'
-import Link from 'next/link'
-import { List, InputItem, WingBlank, WhiteSpace, Button, Picker, DatePicker, TextareaItem } from 'antd-mobile'
+
+import { List, InputItem, WingBlank, WhiteSpace, Button, Picker, Toast } from 'antd-mobile'
+import { createForm } from 'rc-form'
 
 import '../Login/login.scss'
 
+
 class Index extends React.Component {
+
+  hasErrors = (fieldsError) => {
+    return Object.keys(fieldsError).some(field => fieldsError[field]);
+  }
+
+  handleSubmit = () => {
+    this.props.form.validateFields((error, value) => {
+      if(!error) {
+        this.props.handleSubmit(value)
+      }
+    })
+  }
+
   render() {
+    const { getFieldProps, getFieldError, getFieldsError, isFieldTouched } = this.props.form
     return (
       <div>
         <List>
           <InputItem 
-            name='name'
+            {...getFieldProps('name', {rules: [{required: true, message: '请输入真实姓名'}]})}
             type='text'
             placeholder='请输入真实姓名（必填）'
             labelNumber={7}
+            error={isFieldTouched('name')&&getFieldError('name')}
+            onErrorClick={() => Toast.info(getFieldError('name'))}
           ><i className='anticon icon-user login__icon' />真实姓名</InputItem>
-          <Picker 
-            value={['男']}
-            data={[[{label:'男',value:'男'},{label:'女',value:'女'},{label:'未知',value:'未知'}]]}
+          <Picker
+            {...getFieldProps('sex', {initialValue: [1]})}
+            data={[[{label:'男',value:1},{label:'女',value:2},{label:'未知',value:0}]]}
             cols={1}
             cascade={false}
           >
             <List.Item arrow='horizontal'><i className='anticon icon-smileo login__icon' />性别</List.Item>
           </Picker>
-          <InputItem 
-            name='password'
-            type='password'
-            placeholder='请输入证件号（必填）'
+          <Picker
+            {...getFieldProps('cardType', {initialValue: [1]})}
+            data={[[{label:'身份证',value:1},{label:'军官证（士兵证）',value:2},{label:'护照',value:3},{label:'港澳居民来往内地通行证',value:4},{label:'居民户口簿',value:5},{label:'驾驶执照',value:6},{label:'台湾居民来往内地通行证',value:7}]]}
+            cols={1}
+            cascade={false}
+          >
+            <List.Item arrow='horizontal'><i className='anticon icon-idcard login__icon' />证件类型</List.Item>
+          </Picker>
+          <InputItem
+            {...getFieldProps('cardId', {rules: [{required: true, message: '请输入身份证号'}]})}
+            type='text'
+            placeholder='请输入身份证号（必填）'
             labelNumber={7}
+            error={isFieldTouched('cardId')&&getFieldError('cardId')}
+            onErrorClick={() => Toast.info(getFieldError('cardId'))}
           ><i className='anticon icon-idcard login__icon' />身份证号</InputItem>
           <InputItem
-            name='username' 
+            {...getFieldProps('mobile', {rules: [{required: true, message: '请输入手机号'}, {pattern: /1\d{10}\b/, message: '请输入正确的11位手机号'}]})}
             type='text' 
-            placeholder='请输入用户名（必填）'
+            placeholder='请输入手机号（必填）'
             labelNumber={7}
+            error={isFieldTouched('mobile')&&getFieldError('mobile')}
+            onErrorClick={() => Toast.info(getFieldError('mobile'))}
           ><i className='anticon icon-mobile1 login__icon' />手机号</InputItem>
-          <Picker 
-            value={['社保卡']}
-            data={[[{label:'社保卡',value:'社保卡'},{label:'医联卡',value:'医联卡'}]]}
+          <Picker
+            {...getFieldProps('medicineCardType',  {initialValue: [1]})}
+            data={[[{label:'社保卡',value:1},{label:'医联卡',value:2}]]}
             cols={1}
             cascade={false}
           >
             <List.Item arrow='horizontal'><i className='anticon icon-idcard login__icon' />卡类型</List.Item>
           </Picker>
-          <InputItem 
-            name='password'
+          <InputItem
+            {...getFieldProps('medicineCardId', {rules: [{required: true, message: '请输入卡号'}]})}
             type='number'
-            placeholder='请输入证件号（必填）'
+            placeholder='请输入卡号（必填）'
             labelNumber={7}
+            error={isFieldTouched('medicineCardId')&&getFieldError('medicineCardId')}
+            onErrorClick={() => Toast.info(getFieldError('medicineCardId'))}
           ><i className='anticon icon-idcard login__icon' />卡号</InputItem>
         </List>
         <WhiteSpace size='xl' />
         <WingBlank size='lg'>
-          <Button type='primary'>提交</Button>
+          <Button type='primary' disabled={this.hasErrors(getFieldsError())} onClick={this.handleSubmit}>提交</Button>
         </WingBlank>
         <WhiteSpace size='xl' />
       </div>
@@ -60,4 +92,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index
+export default createForm()(Index)
