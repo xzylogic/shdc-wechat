@@ -1,11 +1,13 @@
 import React from 'react'
-import { List, InputItem, WingBlank, WhiteSpace, Button, Picker, DatePicker, TextareaItem } from 'antd-mobile'
+import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile'
+import { createForm } from 'rc-form'
 
 import '../Login/login.scss'
 import './personal.scss'
 
 class Index extends React.Component {
   render() {
+    const { getFieldProps, getFieldError, getFieldsError, isFieldTouched } = this.props.form
     return (
       <div>
         <List>
@@ -58,4 +60,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index
+export default createForm()(Index)

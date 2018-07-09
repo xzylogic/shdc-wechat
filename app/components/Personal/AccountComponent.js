@@ -22,7 +22,7 @@ const renderSex = (sex) => {
   }
 }
 
-const renderCardType = (cardType) => {
+const renderMedicineCardType = (cardType) => {
   switch (cardType) {
     case 1:
       return '社保卡'
@@ -37,6 +37,41 @@ const renderCardType = (cardType) => {
   }
 }
 
+const renderCardType = (cardType) => {
+  switch (cardType) {
+    case 1:
+      return '身份证'
+    case '1':
+      return '身份证'
+    case 2:
+      return '军官证（士兵证）'
+    case '2':
+      return '军官证（士兵证）'
+    case 3:
+      return '护照'
+    case '3':
+      return '护照'
+    case 4:
+      return '港澳居民来往内地通行证'
+    case '4':
+      return '港澳居民来往内地通行证'
+    case 5:
+      return '居民户口簿'
+    case '5':
+      return '居民户口簿'
+    case 6:
+      return '驾驶执照'
+    case '6':
+      return '驾驶执照'
+    case 7:
+      return '台湾居民来往内地通行证'
+    case '7':
+      return '台湾居民来往内地通行证'
+    default:
+      return ''
+  }
+}
+
 class Index extends React.Component {
   render() {
     const configAccount = new FlexListConfigEntity({
@@ -46,13 +81,13 @@ class Index extends React.Component {
       withBorder: false
     })
     const configFamily = new FlexListConfigEntity({
-      leftWidth: '80px',
+      leftWidth: '100px',
       rightWidth: '35px', 
       minHeight: '100px',
       withBorder: 'dash'
     })
     const configFamilyLast = new FlexListConfigEntity({
-      leftWidth: '80px',
+      leftWidth: '100px',
       rightWidth: '35px', 
       minHeight: '100px',
       withBorder: 'border'
@@ -84,15 +119,16 @@ class Index extends React.Component {
           Array.isArray(accountList) && accountList.map((data, index) => (
             <FlexList
               key={index}
-              sub={<MainContainer mainClass='user__accounts'><p>姓名</p><p>性别</p><p>身份证</p><p>手机号</p><p>卡类型</p><p>卡号</p></MainContainer>}
+              sub={<MainContainer mainClass='user__accounts'><p>姓名</p><p>性别</p><p>证件类型</p><p>证件号</p><p>手机号</p><p>卡类型</p><p>卡号</p></MainContainer>}
               // extra={<i className='anticon icon-right user__arraw' />}
               config={(index + 1) === accountList.length ? configFamilyLast : configFamily}>
               <MainContainer mainClass='user__accounts'>
                 <p>{data.name}</p>
                 <p>{renderSex(data.sex)}</p>
+                <p>{renderCardType(data.cardType)}</p>
                 <p>{data.cardId}</p>
                 <p>{data.mobile}</p>
-                <p>{renderCardType(data.medicineCardType)}</p>
+                <p>{renderMedicineCardType(data.medicineCardType)}</p>
                 <p>{data.medicineCardId}</p>
               </MainContainer>
             </FlexList>

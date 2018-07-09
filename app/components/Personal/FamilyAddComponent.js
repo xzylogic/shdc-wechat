@@ -1,10 +1,8 @@
 import React from 'react'
-
 import { List, InputItem, WingBlank, WhiteSpace, Button, Picker, Toast } from 'antd-mobile'
 import { createForm } from 'rc-form'
 
 import '../Login/login.scss'
-
 
 class Index extends React.Component {
 
@@ -50,13 +48,13 @@ class Index extends React.Component {
             <List.Item arrow='horizontal'><i className='anticon icon-idcard login__icon' />证件类型</List.Item>
           </Picker>
           <InputItem
-            {...getFieldProps('cardId', {rules: [{required: true, message: '请输入身份证号'}]})}
+            {...getFieldProps('cardId', {rules: [{required: true, message: '请输入证件号'}]})}
             type='text'
-            placeholder='请输入身份证号（必填）'
+            placeholder='请输入证件号（必填）'
             labelNumber={7}
             error={isFieldTouched('cardId')&&getFieldError('cardId')}
             onErrorClick={() => Toast.info(getFieldError('cardId'))}
-          ><i className='anticon icon-idcard login__icon' />身份证号</InputItem>
+          ><i className='anticon icon-idcard login__icon' />证件号</InputItem>
           <InputItem
             {...getFieldProps('mobile', {rules: [{required: true, message: '请输入手机号'}, {pattern: /1\d{10}\b/, message: '请输入正确的11位手机号'}]})}
             type='text' 

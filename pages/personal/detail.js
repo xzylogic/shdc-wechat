@@ -12,7 +12,7 @@ class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
     store.dispatch(updateState(query))
-    store.dispatch(initAccountInfo(query.accessToken))
+    store.dispatch(initAccountInfo(query.accessToken || store.getState().globalReducer.accessToken))
   }
 
   componentDidMount() {
@@ -22,7 +22,8 @@ class Index extends React.Component {
 
   loadData = () => {
     const store = this.props
-    store.dispatch(initAccountInfo(store.globalReducer.accessToken))
+    const { globalReducer } = store
+    store.dispatch(initAccountInfo(globalReducer.accessToken))
   }
 
   render() {

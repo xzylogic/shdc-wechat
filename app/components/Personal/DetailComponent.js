@@ -18,7 +18,7 @@ const renderSex = (sex) => {
     case '2':
       return '女'
     default:
-      return '未知'
+      return '未知'c
   }
 }
 

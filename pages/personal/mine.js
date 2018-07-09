@@ -12,8 +12,8 @@ class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
     store.dispatch(updateState(query))
-    store.dispatch(initAccountInfo(query.accessToken))
-    store.dispatch(loadAccountList(query.accessToken))
+    store.dispatch(initAccountInfo(query.accessToken || store.getState().globalReducer.accessToken))
+    store.dispatch(loadAccountList(query.accessToken || store.getState().globalReducer.accessToken))
   }
 
   componentDidMount() {

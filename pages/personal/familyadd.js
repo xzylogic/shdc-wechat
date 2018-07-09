@@ -7,6 +7,7 @@ import RenderPage from '../../app/components/Common/RenderPage'
 import FamilyAddComponent from '../../app/components/Personal/FamilyAddComponent'
 
 import { updateState, updateCurrent } from '../../app/store/actions/global.action'
+import { loadAccountList } from '../../app/store/actions/personal/account.action'
 import { HttpToastService } from '../../app/utilities/httpService/index'
 
 const PATH = {
@@ -25,7 +26,8 @@ class Index extends React.Component {
   }
 
   handleSubmit = (value) => {
-    const { globalReducer } = this.props
+    const store = this.props
+    const { globalReducer } = store
     const formData = {
       cardId: value.cardId,
       cardType: value.cardType[0],
@@ -38,7 +40,7 @@ class Index extends React.Component {
     HttpToastService.post(`${PATH.cardAdd}`, formData, {headers: {'access-token': globalReducer.accessToken}}).then(res => {
       console.log(res)
       if(res) {
-        // store.dispatch(updateState({accessToken: res.accessToken}))
+        store.dispatch(loadAccountList({accessToken: globalReducer.accessToken}))
         Router.push(`/personal/mine`)
       }
     })
