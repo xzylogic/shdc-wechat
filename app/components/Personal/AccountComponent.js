@@ -4,75 +4,22 @@ import { connect } from 'react-redux'
 import { List, WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
 import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
+import { renderSex, renderCardType, renderMedicineCardType } from '../../utilities/common'
+import { initAccountInfo, loadAccountList } from '../../store/actions/personal/account.action'
 
 import './personal.scss'
 
-const renderSex = (sex) => {
-  switch (sex) {
-    case 1:
-      return '男'
-    case '1':
-      return '男'
-    case 2:
-      return '女'
-    case '2':
-      return '女'
-    default:
-      return '未知'
-  }
-}
-
-const renderMedicineCardType = (cardType) => {
-  switch (cardType) {
-    case 1:
-      return '社保卡'
-    case '1':
-      return '社保卡'
-    case 2:
-      return '医联卡'
-    case '2':
-      return '医联卡'
-    default:
-      return ''
-  }
-}
-
-const renderCardType = (cardType) => {
-  switch (cardType) {
-    case 1:
-      return '身份证'
-    case '1':
-      return '身份证'
-    case 2:
-      return '军官证（士兵证）'
-    case '2':
-      return '军官证（士兵证）'
-    case 3:
-      return '护照'
-    case '3':
-      return '护照'
-    case 4:
-      return '港澳居民来往内地通行证'
-    case '4':
-      return '港澳居民来往内地通行证'
-    case 5:
-      return '居民户口簿'
-    case '5':
-      return '居民户口簿'
-    case 6:
-      return '驾驶执照'
-    case '6':
-      return '驾驶执照'
-    case 7:
-      return '台湾居民来往内地通行证'
-    case '7':
-      return '台湾居民来往内地通行证'
-    default:
-      return ''
-  }
-}
-
 class Index extends React.Component {
+  componentDidMount() {
+    const store = this.props
+    if (!store.globalReducer.accountInfo) {
+      store.dispatch(initAccountInfo(store.globalReducer.accessToken))
+    }
+    if (!store.globalReducer.accountList) {
+      store.dispatch(loadAccountList(store.globalReducer.accessToken))
+    }
+  }
+
   render() {
     const configAccount = new FlexListConfigEntity({
       leftWidth: '85px',
@@ -93,7 +40,8 @@ class Index extends React.Component {
       withBorder: 'border'
     })
     const { accountReducer } = this.props
-    const { accountInfo, accountList } = accountReducer
+    const accountInfo = accountReducer.accountInfo || {}
+    const accountList = accountReducer.accountList || []
     return (
       <div>
         <Link href={`/personal/detail`}>

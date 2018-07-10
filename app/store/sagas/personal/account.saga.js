@@ -1,7 +1,7 @@
 import { put, takeLatest, call } from 'redux-saga/effects'
 
 import { actionTypes, updateAccountInfo, updateAccountList } from '../../actions/personal/account.action'
-import { updateState } from '../../actions/global.action'
+import { authLogin, authNotLogin, authError } from '../../actions/global.action'
 import { HttpService } from '../../../utilities/httpService'
 
 import * as CODE from '../../../utilities/status-code'
@@ -24,11 +24,10 @@ function* loadAccountInfo(actions) {
     const data = yield call(getAccountInfo, actions.token)
     yield put(updateAccountInfo(data || {}))
   } catch (error) {
-    console.log(error.message)
     if (error && error.message == CODE.NOT_LOGIN) {
-      yield put(updateState({code: CODE.NOT_LOGIN}))
+      yield put(authNotLogin())
     } else {
-      yield put(updateState({errorMsg: error.message, accessToken: '', weChatId: ''}))
+      yield put(authError({errorMsg: error.message}))
     }
   }
 }
@@ -38,11 +37,10 @@ function* loadAccountList(actions) {
     const data = yield call(getAccountList, actions.token)
     yield put(updateAccountList(data || []))
   } catch (error) {
-    console.log(error.message)
     if (error && error.message == CODE.NOT_LOGIN) {
-      yield put(updateState({code: CODE.NOT_LOGIN}))
+      yield put(authNotLogin())
     } else {
-      yield put(updateState({errorMsg: error.message, accessToken: '', weChatId: ''}))
+      yield put(authError({errorMsg: error.message}))
     }
   }
 }

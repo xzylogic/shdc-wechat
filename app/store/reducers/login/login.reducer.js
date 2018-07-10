@@ -3,10 +3,10 @@ import { initialLoginState } from '../../states/login.state'
 
 export const loginReducer = (state = initialLoginState, action = {}) => {
   switch (action.type) {
-    case actionTypes.UPDATE_ACCOUNT:
+    case actionTypes.UPDATE_CODE:
       return {
         ...state,
-        ...action.data
+        ...{ code: action.data }
       }
     default:
       return state

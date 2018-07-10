@@ -4,25 +4,19 @@ import Router from 'next/router'
 import { WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
 import { FlexList, MainContainer, FlexListConfigEntity, SubContent } from '../Common/FlexList'
+import { initAccountInfo } from '../../store/actions/personal/account.action'
+import { renderSex } from '../../utilities/common'
 
 import './personal.scss'
 
-const renderSex = (sex) => {
-  switch (sex) {
-    case 1:
-      return '男'
-    case '1':
-      return '男'
-    case 2:
-      return '女'
-    case '2':
-      return '女'
-    default:
-      return '未知'c
-  }
-}
-
 class Index extends React.Component {
+  componentDidMount() {
+    const store = this.props
+    if (!store.globalReducer.accountInfo) {
+      store.dispatch(initAccountInfo(store.globalReducer.accessToken))
+    }
+  }
+  
   render() {
     const configList = new FlexListConfigEntity({
       leftWidth: '38%',
@@ -37,7 +31,7 @@ class Index extends React.Component {
       withBorder: false
     })
     const { accountReducer } = this.props
-    const { accountInfo } = accountReducer
+    const accountInfo = accountReducer.accountInfo || {}
     return (
       <div>
         <FlexList 

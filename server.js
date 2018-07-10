@@ -100,7 +100,7 @@ app.prepare().then(() => {
         }).catch(err => {
           logger.error(`[getAccessTokenFromCode] NETWORK ERROR`)
 
-          queryParams.error = err.message || '未知错误'
+          queryParams.errorMsg = err.message || '未知错误'
 
           app.render(req, res, '/error', queryParams)
         })

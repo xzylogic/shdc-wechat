@@ -1,5 +1,5 @@
 export const initialAccountState = {
-  accountInfo: {},
-  accountList: [],
-  accountDetail: {}
+  accountInfo: null,
+  accountList: null,
+  accountDetail: null
 }

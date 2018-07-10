@@ -4,50 +4,35 @@ import * as CODE from '../../utilities/status-code'
 
 export const globalReducer = (state = initialGlobalState, action = {}) => {
   switch (action.type) {
-    case actionTypes.UPDATE:
-      const {weChatId, accessToken, errorMsg, code} = action.data
-      console.log(action.data)
-      const returnData = {}
-      if (code === CODE.NOT_LOGIN && state.weChatId){
-        returnData.code = CODE.NOT_LOGIN
-      } else if (accessToken) {
-        returnData.code = CODE.SUCCESS
-        returnData.accessToken = accessToken
-        returnData.weChatId = weChatId || ''
-      } else if (weChatId && !accessToken) {
-        returnData.code = CODE.NOT_LOGIN
-        returnData.weChatId = weChatId
-      } else if (!state.weChatId&&!state.accessToken) {
-        returnData.code = CODE.ERROR
-        returnData.errorMsg = errorMsg || '未知错误'
-        returnData.weChatId = ''
-        returnData.accessToken = ''
-      } else if (!state.weChatId&&!state.accessToken&&!weChatId&&!accessToken) {
-        returnData.code = CODE.ERROR
-        returnData.errorMsg = errorMsg || '未知错误'
-        returnData.weChatId = ''
-        returnData.accessToken = ''
-      }
-      console.log(returnData)
-      console.log({
-        ...state,
-        ...returnData
-      })
+    case actionTypes.AUTH_LOGIN: 
       return {
         ...state,
-        ...returnData
+        ...{ code: CODE.SUCCESS },
+        ...action.data
       }
-    case actionTypes.CURRENT:
-      if(typeof window !== 'undefined') {
+    case actionTypes.AUTH_NOT_LOGIN: 
+      return {
+        ...state,
+        ...{ code: CODE.NOT_LOGIN },
+        ...action.data
+      }
+    case actionTypes.AUTH_ERROR: 
+      return {
+        ...state,
+        ...{ code: CODE.ERROR },
+        ...action.data
+      }
+    case actionTypes.UPDATE_CURRENT_PAGE:
+      if (typeof window !== 'undefined') {
         window.localStorage.setItem('currentPage', action.data)
       }
       return {
         ...state,
         ...{currentPage: action.data}
       }
-    case actionTypes.GET_CURRENT:
-    let currentPage = '/'
-      if(typeof window !== 'undefined'){
+    case actionTypes.GET_CURRENT_PAGE:
+      let currentPage = '/'
+      if (typeof window !== 'undefined'){
         currentPage = window.localStorage.getItem('currentPage') || '/'
       }
       return {

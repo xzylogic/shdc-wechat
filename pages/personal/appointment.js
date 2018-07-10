@@ -5,12 +5,13 @@ import Head from '../../app/components/Common/Head'
 import RenderPage from '../../app/components/Common/RenderPage'
 import AppointmentComponent from '../../app/components/Personal/AppointmentComponent'
 
-import { updateState, updateCurrent } from '../../app/store/actions/global.action'
+import { updateCurrent } from '../../app/store/actions/global.action'
+import { initGlobalQuery } from '../../app/utilities/common';
 
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
-    store.dispatch(updateState(query))
+    initGlobalQuery(store, query)
   }
 
   componentDidMount() {

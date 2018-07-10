@@ -1,22 +1,20 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Link from 'next/link'
 import { 
   List, InputItem, WingBlank, WhiteSpace, Button, 
   Picker, DatePicker, TextareaItem, Checkbox, Toast 
 } from 'antd-mobile'
 import { createForm } from 'rc-form'
+import * as moment from 'moment'
 
-import { HttpToastService } from '../../utilities/httpService'
+import { hasErrors } from '../../utilities/common'
+import { getCodeAction, registerAction } from '../../store/actions/login.action'
 
 import './login.scss'
 
-const PATH = {
-  getCode: '/api/user/sendValidCode'
-}
-
 class Index extends React.Component {
   state = {
-    code: '123456',
     codeMsg: `获取验证码`
   }
 
@@ -26,6 +24,7 @@ class Index extends React.Component {
   }
 
   getCode = () => {
+    const store = this.props
     const form =  this.props.form
     if (this.state.codeMsg === '获取验证码'&&!form.getFieldError('mobile')&&form.getFieldValue('mobile')) {
       let time = 60
@@ -40,15 +39,9 @@ class Index extends React.Component {
           clearInterval(codeTimer)
         }
       }, 1000)
-    
-      HttpToastService.post(`${PATH.getCode}`, {mobile: form.getFieldValue('mobile')})
-        .then(data => {
-          if(data && data.validCode) {
-            this.setState({
-              code: data.validCode
-            })
-          }
-        })
+      
+      store.dispatch(getCodeAction({mobile: form.getFieldValue('mobile')}))
+
     } else if(form.getFieldError('mobile')||!form.getFieldValue('mobile')) {
       Toast.info('请输入正确的手机号')
     }
@@ -67,24 +60,24 @@ class Index extends React.Component {
     }
   }
 
-  checkCode = (rule, value, callback) => {
-    if(!value) {
-      callback([new Error('请输入验证码')])
-    } else if (value != this.state.code) {
-      callback([new Error('验证码校验错误')])
-    } else {
-      callback([])
-    }
-  }
-
-  hasErrors = (fieldsError) => {
-    return Object.keys(fieldsError).some(field => fieldsError[field]);
-  }
-
   handleRegister = () => {
+    const store = this.props
     this.props.form.validateFields((error, value) => {
       if(!error) {
-        this.props.handleRegister(value)
+        const formData = {
+          address: value.address,
+          birthday: moment(value.birthday).format('YYYY-MM-DD'),
+          cardId: value.cardId,
+          cardType: value.cardType[0],
+          mobile: value.mobile,
+          origin: 'wx',
+          password: value.password,
+          sex: value.sex[0],
+          username: value.username,
+          validateCode: value.validateCode,
+          wechatId: store.globalReducer.weChatId
+        }
+        store.dispatch(registerAction(formData))
       }
     })
   }
@@ -97,7 +90,7 @@ class Index extends React.Component {
           <InputItem 
             {...getFieldProps('username', {rules: [{required: true, message: '请输入真实姓名'}]})}
             type='text'
-            placeholder='请输入真实姓名（必填）'
+            placeholder='请输入真实姓名'
             labelNumber={7}
             error={isFieldTouched('username')&&getFieldError('username')}
             onErrorClick={() => Toast.info(getFieldError('username'))}
@@ -105,7 +98,7 @@ class Index extends React.Component {
           <InputItem 
             {...getFieldProps('password', {rules: [{validator: this.checkPassword}]})}
             type='password'
-            placeholder='请输入密码（必填）'
+            placeholder='请输入密码'
             labelNumber={7}
             error={isFieldTouched('password')&&getFieldError('password')}
             onErrorClick={() => Toast.info(getFieldError('password'))}
@@ -113,7 +106,7 @@ class Index extends React.Component {
           <InputItem 
             {...getFieldProps('passwordconfirm', {rules: [{validator: this.checkPassword}]})}
             type='password'
-            placeholder='请输入密码（必填）'
+            placeholder='请再次输入密码'
             labelNumber={7}
             error={isFieldTouched('passwordconfirm')&&getFieldError('passwordconfirm')}
             onErrorClick={() => Toast.info(getFieldError('passwordconfirm'))}
@@ -129,7 +122,7 @@ class Index extends React.Component {
           <InputItem 
             {...getFieldProps('cardId', {rules: [{required: true, message: '请输入证件号'}]})}
             type='text'
-            placeholder='请输入证件号（必填）'
+            placeholder='请输入证件号'
             labelNumber={7}
             error={isFieldTouched('cardId')&&getFieldError('cardId')}
             onErrorClick={() => Toast.info(getFieldError('cardId'))}
@@ -140,20 +133,20 @@ class Index extends React.Component {
           <InputItem
             {...getFieldProps('mobile', {rules: [{required: true, message: '请输入手机号'}, {pattern: /1\d{10}\b/, message: '请输入正确的11位手机号'}]})}
             type='number' 
-            placeholder='请输入手机号（必填）'
+            placeholder='请输入手机号'
             labelNumber={7}
             error={isFieldTouched('mobile')&&getFieldError('mobile')}
             onErrorClick={() => Toast.info(getFieldError('mobile'))}
           ><i className='anticon icon-mobile1 login__icon' />手机号</InputItem>
           <InputItem 
-            {...getFieldProps('code', {rules: [{validator: this.checkCode}]})}
+            {...getFieldProps('validateCode', {rules: [{required: true, message: '请输入验证码'}]})}
             type='number' 
-            placeholder='请输入验证码（必填）'
+            placeholder='请输入验证码'
             labelNumber={7}
             extra={this.state.codeMsg}
             onExtraClick={this.getCode}
-            error={isFieldTouched('code')&&getFieldError('code')}
-            onErrorClick={() => Toast.info(getFieldError('code'))}
+            error={isFieldTouched('validateCode')&&getFieldError('validateCode')}
+            onErrorClick={() => Toast.info(getFieldError('validateCode'))}
           ><i className='anticon icon-mobile1 login__icon' />验证码</InputItem>
           <Picker 
             {...getFieldProps('sex', {initialValue: [1]})}
@@ -175,7 +168,7 @@ class Index extends React.Component {
             {...getFieldProps('address', {rules: [{required: true, message: '请输入联系地址'}]})}
             title={<div><i className='anticon icon-enviromento login__icon' />联系地址</div>}
             type='text'
-            placeholder='请输入联系地址（必填）'
+            placeholder='请输入联系地址'
             error={isFieldTouched('address')&&getFieldError('address')}
             onErrorClick={() => Toast.info(getFieldError('address'))}
             rows={2}
@@ -193,7 +186,7 @@ class Index extends React.Component {
         </WingBlank>
         <WhiteSpace size='xl' />
         <WingBlank size='lg'>
-          <Button type='primary' disabled={this.hasErrors(getFieldsError())} onClick={this.handleRegister}>注册</Button>
+          <Button type='primary' disabled={hasErrors(getFieldsError())} onClick={this.handleRegister}>注册</Button>
         </WingBlank>
         <WhiteSpace size='xl' />
       </div>
@@ -201,4 +194,4 @@ class Index extends React.Component {
   }
 }
 
-export default createForm()(Index)
+export default connect(state => state)(createForm()(Index))

@@ -6,14 +6,10 @@ import { createForm } from 'rc-form'
 
 import Head from '../Common/Head'
 
-import { updateState } from '../../store/actions/global.action'
-import { HttpHostService } from '../../utilities/httpService'
+import { loginAction } from '../../store/actions/login.action'
+import { hasErrors } from '../../utilities/common'
 
 import './login.scss'
-
-const PATH = {
-  login: '/api/login'
-}
 
 class Index extends React.Component {
 
@@ -28,19 +24,9 @@ class Index extends React.Component {
           username: value.username,
           wechatId: store.globalReducer.weChatId
         }
-        HttpHostService.post(`${PATH.login}`, formData).then(res => {
-          console.log(res)
-          if(res) {
-            store.dispatch(updateState({accessToken: res.accessToken}))
-            this.props.onComplete()
-          }
-        })
+        store.dispatch(loginAction(formData))
       }
     });
-  }
-
-  hasErrors = (fieldsError) => {
-    return Object.keys(fieldsError).some(field => fieldsError[field]);
   }
 
   render() {
@@ -73,7 +59,7 @@ class Index extends React.Component {
         </WingBlank>
         <WhiteSpace size='xl' />
         <WingBlank size='lg'>
-          <Button type='primary' disabled={this.hasErrors(getFieldsError())} onClick={this.handleLogin}>登录</Button>
+          <Button type='primary' disabled={hasErrors(getFieldsError())} onClick={this.handleLogin}>登录</Button>
         </WingBlank>
         <WhiteSpace size='xl' />
         <WhiteSpace size='xl' />

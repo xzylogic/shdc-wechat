@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import ResetPasswordComponent from '../../app/components/Login/ResetPasswordComponent'
 
-import { updateState } from '../../app/store/actions/global.action'
+import ResetPasswordComponent from '../../app/components/Login/ResetPasswordComponent'
+import { initGlobalQuery } from '../../app/utilities/common';
 
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
-    store.dispatch(updateState(query))
+    initGlobalQuery(store, query)
   }
 
   render() {
