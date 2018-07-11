@@ -4,7 +4,7 @@ import Router from 'next/router'
 import { WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
 import { FlexList, MainContainer, FlexListConfigEntity, SubContent } from '../Common/FlexList'
-import { initAccountInfo } from '../../store/actions/personal/account.action'
+import { loadAccountInfoAction } from '../../store/actions/personal/account.action'
 import { renderSex } from '../../utilities/common'
 
 import './personal.scss'
@@ -12,8 +12,8 @@ import './personal.scss'
 class Index extends React.Component {
   componentDidMount() {
     const store = this.props
-    if (!store.globalReducer.accountInfo) {
-      store.dispatch(initAccountInfo(store.globalReducer.accessToken))
+    if (!store.accountReducer.accountInfo) {
+      store.dispatch(loadAccountInfoAction())
     }
   }
   
@@ -31,28 +31,28 @@ class Index extends React.Component {
       withBorder: false
     })
     const { accountReducer } = this.props
-    const accountInfo = accountReducer.accountInfo || {}
+    const { accountInfo } = accountReducer
     return (
       <div>
         <FlexList 
           sub={<SubContent title='真实姓名' icon='user' />}
           config={configList}>
           <MainContainer mainClass='user__ownlist'>
-            <p>{accountInfo.username}</p>
+            <p>{accountInfo && accountInfo.username}</p>
           </MainContainer>
         </FlexList>
         <FlexList 
           sub={<SubContent title='身份证号' icon='idcard' />}
           config={configList}>
           <MainContainer mainClass='user__ownlist'>
-            <p>{accountInfo.cardId}</p>
+            <p>{accountInfo && accountInfo.cardId}</p>
           </MainContainer>
         </FlexList>
         <FlexList 
           sub={<SubContent title='手机号' icon='mobile1' />}
           config={configListLast}>
           <MainContainer mainClass='user__ownlist'>
-            <p>{accountInfo.mobile}</p>
+            <p>{accountInfo && accountInfo.mobile}</p>
           </MainContainer>
         </FlexList>
         <WhiteSpace size='lg' />
@@ -60,21 +60,21 @@ class Index extends React.Component {
           sub={<SubContent title='性别' icon='smileo' />}
           config={configList}>
           <MainContainer mainClass='user__ownlist'>
-            <p>{renderSex(accountInfo.sex)}</p>
+            <p>{renderSex(accountInfo && accountInfo.sex)}</p>
           </MainContainer>
         </FlexList>
         <FlexList 
           sub={<SubContent title='生日' icon='gift' />}
           config={configList}>
           <MainContainer mainClass='user__ownlist'>
-            <p>{accountInfo.birthday}</p>
+            <p>{accountInfo && accountInfo.birthday}</p>
           </MainContainer>
         </FlexList>
         <FlexList 
           sub={<SubContent title='联系地址' icon='enviromento' />}
           config={configListLast}>
           <MainContainer mainClass='user__ownlist'>
-            <p>{accountInfo.address}</p>
+            <p>{accountInfo && accountInfo.address}</p>
           </MainContainer>
         </FlexList>
         <WhiteSpace size='lg' />

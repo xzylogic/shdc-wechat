@@ -6,18 +6,18 @@ import RenderPage from '../../app/components/Common/RenderPage'
 import AccountComponent from '../../app/components/Personal/AccountComponent'
 
 import { initGlobalQuery, recordCurrentPage } from '../../app/utilities/common'
-import { initAccountInfo, loadAccountList } from '../../app/store/actions/personal/account.action'
+import { loadAccountInfoAction, loadAccountListAction } from '../../app/store/actions/personal/account.action'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query } = props.ctx
 
     initGlobalQuery(store, query).then(() => {
-      if (!store.getState().globalReducer.accountInfo) {
-        store.dispatch(initAccountInfo(query.accessToken || store.getState().globalReducer.accessToken))
+      if (!store.getState().accountReducer.accountInfo) {
+        store.dispatch(loadAccountInfoAction())
       }
-      if (!store.getState().globalReducer.accountList) {
-        store.dispatch(loadAccountList(query.accessToken || store.getState().globalReducer.accessToken))
+      if (!store.getState().accountReducer.accountList) {
+        store.dispatch(loadAccountListAction())
       }
     })
   }

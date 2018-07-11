@@ -71,7 +71,6 @@ class Index extends React.Component {
           >
             <List.Item arrow='horizontal'><i className='anticon icon-idcard login__icon' />证件类型</List.Item>
           </Picker>
-          
           <InputItem 
             {...getFieldProps('userCardId', {rules: [{required: true, message: '请输入证件号'}]})}
             type='text'

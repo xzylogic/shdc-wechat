@@ -54,7 +54,7 @@ function* getCode(actions) {
 }
 
 const getbackPasswordService = (data) => {
-  return HttpToastService.post(`${PATH.getbackPassword}`, data)
+  return HttpToastService.post(`${PATH.getbackPassword}`, data, {headers: { version: '2.0' }})
 }
 
 function* getbackPassword(actions) {

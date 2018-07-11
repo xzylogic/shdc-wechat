@@ -5,18 +5,18 @@ import { List, WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
 import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
 import { renderSex, renderCardType, renderMedicineCardType } from '../../utilities/common'
-import { initAccountInfo, loadAccountList } from '../../store/actions/personal/account.action'
+import { loadAccountInfoAction, loadAccountListAction } from '../../store/actions/personal/account.action'
 
 import './personal.scss'
 
 class Index extends React.Component {
   componentDidMount() {
     const store = this.props
-    if (!store.globalReducer.accountInfo) {
-      store.dispatch(initAccountInfo(store.globalReducer.accessToken))
+    if (!store.accountReducer.accountInfo) {
+      store.dispatch(loadAccountInfoAction())
     }
-    if (!store.globalReducer.accountList) {
-      store.dispatch(loadAccountList(store.globalReducer.accessToken))
+    if (!store.accountReducer.accountList) {
+      store.dispatch(loadAccountListAction())
     }
   }
 
@@ -40,20 +40,20 @@ class Index extends React.Component {
       withBorder: 'border'
     })
     const { accountReducer } = this.props
-    const accountInfo = accountReducer.accountInfo || {}
-    const accountList = accountReducer.accountList || []
+    const { accountInfo } = accountReducer
+    const { accountList } = accountReducer
     return (
       <div>
         <Link href={`/personal/detail`}>
           <List>
             <FlexList
-              sub={<ImageContainer imageUrl={accountInfo.portrait || '/static/images/avatar_user.png'} imageClass='user__avatar' containerPadding='18px 12px' />}
+              sub={<ImageContainer imageUrl={accountInfo && accountInfo.portrait || '/static/images/avatar_user.png'} imageClass='user__avatar' containerPadding='18px 12px' />}
               extra={<i className='anticon icon-right user__arraw' />}
               config={configAccount}>
               <MainContainer mainClass='user__desc'>
-                <p className='name'>{accountInfo.username}</p>
-                <p>身份证号：{accountInfo.cardId}</p>
-                <p>联系电话：{accountInfo.mobile}</p>
+                <p className='name'>{accountInfo && accountInfo.username}</p>
+                <p>身份证号：{accountInfo && accountInfo.cardId}</p>
+                <p>联系电话：{accountInfo && accountInfo.mobile}</p>
               </MainContainer>
             </FlexList>
           </List>

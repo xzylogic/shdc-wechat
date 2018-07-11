@@ -1,14 +1,16 @@
-import { put, takeLatest, call } from 'redux-saga/effects'
+import { put, takeLatest, call, select } from 'redux-saga/effects'
+import Router from 'next/router'
 
 import { actionTypes, updateAccountInfo, updateAccountList } from '../../actions/personal/account.action'
-import { authLogin, authNotLogin, authError } from '../../actions/global.action'
-import { HttpService } from '../../../utilities/httpService'
+import { authNotLogin, authError } from '../../actions/global.action'
+import { HttpService, HttpToastService } from '../../../utilities/httpService'
 
 import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
   getAccountInfo: '/api/user/getPersonalInfo',
-  getAccountList: '/api/user/card/list'
+  getAccountList: '/api/user/card/list',
+  resetPassword: '/api/user/resetPassword'
 }
 
 const getAccountInfo = (accessToken) => {
@@ -19,9 +21,10 @@ const getAccountList = (accessToken) => {
   return HttpService.get(`${PATH.getAccountList}`, {headers: { 'access-token': accessToken}})
 }
 
-function* loadAccountInfo(actions) {
+function* loadAccountInfo() {
   try {
-    const data = yield call(getAccountInfo, actions.token)
+    const { accessToken } = yield select((state) => state.globalReducer)
+    const data = yield call(getAccountInfo, accessToken)
     yield put(updateAccountInfo(data || {}))
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
@@ -32,9 +35,10 @@ function* loadAccountInfo(actions) {
   }
 }
 
-function* loadAccountList(actions) {
+function* loadAccountList() {
   try {
-    const data = yield call(getAccountList, actions.token)
+    const { accessToken } = yield select((state) => state.globalReducer)
+    const data = yield call(getAccountList, accessToken)
     yield put(updateAccountList(data || []))
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
@@ -45,7 +49,20 @@ function* loadAccountList(actions) {
   }
 }
 
+const resetPasswordService = (data, accessToken) => {
+  return HttpToastService.post(`${PATH.resetPassword}`, data, {headers: { 'access-token': accessToken}})
+}
+
+function* resetPassword(actions) {
+  const { accessToken } = yield select((state) => state.globalReducer)
+  const res = yield call(resetPasswordService, actions.data, accessToken)
+  if (res) {
+    Router.push('/login')
+  }
+}
+
 export const accountSaga = [
-  takeLatest(actionTypes.INIT_ACCOUNT_INFO, loadAccountInfo),
-  takeLatest(actionTypes.LOAD_ACCOUNT_LIST, loadAccountList)
+  takeLatest(actionTypes.LOAD_ACCOUNT_INFO, loadAccountInfo),
+  takeLatest(actionTypes.LOAD_ACCOUNT_LIST, loadAccountList),
+  takeLatest(actionTypes.RESET_PASSWORD, resetPassword)
 ]

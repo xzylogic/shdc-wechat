@@ -1,22 +1,21 @@
 export const actionTypes = {
-  INIT_ACCOUNT_INFO: 'INIT_ACCOUNT_INFO',
+  LOAD_ACCOUNT_INFO: 'LOAD_ACCOUNT_INFO',
   UPDATE_ACCOUNT_INFO: 'UPDATE_ACCOUNT_INFO',
   LOAD_ACCOUNT_LIST: 'LOAD_ACCOUNT_LIST',
   UPDATE_ACCOUNT_LIST: 'UPDATE_ACCOUNT_LIST',
-  UPDATE_ACCOUNT_DETAIL:'UPDATE_ACCOUNT_DETAIL'
+  UPDATE_ACCOUNT_DETAIL:'UPDATE_ACCOUNT_DETAIL',
+  RESET_PASSWORD: 'RESET_PASSWORD'
 }
 
-export const initAccountInfo = (accessToken) => {
+export const loadAccountInfoAction = () => {
   return {
-    type: actionTypes.INIT_ACCOUNT_INFO,
-    token: accessToken
+    type: actionTypes.LOAD_ACCOUNT_INFO
   }
 }
 
-export const loadAccountList = (accessToken) => {
+export const loadAccountListAction = () => {
   return {
-    type: actionTypes.LOAD_ACCOUNT_LIST,
-    token: accessToken
+    type: actionTypes.LOAD_ACCOUNT_LIST
   }
 }
 
@@ -37,6 +36,13 @@ export const updateAccountList = (data) => {
 export const updateAccountDetail = (data) => {
   return {
     type: actionTypes.UPDATE_ACCOUNT_DETAIL,
+    data: data
+  }
+}
+
+export const resetPasswordAction = (data) => {
+  return {
+    type: actionTypes.RESET_PASSWORD,
     data: data
   }
 }
