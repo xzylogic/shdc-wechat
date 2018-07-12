@@ -5,14 +5,14 @@ import { WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
 import { FlexList, MainContainer, FlexListConfigEntity, SubContent } from '../Common/FlexList'
 import { loadAccountInfoAction } from '../../store/actions/personal/account.action'
-import { renderSex } from '../../utilities/common'
+import { renderSex, checkNullObj } from '../../utilities/common'
 
 import './personal.scss'
 
 class Index extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
     const store = this.props
-    if (!store.accountReducer.accountInfo) {
+    if (checkNullObj(store.accountReducer.accountInfo)) {
       store.dispatch(loadAccountInfoAction())
     }
   }

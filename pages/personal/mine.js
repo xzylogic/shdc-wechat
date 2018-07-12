@@ -5,7 +5,7 @@ import Head from '../../app/components/Common/Head'
 import RenderPage from '../../app/components/Common/RenderPage'
 import AccountComponent from '../../app/components/Personal/AccountComponent'
 
-import { initGlobalQuery, recordCurrentPage } from '../../app/utilities/common'
+import { initGlobalQuery, recordCurrentPage, checkNullObj, checkNullArr } from '../../app/utilities/common'
 import { loadAccountInfoAction, loadAccountListAction } from '../../app/store/actions/personal/account.action'
 
 class Index extends React.Component {
@@ -13,10 +13,10 @@ class Index extends React.Component {
     const {store, query } = props.ctx
 
     initGlobalQuery(store, query).then(() => {
-      if (!store.getState().accountReducer.accountInfo) {
+      if (checkNullObj(store.getState().accountReducer.accountInfo)) {
         store.dispatch(loadAccountInfoAction())
       }
-      if (!store.getState().accountReducer.accountList) {
+      if (checkNullArr(store.getState().accountReducer.accountList)) {
         store.dispatch(loadAccountListAction())
       }
     })

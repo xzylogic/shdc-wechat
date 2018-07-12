@@ -1,5 +1,4 @@
 import * as axios from 'axios'
-
 import * as CODE from '../status-code'
 
 function getStrategy(url, config = {}) {

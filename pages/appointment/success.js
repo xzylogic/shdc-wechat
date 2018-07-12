@@ -4,17 +4,17 @@ import { connect } from 'react-redux'
 import Head from '../../app/components/Common/Head'
 import SuccessComponent from '../../app/components/Appointment/SuccessComponent'
 
-import { updateState, updateCurrent } from '../../app/store/actions/global.action'
+import { initGlobalQuery, recordCurrentPage} from '../../app/utilities/common'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
-    store.dispatch(updateState(query))
+    initGlobalQuery(store, query)
   }
 
   componentDidMount() {
     const store = this.props
-    store.dispatch(updateCurrent(`/appointment/success`))
+    recordCurrentPage(store, `/appointment/success`)
   }
 
   render() {

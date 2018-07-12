@@ -4,18 +4,22 @@ import { connect } from 'react-redux'
 import { List, WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
 import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
-import { renderSex, renderCardType, renderMedicineCardType } from '../../utilities/common'
+import { renderSex, renderCardType, renderMedicineCardType, checkNullObj, checkNullArr } from '../../utilities/common'
 import { loadAccountInfoAction, loadAccountListAction } from '../../store/actions/personal/account.action'
 
 import './personal.scss'
 
 class Index extends React.Component {
-  componentDidMount() {
+  state = {
+    descOn: false 
+  }
+
+  componentWillMount() {
     const store = this.props
-    if (!store.accountReducer.accountInfo) {
+    if (checkNullObj(store.accountReducer.accountInfo)) {
       store.dispatch(loadAccountInfoAction())
     }
-    if (!store.accountReducer.accountList) {
+    if (checkNullArr(store.accountReducer.accountList)) {
       store.dispatch(loadAccountListAction())
     }
   }
@@ -84,13 +88,20 @@ class Index extends React.Component {
         }
         <WhiteSpace />
         <List style={{border: 0}}>
-          <List.Item thumb={<i className='anticon icon-exclamationcircle user__tipicon' />} arrow='down'>
+          <List.Item 
+            thumb={<i className='anticon icon-exclamationcircle user__tipicon' />} 
+            arrow={this.state.descOn ? 'down':'horizontal'} 
+            onClick={() => this.setState({descOn: !this.state.descOn})}
+          >
             家庭卡添加说明
-          </List.Item>
+          </List.Item>{ this.state.descOn ? (
+          <p style={{padding: '15px'}}>
+            家庭卡添加说明家庭卡添加说明家庭卡添加说明家庭卡添加说明家庭卡添加说明
+          </p>) : ''}
         </List>
         <WhiteSpace size='lg' />
         <WingBlank>
-          <Link href={`/personal/familyadd`}>
+          <Link href={`/personal/family/add`}>
             <Button type='primary'>添加家庭关系</Button>
           </Link>
         </WingBlank>

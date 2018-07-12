@@ -4,10 +4,9 @@ import Link from 'next/link'
 import { SearchBar } from 'antd-mobile'
 
 import { Tabs, Tab } from '../Common/Tabs'
-import { loadDepartmentsChild } from '../../store/actions/appointment/departments.action'
+import { loadDepartmentsChildAction } from '../../store/actions/appointment/departments.action'
 
 import './appointment.scss'
-
 
 class RenderLink extends React.Component {
   render() {
@@ -16,11 +15,11 @@ class RenderLink extends React.Component {
     const deptCode = this.props.deptCode
     switch(pageType) {
       case '1':
-        return (<Link href={`/appointment/doctors/${hosOrgCode}/${deptCode}`}>{this.props.children}</Link>)
+        return (<Link href={`/appointment/doctors?hosOrgCode=${hosOrgCode}&deptCode=${deptCode}`} as={`/appointment/doctors/${hosOrgCode}/${deptCode}`}>{this.props.children}</Link>)
       case '2':
-        return (<Link href={`/appointment/consultation/${hosOrgCode}/${deptCode}/${pageType}`}>{this.props.children}</Link>)
+        return (<Link href={`/appointment/consultation?hosOrgCode=${hosOrgCode}&deptCode=${deptCode}&pageType=${pageType}`} as={`/appointment/consultation/${hosOrgCode}/${deptCode}/${pageType}`}>{this.props.children}</Link>)
       case '3':
-        return (<Link href={`/appointment/consultation/${hosOrgCode}/${deptCode}/${pageType}`}>{this.props.children}</Link>)
+        return (<Link href={`/appointment/consultation?hosOrgCode=${hosOrgCode}&deptCode=${deptCode}&pageType=${pageType}`} as={`/appointment/consultation/${hosOrgCode}/${deptCode}/${pageType}`}>{this.props.children}</Link>)
       default:
         return this.props.children
     }
@@ -31,8 +30,8 @@ class Index extends React.Component {
   handleTabClick = (index) => {
     const store = this.props
     const { departmentsReducer } = store
-    const { hosOrgCode, deptType, departmentsParent} = departmentsReducer
-    store.dispatch(loadDepartmentsChild(hosOrgCode, deptType, departmentsParent[index].hosDeptCode))
+    const { departmentsParent } = departmentsReducer
+    store.dispatch(loadDepartmentsChildAction(departmentsParent[index].hosDeptCode))
   }
 
   render() {

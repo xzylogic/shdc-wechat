@@ -3,15 +3,16 @@ import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
 import DoctorsComponent from '../../app/components/Appointment/DoctorsComponent'
-import { loadDoctors } from '../../app/store/actions/appointment/doctors.action'
 
-import { updateState, updateCurrent } from '../../app/store/actions/global.action'
+import { initGlobalQuery, recordCurrentPage} from '../../app/utilities/common'
+import { loadDoctors } from '../../app/store/actions/appointment/doctors.action'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
-    store.dispatch(updateState(query))
+    initGlobalQuery(store)
     store.dispatch(loadDoctors(query.hosOrgCode, query.deptCode))
+
     return {
       query: query
     }
@@ -20,7 +21,7 @@ class Index extends React.Component {
   componentDidMount() {
     const store = this.props
     const { query } = this.props
-    store.dispatch(updateCurrent(`/appointment/doctors/${query.hosOrgCode}/${query.deptCode}`))
+    recordCurrentPage(store, `/appointment/doctors/${query.hosOrgCode}/${query.deptCode}`)
   }
 
   render() {

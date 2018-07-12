@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { initGlobalQuery } from '../../app/utilities/common';
+import Head from '../../app/components/Common/Head'
+
+import { initGlobalQuery } from '../../app/utilities/common'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
@@ -11,7 +13,10 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div>Agreement</div>
+      <div>
+        <Head title='用户协议' />
+        Agreement
+      </div>
     )
   }
 }

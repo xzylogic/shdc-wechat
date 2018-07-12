@@ -1,8 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import Head from '../../app/components/Common/Head'
 import ResetPasswordComponent from '../../app/components/Login/ResetPasswordComponent'
-import { initGlobalQuery } from '../../app/utilities/common';
+
+import { initGlobalQuery } from '../../app/utilities/common'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
@@ -13,6 +15,7 @@ class Index extends React.Component {
   render() {
     return (
       <div>
+        <Head title='忘记密码' />
         <ResetPasswordComponent />
       </div>
     )

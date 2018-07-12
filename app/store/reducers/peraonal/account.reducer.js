@@ -6,7 +6,7 @@ export const accountReducer = (state = initialAccountState, action = {}) => {
     case actionTypes.UPDATE_ACCOUNT_INFO:
       return {
         ...state,
-        ...{accountInfo: action.data}
+        ...{ accountInfo: action.data }
       }
     case actionTypes.UPDATE_ACCOUNT_LIST:
       return {

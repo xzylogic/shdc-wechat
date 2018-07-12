@@ -1,14 +1,17 @@
-import { put, takeLatest, call } from 'redux-saga/effects'
+import { put, takeLatest, call, select } from 'redux-saga/effects'
+import { Toast } from 'antd-mobile'
 
 import { actionTypes, updateDepartmentsParent, updateDepartmentsChild, initCodeAndType } from '../../actions/appointment/departments.action'
+import { authError, authNotLogin } from '../../actions/global.action'
 import { HttpToastService, HttpService } from '../../../utilities/httpService'
+import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
   queryDepartments: '/api/department/query-parent-and-department',
   queryDepartmentsChild: '/api/department/query-department'
 }
 
-const getDepartments = (hosOrgCode, deptType, parentId) => {
+const getDepartmentsService = (hosOrgCode, deptType, parentId) => {
   const query = `?hosOrgCode=${hosOrgCode}&deptType=${deptType}`
   if (parentId) {
     query += `&parentId=${parentId}`
@@ -16,32 +19,37 @@ const getDepartments = (hosOrgCode, deptType, parentId) => {
   return HttpService.get(`${PATH.queryDepartments}${query}`)
 }
 
-const getDepartmentsChild = (hosOrgCode, deptType, parentId) => {
+function* loadDepartments() {
+  try {
+    const { hosOrgCode, deptType } = yield select((state) => state.departmentsReducer)
+    const data = yield call(getDepartmentsService, hosOrgCode, deptType)
+    yield put(updateDepartmentsParent(data))
+    yield put(updateDepartmentsChild(data && data[0] && data[0].children || []))
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
+  }
+}
+
+const getDepartmentsChildService = (hosOrgCode, deptType, parentId) => {
   const query = `?hosOrgCode=${hosOrgCode}&deptType=${deptType}&parentId=${parentId}`
   return HttpToastService.get(`${PATH.queryDepartmentsChild}${query}`)
 }
 
-function* loadDepartments(actions) {
-  try {
-    const data = yield call(getDepartments, actions.hosOrgCode, actions.deptType)
-    yield put(initCodeAndType(actions.hosOrgCode, actions.deptType, actions.pageType))
-    yield put(updateDepartmentsParent(data || []))
-    yield put(updateDepartmentsChild(data && data[0] && data[0].children || []))
-  } catch (err) {
-    throw new Error(err)
-  }
-}
-
 function* loadDepartmentsChild(actions) {
-  try {
-    const data = yield call(getDepartmentsChild, actions.hosOrgCode, actions.deptType, actions.parentId)
-    yield put(updateDepartmentsChild(data || []))
-  } catch (err) {
-    throw new Error(err)
-  }
+  yield Toast.loading('Loading...')
+  const { hosOrgCode, deptType } = yield select((state) => state.departmentsReducer)
+  const data = yield call(getDepartmentsChildService, hosOrgCode, deptType, actions.data)
+  if (data) {
+    yield put(updateDepartmentsChild(data))
+    yield Toast.hide()
+  }  
 }
 
 export const departmentsSaga = [
-  takeLatest(actionTypes.INIT_DEPARTMENTS, loadDepartments),
+  takeLatest(actionTypes.LOAD_DEPARTMENTS, loadDepartments),
   takeLatest(actionTypes.LOAD_DEPARTMENTS_CHILD, loadDepartmentsChild)
 ]

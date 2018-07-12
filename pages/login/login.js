@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import LoginComponent from '../../app/components/Login/LoginComponent'
 
-import { initGlobalQuery } from '../../app/utilities/common';
+import { initGlobalQuery } from '../../app/utilities/common'
 
 class Index extends React.Component {
   static async getInitialProps(props) {

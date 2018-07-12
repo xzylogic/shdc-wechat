@@ -6,44 +6,17 @@ import Head from '../../app/components/Common/Head'
 import RenderPage from '../../app/components/Common/RenderPage'
 import FamilyAddComponent from '../../app/components/Personal/FamilyAddComponent'
 
-import { updateState, updateCurrent } from '../../app/store/actions/global.action'
-import { loadAccountList } from '../../app/store/actions/personal/account.action'
-import { HttpToastService } from '../../app/utilities/httpService/index'
-
-const PATH = {
-  cardAdd: '/api/user/card/add'
-}
+import { initGlobalQuery, recordCurrentPage } from '../../app/utilities/common'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
-    store.dispatch(updateState(query))
+    initGlobalQuery(store, query)
   }
 
   componentDidMount() {
     const store = this.props
-    store.dispatch(updateCurrent(`/personal/appointment`))
-  }
-
-  handleSubmit = (value) => {
-    const store = this.props
-    const { globalReducer } = store
-    const formData = {
-      cardId: value.cardId,
-      cardType: value.cardType[0],
-      medicineCardId: value.medicineCardId,
-      medicineCardType: value.medicineCardType[0],
-      mobile: value.mobile,
-      name: value.name,
-      sex: value.sex[0]
-    }
-    HttpToastService.post(`${PATH.cardAdd}`, formData, {headers: {'access-token': globalReducer.accessToken}}).then(res => {
-      console.log(res)
-      if(res) {
-        store.dispatch(loadAccountList({accessToken: globalReducer.accessToken}))
-        Router.push(`/personal/mine`)
-      }
-    })
+    recordCurrentPage(store, `/personal/familyadd`)
   }
 
   render() {
@@ -51,7 +24,7 @@ class Index extends React.Component {
       <div>
         <Head title='添加家庭成员' />
         <RenderPage>
-          <FamilyAddComponent handleSubmit={this.handleSubmit} />
+          <FamilyAddComponent />
         </RenderPage>
       </div>
     )

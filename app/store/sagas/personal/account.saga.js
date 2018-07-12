@@ -1,7 +1,7 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 import Router from 'next/router'
 
-import { actionTypes, updateAccountInfo, updateAccountList } from '../../actions/personal/account.action'
+import { actionTypes, updateAccountInfo, updateAccountList, loadAccountListAction } from '../../actions/personal/account.action'
 import { authNotLogin, authError } from '../../actions/global.action'
 import { HttpService, HttpToastService } from '../../../utilities/httpService'
 
@@ -10,22 +10,21 @@ import * as CODE from '../../../utilities/status-code'
 const PATH = {
   getAccountInfo: '/api/user/getPersonalInfo',
   getAccountList: '/api/user/card/list',
-  resetPassword: '/api/user/resetPassword'
+  resetPassword: '/api/user/resetPassword',
+  familyAdd: '/api/user/card/add'
 }
 
-const getAccountInfo = (accessToken) => {
+const getAccountInfoService = (accessToken) => {
   return HttpService.get(`${PATH.getAccountInfo}`, {headers: { 'access-token': accessToken}})
-}
-
-const getAccountList = (accessToken) => {
-  return HttpService.get(`${PATH.getAccountList}`, {headers: { 'access-token': accessToken}})
 }
 
 function* loadAccountInfo() {
   try {
     const { accessToken } = yield select((state) => state.globalReducer)
-    const data = yield call(getAccountInfo, accessToken)
-    yield put(updateAccountInfo(data || {}))
+    const data = yield call(getAccountInfoService, accessToken)
+    if (data) {
+      yield put(updateAccountInfo(data))
+    }
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
       yield put(authNotLogin())
@@ -35,17 +34,36 @@ function* loadAccountInfo() {
   }
 }
 
+const getAccountListService = (accessToken) => {
+  return HttpService.get(`${PATH.getAccountList}`, {headers: { 'access-token': accessToken}})
+}
+
 function* loadAccountList() {
   try {
     const { accessToken } = yield select((state) => state.globalReducer)
-    const data = yield call(getAccountList, accessToken)
-    yield put(updateAccountList(data || []))
+    const data = yield call(getAccountListService, accessToken)
+    if (data) {
+      yield put(updateAccountList(data))
+    }
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
       yield put(authNotLogin())
     } else {
       yield put(authError({errorMsg: error.message}))
     }
+  }
+}
+
+const familyAddService = (data, accessToken) => {
+  HttpToastService.post(`${PATH.familyAdd}`, data, {headers: {'access-token':accessToken}})
+}
+
+function* familyAdd(actions) {
+  const { accessToken } = yield select((state) => state.globalReducer)
+  const res = yield call(familyAddService, actions.data, accessToken)
+  if (res) {
+    yield put(loadAccountListAction())
+    yield Router.push(`/personal/mine`)
   }
 }
 
@@ -64,5 +82,6 @@ function* resetPassword(actions) {
 export const accountSaga = [
   takeLatest(actionTypes.LOAD_ACCOUNT_INFO, loadAccountInfo),
   takeLatest(actionTypes.LOAD_ACCOUNT_LIST, loadAccountList),
-  takeLatest(actionTypes.RESET_PASSWORD, resetPassword)
+  takeLatest(actionTypes.RESET_PASSWORD, resetPassword),
+  takeLatest(actionTypes.FAMILY_ADD, familyAdd)
 ]

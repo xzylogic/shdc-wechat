@@ -1,6 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { List, InputItem, WingBlank, WhiteSpace, Button, Picker, Toast } from 'antd-mobile'
 import { createForm } from 'rc-form'
+
+import { familyAddAction } from '../../store/actions/personal/account.action'
 
 import '../Login/login.scss'
 
@@ -11,9 +14,19 @@ class Index extends React.Component {
   }
 
   handleSubmit = () => {
+    const store = this.props
     this.props.form.validateFields((error, value) => {
       if(!error) {
-        this.props.handleSubmit(value)
+        const formData = {
+          cardId: value.cardId,
+          cardType: value.cardType[0],
+          medicineCardId: value.medicineCardId,
+          medicineCardType: value.medicineCardType[0],
+          mobile: value.mobile,
+          name: value.name,
+          sex: value.sex[0]
+        }
+        store.dispatch(familyAddAction(formData))
       }
     })
   }
@@ -90,4 +103,4 @@ class Index extends React.Component {
   }
 }
 
-export default createForm()(Index)
+export default connect(state => state)(createForm()(Index))

@@ -1,34 +1,59 @@
 import React from 'react'
-import { Tabs, Badge, SearchBar } from 'antd-mobile'
+import { connect } from 'react-redux'
+import { Tabs, SearchBar } from 'antd-mobile'
 
 import HospitalList from './HospitalList'
+import SearchList from './SearchList'
+
+import { updateTab, updateSearchParam, loadSearchAction } from '../../store/actions/appointment/hospitals.action'
 
 import './appointment.scss'
 
 class Index extends React.Component {
-  render() {
+  handleTabClick = (tab, index) => {
+    const store = this.props
+    store.dispatch(updateTab(index))
+  }
+
+  handleSearch = (value) => {
+    const store = this.props
+    store.dispatch(updateSearchParam(value))
+    if (value.replace(/\s/g, '')) {
+      store.dispatch(loadSearchAction(value))
+    }
+  }
+
+  render() { 
     const tabs = [
       { title: '全部' },
       { title: '综合' },
       { title: '中医' },
       { title: '专科' }
     ]
+    const { hospitalsReducer } = this.props
+    const { tab, hospitalsAll, hospitalsZH, hospitalsZY, hospitalsZK, searchParam, hospitalsSearch } = hospitalsReducer
     return (
       <div>
-        <SearchBar placeholder='请输入医院名称、科室、专家姓名' maxLength={8} />
-        <Tabs tabs={tabs}
-          initialPage={0}
-          onChange={(tab, index) => { console.log('onChange', index, tab); }}
-          onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
-        >
-          <HospitalList hospitals={this.props.hospitalsAll} />
-          <HospitalList hospitals={this.props.hospitalsZH} />
-          <HospitalList hospitals={this.props.hospitalsZY} />
-          <HospitalList hospitals={this.props.hospitalsZK} />
-        </Tabs> 
+        <SearchBar 
+          placeholder='请输入医院名称、科室、专家姓名' 
+          value={searchParam}
+          onChange={this.handleSearch}
+          maxLength={20} 
+        />
+        { !searchParam ? (
+          <Tabs tabs={tabs}
+            initialPage={tab}
+            onChange={this.handleTabClick}
+          >
+            <HospitalList hospitals={hospitalsAll} />
+            <HospitalList hospitals={hospitalsZH} />
+            <HospitalList hospitals={hospitalsZY} />
+            <HospitalList hospitals={hospitalsZK} />
+          </Tabs> 
+        ) : <SearchList searchList={hospitalsSearch} />}
       </div>
     )
   }
 }
 
-export default Index
+export default connect(state => state)(Index)

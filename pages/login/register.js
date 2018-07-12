@@ -1,13 +1,12 @@
 import React from 'react'
-import Router from 'next/router'
 import { connect } from 'react-redux'
   
 import Head from '../../app/components/Common/Head'
 import RegisterComponent from '../../app/components/Login/RegisterComponent'
 
-import { initGlobalQuery } from '../../app/utilities/common';
+import { initGlobalQuery } from '../../app/utilities/common'
 
-class RegisterPage extends React.Component {
+class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
     initGlobalQuery(store, query)
@@ -23,4 +22,4 @@ class RegisterPage extends React.Component {
   }
 }
 
-export default connect(state => state)(RegisterPage)
+export default connect(state => state)(Index)

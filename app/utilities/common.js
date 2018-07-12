@@ -85,3 +85,11 @@ export const renderCardType = (cardType) => {
       return ''
   }
 }
+
+export const checkNullObj = (obj) => {
+  return obj && Object.keys(obj).length === 0
+}
+
+export const checkNullArr = (arr) => {
+  return arr && arr.length === 0
+}

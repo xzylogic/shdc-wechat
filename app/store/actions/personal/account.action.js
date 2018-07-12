@@ -4,7 +4,8 @@ export const actionTypes = {
   LOAD_ACCOUNT_LIST: 'LOAD_ACCOUNT_LIST',
   UPDATE_ACCOUNT_LIST: 'UPDATE_ACCOUNT_LIST',
   UPDATE_ACCOUNT_DETAIL:'UPDATE_ACCOUNT_DETAIL',
-  RESET_PASSWORD: 'RESET_PASSWORD'
+  RESET_PASSWORD: 'RESET_PASSWORD',
+  FAMILY_ADD: 'FAMILY_ADD'
 }
 
 export const loadAccountInfoAction = () => {
@@ -16,6 +17,13 @@ export const loadAccountInfoAction = () => {
 export const loadAccountListAction = () => {
   return {
     type: actionTypes.LOAD_ACCOUNT_LIST
+  }
+}
+
+export const familyAddAction = (data) => {
+  return {
+    type: actionTypes.FAMILY_ADD,
+    data: data
   }
 }
 

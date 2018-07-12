@@ -5,8 +5,7 @@ import Head from '../../app/components/Common/Head'
 import RenderPage from '../../app/components/Common/RenderPage'
 import AppointmentComponent from '../../app/components/Personal/AppointmentComponent'
 
-import { updateCurrent } from '../../app/store/actions/global.action'
-import { initGlobalQuery } from '../../app/utilities/common';
+import { initGlobalQuery, recordCurrentPage } from '../../app/utilities/common'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
@@ -16,7 +15,7 @@ class Index extends React.Component {
 
   componentDidMount() {
     const store = this.props
-    store.dispatch(updateCurrent(`/personal/appointment`))
+    recordCurrentPage(store, `/personal/appointment`)
   }
 
   render() {

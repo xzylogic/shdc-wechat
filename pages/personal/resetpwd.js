@@ -5,8 +5,7 @@ import Head from '../../app/components/Common/Head'
 import RenderPage from '../../app/components/Common/RenderPage'
 import ResetPasswordComponent from '../../app/components/Personal/ResetPasswordComponent'
 
-import { initGlobalQuery } from '../../app/utilities/common'
-import { updateCurrentPage } from '../../app/store/actions/global.action'
+import { initGlobalQuery, recordCurrentPage } from '../../app/utilities/common'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
@@ -16,7 +15,7 @@ class Index extends React.Component {
 
   componentDidMount() {
     const store = this.props
-    store.dispatch(updateCurrentPage(`/personal/mine`))
+    recordCurrentPage(store, `/personal/mine`)
   }
 
   render() {
