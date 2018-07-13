@@ -21,10 +21,10 @@ export const hospitalsReducer = (state = initialHospitalsState, action = {}) => 
     case actionTypes.UPDATE_HOSPITALS:
       return {
         ...state,
-        ...{ hospitalsAll: action.data[0] },
-        ...{ hospitalsZH: action.data[1] },
-        ...{ hospitalsZY: action.data[2] },
-        ...{ hospitalsZK: action.data[3] },
+        ...{ hospitalsAll: action.data['all'] },
+        ...{ hospitalsZH: action.data['zh'] },
+        ...{ hospitalsZY: action.data['zy'] },
+        ...{ hospitalsZK: action.data['zk'] },
       }
     default:
       return state

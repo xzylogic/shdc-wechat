@@ -1,4 +1,5 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
+import { Toast } from 'antd-mobile'
 
 import { actionTypes, updateConsultationList } from '../../actions/appointment/consultation.action'
 import { authError, authNotLogin } from '../../actions/global.action'
@@ -11,15 +12,20 @@ const PATH = {
 
 const getConsultationListService = (hosOrgCode, hosDeptCode, toHosDeptCode, registerType) => {
   const query = `?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&topHosDeptCode=${toHosDeptCode}&registerType=${registerType}`
-  console.log(`${PATH.queryConsultations}${query}`)
   return HttpService.post(`${PATH.queryConsultations}${query}`, {})
 }
 
 function* loadConsultationList() {
   try {
+    if (typeof document !== 'undefined') {
+      Toast.loading('loading')
+    }
     const { hosOrgCode, hosDeptCode, toHosDeptCode, pageType } = yield select((state) => state.consultationReducer)
     const data = yield call(getConsultationListService, hosOrgCode, hosDeptCode, toHosDeptCode, pageType)
     yield put(updateConsultationList(data))
+    if (typeof document !== 'undefined') {
+      yield Toast.hide()
+    }
   } catch (error) {
     console.log(error)
     if (error && error.message == CODE.NOT_LOGIN) {

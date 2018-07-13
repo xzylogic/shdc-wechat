@@ -20,7 +20,11 @@ export const loadSearchAction = (data) => {
   }
 }
 
-export const updateHospitals = (data = [{},{},{},{}]) => {
+/**
+ * 更新医院列表
+ * @param {*} data { all: array, zh: array, zy: array, zk: array}
+ */
+export const updateHospitals = (data) => {
   return {
     type: actionTypes.UPDATE_HOSPITALS,
     data: data

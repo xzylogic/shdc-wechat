@@ -9,7 +9,7 @@ import './appointment.scss'
 
 moment.locale('zh-CN',{
   weekdays : "周日_周一_周二_周三_周四_周五_周六".split("_"),
-});
+})
 
 class Index extends React.Component {
   render() {
@@ -17,10 +17,9 @@ class Index extends React.Component {
     const { consultationList } =  consultationReducer
     return (
       <div>
-        {/* <div className='consultation__title'>呼吸科</div> */}
-        <Tabs contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
+        <Tabs containerClass='tabs__container-full' contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
           {
-            Array.isArray(consultationList) && consultationList.map((data,index) => {
+            consultationList && Array.isArray(consultationList) && consultationList.map((data,index) => {
               return (
                 <Tab title={moment(data.date).format('MM月DD日 （dddd）')} key={index}>
                   <AppointmentList appointments={data.doctors} />

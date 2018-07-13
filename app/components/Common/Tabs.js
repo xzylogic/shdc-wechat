@@ -21,11 +21,12 @@ export class Tabs extends React.Component {
   }
 
   render() {
+    const children = this.props.children || []
     return (
       <div className={this.props.containerClass || 'tabs__container'}>
         <div className={this.props.titlesClass || 'tabs__titles'}>
           {
-            React.Children.map(this.props.children, (element, index) => {
+            React.Children.map(children, (element, index) => {
               return (
                 <div className={this.getTabTitleClass(index)} onClick={this.handleTabClick.bind(this, index)}>
                   {element.props.title}

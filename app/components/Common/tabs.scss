@@ -5,6 +5,12 @@
   height: $height-without-search-bar;
 }
 
+.tabs__container-full {
+  background: $color-white;
+  overflow: hidden;
+  height: 100vh;
+}
+
 .tabs__container-common {
   background: $color-white;
   overflow: hidden;

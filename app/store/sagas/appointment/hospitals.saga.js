@@ -11,22 +11,26 @@ const PATH = {
   querySearch: '/api/search/search-function'
 }
 
-const getHospitalsService = () => {
-  const getHospitalsAll = HttpService.get(`${PATH.queryHospitals}`)
-  const getHospitalsZH = HttpService.get(`${PATH.queryHospitals}?cityCode=zhyy`)
-  const getHospitalsZY = HttpService.get(`${PATH.queryHospitals}?cityCode=zyyy`)
-  const getHospitalsZK = HttpService.get(`${PATH.queryHospitals}?cityCode=zkyy`)
-  return Promise.all([getHospitalsAll, getHospitalsZH, getHospitalsZY, getHospitalsZK])
+const getHospitalsService = (cityCode) => {
+  let query = ''
+  if (cityCode) {
+    query += `?cityCode=${cityCode}`
+  }
+  return HttpService.get(`${PATH.queryHospitals}${query}`)
 }
 
 function* loadHospitals() {
   try {
-    const data = yield call(getHospitalsService)
-    if (data) {
-      yield put(updateHospitals(data))
+    const [ all, zh, zy, zk] = yield [
+      call(getHospitalsService),
+      call(getHospitalsService, 'zhyy'),
+      call(getHospitalsService, 'zyyy'),
+      call(getHospitalsService, 'zkyy')
+    ]
+    if (all&&zh&&zy&&zk) {
+      yield put(updateHospitals({all: all, zh: zh, zy: zy, zk: zk}))
     }
   } catch (error) {
-    console.log(error)
     if (error && error.message == CODE.NOT_LOGIN) {
       yield put(authNotLogin())
     } else {
