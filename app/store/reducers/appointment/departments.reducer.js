@@ -17,9 +17,9 @@ export const departmentsReducer = (state = initialDepartmentsState, action = {})
         ...{departmentsParent: action.data},
       }
     case actionTypes.UPDATE_DEPARTMENTS_CHILD:
+      state.departmentsParent[action.index].children = action.data
       return {
         ...state,
-        ...{departmentsChild: action.data},
         ...{toHosDeptCode: action.toHosDeptCode},
       }
     default:

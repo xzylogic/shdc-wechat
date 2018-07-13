@@ -24,7 +24,6 @@ function* loadDepartments() {
     const { hosOrgCode, deptType } = yield select((state) => state.departmentsReducer)
     const data = yield call(getDepartmentsService, hosOrgCode, deptType)
     yield put(updateDepartmentsParent(data))
-    yield put(updateDepartmentsChild(data && data[0] && data[0].children || [], data && data[0] && data[0].hosDeptCode || ''))
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
       yield put(authNotLogin())
@@ -40,13 +39,15 @@ const getDepartmentsChildService = (hosOrgCode, deptType, parentId) => {
 }
 
 function* loadDepartmentsChild(actions) {
-  yield Toast.loading('Loading...')
-  const { hosOrgCode, deptType } = yield select((state) => state.departmentsReducer)
-  const data = yield call(getDepartmentsChildService, hosOrgCode, deptType, actions.data)
-  if (data) {
-    yield put(updateDepartmentsChild(data, actions.data))
-    yield Toast.hide()
-  }  
+  const { hosOrgCode, deptType, departmentsParent } = yield select((state) => state.departmentsReducer)
+  if (departmentsParent && departmentsParent[actions.index] && !departmentsParent[actions.index].children) {
+    yield Toast.loading('Loading...')
+    const data = yield call(getDepartmentsChildService, hosOrgCode, deptType, actions.parentId)
+    if (data) {
+      yield put(updateDepartmentsChild(data, actions.parentId, actions.index))
+      yield Toast.hide()
+    }  
+  }
 }
 
 export const departmentsSaga = [

@@ -21,10 +21,11 @@ export const loadDepartmentsAction = () => {
   }
 }
 
-export const loadDepartmentsChildAction = (parentId) => {
+export const loadDepartmentsChildAction = (parentId, index) => {
   return {
     type: actionTypes.LOAD_DEPARTMENTS_CHILD,
-    data: parentId
+    parentId: parentId,
+    index: index
   }
 }
 
@@ -35,10 +36,11 @@ export const updateDepartmentsParent = (data) => {
   }
 }
 
-export const updateDepartmentsChild = (data, toHosDeptCode) => {
+export const updateDepartmentsChild = (data, toHosDeptCode, index) => {
   return {
     type: actionTypes.UPDATE_DEPARTMENTS_CHILD,
     data: data,
-    toHosDeptCode: toHosDeptCode
+    toHosDeptCode: toHosDeptCode,
+    index: index
   }
 }

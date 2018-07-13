@@ -45,22 +45,33 @@ class Index extends React.Component {
     this.setState({
       index: departmentsParent[index].hosDeptCode
     })
-    store.dispatch(loadDepartmentsChildAction(departmentsParent[index].hosDeptCode))
+    store.dispatch(loadDepartmentsChildAction(departmentsParent[index].hosDeptCode, index))
   }
 
   render() {
     const { departmentsReducer } = this.props
-    const { departmentsParent, departmentsChild, pageType, hosOrgCode, toHosDeptCode } = departmentsReducer
+    const { departmentsParent, pageType, hosOrgCode, toHosDeptCode } = departmentsReducer
     return (
       <div>
         <SearchBar placeholder='请输入子科室名称进行搜索' maxLength={8} />
         <Tabs handleTabClick={this.handleTabClick}>{
-          departmentsParent.map((tab,indexP) => <Tab title={tab.deptName} key={indexP}>{
-            departmentsChild.map((content, indexC) => (
-              <RenderLink pageType={pageType} hosOrgCode={hosOrgCode} hosDeptCode={content.hosDeptCode} toHosDeptCode={toHosDeptCode} key={indexC}>
-                <div className='department__content'>{content.deptName}</div>
-              </RenderLink>
-            ))}</Tab>)
+          departmentsParent && Array.isArray(departmentsParent) && departmentsParent.map((departments,indexP) => 
+            <Tab title={departments.deptName} key={indexP}>
+            {
+              departments.children && Array.isArray(departments.children) && departments.children.map(
+                (content, indexC) => (
+                  <RenderLink 
+                    key={indexC}
+                    pageType={pageType} 
+                    hosOrgCode={hosOrgCode} 
+                    hosDeptCode={content.hosDeptCode} 
+                    toHosDeptCode={toHosDeptCode}
+                  >
+                    <div className='department__content'>{content.deptName}</div>
+                  </RenderLink>
+                ))
+            }
+            </Tab>)
         }</Tabs>
       </div>
     )
