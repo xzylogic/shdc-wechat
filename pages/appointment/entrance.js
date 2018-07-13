@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
+import RenderError from '../../app/components/Common/RenderError'
 import EntranceComponent from '../../app/components/Appointment/EntranceComponent'
 
 import { initGlobalQuery } from '../../app/utilities/common'
@@ -18,7 +19,13 @@ class Index extends React.Component {
     return (
       <div>
         <Head title='进入门诊' />
-        <EntranceComponent param={query.hosOrgCode} />
+        <RenderError>
+          <EntranceComponent 
+            hosOrgCode={query && query.hosOrgCode || 0} 
+            hosDeptCode={query && query.hosDeptCode || 0} 
+            toHosDeptCode={query && query.toHosDeptCode || 0} 
+          />
+        </RenderError>
       </div>
     )
   }

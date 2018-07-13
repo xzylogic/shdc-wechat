@@ -3,7 +3,7 @@ import { initialDepartmentsState } from '../../states/appointment/departments.st
 
 export const departmentsReducer = (state = initialDepartmentsState, action = {}) => {
   switch (action.type) {
-    case actionTypes.INIT_CODE_AND_TYPE: {
+    case actionTypes.INIT_DEPARTMENTS_CODE: {
       return {
         ...state,
         ...{hosOrgCode: action.hosOrgCode},
@@ -20,6 +20,7 @@ export const departmentsReducer = (state = initialDepartmentsState, action = {})
       return {
         ...state,
         ...{departmentsChild: action.data},
+        ...{toHosDeptCode: action.toHosDeptCode},
       }
     default:
       return state

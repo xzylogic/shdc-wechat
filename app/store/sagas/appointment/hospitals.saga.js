@@ -26,6 +26,7 @@ function* loadHospitals() {
       yield put(updateHospitals(data))
     }
   } catch (error) {
+    console.log(error)
     if (error && error.message == CODE.NOT_LOGIN) {
       yield put(authNotLogin())
     } else {

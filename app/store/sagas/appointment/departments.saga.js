@@ -1,7 +1,7 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 import { Toast } from 'antd-mobile'
 
-import { actionTypes, updateDepartmentsParent, updateDepartmentsChild, initCodeAndType } from '../../actions/appointment/departments.action'
+import { actionTypes, updateDepartmentsParent, updateDepartmentsChild } from '../../actions/appointment/departments.action'
 import { authError, authNotLogin } from '../../actions/global.action'
 import { HttpToastService, HttpService } from '../../../utilities/httpService'
 import * as CODE from '../../../utilities/status-code'
@@ -24,7 +24,7 @@ function* loadDepartments() {
     const { hosOrgCode, deptType } = yield select((state) => state.departmentsReducer)
     const data = yield call(getDepartmentsService, hosOrgCode, deptType)
     yield put(updateDepartmentsParent(data))
-    yield put(updateDepartmentsChild(data && data[0] && data[0].children || []))
+    yield put(updateDepartmentsChild(data && data[0] && data[0].children || [], data && data[0] && data[0].hosDeptCode || ''))
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
       yield put(authNotLogin())
@@ -44,7 +44,7 @@ function* loadDepartmentsChild(actions) {
   const { hosOrgCode, deptType } = yield select((state) => state.departmentsReducer)
   const data = yield call(getDepartmentsChildService, hosOrgCode, deptType, actions.data)
   if (data) {
-    yield put(updateDepartmentsChild(data))
+    yield put(updateDepartmentsChild(data, actions.data))
     yield Toast.hide()
   }  
 }

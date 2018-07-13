@@ -8,42 +8,56 @@ import { loadDepartmentsChildAction } from '../../store/actions/appointment/depa
 
 import './appointment.scss'
 
-class RenderLink extends React.Component {
-  render() {
-    const pageType = this.props.pageType
-    const hosOrgCode = this.props.hosOrgCode
-    const deptCode = this.props.deptCode
+const RenderLink = ({hosOrgCode, hosDeptCode, toHosDeptCode, pageType, children}) => {
     switch(pageType) {
       case '1':
-        return (<Link href={`/appointment/doctors?hosOrgCode=${hosOrgCode}&deptCode=${deptCode}`} as={`/appointment/doctors/${hosOrgCode}/${deptCode}`}>{this.props.children}</Link>)
+        return (
+          <Link 
+            href={`/appointment/doctors?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}`} 
+            as={`/appointment/doctors/${hosOrgCode}/${hosDeptCode}`}>
+            {children}
+          </Link>)
       case '2':
-        return (<Link href={`/appointment/consultation?hosOrgCode=${hosOrgCode}&deptCode=${deptCode}&pageType=${pageType}`} as={`/appointment/consultation/${hosOrgCode}/${deptCode}/${pageType}`}>{this.props.children}</Link>)
+        return (
+          <Link 
+            href={`/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}&pageType=${pageType}`} 
+            as={`/appointment/consultation/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}/${pageType}`}>
+            {children}
+          </Link>)
       case '3':
-        return (<Link href={`/appointment/consultation?hosOrgCode=${hosOrgCode}&deptCode=${deptCode}&pageType=${pageType}`} as={`/appointment/consultation/${hosOrgCode}/${deptCode}/${pageType}`}>{this.props.children}</Link>)
+      return (
+        <Link 
+          href={`/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}&pageType=${pageType}`} 
+          as={`/appointment/consultation/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}/${pageType}`}>
+          {children}
+        </Link>)
       default:
-        return this.props.children
+        return ''
     }
-  }
 }
 
 class Index extends React.Component {
+
   handleTabClick = (index) => {
     const store = this.props
     const { departmentsReducer } = store
     const { departmentsParent } = departmentsReducer
+    this.setState({
+      index: departmentsParent[index].hosDeptCode
+    })
     store.dispatch(loadDepartmentsChildAction(departmentsParent[index].hosDeptCode))
   }
 
   render() {
     const { departmentsReducer } = this.props
-    const { departmentsParent, departmentsChild, pageType, hosOrgCode } = departmentsReducer
+    const { departmentsParent, departmentsChild, pageType, hosOrgCode, toHosDeptCode } = departmentsReducer
     return (
       <div>
         <SearchBar placeholder='请输入子科室名称进行搜索' maxLength={8} />
         <Tabs handleTabClick={this.handleTabClick}>{
-          departmentsParent.map((tab,index) => <Tab title={tab.deptName} key={index}>{
-            departmentsChild.map((content, index) => (
-              <RenderLink pageType={pageType} hosOrgCode={hosOrgCode} deptCode={content.hosDeptCode}  key={index}>
+          departmentsParent.map((tab,indexP) => <Tab title={tab.deptName} key={indexP}>{
+            departmentsChild.map((content, indexC) => (
+              <RenderLink pageType={pageType} hosOrgCode={hosOrgCode} hosDeptCode={content.hosDeptCode} toHosDeptCode={toHosDeptCode} key={indexC}>
                 <div className='department__content'>{content.deptName}</div>
               </RenderLink>
             ))}</Tab>)

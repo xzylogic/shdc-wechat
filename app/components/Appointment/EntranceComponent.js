@@ -13,20 +13,20 @@ class Index extends React.Component {
       { title: '中医' },
       { title: '专科' }
     ]
-    const { param } = this.props
+    const { hosOrgCode, hosDeptCode, toHosDeptCode } = this.props
     return (
       <div>
         <WhiteSpace size='lg' />
         <WingBlank size='lg'>
           <List className='entrance__list'>
             <List.Item arrow='horizontal' onClick={
-              () => Router.push(`/appointment/departments?hosOrgCode=${param}&deptType=1&type=1`, `/appointment/departments/${param}/1/1`)
+              () => Router.push(`/appointment/departments?hosOrgCode=${hosOrgCode}&deptType=1&pageType=1`, `/appointment/departments/${hosOrgCode}/1/1`)
             }>专家门诊</List.Item>
             <List.Item arrow='horizontal' onClick={
-              () => Router.push(`/appointment/departments?hosOrgCode=${param}&deptType=2&type=2`, `/appointment/departments/${param}/2/2`)
+              () => Router.push(`/appointment/departments?hosOrgCode=${hosOrgCode}&deptType=2&pageType=2`, `/appointment/departments/${hosOrgCode}/2/2`)
             }>专病门诊</List.Item>
             <List.Item arrow='horizontal' onClick={
-              () => Router.push(`/appointment/departments?hosOrgCode=${param}&deptType=1&type=3`, `/appointment/departments/${param}/1/3`)
+              () => Router.push(`/appointment/departments?hosOrgCode=${hosOrgCode}&deptType=1&pageType=3`, `/appointment/departments/${hosOrgCode}/1/3`)
             }>普通门诊</List.Item>
           </List>
         </WingBlank>

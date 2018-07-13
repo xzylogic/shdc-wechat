@@ -33,17 +33,17 @@
   }, {
     "id": "7",
     "desc": "进入门诊",
-    "path": "/appointment/entrance/:hosOrgCode",
+    "path": "/appointment/entrance/:hosOrgCode/:hosDeptCode/:toHosDeptCode",
     "page": "/appointment/entrance"
   }, {
     "id": "8",
     "desc": "预约就诊-科室列表",
-    "path": "/appointment/departments/:hosOrgCode/:deptType/:type",
+    "path": "/appointment/departments/:hosOrgCode/:deptType/:pageType",
     "page": "/appointment/departments"
   }, {
     "id": "9",
     "desc": "预约就诊-医生列表",
-    "path": "/appointment/doctors/:hosOrgCode/:deptCode",
+    "path": "/appointment/doctors/:hosOrgCode/:hosDeptCode/:toHosDeptCode",
     "page": "/appointment/doctors"
   }, {
     "id": "10",
@@ -53,7 +53,7 @@
   }, {
     "id": "11",
     "desc": "预约就诊-门诊预约",
-    "path": "/appointment/consultation/:hosOrgCode/:deptType/:type",
+    "path": "/appointment/consultation/:hosOrgCode/:hosDeptCode/:toHosDeptCode/:pageType",
     "page": "/appointment/consultation"
   }, {
     "id": "12",

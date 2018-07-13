@@ -1,87 +1,44 @@
 import React from 'react'
+import { Flex, Button } from 'antd-mobile'
+import * as moment from 'moment'
 
-import { Flex, Button } from 'antd-mobile';
-
-const AppointmentList = ({title, time, price, onClick}) => (
-  <div className='appointment__list'>
-    <Flex align='baseline'>
-      <Flex.Item>
-        <div className='appointment__item'>{title}</div>
-      </Flex.Item>
-      <Flex.Item style={{flex: 2}}>
-        <div className='appointment__item'>{time}</div>
-      </Flex.Item>
-      <Flex.Item>
-        <div className='appointment__item'>{price}</div>
-      </Flex.Item>
-      <Flex.Item>
-        <div className='appointment__item'>
-          <Button size='small' type='primary' style={{padding: '0', width: '90%'}} onClick={onClick}>预约</Button>
-        </div>
-      </Flex.Item>
-    </Flex>
-  </div>
-)
+const formatTime = (startTime, endTime) => {
+  return moment(startTime).format('HH:mm - ') + moment(endTime).format('HH:mm')
+}
 
 class Index extends React.Component {
 
+  handleClick = (data) => {
+    console.log(data)
+  } 
+  
   render() {
+    const appointments = this.props.appointments
     return (
-      <div>
-        <div className='appointment__list'>
-          <Flex align='baseline'>
-            <Flex.Item>
-              <div className='appointment__item'>专家门诊</div>
-            </Flex.Item>
-            <Flex.Item style={{flex: 2}}>
-              <div className='appointment__item'>10:00 - 10:59</div>
-            </Flex.Item>
-            <Flex.Item>
-              <div className='appointment__item'>24 元</div>
-            </Flex.Item>
-            <Flex.Item>
-              <div className='appointment__item'>
-                <Button size='small' type='primary' style={{padding: '0', width: '90%'}}>预约</Button>
-              </div>
-            </Flex.Item>
-          </Flex>
-        </div>
-        <div className='appointment__list'>
-          <Flex align='baseline'>
-            <Flex.Item>
-              <div className='appointment__item'>专家门诊</div>
-            </Flex.Item>
-            <Flex.Item style={{flex: 2}}>
-              <div className='appointment__item'>10:00 - 10:59</div>
-            </Flex.Item>
-            <Flex.Item>
-              <div className='appointment__item'>24 元</div>
-            </Flex.Item>
-            <Flex.Item>
-              <div className='appointment__item'>
-                <Button size='small' type='primary' style={{padding: '0', width: '90%'}}>预约</Button>
-              </div>
-            </Flex.Item>
-          </Flex>
-        </div>
-        <div className='appointment__list'>
-          <Flex align='baseline'>
-            <Flex.Item>
-              <div className='appointment__item'>专家门诊</div>
-            </Flex.Item>
-            <Flex.Item style={{flex: 2}}>
-              <div className='appointment__item'>10:00 - 10:59</div>
-            </Flex.Item>
-            <Flex.Item>
-              <div className='appointment__item'>24 元</div>
-            </Flex.Item>
-            <Flex.Item>
-              <div className='appointment__item'>
-                <Button size='small' type='primary' style={{padding: '0', width: '90%'}}>预约</Button>
-              </div>
-            </Flex.Item>
-          </Flex>
-        </div>
+      <div>{
+        Array.isArray(appointments) && appointments.map((data, index) => {
+          return (
+            <div className='appointment__list' key={index}>
+              <Flex align='baseline'>
+                <Flex.Item>
+                  <div className='appointment__item'>{data.deptName}</div>
+                </Flex.Item>
+                <Flex.Item style={{flex: 2}}>
+                  <div className='appointment__item'>{formatTime(data.startTime, data.endTime)}</div>
+                </Flex.Item>
+                <Flex.Item>
+                  <div className='appointment__item'>{data.visitCost}元</div>
+                </Flex.Item>
+                <Flex.Item>
+                  <div className='appointment__item'>
+                    <Button size='small' type='primary' style={{padding: '0', width: '90%'}} onClick={this.handleClick.bind(this, data)}>预约</Button>
+                  </div>
+                </Flex.Item>
+              </Flex>
+            </div>
+          )
+        })
+      }
       </div>
     )
   }

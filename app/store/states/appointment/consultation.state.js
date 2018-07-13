@@ -1,6 +1,7 @@
 export const initialConsultationState = {
+  consultationList: [],
   hosOrgCode: '',
-  deptCode: '',
-  pageType: '',
-  searchParam: ''
+  hosDeptCode: '',
+  toHosDeptCode: '',
+  pageType: ''
 }

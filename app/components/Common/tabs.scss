@@ -47,20 +47,20 @@
   overflow: hidden;
   overflow-x: auto;
   white-space: nowrap;
+  border-top: 1px solid $color-border-light;
+  border-bottom: 1px solid $color-border-light;
   color: $color-primary;
   .title {
     line-height: 1.5;
     display: inline-block;
     padding: 10px 5px;
     max-width: 80px;
-    border-top: 1px solid $color-border-light;
-    border-bottom: 1px solid $color-border-light;
     border-right: 1px solid $color-border-light;
     text-align: center;
     white-space: normal;
   }
-  .title:last-child {
-    border-right: none;
+  .title:first-child {
+    border-left: 1px solid $color-border-light;
   }
   .title.active {
     background: $color-primary;

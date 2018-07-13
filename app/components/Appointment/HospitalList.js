@@ -17,8 +17,8 @@ class Index extends React.Component {
         hospitals.map((obj, index) => (
           <Link 
             key={index}
-            href={`/appointment/entrance?hosOrgCode=${obj.hosOrgCode}`} 
-            as={`/appointment/entrance/${obj.hosOrgCode}`}
+            href={`/appointment/entrance?hosOrgCode=${obj.hosOrgCode}&hosDeptCode=0&toHosDeptCode=0`} 
+            as={`/appointment/entrance/${obj.hosOrgCode}/0/0`}
           >
             <FlexList 
               sub={<ImageContainer imageUrl={`https://shdcapp.wondersgroup.com/mobilemedicalplatform${obj.hosImage}`} />}

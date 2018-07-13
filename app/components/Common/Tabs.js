@@ -15,7 +15,9 @@ export class Tabs extends React.Component {
 
   handleTabClick = (index) => {
     this.setState({currentIndex: index})
-    this.props.handleTabClick(index)
+    if (this.props.handleTabClick) {
+      this.props.handleTabClick(index)
+    }
   }
 
   render() {

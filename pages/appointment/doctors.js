@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
+import RenderError from '../../app/components/Common/RenderError'
 import DoctorsComponent from '../../app/components/Appointment/DoctorsComponent'
 
 import { initGlobalQuery, recordCurrentPage} from '../../app/utilities/common'
@@ -28,7 +29,9 @@ class Index extends React.Component {
     return (
       <div>
         <Head title='预约就诊-医生列表' />
-        <DoctorsComponent />
+        <RenderError>
+          <DoctorsComponent />
+        </RenderError>
       </div>
     )
   }

@@ -1,16 +1,28 @@
 export const actionTypes = {
-  UPDATE_DEPARTMENTS_PARENT: 'UPDATE_DEPARTMENTS_PARENT',
-  UPDATE_DEPARTMENTS_CHILD: 'UPDATE_DEPARTMENTS_CHILD',
-  INIT_DEPARTMENTS: 'INIT_DEPARTMENTS',
-  INIT_CODE_AND_TYPE: 'INIT_CODE_AND_TYPE',
-  LOAD_DEPARTMENTS_CHILD: 'LOAD_DEPARTMENTS_CHILD'
+  INIT_CONSULTATION_CODE: 'INIT_CONSULTATION_CODE',
+  UPDATE_CONSULTATION_LIST: 'UPDATE_CONSULTATION_LIST',
+  LOAD_CONSULTATION_LIST: 'LOAD_CONSULTATION_LIST'
 }
 
-export const initCodeAndType = (hosOrgCode, deptType, pageType) => {
+export const initConsultationCodeAction = (data) => {
   return {
-    type: actionTypes.INIT_CODE_AND_TYPE,
-    hosOrgCode: hosOrgCode,
-    deptType: deptType,
-    pageType: pageType
+    type: actionTypes.INIT_CONSULTATION_CODE,
+    hosOrgCode: data.hosOrgCode,
+    hosDeptCode: data.hosDeptCode,
+    toHosDeptCode: data.toHosDeptCode,
+    pageType: data.pageType
+  }
+}
+
+export const loadConsultationListAction = () => {
+  return {
+    type: actionTypes.LOAD_CONSULTATION_LIST
+  }
+}
+
+export const updateConsultationList = (data) => {
+  return {
+    type: actionTypes.UPDATE_CONSULTATION_LIST,
+    data: data
   }
 }
