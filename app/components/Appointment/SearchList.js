@@ -2,6 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 
 import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
+import { NullList } from '../Common/Null'
+import { checkNullArr } from '../../utilities/common' 
 
 const renderList = (obj, index) => {
   const config = new FlexListConfigEntity({
@@ -75,10 +77,11 @@ const renderList = (obj, index) => {
 class Index extends React.Component {
   render() {
     const searchList = this.props.searchList
-    
     return (
       <div>
-        {Array.isArray(searchList) && searchList.map((obj, index) => renderList(obj, index) )}
+        { checkNullArr(searchList) ? <NullList /> : 
+            Array.isArray(searchList) && searchList.map((obj, index) => renderList(obj, index) )
+        }
       </div>
     )
   }

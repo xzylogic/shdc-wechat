@@ -2,10 +2,12 @@ import React from 'react'
 import Link from 'next/link'
 
 import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
+import { NullList } from '../Common/Null'
+import { checkNullArr } from '../../utilities/common'
 
 class Index extends React.Component {
   render() {
-    const hospitals = this.props.hospitals
+    const hospitals = this.props.hospitals || []
     const config = new FlexListConfigEntity({
       leftWidth: '100px',
       rightWidth: '15px', 
@@ -14,7 +16,7 @@ class Index extends React.Component {
     })
     return (
       <div>{
-        hospitals.map((obj, index) => (
+        checkNullArr(hospitals) ? <NullList /> : hospitals.map((obj, index) => (
           <Link 
             key={index}
             href={`/appointment/entrance?hosOrgCode=${obj.hosOrgCode}&hosDeptCode=0&toHosDeptCode=0`} 
