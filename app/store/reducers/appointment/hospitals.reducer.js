@@ -18,13 +18,41 @@ export const hospitalsReducer = (state = initialHospitalsState, action = {}) => 
         ...state,
         ...{ hospitalsSearch: action.data }
       }
-    case actionTypes.UPDATE_HOSPITALS:
+    case actionTypes.UPDATE_HOSPITALS_ALL:
+      let dataAll = []
+      if (action.data && Array.isArray(action.data)) {
+        dataAll = action.data
+      }
       return {
         ...state,
-        ...{ hospitalsAll: action.data['all'] },
-        ...{ hospitalsZH: action.data['zh'] },
-        ...{ hospitalsZY: action.data['zy'] },
-        ...{ hospitalsZK: action.data['zk'] },
+        ...{ hospitalsAll: dataAll }
+      }
+    case actionTypes.UPDATE_HOSPITALS_ZH:
+      let dataZH = []
+      if (action.data && Array.isArray(action.data)) {
+        dataZH = action.data
+      }
+      return {
+        ...state,
+        ...{ hospitalsZH: dataZH }
+      }
+    case actionTypes.UPDATE_HOSPITALS_ZY:
+      let dataZY = []
+      if (action.data && Array.isArray(action.data)) {
+        dataZY = action.data
+      }
+      return {
+        ...state,
+        ...{ hospitalsZY: dataZY }
+      }
+    case actionTypes.UPDATE_HOSPITALS_ZK:
+      let dataZK = []
+      if (action.data && Array.isArray(action.data)) {
+        dataZK = action.data
+      }
+      return {
+        ...state,
+        ...{ hospitalsZK: dataZK }
       }
     default:
       return state

@@ -1,7 +1,10 @@
 import { put, takeLatest, call } from 'redux-saga/effects'
 import { Toast } from 'antd-mobile'
 
-import { actionTypes, updateHospitals, updateSearchList } from '../../actions/appointment/hospitals.action'
+import { 
+  actionTypes, updateHospitalsAll, updateHospitalsZH, 
+  updateHospitalsZY, updateHospitalsZK, updateSearchList 
+} from '../../actions/appointment/hospitals.action'
 import { authError, authNotLogin } from '../../actions/global.action'
 import { HttpService, HttpToastService } from '../../../utilities/httpService'
 import * as CODE from '../../../utilities/status-code'
@@ -21,14 +24,19 @@ const getHospitalsService = (cityCode) => {
 
 function* loadHospitals() {
   try {
-    const [ all, zh, zy, zk] = yield [
+    const [ dataAll, dataZH, dataZY, dataZK] = yield [
       call(getHospitalsService),
       call(getHospitalsService, 'zhyy'),
       call(getHospitalsService, 'zyyy'),
       call(getHospitalsService, 'zkyy')
     ]
-    if (all&&zh&&zy&&zk) {
-      yield put(updateHospitals({all: all, zh: zh, zy: zy, zk: zk}))
+    if (dataAll && dataZH && dataZY && dataZK) {
+      yield [
+        put(updateHospitalsAll(dataAll)),
+        put(updateHospitalsZH(dataZH)),
+        put(updateHospitalsZY(dataZY)),
+        put(updateHospitalsZK(dataZK)),
+      ]
     }
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {

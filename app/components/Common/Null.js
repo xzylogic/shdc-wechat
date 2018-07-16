@@ -7,3 +7,12 @@ export class NullList extends React.Component {
     )
   }
 }
+
+export class NullContent extends React.Component {
+  render() {
+    const msg = this.props.msg
+    return (
+      <div style={{textAlign: 'center', padding: '15px'}}>{msg}</div>
+    )
+  }
+}

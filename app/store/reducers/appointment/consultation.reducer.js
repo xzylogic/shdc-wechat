@@ -13,9 +13,13 @@ export const consultationReducer = (state = initialConsultationState, action = {
       }
     }
     case actionTypes.UPDATE_CONSULTATION_LIST:
+      let data = []
+      if (action.data && Array.isArray(action.data)) {
+        data = action.data
+      }
       return {
         ...state,
-        ...{consultationList: action.data},
+        ...{consultationList: data},
       }
     default:
       return state

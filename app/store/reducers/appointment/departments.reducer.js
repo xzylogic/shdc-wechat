@@ -12,12 +12,20 @@ export const departmentsReducer = (state = initialDepartmentsState, action = {})
       }
     }
     case actionTypes.UPDATE_DEPARTMENTS_PARENT:
+      let dataP = []
+      if (action.data && Array.isArray(action.data)) {
+        dataP = action.data
+      }
       return {
         ...state,
-        ...{departmentsParent: action.data},
+        ...{departmentsParent: dataP},
       }
     case actionTypes.UPDATE_DEPARTMENTS_CHILD:
-      state.departmentsParent[action.index].children = action.data
+      let dataC = []
+      if (action.data && Array.isArray(action.data)) {
+        dataC = action.data
+      }
+      state.departmentsParent[action.index].children = dataC
       return {
         ...state,
         ...{toHosDeptCode: action.toHosDeptCode},

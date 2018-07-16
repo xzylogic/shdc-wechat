@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import * as moment from 'moment'
 
 import { Tabs, Tab } from '../Common/Tabs'
+import { NullContent } from '../Common/Null'
+import { checkNullArr } from '../../utilities/common'
 import AppointmentList from './AppointmentList'
 
 import './appointment.scss'
@@ -17,17 +19,21 @@ class Index extends React.Component {
     const { consultationList } =  consultationReducer
     return (
       <div>
-        <Tabs containerClass='tabs__container-full' contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
-          {
-            consultationList && Array.isArray(consultationList) && consultationList.map((data,index) => {
-              return (
-                <Tab title={moment(data.date).format('MM月DD日 （dddd）')} key={index}>
-                  <AppointmentList appointments={data.doctors} />
-                </Tab>
-              )
-            })
-          }
-        </Tabs>
+        {
+          checkNullArr(consultationList) ? <NullContent msg='暂无排班记录' /> : (
+            <Tabs containerClass='tabs__container-full' contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
+              {
+                consultationList.map((data,index) => {
+                  return (
+                    <Tab title={moment(data.date).format('MM月DD日 （dddd）')} key={index}>
+                      <AppointmentList appointments={data.doctors} />
+                    </Tab>
+                  )
+                })
+              }
+            </Tabs>
+          )
+        }
       </div>
     )
   }

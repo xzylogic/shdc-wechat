@@ -2,7 +2,10 @@ export const actionTypes = {
   UPDATE_TAB: 'UPDATE_TAB',
   UPDATE_SEARCH_PARAM: 'UPDATE_SEARCH_PARAM',
   UPDATE_SEARCH_LIST: 'UPDATE_SEARCH_LIST',
-  UPDATE_HOSPITALS: 'UPDATE_HOSPITALS',
+  UPDATE_HOSPITALS_ALL: 'UPDATE_HOSPITALS_ALL',
+  UPDATE_HOSPITALS_ZH: 'UPDATE_HOSPITALS_ZH',
+  UPDATE_HOSPITALS_ZY: 'UPDATE_HOSPITALS_ZY',
+  UPDATE_HOSPITALS_ZK: 'UPDATE_HOSPITALS_ZK',
   LOAD_HOSPITALS: 'LOAD_HOSPITALS',
   LOAD_SEARCH: 'LOAD_SEARCH'
 }
@@ -20,13 +23,30 @@ export const loadSearchAction = (data) => {
   }
 }
 
-/**
- * 更新医院列表
- * @param {*} data { all: array, zh: array, zy: array, zk: array}
- */
-export const updateHospitals = (data) => {
+export const updateHospitalsAll = (data) => {
   return {
-    type: actionTypes.UPDATE_HOSPITALS,
+    type: actionTypes.UPDATE_HOSPITALS_ALL,
+    data: data
+  }
+}
+
+export const updateHospitalsZH = (data) => {
+  return {
+    type: actionTypes.UPDATE_HOSPITALS_ZH,
+    data: data
+  }
+}
+
+export const updateHospitalsZY = (data) => {
+  return {
+    type: actionTypes.UPDATE_HOSPITALS_ZY,
+    data: data
+  }
+}
+
+export const updateHospitalsZK = (data) => {
+  return {
+    type: actionTypes.UPDATE_HOSPITALS_ZK,
     data: data
   }
 }
