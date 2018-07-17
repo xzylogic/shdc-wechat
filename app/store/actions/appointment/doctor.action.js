@@ -1,16 +1,40 @@
 export const actionTypes = {
-  UPDATE_DEPARTMENTS_PARENT: 'UPDATE_DEPARTMENTS_PARENT',
-  UPDATE_DEPARTMENTS_CHILD: 'UPDATE_DEPARTMENTS_CHILD',
-  INIT_DEPARTMENTS: 'INIT_DEPARTMENTS',
-  INIT_CODE_AND_TYPE: 'INIT_CODE_AND_TYPE',
-  LOAD_DEPARTMENTS_CHILD: 'LOAD_DEPARTMENTS_CHILD'
+  INIT_DOCTOR_CODE: 'INIT_DOCTOR_CODE',
+  LOAD_DOCTOR_DETAIL: 'LOAD_DOCTOR_DETAIL',
+  UPDATE_DOCTOR_DETAIL: 'UPDATE_DOCTOR_DETAIL',
+  LOAD_APPOINTMENT_LIST: 'LOAD_APPOINTMENT_LIST',
+  UPDATE_APPOINTMENT_LIST: 'UPDATE_APPOINTMENT_LIST',
 }
 
-export const initCodeAndType = (hosOrgCode, deptType, pageType) => {
+export const initDoctorCodeAction = (data) => {
   return {
-    type: actionTypes.INIT_CODE_AND_TYPE,
-    hosOrgCode: hosOrgCode,
-    deptType: deptType,
-    pageType: pageType
+    type: actionTypes.INIT_DOCTOR_CODE,
+    data: data
+  }
+}
+
+export const loadDoctorDetailAction = () => {
+  return {
+    type: actionTypes.LOAD_DOCTOR_DETAIL
+  }
+}
+
+export const loadAppointmentListAction = () => {
+  return {
+    type: actionTypes.LOAD_APPOINTMENT_LIST
+  }
+}
+
+export const updateDoctorDetail = (data) => {
+  return {
+    type: actionTypes.UPDATE_DOCTOR_DETAIL,
+    data: data
+  }
+}
+
+export const updateAppointmentList = (data) => {
+  return {
+    type: actionTypes.UPDATE_APPOINTMENT_LIST,
+    data: data
   }
 }

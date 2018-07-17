@@ -1,6 +1,8 @@
 export const initialDoctorState = {
+  doctorDetail: {},
+  appointmentList: [],
+  hosDoctCode: '',
   hosOrgCode: '',
-  deptCode: '',
-  pageType: '',
-  searchParam: ''
+  hosDeptCode: '',
+  toHosDeptCode: ''
 }

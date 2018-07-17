@@ -1,20 +1,17 @@
 import { put, takeLatest, call } from 'redux-saga/effects'
 
-// import { actionTypes, updateDepartmentsParent, updateDepartmentsChild, initCodeAndType } from '../../actions/departments.action'
-// import { HttpToastService, HttpService } from '../../../utilities/httpService'
+import { actionTypes, updateDoctorDetail, updateAppointmentList } from '../../actions/appointment/doctor.action'
+import { HttpToastService, HttpService } from '../../../utilities/httpService'
 
-// const PATH = {
-//   queryDepartments: '/api/department/query-parent-and-department',
-//   queryDepartmentsChild: '/api/department/query-department'
-// }
+const PATH = {
+  getDoctorDetail: '/api/doctor/query-doctor',
+  getAppointmentList: '/api/schedule/queryDoctorByScheduleDate'
+}
 
-// const getDepartments = (hosOrgCode, deptType, parentId) => {
-//   const query = `?hosOrgCode=${hosOrgCode}&deptType=${deptType}`
-//   if (parentId) {
-//     query += `&parentId=${parentId}`
-//   }
-//   return HttpService.get(`${PATH.queryDepartments}${query}`)
-// }
+const getDoctorDetail = (hosOrgCode, hosDoctCode, hosDeptCode) => {
+  const query = `?hosOrgCode=${hosOrgCode}&hosDoctCode=${hosDoctCode}&hosDeptCode=${hosDeptCode}`
+  return HttpService.get(`${PATH.getDoctorDetail}${query}`)
+}
 
 // const getDepartmentsChild = (hosOrgCode, deptType, parentId) => {
 //   const query = `?hosOrgCode=${hosOrgCode}&deptType=${deptType}&parentId=${parentId}`
