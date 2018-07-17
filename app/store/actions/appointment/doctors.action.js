@@ -1,33 +1,29 @@
 export const actionTypes = {
+  INIT_DOCTORS_CODE: 'INIT_DOCTORS_CODE',
   UPDATE_DOCTORS_BYNAME: 'UPDATE_DOCTORS_BYNAME',
   UPDATE_DOCTORS_BYDATE: 'UPDATE_DOCTORS_BYDATE',
-  INIT_DOCTORS: 'INIT_DOCTORS',
-  INIT_DOCTORS_CODE: 'INIT_DOCTORS_CODE',
+  LOAD_DOCTORS_BYNAME: 'LOAD_DOCTORS_BYNAME',
   LOAD_DOCTORS_BYDATE: 'LOAD_DOCTORS_BYDATE'
 }
 
-export const initDoctorsCode = (hosOrgCode, deptCode) => {
+export const initDoctorsCodeAction = (hosOrgCode, hosDeptCode, toHosDeptCode) => {
   return {
     type: actionTypes.INIT_DOCTORS_CODE,
     hosOrgCode: hosOrgCode,
-    deptCode: deptCode
+    hosDeptCode: hosDeptCode,
+    toHosDeptCode: toHosDeptCode
   }
 }
 
-export const loadDoctors = (hosOrgCode, deptCode) => {
+export const loadDoctorsByNameAction = () => {
   return {
-    type: actionTypes.INIT_DOCTORS,
-    hosOrgCode: hosOrgCode,
-    deptCode: deptCode
+    type: actionTypes.LOAD_DOCTORS_BYNAME,
   }
 }
 
-export const loadDoctorsByDate = (hosOrgCode, deptCode, date) => {
+export const loadDoctorsByDateAction = () => {
   return {
     type: actionTypes.LOAD_DOCTORS_BYDATE,
-    hosOrgCode: hosOrgCode,
-    deptCode: deptCode,
-    date: date
   }
 }
 

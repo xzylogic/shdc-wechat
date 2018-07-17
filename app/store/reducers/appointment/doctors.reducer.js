@@ -7,18 +7,27 @@ export const doctorsReducer = (state = initialDoctorsState, action = {}) => {
       return {
         ...state,
         ...{hosOrgCode: action.hosOrgCode},
-        ...{deptCode: action.deptCode}
+        ...{hosDeptCode: action.hosDeptCode},
+        ...{toHosDeptCode: action.toHosDeptCode}
       }
     }
     case actionTypes.UPDATE_DOCTORS_BYNAME:
+      let dataN = []
+      if (action.data && Array.isArray(action.data)) {
+        dataN = action.data
+      }
       return {
         ...state,
-        ...{doctorsByName: action.data},
+        ...{doctorsByName: dataN},
       }
     case actionTypes.UPDATE_DOCTORS_BYDATE:
+      let dataD = []
+      if (action.data && Array.isArray(action.data)) {
+        dataD = action.data
+      }
       return {
         ...state,
-        ...{doctorsByDate: action.data},
+        ...{doctorsByDate: dataD},
       }
     default:
       return state

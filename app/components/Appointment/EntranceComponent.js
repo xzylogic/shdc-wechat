@@ -17,18 +17,40 @@ class Index extends React.Component {
     return (
       <div>
         <WhiteSpace size='lg' />
-        <WingBlank size='lg'>
-          <List className='entrance__list'>
-            <List.Item arrow='horizontal' onClick={
-              () => Router.push(`/appointment/departments?hosOrgCode=${hosOrgCode}&deptType=1&pageType=1`, `/appointment/departments/${hosOrgCode}/1/1`)
-            }>专家门诊</List.Item>
-            <List.Item arrow='horizontal' onClick={
-              () => Router.push(`/appointment/departments?hosOrgCode=${hosOrgCode}&deptType=2&pageType=2`, `/appointment/departments/${hosOrgCode}/2/2`)
-            }>专病门诊</List.Item>
-            <List.Item arrow='horizontal' onClick={
-              () => Router.push(`/appointment/departments?hosOrgCode=${hosOrgCode}&deptType=1&pageType=3`, `/appointment/departments/${hosOrgCode}/1/3`)
-            }>普通门诊</List.Item>
-          </List>
+        <WingBlank size='lg'>{
+          (hosDeptCode == 0 && toHosDeptCode == 0) ? (
+            <List className='entrance__list'>
+              <List.Item arrow='horizontal' onClick={
+                () => Router.push(`/appointment/departments?hosOrgCode=${hosOrgCode}&deptType=1&pageType=1`, `/appointment/departments/${hosOrgCode}/1/1`)
+              }>专家门诊</List.Item>
+              <List.Item arrow='horizontal' onClick={
+                () => Router.push(`/appointment/departments?hosOrgCode=${hosOrgCode}&deptType=2&pageType=2`, `/appointment/departments/${hosOrgCode}/2/2`)
+              }>专病门诊</List.Item>
+              <List.Item arrow='horizontal' onClick={
+                () => Router.push(`/appointment/departments?hosOrgCode=${hosOrgCode}&deptType=1&pageType=3`, `/appointment/departments/${hosOrgCode}/1/3`)
+              }>普通门诊</List.Item>
+            </List>
+           ) : 
+          (
+            <List className='entrance__list'>
+              <List.Item arrow='horizontal' onClick={
+                () => Router.push(
+                  `/appointment/doctors?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}`, 
+                  `/appointment/doctors/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}`)
+              }>专家门诊</List.Item>
+              <List.Item arrow='horizontal' onClick={
+                () => Router.push(
+                  `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}&pageType=2`, 
+                  `/appointment/consultation/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}/2`)
+              }>专病门诊</List.Item>
+              <List.Item arrow='horizontal' onClick={
+                () => Router.push(
+                  `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}&pageType=3`, 
+                  `/appointment/consultation/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}/3`)
+              }>普通门诊</List.Item>
+            </List>
+           )
+        }
         </WingBlank>
         <WhiteSpace size='lg' />
         <WingBlank size='lg'>

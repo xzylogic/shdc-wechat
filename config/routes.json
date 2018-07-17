@@ -48,7 +48,7 @@
   }, {
     "id": "10",
     "desc": "预约就诊-医生详情",
-    "path": "/appointment/doctor/:id",
+    "path": "/appointment/doctor/:hosDoctCode/:hosOrgCode/:hosDeptCode/:toHosDeptCode",
     "page": "/appointment/doctor"
   }, {
     "id": "11",

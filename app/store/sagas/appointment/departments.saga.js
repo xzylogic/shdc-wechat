@@ -1,7 +1,7 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 import { Toast } from 'antd-mobile'
 
-import { actionTypes, updateDepartmentsParent, updateDepartmentsChild } from '../../actions/appointment/departments.action'
+import { actionTypes, updateDepartmentsParent, updateDepartmentsChild, updateToHosDeptCode } from '../../actions/appointment/departments.action'
 import { authError, authNotLogin } from '../../actions/global.action'
 import { HttpToastService, HttpService } from '../../../utilities/httpService'
 import * as CODE from '../../../utilities/status-code'
@@ -21,10 +21,23 @@ const getDepartmentsService = (hosOrgCode, deptType, parentId) => {
 
 function* loadDepartments() {
   try {
+    if (typeof document !== 'undefined') {
+      yield put(updateDepartmentsParent([]))
+      Toast.loading('loading')
+    }
     const { hosOrgCode, deptType } = yield select((state) => state.departmentsReducer)
     const data = yield call(getDepartmentsService, hosOrgCode, deptType)
-    yield put(updateDepartmentsParent(data))
+    if (data && data[0] && !data[0].children) {
+      yield data[0].children = []
+    }
+    if (data) {
+      yield put(updateDepartmentsParent(data))
+    }
+    if (typeof document !== 'undefined') {
+      yield Toast.hide()
+    }
   } catch (error) {
+    console.log(error)
     if (error && error.message == CODE.NOT_LOGIN) {
       yield put(authNotLogin())
     } else {
@@ -40,14 +53,15 @@ const getDepartmentsChildService = (hosOrgCode, deptType, parentId) => {
 
 function* loadDepartmentsChild(actions) {
   const { hosOrgCode, deptType, departmentsParent } = yield select((state) => state.departmentsReducer)
+  yield put(updateToHosDeptCode(actions.parentId))
   if (departmentsParent && departmentsParent[actions.index] && !departmentsParent[actions.index].children) {
     yield Toast.loading('Loading...')
     const data = yield call(getDepartmentsChildService, hosOrgCode, deptType, actions.parentId)
     if (data) {
       yield put(updateDepartmentsChild(data, actions.parentId, actions.index))
-      yield Toast.hide()
     }  
   }
+  yield Toast.hide()
 }
 
 export const departmentsSaga = [

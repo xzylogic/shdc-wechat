@@ -47,16 +47,16 @@ class Index extends React.Component {
             onChange={this.handleTabClick}
           >
             <div>{
-              !checkNullArr(hospitalsAll) ?  (<HospitalList hospitals={hospitalsAll} />) : 'null'
+              !checkNullArr(hospitalsAll) ?  (<HospitalList hospitals={hospitalsAll} />) : ''
             }</div>
             <div>{
-              !checkNullArr(hospitalsZH) ?  (<HospitalList hospitals={hospitalsZH} />) : 'null'
+              !checkNullArr(hospitalsZH) ?  (<HospitalList hospitals={hospitalsZH} />) : ''
             }</div>
             <div>{
-              !checkNullArr(hospitalsZY) ?  (<HospitalList hospitals={hospitalsZY} />) : 'null'
+              !checkNullArr(hospitalsZY) ?  (<HospitalList hospitals={hospitalsZY} />) : ''
             }</div>
             <div>{
-              !checkNullArr(hospitalsZK) ?  (<HospitalList hospitals={hospitalsZK} />) : 'null'
+              !checkNullArr(hospitalsZK) ?  (<HospitalList hospitals={hospitalsZK} />) : ''
             }</div>
           </Tabs> 
         ) : <SearchList searchList={hospitalsSearch} />}

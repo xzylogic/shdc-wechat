@@ -12,14 +12,14 @@ const renderList = (obj, index) => {
     minHeight: '80px',
     withBorder: 'href'
   })
-
+  console.log(obj.sign)
   switch(obj.sign) {
     case '1': 
       return (
         <Link 
           key={index}
-          href={`/appointment/entrance?hosOrgCode=${obj.hosOrgCode}`} 
-          as={`/appointment/entrance/${obj.hosOrgCode}`}
+          href={`/appointment/entrance?hosOrgCode=${obj.hosOrgCode}&hosDeptCode=0&toHosDeptCode=0`} 
+          as={`/appointment/entrance/${obj.hosOrgCode}/0/0`}
         >
           <FlexList 
             sub={<ImageContainer imageUrl={`/static/images/avatar_hospital.png`} />}
@@ -36,8 +36,8 @@ const renderList = (obj, index) => {
       return (
         <Link 
           key={index}
-          href={`/appointment/entrance?hosOrgCode=${obj.hosOrgCode}`} 
-          as={`/appointment/entrance/${obj.hosOrgCode}`}
+          href={`/appointment/entrance?hosOrgCode=${obj.hosOrgCode}&hosDeptCode=${obj.hosDeptCode}&toHosDeptCode=${obj.topHosDeptCode}`} 
+          as={`/appointment/entrance/${obj.hosOrgCode}/${obj.hosDeptCode}/${obj.topHosDeptCode}`}
         >
           <FlexList 
             sub={<ImageContainer imageUrl={`/static/images/avatar_department.png`} />}
@@ -54,8 +54,8 @@ const renderList = (obj, index) => {
       return (
         <Link 
           key={index}
-          href={`/appointment/entrance?hosOrgCode=${obj.hosOrgCode}`} 
-          as={`/appointment/entrance/${obj.hosOrgCode}`}
+          href={`/appointment/doctor?hosDoctCode=${obj.hosDoctCode}&hosOrgCode=${obj.hosOrgCode}&hosDeptCode=${obj.hosDeptCode}&toHosDeptCode=${obj.topHosDeptCode}`} 
+          as={`/appointment/doctor/${obj.hosDoctCode}/${obj.hosOrgCode}/${obj.hosDeptCode}/${obj.topHosDeptCode}`}
         >
           <FlexList 
             sub={<ImageContainer imageUrl={`/static/images/avatar_doctor.png`} />}

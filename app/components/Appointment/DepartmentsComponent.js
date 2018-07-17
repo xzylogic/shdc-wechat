@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { SearchBar } from 'antd-mobile'
 
 import { Tabs, Tab } from '../Common/Tabs'
+import { NullContent } from '../Common/Null'
+import { checkNullArr } from '../../utilities/common'
 import { loadDepartmentsChildAction } from '../../store/actions/appointment/departments.action'
 
 import './appointment.scss'
@@ -13,8 +15,8 @@ const RenderLink = ({hosOrgCode, hosDeptCode, toHosDeptCode, pageType, children}
       case '1':
         return (
           <Link 
-            href={`/appointment/doctors?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}`} 
-            as={`/appointment/doctors/${hosOrgCode}/${hosDeptCode}`}>
+            href={`/appointment/doctors?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}`} 
+            as={`/appointment/doctors/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}`}>
             {children}
           </Link>)
       case '2':
@@ -56,22 +58,21 @@ class Index extends React.Component {
         <SearchBar placeholder='请输入子科室名称进行搜索' maxLength={8} />
         <Tabs handleTabClick={this.handleTabClick}>{
           departmentsParent && Array.isArray(departmentsParent) && departmentsParent.map((departments,indexP) => 
-            <Tab title={departments.deptName} key={indexP}>
-            {
-              departments.children && Array.isArray(departments.children) && departments.children.map(
-                (content, indexC) => (
-                  <RenderLink 
-                    key={indexC}
-                    pageType={pageType} 
-                    hosOrgCode={hosOrgCode} 
-                    hosDeptCode={content.hosDeptCode} 
-                    toHosDeptCode={toHosDeptCode}
-                  >
-                    <div className='department__content'>{content.deptName}</div>
-                  </RenderLink>
-                ))
-            }
-            </Tab>)
+            <Tab title={departments.deptName} key={indexP}>{
+              checkNullArr(departments.children) ? <NullContent msg='暂无子科室' /> : 
+                departments.children && Array.isArray(departments.children) && departments.children.map(
+                  (content, indexC) => (
+                    <RenderLink 
+                      key={indexC}
+                      pageType={pageType} 
+                      hosOrgCode={hosOrgCode} 
+                      hosDeptCode={content.hosDeptCode} 
+                      toHosDeptCode={toHosDeptCode}
+                    >
+                      <div className='department__content'>{content.deptName}</div>
+                    </RenderLink>
+                  ))
+            }</Tab>)
         }</Tabs>
       </div>
     )

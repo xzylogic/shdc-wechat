@@ -1,43 +1,75 @@
-import { put, takeLatest, call } from 'redux-saga/effects'
+import { put, takeLatest, call, select } from 'redux-saga/effects'
+import { Toast } from 'antd-mobile'
 
-import { actionTypes, updateDoctorsByDate, updateDoctorsByName, initDoctorsCode} from '../../actions/appointment/doctors.action'
+import { actionTypes, updateDoctorsByName, updateDoctorsByDate } from '../../actions/appointment/doctors.action'
+import { authError, authNotLogin } from '../../actions/global.action'
 import { HttpToastService, HttpService } from '../../../utilities/httpService'
+import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
   queryDoctors: '/api/doctor/query-doctor',
-  queryDoctorsByDate: '/api/department/query-department'
+  queryDoctorsByDate: '/api/schedule/queryDoctorByScheduleDate'
 }
 
-const getDoctors = (hosOrgCode, deptCode) => {
+const getDoctorsByName = (hosOrgCode, deptCode) => {
   const query = `?hosOrgCode=${hosOrgCode}&hosDeptCode=${deptCode}`
   return HttpService.get(`${PATH.queryDoctors}${query}`)
 }
 
-// const getDepartmentsChild = (hosOrgCode, deptType, parentId) => {
-//   const query = `?hosOrgCode=${hosOrgCode}&deptType=${deptType}&parentId=${parentId}`
-//   return HttpToastService.get(`${PATH.queryDepartmentsChild}${query}`)
-// }
-
-function* loadDoctors(actions) {
+function* loadDoctorsByName() {
   try {
-    const data = yield call(getDoctors, actions.hosOrgCode, actions.deptCode)
-    yield put(initDoctorsCode(actions.hosOrgCode, actions.deptCode))
-    yield put(updateDoctorsByName(data || []))
-  } catch (err) {
-    throw new Error(err)
+    if (typeof document !== 'undefined') {
+      yield put(updateDoctorsByName([]))
+      Toast.loading('loading...')
+    }
+    const { hosOrgCode, hosDeptCode } = yield select(state => state.doctorsReducer)
+    const data = yield call(getDoctorsByName, hosOrgCode, hosDeptCode)
+    if (data) {
+      yield put(updateDoctorsByName(data))
+    }
+    if (typeof document !== 'undefined') {
+      yield Toast.hide()
+    }
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
   }
 }
 
-// function* loadDoctorsByDate(actions) {
-//   try {
-//     const data = yield call(getDepartmentsChild, actions.hosOrgCode, actions.deptType, actions.parentId)
-//     yield put(updateDoctorsByName(data || []))
-//   } catch (err) {
-//     throw new Error(err)
-//   }
-// }
+
+const getDoctorsByDate = (hosOrgCode, deptCode, toHosDeptCode) => {
+  const query = `?hosOrgCode=${hosOrgCode}&hosDeptCode=${deptCode}&topHosDeptCode=${toHosDeptCode}&registerType=1`
+  return HttpService.get(`${PATH.queryDoctorsByDate}${query}`)
+}
+
+function* loadDoctorsByDate() {
+  try {
+    if (typeof document !== 'undefined') {
+      yield put(updateDoctorsByDate([]))
+      Toast.loading('loading...')
+    }
+    const { hosOrgCode, hosDeptCode, toHosDeptCode } = yield select(state => state.doctorsReducer)
+    const data = yield call(getDoctorsByDate, hosOrgCode, hosDeptCode, toHosDeptCode)
+    cnsole.log(data)
+    if (data) {
+      yield put(updateDoctorsByDate(data))
+    }
+    if (typeof document !== 'undefined') {
+      yield Toast.hide()
+    }
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
+  }
+}
 
 export const doctorsSaga = [
-  takeLatest(actionTypes.INIT_DOCTORS, loadDoctors),
-  // takeLatest(actionTypes.LOAD_DOCTORS_BYDATE, loadDoctorsByDate)
+  takeLatest(actionTypes.LOAD_DOCTORS_BYNAME, loadDoctorsByName),
+  takeLatest(actionTypes.LOAD_DOCTORS_BYDATE, loadDoctorsByDate)
 ]

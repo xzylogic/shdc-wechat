@@ -4,7 +4,7 @@ import * as CODE from '../status-code'
 function getStrategy(url, config = {}) {
   return axios.get(url, config).then(res => res && res.data).then(res => {
     if (res.code == CODE.SUCCESS) {
-      return res.data
+      return res.data || res.msg || true
     } else if (res.code == CODE.NOT_LOGIN) {
       throw new Error(CODE.NOT_LOGIN)
     } else {
