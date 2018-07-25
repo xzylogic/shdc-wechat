@@ -5,14 +5,18 @@ import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '.
 const renderList = ({doctName, doctTile, doctInfo, hosOrgCode, hosDoctCode}, index) => {
   const config = new FlexListConfigEntity({
     leftWidth: '100px',
-    rightWidth: '15px', 
+    rightWidth: '15px',
     minHeight: '80px',
     withBorder: 'href'
   })
 
   return (
     <FlexList
-      sub={<ImageContainer imageUrl={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${hosOrgCode}_${hosDoctCode}.jpg`} />}
+      sub={<ImageContainer
+        imageUrl={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${hosOrgCode}_${hosDoctCode}.jpg`}
+        containerClass={'image__container-round'}
+        containerStyle={{width: '70px', height: '70px', margin: '15px'}}
+      />}
       config={config} key={index}>
       <MainContainer mainClass='doctor__desc'>
         <p className='title'>{doctName} {doctTile}</p>

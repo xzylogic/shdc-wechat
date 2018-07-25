@@ -12,7 +12,7 @@ const PATH = {
 
 const getConsultationListService = (hosOrgCode, hosDeptCode, toHosDeptCode, registerType) => {
   const query = `?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&topHosDeptCode=${toHosDeptCode}&registerType=${registerType}`
-  return HttpService.post(`${PATH.queryConsultations}${query}`, {})
+  return HttpService.get(`${PATH.queryConsultations}${query}`)
 }
 
 function* loadConsultationList() {

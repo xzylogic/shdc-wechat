@@ -31,7 +31,6 @@ class Index extends React.Component {
           <div style={{height: 'calc(100vh - 114px)', overflow: 'scroll', borderTop: '1px solid #eee'}}>
             <DoctorList doctors={doctorsByName} />
           </div> : <DoctorsDateList />}
-        
       </div>
     )
   }

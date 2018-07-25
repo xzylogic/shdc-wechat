@@ -13,11 +13,6 @@ const getDoctorDetail = (hosOrgCode, hosDoctCode, hosDeptCode) => {
   return HttpService.get(`${PATH.getDoctorDetail}${query}`)
 }
 
-// const getDepartmentsChild = (hosOrgCode, deptType, parentId) => {
-//   const query = `?hosOrgCode=${hosOrgCode}&deptType=${deptType}&parentId=${parentId}`
-//   return HttpToastService.get(`${PATH.queryDepartmentsChild}${query}`)
-// }
-
 // function* loadDepartments(actions) {
 //   try {
 //     const data = yield call(getDepartments, actions.hosOrgCode, actions.deptType)

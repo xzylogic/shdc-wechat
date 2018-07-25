@@ -51,7 +51,11 @@ class Index extends React.Component {
         <Link href={`/personal/detail`}>
           <List>
             <FlexList
-              sub={<ImageContainer imageUrl={accountInfo && accountInfo.portrait || '/static/images/avatar_user.png'} imageClass='user__avatar' containerPadding='18px 12px' />}
+              sub={<ImageContainer
+                imageUrl={accountInfo && accountInfo.portrait || '/static/images/avatar_user.png'}
+                imageClass='user__avatar'
+                containerStyle={{ padding: '18px 12px' }}
+              />}
               extra={<i className='anticon icon-right user__arraw' />}
               config={configAccount}>
               <MainContainer mainClass='user__desc'>

@@ -4,7 +4,7 @@ import './flexlist.scss'
 
 const FlexListConfigInitial = {
   leftWidth: '100px',
-  rightWidth: 0, 
+  rightWidth: 0,
   minHeight: '30px',
   withBorder: true
 }
@@ -20,7 +20,7 @@ export class FlexListConfigEntity {
 
 export const FlexList = ({children, sub, extra, config, onClick}) => {
   const getFlexClass = () => {
-    switch(config.withBorder) {
+    switch (config.withBorder) {
       case 'border':
         return 'flex__list flex__list__border'
       case 'dash':
@@ -28,7 +28,7 @@ export const FlexList = ({children, sub, extra, config, onClick}) => {
       case 'href':
         return 'flex__list flex__list__href'
       default:
-       return 'flex__list'
+        return 'flex__list'
     }
   }
   return (
@@ -37,19 +37,19 @@ export const FlexList = ({children, sub, extra, config, onClick}) => {
         <div style={{margin: `0 ${config.rightWidth} 0 ${config.leftWidth}`}}>
           {children}
         </div>
-      </div>  
+      </div>
       <div className='list__left' style={{marginLeft: '-100%', width: config.leftWidth}}>
         {sub}
-      </div>  
+      </div>
       <div className='list__right' style={{marginLeft: `-${config.rightWidth}`, width: config.rightWidth}}>
         {extra}
-      </div>  
+      </div>
     </div>
   )
 }
 
-export const ImageContainer = ({imageUrl, containerPadding = '15px', imageClass}) => (
-  <div className='image__container' style={{padding: containerPadding}}>
+export const ImageContainer = ({imageUrl, imageClass, containerStyle, containerClass}) => (
+  <div className={`image__container ${containerClass || ''}`} style={containerStyle}>
     <img src={imageUrl} className={imageClass} />
   </div>
 )

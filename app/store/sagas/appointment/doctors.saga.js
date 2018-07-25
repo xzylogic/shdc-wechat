@@ -8,7 +8,7 @@ import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
   queryDoctors: '/api/doctor/query-doctor',
-  queryDoctorsByDate: '/api/schedule/queryDoctorByScheduleDate'
+  queryDoctorsByDate: '/api/schedule/queryDoctorsAndScheduleInfoByDate'
 }
 
 const getDoctorsByName = (hosOrgCode, deptCode) => {
@@ -53,7 +53,7 @@ function* loadDoctorsByDate() {
     }
     const { hosOrgCode, hosDeptCode, toHosDeptCode } = yield select(state => state.doctorsReducer)
     const data = yield call(getDoctorsByDate, hosOrgCode, hosDeptCode, toHosDeptCode)
-    cnsole.log(data)
+    console.log(data)
     if (data) {
       yield put(updateDoctorsByDate(data))
     }

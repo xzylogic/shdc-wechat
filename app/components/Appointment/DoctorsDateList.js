@@ -1,10 +1,13 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import { Tabs, Tab } from '../Common/Tabs'
 import DoctorListByDate from './DoctorListByDate'
 
 class Index extends React.Component {
   render() {
+    const { doctorsReducer } = this.props
+    const { doctorsByDate } = doctorsReducer
     return (
       <div>
         <Tabs 
@@ -12,16 +15,17 @@ class Index extends React.Component {
           contentClass='tabs__content-common' 
           titlesClass='tabs__titles-common'
           contentStyle={{height: 'calc(100vh - 178px)'}}>
-          <Tab title='12月18日（周三）'><DoctorListByDate /></Tab>
-          <Tab title='12月18日（周三）'><DoctorListByDate /></Tab>
-          <Tab title='12月18日（周三）'><DoctorListByDate /></Tab>
-          <Tab title='12月18日（周三）'><DoctorListByDate /></Tab>
-          <Tab title='12月18日（周三）'><DoctorListByDate /></Tab>
-          <Tab title='12月18日（周三）'><DoctorListByDate /></Tab>
+          {
+            doctorsByDate && Array.isArray(doctorsByDate) && doctorsByDate.map((data, index) =>
+              <Tab key={index} title={`${data.date}（${data.weekDays}）`}>
+                <DoctorListByDate doctors={data.doctors} />
+              </Tab>
+            )
+          }
         </Tabs>
       </div>
     )
   }
 }
 
-export default Index
+export default connect(state => state)(Index)
