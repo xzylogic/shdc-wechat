@@ -23,7 +23,10 @@ class Index extends React.Component {
             as={`/appointment/entrance/${obj.hosOrgCode}/0/0`}
           >
             <FlexList 
-              sub={<ImageContainer imageUrl={`https://shdcapp.wondersgroup.com/mobilemedicalplatform${obj.hosImage}`} />}
+              sub={<ImageContainer 
+                imageUrl={`https://shdcapp.wondersgroup.com/mobilemedicalplatform${obj.hosImage}`} 
+                containerStyle={{margin: '15px'}}
+              />}
               config={config}>
               <MainContainer mainClass='hospital__desc'>
                 <p>{obj.hosName}</p>

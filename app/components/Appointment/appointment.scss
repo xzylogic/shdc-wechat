@@ -133,3 +133,11 @@
   font-size: 16px;
   margin-right: 5px;
 }
+
+.icon_reverse {
+  transition: all .2s linear; 
+}
+
+.icon_reverse.reverse {
+  transform: rotate(180deg);
+}

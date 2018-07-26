@@ -3,11 +3,7 @@ import * as CODE from '../status-code'
 
 export const ToastError = (error) => {
   console.log(error.message)
-  if (error.message == CODE.NOT_LOGIN) {
-    Toast.info('未登录')
-  } else {
-    Toast.info(error.message)
-  }
+  Toast.info(error.message == CODE.NOT_LOGIN ? '未登录': error.message)
 }
 
 export const CatchError = (error) => {

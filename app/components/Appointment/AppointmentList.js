@@ -1,10 +1,7 @@
 import React from 'react'
 import { Flex, Button } from 'antd-mobile'
-import * as moment from 'moment'
 
-const formatTime = (startTime, endTime) => {
-  return moment(startTime).format('HH:mm - ') + moment(endTime).format('HH:mm')
-}
+import { formatTime } from '../../utilities/common'
 
 class Index extends React.Component {
 

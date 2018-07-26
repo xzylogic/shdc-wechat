@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "next build &&  NODE_ENV=production node server.js",
     "dev": "supervisor -w ./server.js,./server,./config server.js",
     "build:css": "webpack --config webpack-handle-css.js --progress --color",
     "build": "next build",

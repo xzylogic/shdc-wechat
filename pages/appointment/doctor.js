@@ -5,22 +5,14 @@ import Head from '../../app/components/Common/Head'
 import RenderError from '../../app/components/Common/RenderError'
 import DoctorComponent from '../../app/components/Appointment/DoctorComponent'
 
-import { initGlobalQuery, recordCurrentPage} from '../../app/utilities/common'
+import { initGlobalQuery } from '../../app/utilities/common'
+import { initDoctorCodeAction } from '../../app/store/actions/appointment/doctor.action'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
     initGlobalQuery(store, query)
-
-    return {
-      query: query
-    }
-  }
-
-  componentDidMount() {
-    const store = this.props
-    const { query } = this.props
-    recordCurrentPage(store, `/appointment/doctor/${query.id}`)
+    store.dispatch(initDoctorCodeAction(query))
   }
 
   render() {

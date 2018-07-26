@@ -9,7 +9,10 @@ export const actionTypes = {
 export const initDoctorCodeAction = (data) => {
   return {
     type: actionTypes.INIT_DOCTOR_CODE,
-    data: data
+    hosDoctCode: data.hosDoctCode,
+    hosOrgCode: data.hosOrgCode,
+    hosDeptCode: data.hosDeptCode,
+    toHosDeptCode: data.toHosDeptCode
   }
 }
 

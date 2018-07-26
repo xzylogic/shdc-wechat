@@ -1,3 +1,4 @@
+import * as moment from 'moment'
 import { authLogin, authNotLogin, authError, updateCurrentPage } from '../store/actions/global.action'
 
 export const initGlobalQuery = (store, query) => {
@@ -92,4 +93,8 @@ export const checkNullObj = (obj) => {
 
 export const checkNullArr = (arr) => {
   return arr && Array.isArray(arr) && arr.length === 0
+}
+
+export const formatTime = (startTime, endTime) => {
+  return moment(startTime).format('HH:mm - ') + moment(endTime).format('HH:mm')
 }

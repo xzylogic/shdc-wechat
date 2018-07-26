@@ -18,7 +18,7 @@ class Index extends React.Component {
           {
             doctorsByDate && Array.isArray(doctorsByDate) && doctorsByDate.map((data, index) =>
               <Tab key={index} title={`${data.date}（${data.weekDays}）`}>
-                <DoctorListByDate doctors={data.doctors} />
+                <DoctorListByDate doctors={data.doctors} index={index} />
               </Tab>
             )
           }

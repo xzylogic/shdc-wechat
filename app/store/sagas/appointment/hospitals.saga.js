@@ -52,7 +52,7 @@ const querySearchService = (data) => {
 }
 
 function* loadSearch(actions) {
-  yield Toast.loading('Loading...')
+  yield Toast.loading('Loading...', 0)
   const data = yield call(querySearchService, actions.data)
   if (data) {
     yield put(updateSearchList(data))

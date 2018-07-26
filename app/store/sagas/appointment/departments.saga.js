@@ -23,7 +23,7 @@ function* loadDepartments() {
   try {
     if (typeof document !== 'undefined') {
       yield put(updateDepartmentsParent([]))
-      Toast.loading('loading')
+      Toast.loading('loading', 0)
     }
     const { hosOrgCode, deptType } = yield select((state) => state.departmentsReducer)
     const data = yield call(getDepartmentsService, hosOrgCode, deptType)
@@ -55,7 +55,7 @@ function* loadDepartmentsChild(actions) {
   const { hosOrgCode, deptType, departmentsParent } = yield select((state) => state.departmentsReducer)
   yield put(updateToHosDeptCode(actions.parentId))
   if (departmentsParent && departmentsParent[actions.index] && !departmentsParent[actions.index].children) {
-    yield Toast.loading('Loading...')
+    yield Toast.loading('Loading...', 0)
     const data = yield call(getDepartmentsChildService, hosOrgCode, deptType, actions.parentId)
     if (data) {
       yield put(updateDepartmentsChild(data, actions.parentId, actions.index))

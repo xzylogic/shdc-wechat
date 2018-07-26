@@ -19,7 +19,7 @@ function* loadConsultationList() {
   try {
     if (typeof document !== 'undefined') {
       yield put(updateConsultationList([]))
-      Toast.loading('loading')
+      Toast.loading('loading', 0)
     }
     const { hosOrgCode, hosDeptCode, toHosDeptCode, pageType } = yield select((state) => state.consultationReducer)
     const data = yield call(getConsultationListService, hosOrgCode, hosDeptCode, toHosDeptCode, pageType)

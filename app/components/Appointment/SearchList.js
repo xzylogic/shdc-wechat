@@ -22,7 +22,10 @@ const renderList = (obj, index) => {
           as={`/appointment/entrance/${obj.hosOrgCode}/0/0`}
         >
           <FlexList 
-            sub={<ImageContainer imageUrl={`/static/images/avatar_hospital.png`} />}
+            sub={<ImageContainer 
+              imageUrl={`/static/images/avatar_hospital.png`} 
+              containerStyle={{margin: '15px'}} 
+            />}
             config={config}>
             <MainContainer mainClass='hospital__desc'>
               <p>{obj.hosName}</p>
@@ -40,7 +43,10 @@ const renderList = (obj, index) => {
           as={`/appointment/entrance/${obj.hosOrgCode}/${obj.hosDeptCode}/${obj.topHosDeptCode}`}
         >
           <FlexList 
-            sub={<ImageContainer imageUrl={`/static/images/avatar_department.png`} />}
+            sub={<ImageContainer 
+              imageUrl={`/static/images/avatar_department.png`} 
+              containerStyle={{margin: '15px'}} 
+            />}
             config={config}>
             <MainContainer mainClass='hospital__desc'>
               <p>{obj.deptName}</p>
@@ -58,7 +64,10 @@ const renderList = (obj, index) => {
           as={`/appointment/doctor/${obj.hosDoctCode}/${obj.hosOrgCode}/${obj.hosDeptCode}/${obj.topHosDeptCode}`}
         >
           <FlexList 
-            sub={<ImageContainer imageUrl={`/static/images/avatar_doctor.png`} />}
+            sub={<ImageContainer 
+              imageUrl={`/static/images/avatar_doctor.png`} 
+              containerStyle={{margin: '15px'}} 
+            />}
             config={config}>
             <MainContainer mainClass='hospital__desc'>
               <p>{obj.doctName}</p>
