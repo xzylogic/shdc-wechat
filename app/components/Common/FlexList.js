@@ -18,7 +18,7 @@ export class FlexListConfigEntity {
   }
 }
 
-export const FlexList = ({children, sub, extra, config, onClick}) => {
+export const FlexList = ({children, sub, extra, config, onClick, mainClass}) => {
   const getFlexClass = () => {
     switch (config.withBorder) {
       case 'border':
@@ -32,7 +32,7 @@ export const FlexList = ({children, sub, extra, config, onClick}) => {
     }
   }
   return (
-    <div onClick={onClick} className={getFlexClass()} style={{minHeight: config.minHeight}}>
+    <div onClick={onClick} className={`${getFlexClass()} ${mainClass || ''}`} style={{minHeight: config.minHeight}}>
       <div className='list__main'>
         <div style={{margin: `0 ${config.rightWidth} 0 ${config.leftWidth}`}}>
           {children}

@@ -22,6 +22,20 @@ export const doctorReducer = (state = initialDoctorState, action = {}) => {
         ...state,
         ...{appointmentList: action.data},
       }
+    case actionTypes.MODIFY_DOCTOR_SHOW:
+      let mData1 = state.appointmentList
+      mData1[action.j]['doctors'][action.k]['show'] = !mData1[action.j]['doctors'][action.k]['show']
+      return {
+        ...state,
+        ...{doctorsByDate: mData1},
+      }
+    case actionTypes.MODIFY_DOCTOR_SCHEDULE:
+      let mData2 = state.appointmentList
+      mData2[action.j]['doctors'][action.k]['children'] = action.data
+      return {
+        ...state,
+        ...{appointmentList: mData2},
+      }
     default:
       return state
   }
