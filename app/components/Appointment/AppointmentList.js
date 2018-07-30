@@ -1,25 +1,37 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Flex, Button } from 'antd-mobile'
 
 import { formatTime } from '../../utilities/common'
 
 class Index extends React.Component {
-  loadSchedules = (id, j, k) => {
+  loadSchedules = (k, id) => {
     if (this.props.loadSchedules) {
-      this.props.loadSchedules(id, j, k)
+      this.props.loadSchedules(k, id)
     }
   }
 
   handleClick = (data) => {
-    console.log(data)
+    console.log('hosOrgCode:' + data.hosOrgCode)
+    console.log('hosDeptCode:' + data.hosDeptCode)
+    if (data.hosDoctCode) {
+      console.log('hosDoctCode:' + data.hosDoctCode)
+    }
+    console.log('scheduleId:' + data.scheduleId)
+    console.log('numSourceId:' + data.numSourceId)
+    console.log('visitCost:' + data.visitCost)
+    console.log('visitLevelCode:' + data.visitLevelCode)
+    if (data.visitNo) {
+      console.log('visitNo:' + data.visitNo)
+    }
+    console.log('orderTime:' + data.startTime + '-' + data.endTime)
   } 
   
   render() {
     const appointments = this.props.appointments
-    const j = this.props.j
     return (
       <div>{
-        Array.isArray(appointments) && appointments.map((schedule, k) => {
+        appointments && Array.isArray(appointments) && appointments.map((schedule, k) => {
           return (
             <div key={k} style={{borderBottom: '1px solid #eee'}}>
               <Flex align='baseline'>
@@ -40,7 +52,7 @@ class Index extends React.Component {
                         ) : (
                           <Button size='small' style={{padding: '0', width: '90%', border: 'none'}} 
                             icon={<i className={`anticon icon-downcircleo icon_reverse ${schedule.show ? 'reverse' : ''}`} style={{margin: '0'}} />}
-                            onClick={this.loadSchedules.bind(this, schedule.scheduleId, j, k)} />
+                            onClick={this.loadSchedules.bind(this, k, schedule.scheduleId)} />
                         )
                     }
                   </div>
@@ -61,7 +73,7 @@ class Index extends React.Component {
                       </Flex.Item>
                       <Flex.Item style={{flex: 2}}>
                         <div className='appointment__item'>
-                          <Button size='small' type='primary' style={{padding: '0', margin: '0 20px'}} onClick={this.handleClick.bind(this, child)}>预约</Button>
+                          <Button size='small' type='primary' style={{padding: '0', margin: '0 20px'}} onClick={this.handleClick.bind(this, {...schedule, ...child})}>预约</Button>
                         </div>
                       </Flex.Item>
                     </Flex>
@@ -77,4 +89,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index
+export default connect(state => state)(Index)

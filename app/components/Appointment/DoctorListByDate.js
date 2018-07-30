@@ -1,17 +1,25 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { Flex, Button } from 'antd-mobile'
 
 import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
+import AppointmentList from './AppointmentList'
 import { NullImageContent } from '../Common/Null'
-import { checkNullArr, formatTime } from '../../utilities/common'
-import { modifyDoctorsShow, loadScheduleAction } from '../../store/actions/appointment/doctors.action'
+import { checkNullArr } from '../../utilities/common'
 
 class Index extends React.Component {
+  loadSchedules = (j, k, id) => {
+    if (this.props.loadSchedules) {
+      this.props.loadSchedules(j, k, id)
+    }
+  }
+
+  modifyShow = (j) => {
+    if (this.props.modifyShow) {
+      this.props.modifyShow(j)
+    }
+  }
+
   render() {
-    const store = this.props
     const data = this.props.doctors || []
-    const i = this.props.index
     const config = new FlexListConfigEntity({
       leftWidth: '100px',
       rightWidth: '15px',
@@ -25,7 +33,7 @@ class Index extends React.Component {
           data && Array.isArray(data) && data.map((obj, j) => (
             <div key={j}>
               <FlexList
-                onClick={() => store.dispatch(modifyDoctorsShow(i, j))}
+                onClick={this.modifyShow.bind(this, j)}
                 sub={<ImageContainer
                   imageUrl={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}_${obj.hosDoctCode}.jpg`}
                   containerStyle={{margin: '15px', width: '70px', height: '70px'}}
@@ -36,60 +44,8 @@ class Index extends React.Component {
                   <p className='title'>{obj.doctName} {obj.doctTile}</p>
                   <p className='desc'>{obj.doctInfo}</p>
                 </MainContainer>
-              </FlexList>{
-                obj.show && obj.schedules && Array.isArray(obj.schedules) && obj.schedules.map((schedule, k) => (
-                  <div key={k} style={{borderBottom: '1px solid #eee'}}>
-                    <Flex align='baseline'>
-                      <Flex.Item>
-                        <div className='appointment__item'>{schedule.deptName}</div>
-                      </Flex.Item>
-                      <Flex.Item style={{flex: 2}}>
-                        <div className='appointment__item'>{formatTime(schedule.startTime, schedule.endTime)}</div>
-                      </Flex.Item>
-                      <Flex.Item>
-                        <div className='appointment__item'>{schedule.visitCost}元</div>
-                      </Flex.Item>
-                      <Flex.Item>
-                        <div className='appointment__item'>
-                          {
-                            schedule.reserveOrderNum == 0 ? (
-                              <Button size='small' style={{padding: '0', width: '90%'}} disabled>约满</Button>
-                              ) : (
-                                <Button size='small' style={{padding: '0', width: '90%', border: 'none'}} 
-                                  icon={<i className={`anticon icon-downcircleo icon_reverse ${schedule.show ? 'reverse' : ''}`} style={{margin: '0'}} />}
-                                  onClick={() => {
-                                    store.dispatch(loadScheduleAction(schedule.scheduleId, i, j, k))
-                                  }} />
-                              )
-                          }
-                        </div>
-                      </Flex.Item>
-                    </Flex>
-                    {
-                      schedule.show && schedule.children && Array.isArray(schedule.children) && schedule.children.map((child, l) => (
-                        <div key={l} style={{borderTop: '1px solid #eee'}}>
-                          <Flex align='baseline'>
-                            <Flex.Item style={{flex: 2}}>
-                              <div className='appointment__item'>{formatTime(child.startTime, child.endTime)}</div>
-                            </Flex.Item>
-                            <Flex.Item>
-                              <div className='appointment__item'>{schedule.visitCost}元</div>
-                            </Flex.Item>
-                            <Flex.Item>
-                              <div className='appointment__item'>剩余{child.reserveOrderNum}</div>
-                            </Flex.Item>
-                            <Flex.Item style={{flex: 2}}>
-                              <div className='appointment__item'>
-                                <Button size='small' type='primary' style={{padding: '0', margin: '0 20px'}} >预约</Button>
-                              </div>
-                            </Flex.Item>
-                          </Flex>
-                        </div>
-                      ))
-                    }
-                  </div>
-                  ))
-              }
+              </FlexList>
+              <AppointmentList appointments={obj.schedules} loadSchedules={this.loadSchedules.bind(this, j)} />
             </div>
           ))
       }</div>
@@ -97,4 +53,4 @@ class Index extends React.Component {
   }
 }
 
-export default connect(state => state)(Index)
+export default Index

@@ -15,8 +15,7 @@ moment.locale('zh-CN',{
 })
 
 class Index extends React.Component {
-  loadSchedules = (id, j, k) => {
-    console.log(id, j, k)
+  loadSchedules = (j, k, id) => {
     const store = this.props
     store.dispatch(loadConsultationScheduleAction(id, j, k))
   }
@@ -30,10 +29,10 @@ class Index extends React.Component {
           checkNullArr(consultationList) ? <NullContent msg='暂无排班记录' /> : (
             <Tabs containerClass='tabs__container-full' contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
               {
-                consultationList.map((data,index) => {
+                consultationList.map((data, j) => {
                   return (
-                    <Tab title={moment(data.date).format('MM月DD日 （dddd）')} key={index}>
-                      <AppointmentList appointments={data.doctors} j={index} loadSchedules={this.loadSchedules} />
+                    <Tab title={moment(data.date).format('MM月DD日 （dddd）')} key={j}>
+                      <AppointmentList appointments={data.doctors} loadSchedules={this.loadSchedules.bind(this, j)} />
                     </Tab>
                   )
                 })

@@ -11,10 +11,11 @@ import { loadDoctorScheduleAction } from '../../store/actions/appointment/doctor
 import './appointment.scss'
 
 class Index extends React.Component {
-  loadSchedules = (id, j, k) => {
+  loadSchedules = (j, k, id) => {
     const store = this.props
     store.dispatch(loadDoctorScheduleAction(id, j, k))
   }
+  
   getSchedules = (list) => {
     return list && Array.isArray(list) && !checkNullArr(list) && list.reduce((objOld, obj) => 
       `${objOld.date && `${objOld.date}（${objOld.weekDays}）` || objOld} ${obj.date}（${obj.weekDays}）`
@@ -32,9 +33,9 @@ class Index extends React.Component {
           appointmentList && Array.isArray(appointmentList) && (
             <Tabs contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
               {
-                appointmentList.map((data, index) => (
-                  <Tab key={index} title={`${data.date}（${data.weekDays}）`}>
-                    <AppointmentList appointments={data.doctors} j={index} loadSchedules={this.loadSchedules}/>
+                appointmentList.map((data, j) => (
+                  <Tab key={j} title={`${data.date}（${data.weekDays}）`}>
+                    <AppointmentList appointments={data.doctors} loadSchedules={this.loadSchedules.bind(this, j)} />
                   </Tab>
                 ))
               }
