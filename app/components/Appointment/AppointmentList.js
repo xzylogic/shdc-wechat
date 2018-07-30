@@ -4,9 +4,10 @@ import { Flex, Button } from 'antd-mobile'
 import { formatTime } from '../../utilities/common'
 
 class Index extends React.Component {
-  loadSchedules = (id, k) => {
-    console.log(id, k)
-    this.props.loadSchedules(id, k)
+  loadSchedules = (id, j, k) => {
+    if (this.props.loadSchedules) {
+      this.props.loadSchedules(id, j, k)
+    }
   }
 
   handleClick = (data) => {
@@ -39,14 +40,14 @@ class Index extends React.Component {
                         ) : (
                           <Button size='small' style={{padding: '0', width: '90%', border: 'none'}} 
                             icon={<i className={`anticon icon-downcircleo icon_reverse ${schedule.show ? 'reverse' : ''}`} style={{margin: '0'}} />}
-                            onClick={this.props.loadSchedules.bind(this, schedule.scheduleId, j, k)} />
+                            onClick={this.loadSchedules.bind(this, schedule.scheduleId, j, k)} />
                         )
                     }
                   </div>
                 </Flex.Item>
               </Flex>
               {
-                schedule.show && schedule.children && Array.isArray(schedule.children) && schedule.children.map((child, l) => (
+                schedule && schedule.show && schedule.children && Array.isArray(schedule.children) && schedule.children.map((child, l) => (
                   <div key={l} style={{borderTop: '1px solid #eee'}}>
                     <Flex align='baseline'>
                       <Flex.Item style={{flex: 2}}>
@@ -60,7 +61,7 @@ class Index extends React.Component {
                       </Flex.Item>
                       <Flex.Item style={{flex: 2}}>
                         <div className='appointment__item'>
-                          <Button size='small' type='primary' style={{padding: '0', margin: '0 20px'}} onClick={this.handleClick()}>预约</Button>
+                          <Button size='small' type='primary' style={{padding: '0', margin: '0 20px'}} onClick={this.handleClick.bind(this, child)}>预约</Button>
                         </div>
                       </Flex.Item>
                     </Flex>

@@ -45,7 +45,7 @@ export const updateAppointmentList = (data) => {
   }
 }
 
-export const modifyDoctorShow = (i, j, k) => {
+export const modifyDoctorShow = (j, k) => {
   return {
     type: actionTypes.MODIFY_DOCTOR_SHOW,
     j: j,

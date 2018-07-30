@@ -65,15 +65,14 @@ const queryScheduleService = (hosOrgCode, scheduleId) => {
 function* querySchedule(actions) {
   yield put(modifyDoctorShow(actions.j, actions.k))
   const { hosOrgCode, appointmentList } = yield select(state => state.doctorReducer)
-  console.log(appointmentList, actions.j, actions.k)
-  // if(!appointmentList[actions.j]['doctors'][actions.k]['children'] && appointmentList[actions.j]['doctors'][actions.k]['show']) {
-  //   yield Toast.loading('loading...', 0)
-  //   const data = yield call(queryScheduleService, hosOrgCode, actions.id)
-  //   if (data) {
-  //     yield put(modifyDoctorSchedule(data, actions.j, actions.k))
-  //     yield Toast.hide()
-  //   }
-  // }
+  if(!appointmentList[actions.j]['doctors'][actions.k]['children'] && appointmentList[actions.j]['doctors'][actions.k]['show']) {
+    yield Toast.loading('loading...', 0)
+    const data = yield call(queryScheduleService, hosOrgCode, actions.id)
+    if (data) {
+      yield put(modifyDoctorSchedule(data, actions.j, actions.k))
+      yield Toast.hide()
+    }
+  }
 }
 
 export const doctorSaga = [

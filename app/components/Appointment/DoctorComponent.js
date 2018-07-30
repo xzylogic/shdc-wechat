@@ -12,7 +12,6 @@ import './appointment.scss'
 
 class Index extends React.Component {
   loadSchedules = (id, j, k) => {
-    console.log(id, j, k)
     const store = this.props
     store.dispatch(loadDoctorScheduleAction(id, j, k))
   }

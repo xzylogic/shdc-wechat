@@ -6,6 +6,7 @@ import { Tabs, Tab } from '../Common/Tabs'
 import { NullContent } from '../Common/Null'
 import { checkNullArr } from '../../utilities/common'
 import AppointmentList from './AppointmentList'
+import { loadConsultationScheduleAction } from '../../store/actions/appointment/consultation.action'
 
 import './appointment.scss'
 
@@ -14,6 +15,12 @@ moment.locale('zh-CN',{
 })
 
 class Index extends React.Component {
+  loadSchedules = (id, j, k) => {
+    console.log(id, j, k)
+    const store = this.props
+    store.dispatch(loadConsultationScheduleAction(id, j, k))
+  }
+
   render() {
     const { consultationReducer } = this.props
     const { consultationList } =  consultationReducer
@@ -26,7 +33,7 @@ class Index extends React.Component {
                 consultationList.map((data,index) => {
                   return (
                     <Tab title={moment(data.date).format('MM月DD日 （dddd）')} key={index}>
-                      <AppointmentList appointments={data.doctors} />
+                      <AppointmentList appointments={data.doctors} j={index} loadSchedules={this.loadSchedules} />
                     </Tab>
                   )
                 })
