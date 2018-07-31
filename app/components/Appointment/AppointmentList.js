@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Flex, Button } from 'antd-mobile'
 
 import { formatTime } from '../../utilities/common'
+import { storeOrderInfoAction } from '../../store/actions/appointment/detail.action'
 
 class Index extends React.Component {
   loadSchedules = (k, id) => {
@@ -12,19 +13,22 @@ class Index extends React.Component {
   }
 
   handleClick = (data) => {
-    console.log('hosOrgCode:' + data.hosOrgCode)
-    console.log('hosDeptCode:' + data.hosDeptCode)
-    if (data.hosDoctCode) {
-      console.log('hosDoctCode:' + data.hosDoctCode)
+    const store = this.props
+    const orderData = {
+      hosName: data.hosName,
+      deptName: data.deptName,
+      hosOrgCode: data.hosOrgCode,
+      hosDeptCode: data.hosDeptCode,
+      hosDoctCode: data.hosDoctCode,
+      scheduleId: data.scheduleId,
+      numSourceId: data.numSourceId,
+      visitCost: data.visitCost,
+      visitLevelCode: data.visitLevelCode,
+      visitNo: data.visitNo || '',
+      orderTime: data.startTime + '-' + data.endTime,
     }
-    console.log('scheduleId:' + data.scheduleId)
-    console.log('numSourceId:' + data.numSourceId)
-    console.log('visitCost:' + data.visitCost)
-    console.log('visitLevelCode:' + data.visitLevelCode)
-    if (data.visitNo) {
-      console.log('visitNo:' + data.visitNo)
-    }
-    console.log('orderTime:' + data.startTime + '-' + data.endTime)
+    console.log(orderData)
+    store.dispatch(storeOrderInfoAction(orderData))
   } 
   
   render() {

@@ -5,6 +5,7 @@ import { departmentsReducer, departmentsState } from './appointment/departments.
 import { doctorReducer, doctorState } from './appointment/doctor.reducer'
 import { doctorsReducer, doctorsState } from './appointment/doctors.reducer'
 import { consultationReducer, consultationState } from './appointment/consultation.reducer'
+import { detailReducer, detailState } from './appointment/detail.reducer'
 import { accountReducer, accountState } from './peraonal/account.reducer'
 
 export const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ export const rootReducer = combineReducers({
   doctorReducer,
   doctorsReducer,
   consultationReducer,
+  detailReducer,
   accountReducer
 })
 
@@ -24,5 +26,6 @@ export const rootInitialState = {
   ...doctorState,
   ...doctorsState,
   ...consultationState,
+  ...detailState,
   ...accountState
 }
