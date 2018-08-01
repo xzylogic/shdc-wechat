@@ -87,6 +87,39 @@ export const renderCardType = (cardType) => {
   }
 }
 
+export const getLastFour = (str) => {
+  return typeof str == 'string' ? str.substr(str.length - 4) : ''
+}
+
+export const getMembers = (accountList) => {
+  let returnMembers = []
+  if (accountList && Array.isArray(accountList)) {
+    returnMembers = accountList.map(account => {
+      let label = ''
+      let value = ''
+      if (account.medicineCardType) {
+        label = `【${renderMedicineCardType(account.medicineCardType)}】${account.name}(尾号${getLastFour(account.medicineCardId)})`
+      } else if (account.cardType) {
+        label = `【${renderCardType(account.cardType)}】${account.name}(尾号${getLastFour(account.cardId)})`
+      }
+      value = `${account.name}+${account.memberId || ''}`
+      return {
+        label: label,
+        value: value
+      }
+    })
+  }
+  return [returnMembers]
+}
+
+export const getInitialMember = (accountList) => {
+  let initialValue = ''
+  if(accountList && Array.isArray(accountList) && accountList[0]){
+    initialValue = `${accountList[0].name}+${accountList[0].memberId || ''}`
+  }
+  return [initialValue]
+}
+
 export const checkNullObj = (obj) => {
   return obj && typeof obj === 'object' && Object.keys(obj).length === 0
 }

@@ -9,7 +9,7 @@ const PATH = {
 }
 
 const submitOrderService = (data, accessToken) => {
-  return HttpToastService.post(`${PATH.getDoctorDetail}${query}`, data, {headers: {'access-token': accessToken}})
+  return HttpToastService.post(`${PATH.submitOrder}`, data, {headers: {'access-token': accessToken}})
 }
 
 function* submitOrder(actions) {

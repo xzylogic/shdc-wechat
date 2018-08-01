@@ -1,4 +1,5 @@
 import React from 'react'
+import Router from 'next/router'
 import { connect } from 'react-redux'
 import { Flex, Button } from 'antd-mobile'
 
@@ -17,6 +18,7 @@ class Index extends React.Component {
     const orderData = {
       hosName: data.hosName,
       deptName: data.deptName,
+      doctName: data.doctName,
       hosOrgCode: data.hosOrgCode,
       hosDeptCode: data.hosDeptCode,
       hosDoctCode: data.hosDoctCode,
@@ -25,10 +27,11 @@ class Index extends React.Component {
       visitCost: data.visitCost,
       visitLevelCode: data.visitLevelCode,
       visitNo: data.visitNo || '',
-      orderTime: data.startTime + '-' + data.endTime,
+      orderTime: data.startTime + '-' + data.endTime.split(' ')[1],
     }
     console.log(orderData)
     store.dispatch(storeOrderInfoAction(orderData))
+    Router.push('/appointment/detail')
   } 
   
   render() {
