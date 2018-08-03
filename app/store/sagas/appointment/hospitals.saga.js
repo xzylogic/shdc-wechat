@@ -39,11 +39,12 @@ function* loadHospitals() {
       ]
     }
   } catch (error) {
-    if (error && error.message == CODE.NOT_LOGIN) {
-      yield put(authNotLogin())
-    } else {
-      yield put(authError({errorMsg: error.message}))
-    }
+    console.log(error)
+    // if (error && error.message == CODE.NOT_LOGIN) {
+    //   yield put(authNotLogin())
+    // } else {
+    //   yield put(authError({errorMsg: error.message}))
+    // }
   }
 }
 

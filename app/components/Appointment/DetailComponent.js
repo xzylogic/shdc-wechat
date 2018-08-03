@@ -26,6 +26,7 @@ const CustomChildren = props => (
 
 class Index extends React.Component {
   state = {
+    codeTimer: null,
     codeMsg: `获取验证码`
   }
 
@@ -34,6 +35,12 @@ class Index extends React.Component {
     const { detailReducer } = store
     store.dispatch(getOrderInfoAction())
     this.props.form.validateFields()
+  }
+
+  componentWillMount() {
+    if(this.state.codeTimer) {
+      clearInterval(this.setState.codeTimer)
+    }
   }
 
   getCode = () => {
@@ -52,6 +59,8 @@ class Index extends React.Component {
           clearInterval(codeTimer)
         }
       }, 1000)
+
+      this.setState({codeTimer: codeTimer})
       
       store.dispatch(getCodeAction({mobile: form.getFieldValue('mobile')}))
 

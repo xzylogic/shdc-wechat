@@ -2,9 +2,7 @@ import { put, takeLatest, call, select } from 'redux-saga/effects'
 import { Toast } from 'antd-mobile'
 
 import { actionTypes, updateConsultationList, modifyConsultationShow, modifyConsultationSchedule } from '../../actions/appointment/consultation.action'
-import { authError, authNotLogin } from '../../actions/global.action'
 import { HttpService, HttpToastService } from '../../../utilities/httpService'
-import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
   queryConsultations: '/api/schedule/queryDoctorByScheduleDate',
@@ -32,11 +30,6 @@ function* loadConsultationList() {
     }
   } catch (error) {
     console.log(error)
-    if (error && error.message == CODE.NOT_LOGIN) {
-      yield put(authNotLogin())
-    } else {
-      yield put(authError({errorMsg: error.message}))
-    }
   }
 }
 

@@ -1,10 +1,9 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
-import RenderPage from '../../app/components/Common/RenderPage'
 
 import { initGlobalQuery, recordCurrentPage } from '../../app/utilities/common'
+import withAuth from '../../app/utilities/withAuth'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
@@ -21,12 +20,10 @@ class Index extends React.Component {
     return (
       <div>
         <Head title='候诊' />
-        <RenderPage>
-          123
-        </RenderPage>
+        123
       </div>
     )
   }
 }
 
-export default connect(state => state)(Index)
+export default withAuth(Index)

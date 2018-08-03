@@ -61,8 +61,8 @@
 }
 
 .doctor__detail {
-  background: $color-primary;
-  color: $color-white;
+  background: $color-primary !important;
+  color: $color-white !important;
 }
 
 .doctor__detail .doctor__avatar {
@@ -149,4 +149,9 @@
 
 .icon_reverse.reverse {
   transform: rotate(180deg);
+}
+
+
+.appointment__success .am-list-extra {
+  flex-basis: 70% !important;
 }

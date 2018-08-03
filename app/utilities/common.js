@@ -3,16 +3,12 @@ import { authLogin, authNotLogin, authError, updateCurrentPage } from '../store/
 
 export const initGlobalQuery = (store, query) => {
   return new Promise((resolve, reject) => {
-    query.weChatId = query.weChatId || store.getState().globalReducer.weChatId
     if (query && query.weChatId && query.accessToken) {
       store.dispatch(authLogin(query))
-      resolve()
+      resolve(true)
     } else if (query && query.weChatId && !query.accessToken) {
       store.dispatch(authNotLogin(query))
-    } else if (query && query.errorMsg) {
-      store.dispatch(authError(query))
-    } else {
-      store.dispatch(authError({errorMsg: '未知错误'}))
+      resolve(false)
     }
   })
 }

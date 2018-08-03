@@ -1,19 +1,24 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { List, WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
 import './appointment.scss'
  
 class Index extends React.Component {
   render() {
+    const { successReducer } = this.props
+    const { orderDetail } = successReducer
+    console.log(orderDetail)
     return (
-      <div className='full__container'>
+      <div className='full__container appointment__success'>
         <List>
-          <List.Item extra={'2018-06-18 08:00 - 12:00'}>预约时间</List.Item>
-          <List.Item extra={'2018-06-18 08:00 - 12:00'}>预约时间</List.Item>
-          <List.Item extra={'2018-06-18 08:00 - 12:00'}>预约时间</List.Item>
-          <List.Item extra={'2018-06-18 08:00 - 12:00'}>预约时间</List.Item>
-          <List.Item extra={'2018-06-18 08:00 - 12:00'}>预约时间</List.Item>
-          <List.Item extra={'2018-06-18 08:00 - 12:00'}>预约时间</List.Item>
+          <List.Item extra={orderDetail.orderTime}>预约时间:</List.Item>
+          <List.Item extra={orderDetail.hosName}>预约医院:</List.Item>
+          <List.Item extra={orderDetail.deptName}>预约科室:</List.Item>
+          <List.Item extra={orderDetail.orderNum}>预约号:</List.Item>
+          <List.Item extra={orderDetail.type}>预约类型:</List.Item>
+          <List.Item extra={orderDetail.userName}>预约患者:</List.Item>
+          <List.Item extra={orderDetail.card}>就诊卡号:</List.Item>
         </List>
         <WhiteSpace size='lg' />
         <WingBlank size='lg' style={{lineHeight: '1.75'}}>
@@ -32,4 +37,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index
+export default connect(state => state)(Index)

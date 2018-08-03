@@ -12,8 +12,8 @@ const PATH = {
   querySchedule: '/api/schedule/query-number-source'
 }
 
-const getDoctorsByName = (hosOrgCode, deptCode) => {
-  const query = `?hosOrgCode=${hosOrgCode}&hosDeptCode=${deptCode}`
+const getDoctorsByName = (hosOrgCode, deptCode, toHosDeptCode) => {
+  const query = `?hosOrgCode=${hosOrgCode}&hosDeptCode=${deptCode}&topHosDeptCode=${toHosDeptCode}`
   return HttpService.get(`${PATH.queryDoctors}${query}`)
 }
 
@@ -23,8 +23,8 @@ function* loadDoctorsByName() {
       yield put(updateDoctorsByName([]))
       yield Toast.loading('loading...', 0)
     }
-    const { hosOrgCode, hosDeptCode } = yield select(state => state.doctorsReducer)
-    const data = yield call(getDoctorsByName, hosOrgCode, hosDeptCode)
+    const { hosOrgCode, hosDeptCode, toHosDeptCode } = yield select(state => state.doctorsReducer)
+    const data = yield call(getDoctorsByName, hosOrgCode, hosDeptCode, toHosDeptCode)
     if (data) {
       yield put(updateDoctorsByName(data))
     }
@@ -32,11 +32,12 @@ function* loadDoctorsByName() {
       yield Toast.hide()
     }
   } catch (error) {
-    if (error && error.message == CODE.NOT_LOGIN) {
-      yield put(authNotLogin())
-    } else {
-      yield put(authError({errorMsg: error.message}))
-    }
+    console.log(error)
+    // if (error && error.message == CODE.NOT_LOGIN) {
+    //   yield put(authNotLogin())
+    // } else {
+    //   yield put(authError({errorMsg: error.message}))
+    // }
   }
 }
 
@@ -61,11 +62,12 @@ function* loadDoctorsByDate() {
       yield Toast.hide()
     }
   } catch (error) {
-    if (error && error.message == CODE.NOT_LOGIN) {
-      yield put(authNotLogin())
-    } else {
-      yield put(authError({errorMsg: error.message}))
-    }
+    console.log(error)
+    // if (error && error.message == CODE.NOT_LOGIN) {
+    //   yield put(authNotLogin())
+    // } else {
+    //   yield put(authError({errorMsg: error.message}))
+    // }
   }
 }
 

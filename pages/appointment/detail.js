@@ -1,49 +1,37 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { withRouter } from 'next/router'
 
 import Head from '../../app/components/Common/Head'
-import RenderPage from '../../app/components/Common/RenderPage'
 import DetailComponent from '../../app/components/Appointment/DetailComponent'
 
-import { initGlobalQuery, recordCurrentPage, checkNullArr, checkNullObj } from '../../app/utilities/common'
+import { recordCurrentPage, checkNullArr, checkNullObj } from '../../app/utilities/common'
 import { loadAccountListAction, loadAccountInfoAction } from '../../app/store/actions/personal/account.action'
 import withAuth from '../../app/utilities/withAuth'
 
-class Index extends React.Component {
-  static async getInitialProps(props) {
-    const { store, query } = props.ctx
-    initGlobalQuery(store, query).then(() => {
-      if (checkNullArr(store.getState().accountReducer.accountList)) {
-        store.dispatch(loadAccountListAction())
-      }
-      if (checkNullObj(store.getState().accountReducer.accountInfo)) {
-        store.dispatch(loadAccountInfoAction())
-      }
-    })
+const InitFunction = (store) => {
+  let myStore = 'function' === typeof store.getState ? store.getState() : store
+  if (checkNullArr(myStore.accountReducer.accountList)) {
+    store.dispatch(loadAccountListAction())
   }
+  if (checkNullObj(myStore.accountReducer.accountInfo)) {
+    store.dispatch(loadAccountInfoAction())
+  }
+}
 
+class Index extends React.Component {
   componentDidMount() {
     const store = this.props
     recordCurrentPage(store, '/appointment/detail')
-    if (checkNullArr(store.accountReducer.accountList)) {
-      store.dispatch(loadAccountListAction())
-    }
-    if (checkNullObj(store.accountReducer.accountInfo)) {
-      store.dispatch(loadAccountInfoAction())
-    }
+    InitFunction(store)
   }
 
   render() {
     return (
       <div>
         <Head title='预约就诊-预约信息' />
-        {/* <RenderPage> */}
         <DetailComponent />
-        {/* </RenderPage> */}
       </div>
     )
   }
 }
 
-export default withAuth(Index)
+export default withAuth(Index, InitFunction)

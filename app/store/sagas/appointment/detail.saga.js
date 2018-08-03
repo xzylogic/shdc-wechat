@@ -1,7 +1,9 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
+import Router from 'next/router'
 import { Toast } from 'antd-mobile'
 
 import { actionTypes, updateOrderInfoAction } from '../../actions/appointment/detail.action'
+import { updateSuccessOrderAction } from '../../actions/appointment/success.action'
 import { HttpToastService } from '../../../utilities/httpService'
 
 const PATH = {
@@ -20,7 +22,9 @@ function* submitOrder(actions) {
     if (data) {
       console.log(data)
       console.log('success')
+      yield put(updateSuccessOrderAction(data))
       yield Toast.hide()
+      yield Router.push('/appointment/success')
     }
   }
 }

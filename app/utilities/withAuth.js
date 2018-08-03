@@ -1,22 +1,29 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'next/router'
-import * as CODE from './status-code'
+import { initGlobalQuery } from './common'
 
-export default function withAuth(AuthComponent) {
+export default function withAuth(AuthComponent, InitFunction) {
 
   class Authenticated extends Component {
-    componentDidMount () {
-      const { globalReducer } = this.props
-      const { router } = this.props
-      if (globalReducer && CODE.NOT_LOGIN === globalReducer.code) {
+    static async getInitialProps(props) {
+      const { store, query } = props.ctx
+      initGlobalQuery(store, query).then(flag => {
+        if (flag) {
+          InitFunction(store)
+        }
+      })
+    }
+
+    componentDidUpdate () {
+      const { globalReducer, router } = this.props
+      if (globalReducer && false === globalReducer.authState) {
         router.replace('/login')
       }
     }
 
     render() {
       const store = this.props
-      console.log(store)
       return (
         <div>
           <AuthComponent {...this.props} />
@@ -24,5 +31,7 @@ export default function withAuth(AuthComponent) {
       )
     }    
   }
+
   return connect(state => state)(withRouter(Authenticated))
+
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
 import RenderPage from '../../app/components/Common/RenderPage'
@@ -7,6 +6,7 @@ import AccountComponent from '../../app/components/Personal/AccountComponent'
 
 import { initGlobalQuery, recordCurrentPage, checkNullObj, checkNullArr } from '../../app/utilities/common'
 import { loadAccountInfoAction, loadAccountListAction } from '../../app/store/actions/personal/account.action'
+import withAuth from '../../app/utilities/withAuth'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
@@ -32,12 +32,10 @@ class Index extends React.Component {
     return (
       <div>
         <Head title='用户列表' />
-        <RenderPage>
-          <AccountComponent />
-        </RenderPage>
+        <AccountComponent />
       </div>
     )
   }
 }
 
-export default connect(state => state)(Index)
+export default withAuth(Index)

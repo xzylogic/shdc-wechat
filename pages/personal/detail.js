@@ -1,12 +1,11 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
-import RenderPage from '../../app/components/Common/RenderPage'
 import DetailComponent from '../../app/components/Personal/DetailComponent'
 
 import { initGlobalQuery, recordCurrentPage, checkNullObj } from '../../app/utilities/common'
 import { loadAccountInfoAction } from '../../app/store/actions/personal/account.action'
+import withAuth from '../../app/utilities/withAuth'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
@@ -27,12 +26,10 @@ class Index extends React.Component {
     return (
       <div>
         <Head title='用户详情' />
-        <RenderPage>
-          <DetailComponent />
-        </RenderPage>
+        <DetailComponent />
       </div>
     )
   }
 }
 
-export default connect(state => state)(Index)
+export default withAuth(Index)

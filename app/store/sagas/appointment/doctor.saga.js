@@ -27,11 +27,11 @@ function* loadDoctorDetail() {
     }
   } catch (error) {
     console.log(error)
-    if (error && error.message == CODE.NOT_LOGIN) {
-      yield put(authNotLogin())
-    } else {
-      yield put(authError({errorMsg: error.message}))
-    }
+    // if (error && error.message == CODE.NOT_LOGIN) {
+    //   yield put(authNotLogin())
+    // } else {
+    //   yield put(authError({errorMsg: error.message}))
+    // }
   }
 }
 
@@ -49,11 +49,11 @@ function* loadAppointmentList() {
     }
   } catch (error) {
     console.log(error)
-    if (error && error.message == CODE.NOT_LOGIN) {
-      yield put(authNotLogin())
-    } else {
-      yield put(authError({errorMsg: error.message}))
-    }
+    // if (error && error.message == CODE.NOT_LOGIN) {
+    //   yield put(authNotLogin())
+    // } else {
+    //   yield put(authError({errorMsg: error.message}))
+    // }
   }
 }
 
