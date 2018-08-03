@@ -3,6 +3,7 @@ import { authLogin, authNotLogin, authError, updateCurrentPage } from '../store/
 
 export const initGlobalQuery = (store, query) => {
   return new Promise((resolve, reject) => {
+    query.weChatId = query.weChatId || store.getState().globalReducer.weChatId
     if (query && query.weChatId && query.accessToken) {
       store.dispatch(authLogin(query))
       resolve()
@@ -10,6 +11,8 @@ export const initGlobalQuery = (store, query) => {
       store.dispatch(authNotLogin(query))
     } else if (query && query.errorMsg) {
       store.dispatch(authError(query))
+    } else {
+      store.dispatch(authError({errorMsg: '未知错误'}))
     }
   })
 }
@@ -120,12 +123,36 @@ export const getInitialMember = (accountList) => {
   return [initialValue]
 }
 
+/**
+ * 判断对象存在且为空
+ * @param {*} obj 
+ */
 export const checkNullObj = (obj) => {
   return obj && typeof obj === 'object' && Object.keys(obj).length === 0
 }
 
+/**
+ * 判断对象存在且为非空
+ * @param {*} obj 
+ */
+export const checkNotNullObj = (obj) => {
+  return obj && typeof obj === 'object' && Object.keys(obj).length !== 0
+}
+
+/**
+ * 判断数组存在且为空
+ * @param {*} arr 
+ */
 export const checkNullArr = (arr) => {
   return arr && Array.isArray(arr) && arr.length === 0
+}
+
+/**
+ * 判断数组存在且为非空
+ * @param {*} arr 
+ */
+export const checkNotNullArr = (arr) => {
+  return arr && Array.isArray(arr) && arr.length !== 0
 }
 
 export const formatTime = (startTime, endTime) => {

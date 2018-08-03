@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'next/router'
 
 import Head from '../../app/components/Common/Head'
 import RenderPage from '../../app/components/Common/RenderPage'
@@ -7,6 +8,7 @@ import DetailComponent from '../../app/components/Appointment/DetailComponent'
 
 import { initGlobalQuery, recordCurrentPage, checkNullArr, checkNullObj } from '../../app/utilities/common'
 import { loadAccountListAction, loadAccountInfoAction } from '../../app/store/actions/personal/account.action'
+import withAuth from '../../app/utilities/withAuth'
 
 class Index extends React.Component {
   static async getInitialProps(props) {
@@ -36,12 +38,12 @@ class Index extends React.Component {
     return (
       <div>
         <Head title='预约就诊-预约信息' />
-        <RenderPage>
-          <DetailComponent />
-        </RenderPage>
+        {/* <RenderPage> */}
+        <DetailComponent />
+        {/* </RenderPage> */}
       </div>
     )
   }
 }
 
-export default connect(state => state)(Index)
+export default withAuth(Index)

@@ -5,7 +5,7 @@ import { List, InputItem, WhiteSpace, WingBlank, Button, Picker } from 'antd-mob
 
 import './appointment.scss'
 
-import { hasErrors, getMembers, getInitialMember } from '../../utilities/common'
+import { hasErrors, getMembers, getInitialMember, checkNotNullArr, checkNotNullObj } from '../../utilities/common'
 import { getCodeAction } from '../../store/actions/login.action'
 import { getOrderInfoAction, submitOrderAction } from '../../store/actions/appointment/detail.action'
 
@@ -100,14 +100,18 @@ class Index extends React.Component {
     const { accountList, accountInfo } = store.accountReducer
     return (
       <div>
-        <Picker 
-          {...getFieldProps('member', {initialValue: getInitialMember(accountList)})}
-          data={getMembers(accountList)}
-          cols={1}
-          cascade={false}
-        >
-          <CustomChildren />
-        </Picker>
+        {
+          checkNotNullArr(accountList) && (
+            <Picker 
+              {...getFieldProps('member', {initialValue: getInitialMember(accountList)})}
+              data={getMembers(accountList)}
+              cols={1}
+              cascade={false}
+            >
+              <CustomChildren />
+            </Picker>
+          )
+        }
         <WhiteSpace />
         <List>
           <InputItem
@@ -155,11 +159,10 @@ class Index extends React.Component {
             readOnly
           ><i className='anticon icon-pay-circle-o1 detail__icon' />挂号费用:</InputItem>
           <InputItem
-            {...getFieldProps('mobile', {initialValue: accountInfo.mobile})}
+            {...getFieldProps('mobile', {initialValue: accountInfo && accountInfo.mobile || ''})}
             name='mobile' 
             type='text' 
             labelNumber={7}
-            value={accountInfo.mobile}
             style={{color: '#18a6e0'}}
             readOnly
           ><i className='anticon icon-mobile1 detail__icon' />手机号:</InputItem>

@@ -40,6 +40,10 @@ export const getCodeAction = (data) => {
   }
 }
 
+/**
+ * 找回密码
+ * @param {*} data 
+ */
 export const getbackPasswordAction = (data) => {
   return {
     type: actionTypes.GETBACK_PASSWORD,

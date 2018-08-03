@@ -7,13 +7,13 @@ export const globalReducer = (state = initialGlobalState, action = {}) => {
     case actionTypes.AUTH_LOGIN: 
       return {
         ...state,
-        ...{ code: CODE.SUCCESS },
+        ...{ authState: true },
         ...action.data
       }
     case actionTypes.AUTH_NOT_LOGIN: 
       return {
         ...state,
-        ...{ code: CODE.NOT_LOGIN },
+        ...{ authState: false},
         ...action.data
       }
     case actionTypes.AUTH_ERROR: 

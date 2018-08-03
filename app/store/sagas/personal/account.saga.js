@@ -15,7 +15,7 @@ const PATH = {
 }
 
 const getAccountInfoService = (accessToken) => {
-  return HttpService.get(`${PATH.getAccountInfo}`, {headers: { 'access-token': accessToken}})
+  return HttpService.get(`${PATH.getAccountInfo}`, {headers: { 'access-token': accessToken || ''}})
 }
 
 function* loadAccountInfo() {
@@ -35,7 +35,7 @@ function* loadAccountInfo() {
 }
 
 const getAccountListService = (accessToken) => {
-  return HttpService.get(`${PATH.getAccountList}`, {headers: { 'access-token': accessToken}})
+  return HttpService.get(`${PATH.getAccountList}`, {headers: { 'access-token': accessToken || ''}})
 }
 
 function* loadAccountList() {
