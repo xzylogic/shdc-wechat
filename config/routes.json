@@ -62,61 +62,66 @@
     "page": "/appointment/detail"
   }, {
     "id": "13",
+    "desc": "预约就诊-预约成功",
+    "path": "/appointment/success",
+    "page": "/appointment/success"
+  }, {
+    "id": "14",
     "desc": "账户列表",
     "path": "/personal/mine",
     "page": "/personal/mine"
   }, {
-    "id": "14",
+    "id": "15",
     "desc": "账户详情",
     "path": "/personal/detail",
     "page": "/personal/detail"
   }, {
-    "id": "15",
+    "id": "16",
     "desc": "修改密码",
     "path": "/personal/resetpwd",
     "page": "/personal/resetpwd"
   }, {
-    "id": "16",
+    "id": "17",
     "desc": "添加家庭卡",
     "path": "/personal/family/add",
     "page": "/personal/familyadd"
   }, {
-    "id": "17",
+    "id": "18",
     "desc": "家庭卡详情",
     "path": "/personal/family/detail",
     "page": "/personal/familydetail"
   }, {
-    "id": "18",
+    "id": "19",
     "desc": "我的预约",
     "path": "/personal/appointment",
     "page": "/personal/appointment"
   }, {
-    "id": "19",
+    "id": "20",
     "desc": "我的候诊",
     "path": "/personal/waiting",
     "page": "/personal/waiting"
   }, {
-    "id": "20",
+    "id": "21",
     "desc": "我的候诊-医院列表",
     "path": "/personal/waiting/hospital",
     "page": "/personal/waitinghospital"
   }, {
-    "id": "21",
+    "id": "22",
     "desc": "我的候诊",
     "path": "/personal/waiting/mine",
     "page": "/personal/waitingmine"
   }, {
-    "id": "22",
+    "id": "23",
     "desc": "医院候诊-科室列表",
     "path": "/personal/waiting/department",
     "page": "/personal/waitingdepartment"
   }, {
-    "id": "23",
+    "id": "24",
     "desc": "我的报告",
     "path": "/personal/reports",
     "page": "/personal/reports"
   }, {
-    "id": "24",
+    "id": "25",
     "desc": "余额查询",
     "path": "/personal/balance",
     "page": "/personal/balance"

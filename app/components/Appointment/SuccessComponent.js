@@ -8,17 +8,16 @@ class Index extends React.Component {
   render() {
     const { successReducer } = this.props
     const { orderDetail } = successReducer
-    console.log(orderDetail)
     return (
       <div className='full__container appointment__success'>
         <List>
-          <List.Item extra={orderDetail.orderTime}>预约时间:</List.Item>
-          <List.Item extra={orderDetail.hosName}>预约医院:</List.Item>
+          <List.Item extra={orderDetail.scheduleDate}>预约时间:</List.Item>
+          <List.Item extra={orderDetail.hosOrgName}>预约医院:</List.Item>
           <List.Item extra={orderDetail.deptName}>预约科室:</List.Item>
-          <List.Item extra={orderDetail.orderNum}>预约号:</List.Item>
-          <List.Item extra={orderDetail.type}>预约类型:</List.Item>
-          <List.Item extra={orderDetail.userName}>预约患者:</List.Item>
-          <List.Item extra={orderDetail.card}>就诊卡号:</List.Item>
+          <List.Item extra={orderDetail.numSourceId}>预约号:</List.Item>
+          <List.Item extra={orderDetail.orderStatus}>预约类型:</List.Item>
+          <List.Item extra={orderDetail.patientName}>预约患者:</List.Item>
+          <List.Item extra={orderDetail.patientCardId}>就诊卡号:</List.Item>
         </List>
         <WhiteSpace size='lg' />
         <WingBlank size='lg' style={{lineHeight: '1.75'}}>

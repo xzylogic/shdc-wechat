@@ -3,18 +3,23 @@ import React from 'react'
 import Head from '../../app/components/Common/Head'
 import SuccessComponent from '../../app/components/Appointment/SuccessComponent'
 
-import { initGlobalQuery, recordCurrentPage} from '../../app/utilities/common'
+import { recordCurrentPage, checkNullObj } from '../../app/utilities/common'
 import withAuth from '../../app/utilities/withAuth'
+import { loadSuccessOrderAction } from '../../app/store/actions/appointment/success.action'
+
+const InitFunction = (store) => {
+  let myStore = 'function' === typeof store.getState ? store.getState() : store
+  if (myStore.successReducer && checkNullObj(myStore.successReducer.orderDetail)) {
+    store.dispatch(loadSuccessOrderAction())
+  }
+}
 
 class Index extends React.Component {
-  static async getInitialProps(props) {
-    const {store, query} = props.ctx
-    initGlobalQuery(store, query)
-  }
 
   componentDidMount() {
     const store = this.props
     recordCurrentPage(store, `/appointment/success`)
+    InitFunction(store)
   }
 
   render() {
@@ -27,4 +32,4 @@ class Index extends React.Component {
   }
 }
 
-export default withAuth(Index)
+export default withAuth(Index, InitFunction)

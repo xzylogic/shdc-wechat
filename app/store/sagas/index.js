@@ -8,6 +8,7 @@ import { doctorSaga } from './appointment/doctor.saga'
 import { doctorsSaga } from './appointment/doctors.saga'
 import { consultationSaga } from './appointment/consultation.saga'
 import { detailSaga } from './appointment/detail.saga'
+import { successSaga } from './appointment/success.saga'
 import { accountSaga } from './personal/account.saga'
 
 es6promise.polyfill()
@@ -21,6 +22,7 @@ function* rootSaga() {
     ...doctorsSaga,
     ...consultationSaga,
     ...detailSaga,
+    ...successSaga,
     ...accountSaga
   ])
 }
