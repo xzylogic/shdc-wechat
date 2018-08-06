@@ -1,5 +1,6 @@
 export const actionTypes = {
   LOGIN: 'LOGIN',
+  LOGOUT: 'LOGOUT',
   REGISTER: 'REGISTER',
   GET_CODE: 'GET_CODE',
   RESET_PASSWORD: 'RESET_PASSWORD',
@@ -15,6 +16,16 @@ export const loginAction = (data) => {
   return {
     type: actionTypes.LOGIN,
     data: data
+  }
+}
+
+/**
+ * 退出登录
+ * @param {*} data 
+ */
+export const logoutAction = () => {
+  return {
+    type: actionTypes.LOGOUT
   }
 }
 

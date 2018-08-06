@@ -1,22 +1,49 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { createForm } from 'rc-form'
+import { Picker } from 'antd-mobile'
 
-import { FlexList, MainContainer, SubContent, FlexListConfigEntity } from '../Common/FlexList'
+import '../Appointment/appointment.scss'
 
-export const UserCard = () => {
-  const configList = new FlexListConfigEntity({
-    leftWidth: '20px',
-    rightWidth: 0, 
-    minHeight: '30px',
-    withBorder: 'href'
-  })
-  return (
-    <FlexList 
-      sub={<SubContent title='' icon='user' />}
-      extra={<i className='anticon icon-right user__arraw' />}
-      config={configList}>
-      <MainContainer mainClass='user__ownlist'>
-        <p>【社保卡】石青（尾号1083）</p>
-      </MainContainer>
-    </FlexList>
-  )
+import { getMembers, getInitialMember, checkNotNullArr } from '../../utilities/common'
+
+const CustomChildren = props => (
+  <div
+    onClick={props.onClick}
+    style={{ backgroundColor: '#fff', paddingLeft: 15 }}
+  >
+    <div style={{ display: 'flex', height: '45px', lineHeight: '45px' }}>
+      <i className='anticon icon-user detail__icon' />
+      <div style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '16px' }}>{props.extra}</div>
+      <div style={{ textAlign: 'right', color: '#888', marginRight: 15 }}>
+        <i className='anticon icon-right' />
+      </div>
+    </div>
+  </div>
+)
+
+class UserCard extends React.Component {
+  render() {
+    const { getFieldProps } = this.props.form
+    const store = this.props
+    const { accountList } = store.accountReducer
+    return (
+      <div>
+        {
+          checkNotNullArr(accountList) && (
+            <Picker 
+              {...getFieldProps('member', {initialValue: getInitialMember(accountList)})}
+              data={getMembers(accountList)}
+              cols={1}
+              cascade={false}
+            >
+              <CustomChildren />
+            </Picker>
+          )
+        }
+      </div>
+    )
+  }
 }
+
+export default connect(state => state)(createForm()(UserCard))

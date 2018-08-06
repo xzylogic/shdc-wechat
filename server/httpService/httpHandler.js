@@ -13,20 +13,20 @@ class HttpHandler {
     this.configUrl = configUrl || ''
   }
 
-  handle(method, url, data) {
-    return this.httpHandler[method](this.configUrl + url, data || {}).catch(err => {
+  handle(method, url, data, config) {
+    return this.httpHandler[method](this.configUrl + url, data || {}, config || {}).catch(err => {
       this.errorHandler(err)
     })
   }
 
-  get(url) {
-    return this.httpHandler.get(this.configUrl + url).catch(err => {
+  get(url, config) {
+    return this.httpHandler.get(this.configUrl + url, config || {}).catch(err => {
       this.errorHandler(err)
     })
   }
 
-  post(url, data) {
-    return this.httpHandler.post(this.configUrl + url, data || {}).catch(err => {
+  post(url, data, config) {
+    return this.httpHandler.post(this.configUrl + url, data || {}, config || {}).catch(err => {
       this.errorHandler(err)
     })
   }

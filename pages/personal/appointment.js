@@ -3,18 +3,23 @@ import React from 'react'
 import Head from '../../app/components/Common/Head'
 import AppointmentComponent from '../../app/components/Personal/AppointmentComponent'
 
-import { initGlobalQuery, recordCurrentPage } from '../../app/utilities/common'
+import { recordCurrentPage, checkNullArr } from '../../app/utilities/common'
+import { loadAccountListAction } from '../../app/store/actions/personal/account.action'
 import withAuth from '../../app/utilities/withAuth'
 
-class Index extends React.Component {
-  static async getInitialProps(props) {
-    const {store, query} = props.ctx
-    initGlobalQuery(store, query)
+const InitFunction = (store) => {
+  let myStore = 'function' === typeof store.getState ? store.getState() : store
+  if (myStore.accountReducer && checkNullArr(myStore.accountReducer.accountList)) {
+    store.dispatch(loadAccountListAction())
   }
+}
+
+class Index extends React.Component {
 
   componentDidMount() {
     const store = this.props
     recordCurrentPage(store, `/personal/appointment`)
+    InitFunction(store)
   }
 
   render() {
@@ -27,4 +32,4 @@ class Index extends React.Component {
   }
 }
 
-export default withAuth(Index)
+export default withAuth(Index, InitFunction)

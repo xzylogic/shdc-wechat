@@ -9,7 +9,7 @@ export default function withAuth(AuthComponent, InitFunction) {
     static async getInitialProps(props) {
       const { store, query } = props.ctx
       initGlobalQuery(store, query).then(flag => {
-        if (flag) {
+        if (flag && typeof InitFunction !== 'undefined') {
           InitFunction(store)
         }
       })

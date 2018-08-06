@@ -3,12 +3,13 @@ import Router from 'next/router'
 import { Toast } from 'antd-mobile'
 
 import { actionTypes } from '../../actions/login.action'
-import { authLogin, getCurrentPage } from '../../actions/global.action'
+import { authLogin, authNotLogin, getCurrentPage } from '../../actions/global.action'
 
 import { HttpHostService, HttpToastService } from '../../../utilities/httpService'
 
 const PATH = {
   login: '/api/login',
+  logout: '/api/logout',
   register: '/api/register',
   getCode: '/api/user/sendValidCode',
   getbackPassword: '/api/user/forgetPassword'
@@ -19,12 +20,31 @@ const loginService = (data) => {
 }
 
 function* login(actions) {
+  yield Toast.loading('登录中', 0)
   const loginRes = yield call(loginService, actions.data)
   if (loginRes) {
     yield put(authLogin({accessToken: loginRes.accessToken}))
     yield put(getCurrentPage())
     const { currentPage } = yield select((state) => state.globalReducer)
+    yield Toast.hide()
     yield Router.replace(currentPage)
+  }
+}
+
+const logoutService = (accessToken) => {
+  return HttpHostService.post(`${PATH.logout}`, {accessToken: accessToken})
+}
+
+function* logout() {
+  const { accessToken, weChatId } = yield select(state=> state.globalReducer)
+  if (accessToken) {
+    yield Toast.loading('Loading', 0)
+    const res = yield call(logoutService, accessToken)
+    yield console.log(res)
+    if (res) {
+      yield put(authNotLogin({weChatId: weChatId}))
+      yield Router.replace('/login')
+    }
   }
 }
 
@@ -33,11 +53,13 @@ const registerService = (data) => {
 }
 
 function* register(actions) {
+  yield Toast.loading('注册中', 0)
   const registerRes = yield call(registerService, actions.data)
   if (registerRes) {
     yield put(authLogin({accessToken: registerRes.accessToken}))
     yield put(getCurrentPage())
     const { currentPage } = yield select((state) => state.globalReducer)
+    yield Toast.hide()
     yield Router.replace(currentPage)
   }
 }
@@ -58,14 +80,17 @@ const getbackPasswordService = (data) => {
 }
 
 function* getbackPassword(actions) {
+  yield Toast.loading('Loading', 0)
   const res = yield call(getbackPasswordService, actions.data)
   if (res) {
+    yield Toast.hide()
     Router.push('/resetpwd/success')
   }
 }
 
 export const loginSaga = [
   takeLatest(actionTypes.LOGIN, login),
+  takeLatest(actionTypes.LOGOUT, logout),
   takeLatest(actionTypes.REGISTER, register),
   takeLatest(actionTypes.GET_CODE, getCode),
   takeLatest(actionTypes.GETBACK_PASSWORD, getbackPassword)

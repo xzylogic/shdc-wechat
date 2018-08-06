@@ -71,7 +71,8 @@ class Index extends React.Component {
           <List.Item thumb={<i className='anticon icon-user user__tipicon' />}>
             我的家庭成员
           </List.Item>
-        </List>{
+        </List>
+        <div style={{background: '#fff'}}>{
           Array.isArray(accountList) && accountList.map((data, index) => (
             <FlexList
               key={index}
@@ -89,7 +90,7 @@ class Index extends React.Component {
               </MainContainer>
             </FlexList>
           ))
-        }
+        }</div>
         <WhiteSpace />
         <List style={{border: 0}}>
           <List.Item 
@@ -99,13 +100,16 @@ class Index extends React.Component {
           >
             家庭卡添加说明
           </List.Item>{ this.state.descOn ? (
-          <p style={{padding: '15px'}}>
-            家庭卡添加说明家庭卡添加说明家庭卡添加说明家庭卡添加说明家庭卡添加说明
+          <p style={{padding: '15px', lineHeight: 1.75, color: '#999', fontSize: '15px'}}>
+            1）仅支持添加复诊患者（曾在本平台所有医院中的任意一家就诊过的患者）座位家庭卡成员，添加时需要提供真是姓名和医疗卡，否则无法添加成功；<br />
+            2）同一医疗卡只能绑定同一个人，不可重复绑定；<br />
+            3）不同账号下的家庭卡成员不能使用相同的证件号码或手机号码，但同一账号下的家庭成员手机号码可重复；<br />
+            4）每个用户至多能添加3张家庭卡，一般为当前用户、老人和儿童的家庭卡。<br />
           </p>) : ''}
         </List>
         <WhiteSpace size='lg' />
         <WingBlank>
-          <Link href={`/personal/family/add`}>
+          <Link href={`/personal/familyadd`}>
             <Button type='primary'>添加家庭关系</Button>
           </Link>
         </WingBlank>

@@ -51,6 +51,8 @@ app.prepare().then(() => {
 
   server.use(router.post('/api/login', LoginController.login))
   server.use(router.post('/api/register', LoginController.register))
+  server.use(router.post('/api/logout', LoginController.logout))
+  server.use(router.post('/api/resetPassword', LoginController.resetPassword))
 
   myRoutes.routes.forEach(route => {
     server.use(router.get(route.path, (req, res) => {

@@ -3,14 +3,14 @@ import Router from 'next/router'
 
 import { actionTypes, updateAccountInfo, updateAccountList, loadAccountListAction } from '../../actions/personal/account.action'
 import { authNotLogin, authError } from '../../actions/global.action'
-import { HttpService, HttpToastService } from '../../../utilities/httpService'
+import { HttpService, HttpToastService, HttpHostService } from '../../../utilities/httpService'
 
 import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
   getAccountInfo: '/api/user/getPersonalInfo',
   getAccountList: '/api/user/card/list',
-  resetPassword: '/api/user/resetPassword',
+  resetPassword: '/api/resetPassword',
   familyAdd: '/api/user/card/add'
 }
 
@@ -68,7 +68,7 @@ function* familyAdd(actions) {
 }
 
 const resetPasswordService = (data, accessToken) => {
-  return HttpToastService.post(`${PATH.resetPassword}`, data, {headers: { 'access-token': accessToken}})
+  return HttpHostService.post(`${PATH.resetPassword}`, data, {headers: { 'access-token': accessToken}})
 }
 
 function* resetPassword(actions) {

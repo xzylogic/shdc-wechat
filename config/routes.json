@@ -83,12 +83,12 @@
   }, {
     "id": "17",
     "desc": "添加家庭卡",
-    "path": "/personal/family/add",
+    "path": "/personal/familyadd",
     "page": "/personal/familyadd"
   }, {
     "id": "18",
     "desc": "家庭卡详情",
-    "path": "/personal/family/detail",
+    "path": "/personal/familydetail",
     "page": "/personal/familydetail"
   }, {
     "id": "19",

@@ -5,11 +5,13 @@ import Head from '../../app/components/Common/Head'
 import { initGlobalQuery, recordCurrentPage } from '../../app/utilities/common'
 import withAuth from '../../app/utilities/withAuth'
 
+const InitFunction = (store) => {
+  let myStore = 'function' === typeof store.getState ? store.getState() : store
+  // if (myStore.successReducer && checkNullObj(myStore.successReducer.orderDetail)) {
+  // }
+}
+
 class Index extends React.Component {
-  static async getInitialProps(props) {
-    const {store, query} = props.ctx
-    initGlobalQuery(store, query)
-  }
 
   componentDidMount() {
     const store = this.props
@@ -26,4 +28,4 @@ class Index extends React.Component {
   }
 }
 
-export default withAuth(Index)
+export default withAuth(Index, InitFunction)
