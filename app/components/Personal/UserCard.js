@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { createForm } from 'rc-form'
 import { Picker } from 'antd-mobile'
 
 import '../Appointment/appointment.scss'
 
-import { getMembers, getInitialMember, checkNotNullArr } from '../../utilities/common'
+import { getCardList, checkNotNullArr } from '../../utilities/common'
 
 const CustomChildren = props => (
   <div
@@ -23,8 +22,8 @@ const CustomChildren = props => (
 )
 
 class UserCard extends React.Component {
+
   render() {
-    const { getFieldProps } = this.props.form
     const store = this.props
     const { accountList } = store.accountReducer
     return (
@@ -32,8 +31,10 @@ class UserCard extends React.Component {
         {
           checkNotNullArr(accountList) && (
             <Picker 
-              {...getFieldProps('member', {initialValue: getInitialMember(accountList)})}
-              data={getMembers(accountList)}
+              name='member'
+              data={getCardList(accountList)}
+              value={this.props.value}
+              onChange={this.props.onChange}
               cols={1}
               cascade={false}
             >
@@ -46,4 +47,4 @@ class UserCard extends React.Component {
   }
 }
 
-export default connect(state => state)(createForm()(UserCard))
+export default connect(state => state)(UserCard)

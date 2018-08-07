@@ -10,6 +10,7 @@ import { consultationSaga } from './appointment/consultation.saga'
 import { detailSaga } from './appointment/detail.saga'
 import { successSaga } from './appointment/success.saga'
 import { accountSaga } from './personal/account.saga'
+import { appointmentSaga } from './personal/appointment.saga'
 
 es6promise.polyfill()
 
@@ -23,7 +24,8 @@ function* rootSaga() {
     ...consultationSaga,
     ...detailSaga,
     ...successSaga,
-    ...accountSaga
+    ...accountSaga,
+    ...appointmentSaga,
   ])
 }
 

@@ -111,6 +111,27 @@ export const getMembers = (accountList) => {
   return [returnMembers]
 }
 
+export const getCardList = (accountList) => {
+  let returnCards = []
+  if (accountList && Array.isArray(accountList)) {
+    returnCards = accountList.map(account => {
+      let label = ''
+      let value = ''
+      if (account.medicineCardType) {
+        label = `【${renderMedicineCardType(account.medicineCardType)}】${account.name}(尾号${getLastFour(account.medicineCardId)})`
+      } else if (account.cardType) {
+        label = `【${renderCardType(account.cardType)}】${account.name}(尾号${getLastFour(account.cardId)})`
+      }
+      value = account.medicineCardId || account.cardId
+      return {
+        label: label,
+        value: value
+      }
+    })
+  }
+  return [returnCards]
+}
+
 export const getInitialMember = (accountList) => {
   let initialValue = ''
   if(accountList && Array.isArray(accountList) && accountList[0]){

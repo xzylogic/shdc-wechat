@@ -5,12 +5,16 @@ import AppointmentComponent from '../../app/components/Personal/AppointmentCompo
 
 import { recordCurrentPage, checkNullArr } from '../../app/utilities/common'
 import { loadAccountListAction } from '../../app/store/actions/personal/account.action'
+import { loadMyAppointmentsAction } from '../../app/store/actions/personal/appointment.action'
 import withAuth from '../../app/utilities/withAuth'
 
 const InitFunction = (store) => {
   let myStore = 'function' === typeof store.getState ? store.getState() : store
   if (myStore.accountReducer && checkNullArr(myStore.accountReducer.accountList)) {
     store.dispatch(loadAccountListAction())
+  }
+  if (myStore.appointmentReducer && checkNullArr(myStore.appointmentReducer.appointmentList)) {
+    store.dispatch(loadMyAppointmentsAction())
   }
 }
 
