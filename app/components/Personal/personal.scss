@@ -54,3 +54,41 @@
   color: $color-text-third;
   line-height: 1.75;
 }
+
+.box {
+  position: relative;
+  width: 100%;
+  border: 1px solid $color-p-light;
+  background: $color-p-light;
+}
+
+.animate {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: $color-p-dark;
+  white-space: nowrap;
+  animation: 20s wordsLoop linear infinite normal;
+}
+
+
+@keyframes wordsLoop {
+  0% {
+    transform: translateX(85%);
+    -webkit-transform: translateX(85%);
+  }
+  100% {
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+  }
+}
+
+@-webkit-keyframes wordsLoop {
+  0% {
+    transform: translateX(85%);
+    -webkit-transform: translateX(85%);
+  }
+  100% {
+      transform: translateX(-100%);
+      -webkit-transform: translateX(-100%);
+  }
+}

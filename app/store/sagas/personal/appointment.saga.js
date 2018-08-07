@@ -1,13 +1,15 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
+import { Toast } from 'antd-mobile'
 
-import { actionTypes, updateMyAppointmentsAction, updateAppointmentParamAction } from '../../actions/personal/appointment.action'
+import { actionTypes, updateMyAppointmentsAction, updateAppointmentParamAction, loadMyAppointmentsAction } from '../../actions/personal/appointment.action'
 import { authNotLogin, authError } from '../../actions/global.action'
-import { HttpService } from '../../../utilities/httpService'
+import { HttpService, HttpToastService } from '../../../utilities/httpService'
 
 import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
   getAppointmentList: '/api/user/reservation/getReservationRecord',
+  cancelAppointment: '/api/user/reservation/cancelReservation'
 }
 
 const getAppointmentListService = (accessToken) => {
@@ -31,6 +33,21 @@ function* loadAppointmentList() {
   }
 }
 
+const cancelAppointmentService = (data, accessToken) => {
+  return HttpToastService.post(`${PATH.cancelAppointment}`, data, {headers: { 'access-token': accessToken || ''}})
+}
+
+function* cancelAppointment(actions) {
+  yield Toast.loading('Loading', 0)
+  const { accessToken } = yield select((state) => state.globalReducer)
+  const data = yield call(cancelAppointmentService, actions.data, accessToken)
+  if (data) {
+    yield put(loadMyAppointmentsAction())
+    yield Toast.hide()
+  }
+}
+
 export const appointmentSaga = [
   takeLatest(actionTypes.LOAD_MY_APPOINTMENTS, loadAppointmentList),
+  takeLatest(actionTypes.CANCEL_APPOINTMENT, cancelAppointment),
 ]

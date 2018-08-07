@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Button, WhiteSpace } from 'antd-mobile'
 
-export const AppointmentCard = ({data}) => (
+export const AppointmentCard = ({data, handleCancel}) => (
   <div>
     <Card>
       <Card.Header title='2018-06-18' 
@@ -11,11 +11,15 @@ export const AppointmentCard = ({data}) => (
         <p>预约时间： {data && data.scheduleDate}</p>
         <p>预约医院： {data && data.hosOrgName}</p>
         <p>预约科室： {data && data.deptName}</p>
-        <p>订单流水号： {data && data.numSourceId}</p>
+        <p>预约编号： {data && data.numSourceId}</p>
         <WhiteSpace />
-        <div style={{float: 'right', overflow: 'hidden'}}>
-          <Button size='small' type='ghost' style={{width: '80px'}}>取消</Button>
-        </div>
+        {
+          data && data.orderStatus == '已预约' ? (
+            <div style={{float: 'right', overflow: 'hidden'}}>
+              <Button size='small' type='ghost' style={{width: '80px'}} onClick={handleCancel}>取消</Button>
+            </div>
+          ) : ''
+        }
       </Card.Body>
     </Card>
   </div>
