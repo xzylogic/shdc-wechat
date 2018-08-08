@@ -3,14 +3,14 @@ import { Toast } from 'antd-mobile'
 
 import { actionTypes } from '../../actions/appointment/success.action'
 import { updateSuccessOrderAction } from '../../actions/appointment/success.action'
-import { HttpToastService } from '../../../utilities/httpService'
+import { HttpService } from '../../../utilities/httpService'
 
 const PATH = {
   getOrder: '/api/user/reservation/getReservationRecord'
 }
 
 const getOrderService = (accessToken) => {
-  return HttpToastService.get(`${PATH.getOrder}`, {headers: {'access-token': accessToken}})
+  return HttpService.get(`${PATH.getOrder}`, {headers: {'access-token': accessToken}})
 }
 
 function* loadOrder() {

@@ -4,14 +4,14 @@ import { Toast } from 'antd-mobile'
 
 import { actionTypes, updateOrderInfoAction } from '../../actions/appointment/detail.action'
 // import { updateSuccessOrderAction } from '../../actions/appointment/success.action'
-import { HttpToastService } from '../../../utilities/httpService'
+import { HttpService } from '../../../utilities/httpService'
 
 const PATH = {
   submitOrder: '/api/order/submit-order'
 }
 
 const submitOrderService = (data, accessToken) => {
-  return HttpToastService.post(`${PATH.submitOrder}`, data, {headers: {'access-token': accessToken}})
+  return HttpService.post(`${PATH.submitOrder}`, data, {headers: {'access-token': accessToken}})
 }
 
 function* submitOrder(actions) {

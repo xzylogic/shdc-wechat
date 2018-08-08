@@ -2,7 +2,7 @@ import { put, takeLatest, call, select } from 'redux-saga/effects'
 import { Toast } from 'antd-mobile'
 
 import { actionTypes, updateConsultationList, modifyConsultationShow, modifyConsultationSchedule } from '../../actions/appointment/consultation.action'
-import { HttpService, HttpToastService } from '../../../utilities/httpService'
+import { HttpService } from '../../../utilities/httpService'
 
 const PATH = {
   queryConsultations: '/api/schedule/queryDoctorByScheduleDate',
@@ -35,7 +35,7 @@ function* loadConsultationList() {
 
 const queryScheduleService = (hosOrgCode, scheduleId) => {
   const query = `?hosOrgCode=${hosOrgCode}&scheduleId=${scheduleId}`
-  return HttpToastService.get(`${PATH.querySchedule}${query}`)
+  return HttpService.get(`${PATH.querySchedule}${query}`)
 }
 
 function* querySchedule(actions) {

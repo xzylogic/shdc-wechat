@@ -25,6 +25,7 @@ class UserCard extends React.Component {
 
   render() {
     const store = this.props
+    const ifKey = this.props.ifKey
     const { accountList } = store.accountReducer
     return (
       <div>
@@ -32,8 +33,8 @@ class UserCard extends React.Component {
           checkNotNullArr(accountList) && (
             <Picker 
               name='member'
-              data={getCardList(accountList)}
-              value={this.props.value}
+              data={getCardList(accountList, ifKey)}
+              value={this.props.value !== '' && [this.props.value]}
               onChange={this.props.onChange}
               cols={1}
               cascade={false}

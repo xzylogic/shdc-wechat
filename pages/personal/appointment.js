@@ -5,7 +5,7 @@ import AppointmentComponent from '../../app/components/Personal/AppointmentCompo
 
 import { recordCurrentPage, checkNullArr } from '../../app/utilities/common'
 import { loadAccountListAction } from '../../app/store/actions/personal/account.action'
-import { loadMyAppointmentsAction } from '../../app/store/actions/personal/appointment.action'
+import { loadMyAppointmentsAction, updateAppointmentParamAction } from '../../app/store/actions/personal/appointment.action'
 import withAuth from '../../app/utilities/withAuth'
 
 const InitFunction = (store) => {
@@ -24,6 +24,10 @@ class Index extends React.Component {
     const store = this.props
     recordCurrentPage(store, `/personal/appointment`)
     InitFunction(store)
+    if (!store.appointmentReducer.searchParam && store.accountReducer.accountList[0]) {
+      const param = store.accountReducer.accountList[0]
+      store.dispatch(updateAppointmentParamAction(param.medicineCardId || param.cardId))
+    }
   }
 
   render() {

@@ -4,7 +4,7 @@ import { Toast } from 'antd-mobile'
 import { actionTypes, updateDoctorDetail, updateAppointmentList } from '../../actions/appointment/doctor.action'
 import { modifyDoctorShow, modifyDoctorSchedule } from '../../actions/appointment/doctor.action'
 import { authError, authNotLogin } from '../../actions/global.action'
-import { HttpToastService, HttpService } from '../../../utilities/httpService'
+import { HttpService } from '../../../utilities/httpService'
 import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
@@ -59,7 +59,7 @@ function* loadAppointmentList() {
 
 const queryScheduleService = (hosOrgCode, scheduleId) => {
   const query = `?hosOrgCode=${hosOrgCode}&scheduleId=${scheduleId}`
-  return HttpToastService.get(`${PATH.querySchedule}${query}`)
+  return HttpService.get(`${PATH.querySchedule}${query}`)
 }
 
 function* querySchedule(actions) {

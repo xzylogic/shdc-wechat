@@ -6,7 +6,7 @@ import {
   updateHospitalsZY, updateHospitalsZK, updateSearchList 
 } from '../../actions/appointment/hospitals.action'
 import { authError, authNotLogin } from '../../actions/global.action'
-import { HttpService, HttpToastService } from '../../../utilities/httpService'
+import { HttpService } from '../../../utilities/httpService'
 import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
@@ -49,7 +49,7 @@ function* loadHospitals() {
 }
 
 const querySearchService = (data) => {
-  return HttpToastService.get(`${PATH.querySearch}?searchParams=${data}`)
+  return HttpService.get(`${PATH.querySearch}?searchParams=${data}`)
 }
 
 function* loadSearch(actions) {

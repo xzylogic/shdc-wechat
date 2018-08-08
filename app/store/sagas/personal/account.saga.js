@@ -3,7 +3,7 @@ import Router from 'next/router'
 
 import { actionTypes, updateAccountInfo, updateAccountList, loadAccountListAction } from '../../actions/personal/account.action'
 import { authNotLogin, authError } from '../../actions/global.action'
-import { HttpService, HttpToastService, HttpHostService } from '../../../utilities/httpService'
+import { HttpService, HttpHostService } from '../../../utilities/httpService'
 
 import * as CODE from '../../../utilities/status-code'
 
@@ -55,7 +55,7 @@ function* loadAccountList() {
 }
 
 const familyAddService = (data, accessToken) => {
-  HttpToastService.post(`${PATH.familyAdd}`, data, {headers: {'access-token':accessToken}})
+  HttpService.post(`${PATH.familyAdd}`, data, {headers: {'access-token':accessToken}})
 }
 
 function* familyAdd(actions) {

@@ -3,7 +3,7 @@ import { Toast } from 'antd-mobile'
 
 import { actionTypes, updateDepartmentsParent, updateDepartmentsChild, updateToHosDeptCode } from '../../actions/appointment/departments.action'
 import { authError, authNotLogin } from '../../actions/global.action'
-import { HttpToastService, HttpService } from '../../../utilities/httpService'
+import { HttpService } from '../../../utilities/httpService'
 import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
@@ -43,7 +43,7 @@ function* loadDepartments() {
 
 const getDepartmentsChildService = (hosOrgCode, deptType, parentId) => {
   const query = `?hosOrgCode=${hosOrgCode}&deptType=${deptType}&parentId=${parentId}`
-  return HttpToastService.get(`${PATH.queryDepartmentsChild}${query}`)
+  return HttpService.get(`${PATH.queryDepartmentsChild}${query}`)
 }
 
 function* loadDepartmentsChild(actions) {

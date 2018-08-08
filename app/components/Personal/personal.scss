@@ -92,3 +92,13 @@
       -webkit-transform: translateX(-100%);
   }
 }
+
+.icon__reverse {
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: all .2s linear;
+}
+
+.icon__reverse.reverse{
+  transform: rotate(180deg);
+}

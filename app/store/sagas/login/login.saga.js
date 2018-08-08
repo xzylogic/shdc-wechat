@@ -5,7 +5,7 @@ import { Toast } from 'antd-mobile'
 import { actionTypes } from '../../actions/login.action'
 import { authLogin, authNotLogin, getCurrentPage } from '../../actions/global.action'
 
-import { HttpHostService, HttpToastService } from '../../../utilities/httpService'
+import { HttpHostService, HttpService } from '../../../utilities/httpService'
 
 const PATH = {
   login: '/api/login',
@@ -65,7 +65,7 @@ function* register(actions) {
 }
 
 const getCodeService = (data) => {
-  return HttpToastService.post(`${PATH.getCode}`, data)
+  return HttpService.post(`${PATH.getCode}`, data)
 }
 
 function* getCode(actions) {
@@ -76,7 +76,7 @@ function* getCode(actions) {
 }
 
 const getbackPasswordService = (data) => {
-  return HttpToastService.post(`${PATH.getbackPassword}`, data, {headers: { version: '2.0' }})
+  return HttpService.post(`${PATH.getbackPassword}`, data, {headers: { version: '2.0' }})
 }
 
 function* getbackPassword(actions) {

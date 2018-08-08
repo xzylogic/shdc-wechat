@@ -3,9 +3,11 @@ import { Toast } from 'antd-mobile'
 
 import { actionTypes, updateMyAppointmentsAction, updateAppointmentParamAction, loadMyAppointmentsAction } from '../../actions/personal/appointment.action'
 import { authNotLogin, authError } from '../../actions/global.action'
-import { HttpService, HttpToastService } from '../../../utilities/httpService'
+import { HttpService } from '../../../utilities/httpService'
 
 import * as CODE from '../../../utilities/status-code'
+import { checkNotNullArr, checkNullArr, startLoading, endLoading } from '../../../utilities/common';
+import { loadAccountListAction } from '../../actions/personal/account.action';
 
 const PATH = {
   getAppointmentList: '/api/user/reservation/getReservationRecord',
@@ -18,11 +20,14 @@ const getAppointmentListService = (accessToken) => {
 
 function* loadAppointmentList() {
   try {
+    yield startLoading()
     const { accessToken } = yield select((state) => state.globalReducer)
-    const data = yield call(getAppointmentListService, accessToken)
-    if (data) {
-      yield put(updateMyAppointmentsAction(data))
-      yield put(updateAppointmentParamAction(data[0] && [data[0].mediCardId]))
+    if (accessToken) {
+      const data = yield call(getAppointmentListService, accessToken)
+      if (data) {
+        yield put(updateMyAppointmentsAction(data))
+        yield endLoading()
+      }
     }
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
@@ -34,7 +39,7 @@ function* loadAppointmentList() {
 }
 
 const cancelAppointmentService = (data, accessToken) => {
-  return HttpToastService.post(`${PATH.cancelAppointment}`, data, {headers: { 'access-token': accessToken || ''}})
+  return HttpService.post(`${PATH.cancelAppointment}`, data, {headers: { 'access-token': accessToken || ''}})
 }
 
 function* cancelAppointment(actions) {

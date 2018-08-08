@@ -10,13 +10,6 @@ import { updateAppointmentParamAction, cancelAppointmentAction } from '../../sto
 
 import './personal.scss'
 
-const showAlert = () => {
-  const alertInstance = Modal.alert('Delete', 'Are you sure???', [
-    { text: 'Cancel', onPress: () => console.log('cancel'), style: 'default' },
-    { text: 'OK', onPress: () => console.log('ok') },
-  ]);
-};
-
 class Index extends React.Component {
   handleCancel = (obj) => {
     const store = this.props
@@ -34,10 +27,10 @@ class Index extends React.Component {
   render() {
     const store = this.props
     const { appointmentList, searchParam } = store.appointmentReducer
-    const filterAppointmentList = appointmentList.filter(obj => obj.mediCardId === searchParam[0])
+    const filterAppointmentList = appointmentList.filter(obj => obj.mediCardId === searchParam)
     return (
       <div>
-        <UserCard value={searchParam} onChange={(value)=> store.dispatch(updateAppointmentParamAction(value))} />
+        <UserCard value={searchParam} onChange={(value)=> store.dispatch(updateAppointmentParamAction(value[0]))} />
         <div className='box'>
           <p className='animate'>温馨提示：预约时间段以短信为主，本预约时段只供参考！</p>
         </div>

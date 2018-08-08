@@ -12,7 +12,7 @@ export class NullContent extends React.Component {
   render() {
     const msg = this.props.msg
     return (
-      <div style={{textAlign: 'center', padding: '15px', color: '#999'}}>{msg}</div>
+      <div style={{textAlign: 'center', padding: '15px', color: '#999', marginBottom: '15px'}}>{msg}</div>
     )
   }
 }

@@ -1,4 +1,5 @@
 import * as moment from 'moment'
+import { Toast } from 'antd-mobile'
 import { authLogin, authNotLogin, authError, updateCurrentPage } from '../store/actions/global.action'
 
 export const initGlobalQuery = (store, query) => {
@@ -111,10 +112,10 @@ export const getMembers = (accountList) => {
   return [returnMembers]
 }
 
-export const getCardList = (accountList) => {
+export const getCardList = (accountList, ifKey) => {
   let returnCards = []
   if (accountList && Array.isArray(accountList)) {
-    returnCards = accountList.map(account => {
+    returnCards = accountList.map((account, index) => {
       let label = ''
       let value = ''
       if (account.medicineCardType) {
@@ -122,7 +123,7 @@ export const getCardList = (accountList) => {
       } else if (account.cardType) {
         label = `【${renderCardType(account.cardType)}】${account.name}(尾号${getLastFour(account.cardId)})`
       }
-      value = account.medicineCardId || account.cardId
+      value = ifKey ? index : account.medicineCardId || account.cardId
       return {
         label: label,
         value: value
@@ -175,3 +176,15 @@ export const checkNotNullArr = (arr) => {
 export const formatTime = (startTime, endTime) => {
   return moment(startTime).format('HH:mm - ') + moment(endTime).format('HH:mm')
 }
+
+export const startLoading = (content = '') => {
+  if (typeof window !== 'undefined') {
+    Toast.loading(content, 0)
+  }
+} 
+
+export const endLoading = () => {
+  if (typeof window !== 'undefined') {
+    Toast.hide()
+  }
+} 
