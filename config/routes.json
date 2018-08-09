@@ -103,17 +103,17 @@
   }, {
     "id": "21",
     "desc": "我的候诊-医院列表",
-    "path": "/personal/waiting/hospital",
+    "path": "/personal/waitinghospital/:pageType",
     "page": "/personal/waitinghospital"
   }, {
     "id": "22",
     "desc": "我的候诊",
-    "path": "/personal/waiting/mine",
+    "path": "/personal/waitingmine",
     "page": "/personal/waitingmine"
   }, {
     "id": "23",
     "desc": "医院候诊-科室列表",
-    "path": "/personal/waiting/department",
+    "path": "/personal/waitingdepartment",
     "page": "/personal/waitingdepartment"
   }, {
     "id": "24",

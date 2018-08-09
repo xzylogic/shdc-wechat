@@ -1,17 +1,10 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
-import RenderPage from '../../app/components/Common/RenderPage'
 
-import { initGlobalQuery, recordCurrentPage } from '../../app/utilities/common'
+import { recordCurrentPage } from '../../app/utilities/common'
+import WaitingComponent from '../../app/components/Personal/WaitingComponent'
 import withAuth from '../../app/utilities/withAuth'
-
-const InitFunction = (store) => {
-  let myStore = 'function' === typeof store.getState ? store.getState() : store
-  // if (myStore.successReducer && checkNullObj(myStore.successReducer.orderDetail)) {
-  // }
-}
 
 class Index extends React.Component {
 
@@ -23,11 +16,11 @@ class Index extends React.Component {
   render() {
     return (
       <div>
-        <Head title='候诊' />
-        123
+        <Head title='我的候诊' />
+        <WaitingComponent />
       </div>
     )
   }
 }
 
-export default withAuth(Index, InitFunction)
+export default withAuth(Index)
