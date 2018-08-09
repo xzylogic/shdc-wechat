@@ -5,24 +5,12 @@ import { connect } from 'react-redux'
 import { List, WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
 import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
-import { checkNullObj, checkNullArr } from '../../utilities/common'
-import { loadAccountInfoAction, loadAccountListAction } from '../../store/actions/personal/account.action'
 
 import './personal.scss'
 
 class Index extends React.Component {
   state = {
     descOn: false 
-  }
-
-  componentWillMount() {
-    const store = this.props
-    if (checkNullObj(store.accountReducer.accountInfo)) {
-      store.dispatch(loadAccountInfoAction())
-    }
-    if (checkNullArr(store.accountReducer.accountList)) {
-      store.dispatch(loadAccountListAction())
-    }
   }
 
   render() {

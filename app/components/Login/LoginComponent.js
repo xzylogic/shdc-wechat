@@ -26,7 +26,7 @@ class Index extends React.Component {
         }
         store.dispatch(loginAction(formData))
       }
-    });
+    })
   }
 
   render() {

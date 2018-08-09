@@ -1,9 +1,10 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
-import { Toast } from 'antd-mobile'
 
 import { actionTypes, updateDoctorsByName, updateDoctorsByDate, modifyDoctorsSchedule, modifyDoctorsSShow } from '../../actions/appointment/doctors.action'
 import { authError, authNotLogin } from '../../actions/global.action'
 import { HttpService } from '../../../utilities/httpService'
+
+import { startLoading, endLoading } from '../../../utilities/common'
 import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
@@ -19,25 +20,20 @@ const getDoctorsByName = (hosOrgCode, deptCode, toHosDeptCode) => {
 
 function* loadDoctorsByName() {
   try {
-    if (typeof document !== 'undefined') {
-      yield put(updateDoctorsByName([]))
-      yield Toast.loading('loading...', 0)
-    }
+    yield startLoading('Loading')
+    yield put(updateDoctorsByName([]))
     const { hosOrgCode, hosDeptCode, toHosDeptCode } = yield select(state => state.doctorsReducer)
     const data = yield call(getDoctorsByName, hosOrgCode, hosDeptCode, toHosDeptCode)
     if (data) {
       yield put(updateDoctorsByName(data))
-    }
-    if (typeof document !== 'undefined') {
-      yield Toast.hide()
+      yield endLoading()
     }
   } catch (error) {
-    console.log(error)
-    // if (error && error.message == CODE.NOT_LOGIN) {
-    //   yield put(authNotLogin())
-    // } else {
-    //   yield put(authError({errorMsg: error.message}))
-    // }
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
   }
 }
 
@@ -49,25 +45,21 @@ const getDoctorsByDate = (hosOrgCode, deptCode, toHosDeptCode) => {
 
 function* loadDoctorsByDate() {
   try {
-    if (typeof document !== 'undefined') {
-      yield put(updateDoctorsByDate([]))
-      yield Toast.loading('loading...')
-    }
+    yield startLoading('Loading')
+    yield put(updateDoctorsByDate([]))
+
     const { hosOrgCode, hosDeptCode, toHosDeptCode } = yield select(state => state.doctorsReducer)
     const data = yield call(getDoctorsByDate, hosOrgCode, hosDeptCode, toHosDeptCode)
     if (data) {
       yield put(updateDoctorsByDate(data))
-    }
-    if (typeof document !== 'undefined') {
-      yield Toast.hide()
+      yield endLoading()
     }
   } catch (error) {
-    console.log(error)
-    // if (error && error.message == CODE.NOT_LOGIN) {
-    //   yield put(authNotLogin())
-    // } else {
-    //   yield put(authError({errorMsg: error.message}))
-    // }
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
   }
 }
 
@@ -77,14 +69,22 @@ const queryScheduleService = (hosOrgCode, scheduleId) => {
 }
 
 function* querySchedule(actions) {
-  yield put(modifyDoctorsSShow(actions.i, actions.j, actions.k))
-  const { hosOrgCode, doctorsByDate } = yield select(state => state.doctorsReducer)
-  if(!doctorsByDate[actions.i]['doctors'][actions.j]['schedules'][actions.k]['children'] && doctorsByDate[actions.i]['doctors'][actions.j]['schedules'][actions.k]['show']) {
-    yield Toast.loading('loading...', 0)
-    const data = yield call(queryScheduleService, hosOrgCode, actions.id)
-    if (data) {
-      yield put(modifyDoctorsSchedule(data, actions.i, actions.j, actions.k))
-      yield Toast.hide()
+  try {
+    yield put(modifyDoctorsSShow(actions.i, actions.j, actions.k))
+    const { hosOrgCode, doctorsByDate } = yield select(state => state.doctorsReducer)
+    if (!doctorsByDate[actions.i]['doctors'][actions.j]['schedules'][actions.k]['children'] && doctorsByDate[actions.i]['doctors'][actions.j]['schedules'][actions.k]['show']) {
+      yield startLoading('Loading')
+      const data = yield call(queryScheduleService, hosOrgCode, actions.id)
+      if (data) {
+        yield put(modifyDoctorsSchedule(data, actions.i, actions.j, actions.k))
+        yield endLoading()
+      }
+    }
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
     }
   }
 }

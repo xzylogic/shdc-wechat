@@ -1,9 +1,11 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
-import { Toast } from 'antd-mobile'
 
 import { actionTypes } from '../../actions/appointment/success.action'
 import { updateSuccessOrderAction } from '../../actions/appointment/success.action'
 import { HttpService } from '../../../utilities/httpService'
+
+import { startLoading, endLoading } from '../../../utilities/common'
+import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
   getOrder: '/api/user/reservation/getReservationRecord'
@@ -14,19 +16,21 @@ const getOrderService = (accessToken) => {
 }
 
 function* loadOrder() {
-  const { accessToken } = yield select(state => state.globalReducer)
-  if(accessToken) {
-    if (typeof window !== 'undefined') {
-      yield Toast.loading('loading...', 0)
-    }
-    const data = yield call(getOrderService, accessToken)
-    if (data && data[0]) {
-      console.log(data[0])
-      console.log('success')
-      yield put(updateSuccessOrderAction(data[0]))
-      if (typeof window !== 'undefined') {
-        yield Toast.hide()
+  try {
+    const { accessToken } = yield select(state => state.globalReducer)
+    if (accessToken) {
+      yield startLoading('Loading')
+      const data = yield call(getOrderService, accessToken)
+      if (data && data[0]) {
+        yield put(updateSuccessOrderAction(data[0]))
+        yield endLoading()
       }
+    }
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
     }
   }
 }

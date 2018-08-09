@@ -1,8 +1,11 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
-import { Toast } from 'antd-mobile'
 
 import { actionTypes, updateConsultationList, modifyConsultationShow, modifyConsultationSchedule } from '../../actions/appointment/consultation.action'
+import { authNotLogin, authError } from '../../actions/global.action'
 import { HttpService } from '../../../utilities/httpService'
+
+import * as CODE from '../../../utilities/status-code'
+import { startLoading, endLoading } from '../../../utilities/common'
 
 const PATH = {
   queryConsultations: '/api/schedule/queryDoctorByScheduleDate',
@@ -16,20 +19,21 @@ const getConsultationListService = (hosOrgCode, hosDeptCode, toHosDeptCode, regi
 
 function* loadConsultationList() {
   try {
-    if (typeof document !== 'undefined') {
-      yield put(updateConsultationList([]))
-      Toast.loading('loading', 0)
-    }
+    yield startLoading('Loading')
+    yield put(updateConsultationList([]))
+
     const { hosOrgCode, hosDeptCode, toHosDeptCode, pageType } = yield select((state) => state.consultationReducer)
     const data = yield call(getConsultationListService, hosOrgCode, hosDeptCode, toHosDeptCode, pageType)
     if (data) {
       yield put(updateConsultationList(data))
-    }
-    if (typeof document !== 'undefined') {
-      yield Toast.hide()
+      yield endLoading()
     }
   } catch (error) {
-    console.log(error)
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
   }
 }
 
@@ -39,14 +43,22 @@ const queryScheduleService = (hosOrgCode, scheduleId) => {
 }
 
 function* querySchedule(actions) {
-  yield put(modifyConsultationShow(actions.j, actions.k))
-  const { hosOrgCode, consultationList } = yield select(state => state.consultationReducer)
-  if(!consultationList[actions.j]['doctors'][actions.k]['children'] && consultationList[actions.j]['doctors'][actions.k]['show']) {
-    yield Toast.loading('loading...', 0)
-    const data = yield call(queryScheduleService, hosOrgCode, actions.id)
-    if (data) {
-      yield put(modifyConsultationSchedule(data, actions.j, actions.k))
-      yield Toast.hide()
+  try {
+    yield put(modifyConsultationShow(actions.j, actions.k))
+    const { hosOrgCode, consultationList } = yield select(state => state.consultationReducer)
+    if (!consultationList[actions.j]['doctors'][actions.k]['children'] && consultationList[actions.j]['doctors'][actions.k]['show']) {
+      yield startLoading('Loading')
+      const data = yield call(queryScheduleService, hosOrgCode, actions.id)
+      if (data) {
+        yield put(modifyConsultationSchedule(data, actions.j, actions.k))
+        yield endLoading()
+      }
+    }
+  } catch(error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
     }
   }
 }

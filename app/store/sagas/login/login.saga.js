@@ -6,6 +6,7 @@ import { actionTypes } from '../../actions/login.action'
 import { authLogin, authNotLogin, getCurrentPage } from '../../actions/global.action'
 
 import { HttpHostService, HttpService } from '../../../utilities/httpService'
+import { startLoading, endLoading } from '../../../utilities/common'
 
 const PATH = {
   login: '/api/login',
@@ -20,13 +21,13 @@ const loginService = (data) => {
 }
 
 function* login(actions) {
-  yield Toast.loading('登录中', 0)
+  yield startLoading('登录中')
   const loginRes = yield call(loginService, actions.data)
   if (loginRes) {
     yield put(authLogin({accessToken: loginRes.accessToken}))
     yield put(getCurrentPage())
     const { currentPage } = yield select((state) => state.globalReducer)
-    yield Toast.hide()
+    yield endLoading()
     yield Router.replace(currentPage)
   }
 }
@@ -38,13 +39,15 @@ const logoutService = (accessToken) => {
 function* logout() {
   const { accessToken, weChatId } = yield select(state=> state.globalReducer)
   if (accessToken) {
-    yield Toast.loading('Loading', 0)
+    yield startLoading('正在退出')
     const res = yield call(logoutService, accessToken)
-    yield console.log(res)
     if (res) {
       yield put(authNotLogin({weChatId: weChatId}))
+      yield endLoading()
       yield Router.replace('/login')
     }
+  } else {
+    Toast.info('当前无法退出')
   }
 }
 
@@ -53,13 +56,13 @@ const registerService = (data) => {
 }
 
 function* register(actions) {
-  yield Toast.loading('注册中', 0)
+  yield startLoading('注册中')
   const registerRes = yield call(registerService, actions.data)
   if (registerRes) {
     yield put(authLogin({accessToken: registerRes.accessToken}))
     yield put(getCurrentPage())
     const { currentPage } = yield select((state) => state.globalReducer)
-    yield Toast.hide()
+    yield endLoading()
     yield Router.replace(currentPage)
   }
 }
@@ -69,6 +72,7 @@ const getCodeService = (data) => {
 }
 
 function* getCode(actions) {
+  yield startLoading()
   const codeRes = yield call(getCodeService, actions.data)
   if (codeRes) {
     yield Toast.info(codeRes)
@@ -80,10 +84,10 @@ const getbackPasswordService = (data) => {
 }
 
 function* getbackPassword(actions) {
-  yield Toast.loading('Loading', 0)
+  yield startLoading()
   const res = yield call(getbackPasswordService, actions.data)
   if (res) {
-    yield Toast.hide()
+    yield endLoading()
     Router.push('/resetpwd/success')
   }
 }

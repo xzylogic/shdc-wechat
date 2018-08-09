@@ -29,7 +29,6 @@ class Index extends React.Component {
       visitNo: data.visitNo || '',
       orderTime: data.startTime + '-' + data.endTime.split(' ')[1],
     }
-    console.log(orderData)
     store.dispatch(storeOrderInfoAction(orderData))
     Router.push('/appointment/detail')
   } 

@@ -6,6 +6,7 @@ import { authNotLogin, authError } from '../../actions/global.action'
 import { HttpService, HttpHostService } from '../../../utilities/httpService'
 
 import * as CODE from '../../../utilities/status-code'
+import { startLoading, endLoading } from '../../../utilities/common'
 
 const PATH = {
   getAccountInfo: '/api/user/getPersonalInfo',
@@ -20,10 +21,12 @@ const getAccountInfoService = (accessToken) => {
 
 function* loadAccountInfo() {
   try {
+    yield startLoading('Loading')
     const { accessToken } = yield select((state) => state.globalReducer)
     const data = yield call(getAccountInfoService, accessToken)
     if (data) {
       yield put(updateAccountInfo(data))
+      yield endLoading()
     }
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
@@ -40,10 +43,12 @@ const getAccountListService = (accessToken) => {
 
 export function* loadAccountList() {
   try {
+    yield startLoading('Loading')
     const { accessToken } = yield select((state) => state.globalReducer)
     const data = yield call(getAccountListService, accessToken)
     if (data) {
       yield put(updateAccountList(data))
+      yield endLoading()
     }
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
@@ -59,11 +64,21 @@ const familyAddService = (data, accessToken) => {
 }
 
 function* familyAdd(actions) {
-  const { accessToken } = yield select((state) => state.globalReducer)
-  const res = yield call(familyAddService, actions.data, accessToken)
-  if (res) {
-    yield put(loadAccountListAction())
-    yield Router.push(`/personal/mine`)
+  try {
+    yield startLoading()
+    const { accessToken } = yield select((state) => state.globalReducer)
+    const res = yield call(familyAddService, actions.data, accessToken)
+    if (res) {
+      yield put(loadAccountListAction())
+      yield endLoading()
+      yield Router.push(`/personal/mine`)
+    }
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
   }
 }
 
@@ -72,10 +87,20 @@ const resetPasswordService = (data, accessToken) => {
 }
 
 function* resetPassword(actions) {
-  const { accessToken } = yield select((state) => state.globalReducer)
-  const res = yield call(resetPasswordService, actions.data, accessToken)
-  if (res) {
-    Router.push('/login')
+  try {
+    yield startLoading()
+    const { accessToken } = yield select((state) => state.globalReducer)
+    const res = yield call(resetPasswordService, actions.data, accessToken)
+    if (res) {
+      yield endLoading()
+      Router.push('/login')
+    }
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
   }
 }
 

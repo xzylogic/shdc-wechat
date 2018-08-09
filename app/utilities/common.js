@@ -1,6 +1,6 @@
 import * as moment from 'moment'
 import { Toast } from 'antd-mobile'
-import { authLogin, authNotLogin, authError, updateCurrentPage } from '../store/actions/global.action'
+import { authLogin, authNotLogin, updateCurrentPage } from '../store/actions/global.action'
 
 export const initGlobalQuery = (store, query) => {
   return new Promise((resolve, reject) => {
@@ -19,7 +19,7 @@ export const recordCurrentPage = (store, path) => {
 }
 
 export const hasErrors = (fieldsError) => {
-  return Object.keys(fieldsError).some(field => fieldsError[field]);
+  return Object.keys(fieldsError).some(field => fieldsError[field])
 }
 
 export const renderSex = (sex) => {

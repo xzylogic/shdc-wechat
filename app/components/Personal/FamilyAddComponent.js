@@ -10,7 +10,7 @@ import '../Login/login.scss'
 class Index extends React.Component {
 
   hasErrors = (fieldsError) => {
-    return Object.keys(fieldsError).some(field => fieldsError[field]);
+    return Object.keys(fieldsError).some(field => fieldsError[field])
   }
 
   handleSubmit = () => {

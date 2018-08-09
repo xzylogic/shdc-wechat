@@ -1,13 +1,11 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
-import { Toast } from 'antd-mobile'
 
-import { actionTypes, updateMyAppointmentsAction, updateAppointmentParamAction, loadMyAppointmentsAction } from '../../actions/personal/appointment.action'
+import { actionTypes, updateMyAppointmentsAction, loadMyAppointmentsAction } from '../../actions/personal/appointment.action'
 import { authNotLogin, authError } from '../../actions/global.action'
 import { HttpService } from '../../../utilities/httpService'
 
 import * as CODE from '../../../utilities/status-code'
-import { checkNotNullArr, checkNullArr, startLoading, endLoading } from '../../../utilities/common';
-import { loadAccountListAction } from '../../actions/personal/account.action';
+import { startLoading, endLoading } from '../../../utilities/common'
 
 const PATH = {
   getAppointmentList: '/api/user/reservation/getReservationRecord',
@@ -20,7 +18,7 @@ const getAppointmentListService = (accessToken) => {
 
 function* loadAppointmentList() {
   try {
-    yield startLoading()
+    yield startLoading('Loading')
     const { accessToken } = yield select((state) => state.globalReducer)
     if (accessToken) {
       const data = yield call(getAppointmentListService, accessToken)
@@ -43,12 +41,20 @@ const cancelAppointmentService = (data, accessToken) => {
 }
 
 function* cancelAppointment(actions) {
-  yield Toast.loading('Loading', 0)
-  const { accessToken } = yield select((state) => state.globalReducer)
-  const data = yield call(cancelAppointmentService, actions.data, accessToken)
-  if (data) {
-    yield put(loadMyAppointmentsAction())
-    yield Toast.hide()
+  try {
+    yield startLoading()
+    const { accessToken } = yield select((state) => state.globalReducer)
+    const data = yield call(cancelAppointmentService, actions.data, accessToken)
+    if (data) {
+      yield put(loadMyAppointmentsAction())
+      yield endLoading()
+    }
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
   }
 }
 

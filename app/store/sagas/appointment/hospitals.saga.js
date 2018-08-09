@@ -1,5 +1,4 @@
 import { put, takeLatest, call } from 'redux-saga/effects'
-import { Toast } from 'antd-mobile'
 
 import { 
   actionTypes, updateHospitalsAll, updateHospitalsZH, 
@@ -7,6 +6,8 @@ import {
 } from '../../actions/appointment/hospitals.action'
 import { authError, authNotLogin } from '../../actions/global.action'
 import { HttpService } from '../../../utilities/httpService'
+
+import { startLoading, endLoading } from '../../../utilities/common'
 import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
@@ -24,6 +25,7 @@ const getHospitalsService = (cityCode) => {
 
 function* loadHospitals() {
   try {
+    yield startLoading('Loading')
     const [ dataAll, dataZH, dataZY, dataZK] = yield [
       call(getHospitalsService),
       call(getHospitalsService, 'zhyy'),
@@ -37,14 +39,14 @@ function* loadHospitals() {
         put(updateHospitalsZY(dataZY)),
         put(updateHospitalsZK(dataZK)),
       ]
+      yield endLoading()
     }
   } catch (error) {
-    console.log(error)
-    // if (error && error.message == CODE.NOT_LOGIN) {
-    //   yield put(authNotLogin())
-    // } else {
-    //   yield put(authError({errorMsg: error.message}))
-    // }
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
   }
 }
 
@@ -53,11 +55,19 @@ const querySearchService = (data) => {
 }
 
 function* loadSearch(actions) {
-  yield Toast.loading('Loading...', 0)
-  const data = yield call(querySearchService, actions.data)
-  if (data) {
-    yield put(updateSearchList(data))
-    yield Toast.hide()
+  try {
+    yield startLoading('Loading')
+    const data = yield call(querySearchService, actions.data)
+    if (data) {
+      yield put(updateSearchList(data))
+      yield endLoading()
+    }
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
   }
 }
 

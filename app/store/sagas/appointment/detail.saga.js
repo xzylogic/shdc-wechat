@@ -3,8 +3,10 @@ import Router from 'next/router'
 import { Toast } from 'antd-mobile'
 
 import { actionTypes, updateOrderInfoAction } from '../../actions/appointment/detail.action'
-// import { updateSuccessOrderAction } from '../../actions/appointment/success.action'
 import { HttpService } from '../../../utilities/httpService'
+
+import { startLoading, endLoading } from '../../../utilities/common'
+import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
   submitOrder: '/api/order/submit-order'
@@ -15,14 +17,21 @@ const submitOrderService = (data, accessToken) => {
 }
 
 function* submitOrder(actions) {
-  const { accessToken } = yield select(state => state.globalReducer)
-  if(actions.data && accessToken) {
-    yield Toast.loading('loading...', 0)
-    const data = yield call(submitOrderService, actions.data, accessToken)
-    if (data) {
-      // yield put(updateSuccessOrderAction(data))
-      yield Toast.hide()
-      yield Router.push('/appointment/success')
+  try {
+    const { accessToken } = yield select(state => state.globalReducer)
+    if (actions.data && accessToken) {
+      yield startLoading()
+      const data = yield call(submitOrderService, actions.data, accessToken)
+      if (data) {
+        yield endLoading()
+        yield Router.push('/appointment/success')
+      }
+    }
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
     }
   }
 }

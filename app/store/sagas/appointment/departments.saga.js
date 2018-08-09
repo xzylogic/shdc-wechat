@@ -1,9 +1,10 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
-import { Toast } from 'antd-mobile'
 
 import { actionTypes, updateDepartmentsParent, updateDepartmentsChild, updateToHosDeptCode } from '../../actions/appointment/departments.action'
 import { authError, authNotLogin } from '../../actions/global.action'
 import { HttpService } from '../../../utilities/httpService'
+
+import { startLoading, endLoading } from '../../../utilities/common'
 import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
@@ -21,10 +22,9 @@ const getDepartmentsService = (hosOrgCode, deptType, parentId) => {
 
 function* loadDepartments() {
   try {
-    if (typeof document !== 'undefined') {
-      yield put(updateDepartmentsParent([]))
-      Toast.loading('loading', 0)
-    }
+    yield startLoading('Loading')
+    yield put(updateDepartmentsParent([]))
+
     const { hosOrgCode, deptType } = yield select((state) => state.departmentsReducer)
     const data = yield call(getDepartmentsService, hosOrgCode, deptType)
     if (data && data[0] && !data[0].children) {
@@ -32,12 +32,14 @@ function* loadDepartments() {
     }
     if (data) {
       yield put(updateDepartmentsParent(data))
-    }
-    if (typeof document !== 'undefined') {
-      yield Toast.hide()
+      yield endLoading()
     }
   } catch (error) {
-    console.log(error)
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
   }
 }
 
@@ -47,16 +49,24 @@ const getDepartmentsChildService = (hosOrgCode, deptType, parentId) => {
 }
 
 function* loadDepartmentsChild(actions) {
-  const { hosOrgCode, deptType, departmentsParent } = yield select((state) => state.departmentsReducer)
-  yield put(updateToHosDeptCode(actions.parentId))
-  if (departmentsParent && departmentsParent[actions.index] && !departmentsParent[actions.index].children) {
-    yield Toast.loading('Loading...', 0)
-    const data = yield call(getDepartmentsChildService, hosOrgCode, deptType, actions.parentId)
-    if (data) {
-      yield put(updateDepartmentsChild(data, actions.parentId, actions.index))
-    }  
+  try {
+    const { hosOrgCode, deptType, departmentsParent } = yield select((state) => state.departmentsReducer)
+    yield put(updateToHosDeptCode(actions.parentId))
+    if (departmentsParent && departmentsParent[actions.index] && !departmentsParent[actions.index].children) {
+      yield startLoading('Loading')
+      const data = yield call(getDepartmentsChildService, hosOrgCode, deptType, actions.parentId)
+      if (data) {
+        yield put(updateDepartmentsChild(data, actions.parentId, actions.index))
+        yield endLoading()
+      }  
+    }
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
   }
-  yield Toast.hide()
 }
 
 export const departmentsSaga = [

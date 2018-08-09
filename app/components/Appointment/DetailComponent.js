@@ -5,7 +5,7 @@ import { List, InputItem, WhiteSpace, WingBlank, Button, Picker } from 'antd-mob
 
 import './appointment.scss'
 
-import { hasErrors, getMembers, getInitialMember, checkNotNullArr, checkNotNullObj } from '../../utilities/common'
+import { hasErrors, getMembers, getInitialMember, checkNotNullArr } from '../../utilities/common'
 import { getCodeAction } from '../../store/actions/login.action'
 import { getOrderInfoAction, submitOrderAction } from '../../store/actions/appointment/detail.action'
 
@@ -33,12 +33,11 @@ class Index extends React.Component {
 
   componentDidMount() {
     const store = this.props
-    const { detailReducer } = store
     store.dispatch(getOrderInfoAction())
     this.props.form.validateFields()
   }
 
-  componentWillMount() {
+  componentWillUnmount() {
     if(this.state.codeTimer) {
       clearInterval(this.setState.codeTimer)
     }

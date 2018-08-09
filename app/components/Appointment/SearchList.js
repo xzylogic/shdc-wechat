@@ -12,7 +12,7 @@ const renderList = (obj, index) => {
     minHeight: '80px',
     withBorder: 'href'
   })
-  console.log(obj.sign)
+
   switch(obj.sign) {
     case '1': 
       return (
