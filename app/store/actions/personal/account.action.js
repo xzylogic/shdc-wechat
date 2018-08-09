@@ -5,7 +5,8 @@ export const actionTypes = {
   UPDATE_ACCOUNT_LIST: 'UPDATE_ACCOUNT_LIST',
   UPDATE_ACCOUNT_DETAIL:'UPDATE_ACCOUNT_DETAIL',
   RESET_PASSWORD: 'RESET_PASSWORD',
-  FAMILY_ADD: 'FAMILY_ADD'
+  FAMILY_ADD: 'FAMILY_ADD',
+  UPDATE_FAMILY_KEY: 'UPDATE_FAMILY_KEY'
 }
 
 export const loadAccountInfoAction = () => {
@@ -51,6 +52,13 @@ export const updateAccountDetail = (data) => {
 export const resetPasswordAction = (data) => {
   return {
     type: actionTypes.RESET_PASSWORD,
+    data: data
+  }
+}
+
+export const updateFaimlyKeyAction = (data) => {
+  return {
+    type: actionTypes.UPDATE_FAMILY_KEY,
     data: data
   }
 }

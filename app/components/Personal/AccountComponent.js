@@ -1,10 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
+import Router from 'next/router'
 import { connect } from 'react-redux'
 import { List, WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
 import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
-import { renderSex, renderCardType, renderMedicineCardType, checkNullObj, checkNullArr } from '../../utilities/common'
+import { checkNullObj, checkNullArr } from '../../utilities/common'
 import { loadAccountInfoAction, loadAccountListAction } from '../../store/actions/personal/account.action'
 
 import './personal.scss'
@@ -76,16 +77,13 @@ class Index extends React.Component {
           Array.isArray(accountList) && accountList.map((data, index) => (
             <FlexList
               key={index}
-              sub={<MainContainer mainClass='user__accounts'><p>姓名</p><p>性别</p><p>证件类型</p><p>证件号</p><p>手机号</p><p>卡类型</p><p>卡号</p></MainContainer>}
-              // extra={<i className='anticon icon-right user__arraw' />}
+              sub={<MainContainer mainClass='user__accounts'><p>姓名</p><p>证件号</p><p>卡号</p></MainContainer>}
+              extra={<i className='anticon icon-right user__arraw' />}
+              onClick={() => Router.push(`/personal/familydetail?id=${index}`, `/personal/familydetail/${index}`)}
               config={(index + 1) === accountList.length ? configFamilyLast : configFamily}>
               <MainContainer mainClass='user__accounts'>
                 <p>{data.name}</p>
-                <p>{renderSex(data.sex)}</p>
-                <p>{renderCardType(data.cardType)}</p>
                 <p>{data.cardId}</p>
-                <p>{data.mobile}</p>
-                <p>{renderMedicineCardType(data.medicineCardType)}</p>
                 <p>{data.medicineCardId}</p>
               </MainContainer>
             </FlexList>
@@ -95,7 +93,7 @@ class Index extends React.Component {
         <List style={{border: 0}}>
           <List.Item 
             thumb={<i className='anticon icon-exclamationcircle user__tipicon' />} 
-            arrow={this.state.descOn ? 'down':'horizontal'} 
+            extra={<i className={`anticon icon-down ${this.state.descOn ? 'icon__reverse reverse': 'icon__reverse'}`} />}
             onClick={() => this.setState({descOn: !this.state.descOn})}
           >
             家庭卡添加说明

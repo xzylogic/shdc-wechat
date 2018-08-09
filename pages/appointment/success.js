@@ -16,7 +16,7 @@ const InitFunction = (store) => {
 
 class Index extends React.Component {
 
-  componentDidMount() {
+  componentWillMount() {
     const store = this.props
     recordCurrentPage(store, `/appointment/success`)
     InitFunction(store)

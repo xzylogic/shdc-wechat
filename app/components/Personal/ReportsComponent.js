@@ -30,7 +30,7 @@ class Index extends React.Component {
         <List>
           <List.Item
             style={{height: '80px'}}
-            extra={<i className={`anticon icon-up ${this.state.showJY ? 'icon__reverse reverse': 'icon__reverse'}`} />}
+            extra={<i className={`anticon icon-down ${this.state.showJY ? 'icon__reverse reverse': 'icon__reverse'}`} />}
             onClick={() => this.setState({showJY: !this.state.showJY})}
           >
             <img src='/static/images/icon-report-jy.png' style={{height: '50px', width: '50px', marginRight: '15px'}} />
@@ -70,7 +70,7 @@ class Index extends React.Component {
           }
           <List.Item
             style={{height: '80px'}}
-            extra={<i className={`anticon icon-up ${this.state.showJC ? 'icon__reverse reverse': 'icon__reverse'}`} />}
+            extra={<i className={`anticon icon-down ${this.state.showJC ? 'icon__reverse reverse': 'icon__reverse'}`} />}
             onClick={() => this.setState({showJC: !this.state.showJC})}
           >
             <img src='/static/images/icon-report-jc.png' style={{height: '50px', width: '50px', marginRight: '15px'}} />

@@ -190,7 +190,7 @@ class Index extends React.Component {
         <WhiteSpace />
         <List>
           <List.Item 
-            extra={<i className={`anticon ${this.state.show ? 'icon-up' : 'icon-down'}`} />}
+            extra={<i className={`anticon icon-down icon_reverse ${this.state.show ? 'reverse' : ''}`} />}
             onClick={() => this.setState({show: !this.state.show})}
           >
             <i className='anticon icon-exclamationcircleo detail__icon' />预约须知

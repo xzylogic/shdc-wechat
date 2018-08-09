@@ -13,6 +13,7 @@ export default function withAuth(AuthComponent, InitFunction) {
           InitFunction(store)
         }
       })
+      return query
     }
 
     componentDidUpdate () {

@@ -1,5 +1,6 @@
 export const initialAccountState = {
   accountInfo: {},
   accountList: [],
-  accountDetail: {}
+  accountDetail: {},
+  familyKey: null
 }

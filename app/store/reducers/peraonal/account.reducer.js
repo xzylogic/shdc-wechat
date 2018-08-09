@@ -18,6 +18,11 @@ export const accountReducer = (state = initialAccountState, action = {}) => {
         ...state,
         ...{ accountDetail: action.data }
       }
+    case actionTypes.UPDATE_FAMILY_KEY:
+      return {
+        ...state,
+        ...{ familyKey: action.data }
+      }
     default:
       return state
   }

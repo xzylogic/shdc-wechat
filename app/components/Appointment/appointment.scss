@@ -144,11 +144,13 @@
 }
 
 .icon_reverse {
+  display: inline-block;
+  transform: rotate(0deg);
   transition: all .2s linear; 
 }
 
 .icon_reverse.reverse {
-  transform: rotate(180deg);
+  transform: rotate(-180deg);
 }
 
 

@@ -88,7 +88,7 @@
   }, {
     "id": "18",
     "desc": "家庭卡详情",
-    "path": "/personal/familydetail",
+    "path": "/personal/familydetail/:id",
     "page": "/personal/familydetail"
   }, {
     "id": "19",

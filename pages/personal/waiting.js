@@ -8,7 +8,7 @@ import withAuth from '../../app/utilities/withAuth'
 
 class Index extends React.Component {
 
-  componentDidMount() {
+  componentWillMount() {
     const store = this.props
     recordCurrentPage(store, `/personal/waiting`)
   }

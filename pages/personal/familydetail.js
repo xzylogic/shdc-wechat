@@ -3,24 +3,25 @@ import React from 'react'
 import Head from '../../app/components/Common/Head'
 import FamilyDetailComponent from '../../app/components/Personal/FamilyDetailComponent'
 
-import { initGlobalQuery, recordCurrentPage } from '../../app/utilities/common'
+import { recordCurrentPage, checkNullArr } from '../../app/utilities/common'
+import { loadAccountListAction, updateFaimlyKeyAction } from '../../app/store/actions/personal/account.action'
 import withAuth from '../../app/utilities/withAuth'
 
 const InitFunction = (store) => {
   let myStore = 'function' === typeof store.getState ? store.getState() : store
-  // if (myStore.successReducer && checkNullObj(myStore.successReducer.orderDetail)) {
-  // }
+  if (myStore.accountReducer && checkNullArr(myStore.accountReducer.accountList)) {
+    store.dispatch(loadAccountListAction())
+  }
 }
 
 class Index extends React.Component {
-  static async getInitialProps(props) {
-    const {store, query} = props.ctx
-    initGlobalQuery(store, query)
-  }
 
-  componentDidMount() {
+  componentWillMount() {
     const store = this.props
+    const { id } = this.props
     recordCurrentPage(store, `/personal/familydetail`)
+    store.dispatch(updateFaimlyKeyAction(id))
+    InitFunction(store)
   }
 
   render() {
