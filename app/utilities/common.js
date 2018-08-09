@@ -177,9 +177,10 @@ export const formatTime = (startTime, endTime) => {
   return moment(startTime).format('HH:mm - ') + moment(endTime).format('HH:mm')
 }
 
-export const startLoading = (content = '') => {
+export const startLoading = async (content = '') => {
   if (typeof window !== 'undefined') {
-    Toast.loading(content, 0)
+    await Toast.hide()
+    await Toast.loading(content, 0)
   }
 } 
 

@@ -21,12 +21,14 @@ const getAccountInfoService = (accessToken) => {
 
 function* loadAccountInfo() {
   try {
-    yield startLoading('Loading')
     const { accessToken } = yield select((state) => state.globalReducer)
-    const data = yield call(getAccountInfoService, accessToken)
-    if (data) {
-      yield put(updateAccountInfo(data))
-      yield endLoading()
+    if (accessToken) {
+      yield startLoading('Loading')
+      const data = yield call(getAccountInfoService, accessToken)
+      if (data) {
+        yield endLoading()
+        yield put(updateAccountInfo(data))
+      }
     }
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
@@ -43,12 +45,14 @@ const getAccountListService = (accessToken) => {
 
 export function* loadAccountList() {
   try {
-    yield startLoading('Loading')
     const { accessToken } = yield select((state) => state.globalReducer)
-    const data = yield call(getAccountListService, accessToken)
-    if (data) {
-      yield put(updateAccountList(data))
-      yield endLoading()
+    if (accessToken) {
+      yield startLoading('Loading')
+      const data = yield call(getAccountListService, accessToken)
+      if (data) {
+        yield endLoading()
+        yield put(updateAccountList(data))
+      }
     }
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {

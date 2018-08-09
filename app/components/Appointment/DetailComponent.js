@@ -64,7 +64,7 @@ class Index extends React.Component {
       
       store.dispatch(getCodeAction({mobile: form.getFieldValue('mobile')}))
 
-    } else if(form.getFieldError('mobile')||!form.getFieldValue('mobile')) {
+    } else if (form.getFieldError('mobile')||!form.getFieldValue('mobile')) {
       Toast.info('请输入正确的手机号')
     }
   }
@@ -189,7 +189,7 @@ class Index extends React.Component {
         <WhiteSpace />
         <List>
           <List.Item 
-            extra={<i className={`anticon icon-down icon_reverse ${this.state.show ? 'reverse' : ''}`} />}
+            extra={<i className={`anticon icon-down icon_reverse ${this.state.show ? 'reverse' : ''}`} style={{display: 'inline-block'}} />}
             onClick={() => this.setState({show: !this.state.show})}
           >
             <i className='anticon icon-exclamationcircleo detail__icon' />预约须知
