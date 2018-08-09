@@ -38,7 +38,7 @@ const getAccountListService = (accessToken) => {
   return HttpService.get(`${PATH.getAccountList}`, {headers: { 'access-token': accessToken || ''}})
 }
 
-function* loadAccountList() {
+export function* loadAccountList() {
   try {
     const { accessToken } = yield select((state) => state.globalReducer)
     const data = yield call(getAccountListService, accessToken)

@@ -1,10 +1,10 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 
-import { actionTypes, updateMyReportsAction, updateReportsParamAction } from '../../actions/personal/reports.action'
-import { loadAccountListAction } from '../../actions/personal/account.action'
+import { actionTypes, updateMyReportsAction } from '../../actions/personal/reports.action'
 import { authNotLogin, authError } from '../../actions/global.action'
 import { HttpService } from '../../../utilities/httpService'
 import { checkNotNullArr, checkNullArr, startLoading, endLoading } from '../../../utilities/common'
+import { loadAccountList } from './account.saga'
 
 import * as CODE from '../../../utilities/status-code'
 
@@ -21,22 +21,14 @@ function* loadMyReports() {
   try {
     startLoading('Loading')
     const { accessToken } = yield select((state) => state.globalReducer)
-    const { accountList } = yield select((state) => state.accountReducer)
     const { searchParam } = yield select((state) => state.reportsReducer)
-    if (accessToken && checkNotNullArr(accountList) && accountList[searchParam]) {
-      const search = accountList[searchParam]
-      yield put(updateMyReportsAction([], []))
-
-      const dataSurvey = yield call(getMyReportsService, search.cardId, search.medicineCardType || '', search.medicineCardId || '', 'survey', accessToken)
-      const dataInspection = yield call(getMyReportsService, search.cardId, search.medicineCardType || '', search.medicineCardId || '', 'inspection', accessToken)
-      if (dataSurvey && dataInspection) {
-        yield put(updateMyReportsAction(dataSurvey, dataInspection))
-        endLoading()
-      }
-    } else if (accessToken && checkNullArr(accountList)) {
-      yield call(loadAccountListAction())
-      const search = accountList[0]
-      yield put(updateReportsParamAction([0]))
+    const { accountList } = yield select((state) => state.accountReducer)
+    if (accountList && checkNullArr(accountList)) {
+      yield* loadAccountList() 
+    }
+    const accountReducer = yield select((state) => state.accountReducer)
+    if (accessToken && checkNotNullArr(accountReducer.accountList) && accountReducer.accountList[searchParam]) {
+      const search = accountReducer.accountList[searchParam]
       yield put(updateMyReportsAction([], []))
 
       const dataSurvey = yield call(getMyReportsService, search.cardId, search.medicineCardType || '', search.medicineCardId || '', 'survey', accessToken)

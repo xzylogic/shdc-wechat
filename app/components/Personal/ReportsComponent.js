@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Router from 'next/router'
 import { WhiteSpace, List, Card, Button } from 'antd-mobile'
 import * as moment from 'moment'
 

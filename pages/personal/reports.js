@@ -1,19 +1,16 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
 import ReportsComponent from '../../app/components/Personal/ReportsComponent'
 import { recordCurrentPage, checkNullArr } from '../../app/utilities/common'
-import { loadAccountListAction } from '../../app/store/actions/personal/account.action'
 import { loadMyReportsAction } from '../../app/store/actions/personal/reports.action'
 import withAuth from '../../app/utilities/withAuth'
 
 const InitFunction = (store) => {
   let myStore = 'function' === typeof store.getState ? store.getState() : store
-  if (myStore.accountReducer && checkNullArr(myStore.accountReducer.accountList)) {
-    store.dispatch(loadAccountListAction())
+  if (myStore.reportsReducer && checkNullArr(myStore.reportsReducer.reportsSurvey) && checkNullArr(myStore.reportsReducer.reportsInspection)) {
+    store.dispatch(loadMyReportsAction())
   }
-  store.dispatch(loadMyReportsAction())
 }
 
 class Index extends React.Component {
