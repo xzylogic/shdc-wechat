@@ -25,11 +25,11 @@ class Index extends React.Component {
         <WhiteSpace />
         <List>
           <List.Item
-            thumb={<i class="anticon icon-idcard icon__balance"></i>}
-            extra={accountList[searchParam] && accountList[searchParam].medicineCardId || accountList[searchParam].cardId}
+            thumb={<i className='anticon icon-idcard icon__balance'></i>}
+            extra={accountList[searchParam] && (accountList[searchParam].medicineCardId || accountList[searchParam].cardId)}
           >用户</List.Item>
           <List.Item
-            thumb={<i class="anticon icon-bank icon__balance"></i>}
+            thumb={<i className='anticon icon-bank icon__balance'></i>}
             extra={`${balanceDetail}元`}
           >我的余额</List.Item>
         </List>

@@ -34,7 +34,6 @@ function* loadBalanceDetail() {
     const accountReducer = yield select((state) => state.accountReducer)
     if (accessToken && checkNotNullArr(accountReducer.accountList) && accountReducer.accountList[searchParam]) {
       const search = accountReducer.accountList[searchParam]
-      yield put(updateBalanceDetailAction({}))
 
       const data = yield call(getBalanceService, search, accessToken)
       if (data) {

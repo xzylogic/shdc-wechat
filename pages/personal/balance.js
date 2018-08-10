@@ -8,7 +8,6 @@ import withAuth from '../../app/utilities/withAuth'
 import { loadBalanceDetailAction } from '../../app/store/actions/personal/balance.action'
 
 const InitFunction = (store) => {
-  let myStore = 'function' === typeof store.getState ? store.getState() : store
   store.dispatch(loadBalanceDetailAction())
 }
 
