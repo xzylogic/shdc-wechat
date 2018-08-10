@@ -102,3 +102,11 @@
 .icon__reverse.reverse{
   transform: rotate(-180deg);
 }
+
+.balance__container .am-list-extra {
+  flex-basis: 60% !important;
+}
+
+.icon__balance {
+  color: $color-primary;
+}

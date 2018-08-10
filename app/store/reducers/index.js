@@ -10,6 +10,7 @@ import { successReducer, successState } from './appointment/success.reducer'
 import { accountReducer, accountState } from './peraonal/account.reducer'
 import { appointmentReducer, appointmentState } from './peraonal/appointment.reducer'
 import { reportsReducer, reportsState } from './peraonal/reports.reducer'
+import { balanceReducer, balanceState } from './peraonal/balance.reducer'
 
 export const rootReducer = combineReducers({
   globalReducer,
@@ -23,6 +24,7 @@ export const rootReducer = combineReducers({
   accountReducer,
   appointmentReducer,
   reportsReducer,
+  balanceReducer,
 })
 
 export const rootInitialState = {
@@ -37,4 +39,5 @@ export const rootInitialState = {
   ...accountState,
   ...appointmentState,
   ...reportsState,
+  ...balanceState,
 }

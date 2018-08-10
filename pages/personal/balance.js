@@ -1,32 +1,33 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
-import RenderPage from '../../app/components/Common/RenderPage'
+import BalanceComponent from '../../app/components/Personal/BalanceComponent'
 
-import { initGlobalQuery, recordCurrentPage } from '../../app/utilities/common'
+import { recordCurrentPage } from '../../app/utilities/common'
 import withAuth from '../../app/utilities/withAuth'
+import { loadBalanceDetailAction } from '../../app/store/actions/personal/balance.action'
 
 const InitFunction = (store) => {
   let myStore = 'function' === typeof store.getState ? store.getState() : store
-  // if (myStore.successReducer && checkNullObj(myStore.successReducer.orderDetail)) {
-  // }
+  store.dispatch(loadBalanceDetailAction())
 }
+
 class Index extends React.Component {
 
   componentWillMount() {
     const store = this.props
     recordCurrentPage(store, `/personal/balance`)
+    InitFunction(store)
   }
 
   render() {
     return (
       <div>
         <Head title='余额查询' />
-        Balance
+        <BalanceComponent />
       </div>
     )
   }
 }
 
-export default withAuth(Index)
+export default withAuth(Index, InitFunction)
