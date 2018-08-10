@@ -108,12 +108,12 @@
   }, {
     "id": "22",
     "desc": "我的候诊",
-    "path": "/personal/waitingmine",
+    "path": "/personal/waitingmine/:hosOrgCode",
     "page": "/personal/waitingmine"
   }, {
     "id": "23",
     "desc": "医院候诊-科室列表",
-    "path": "/personal/waitingdepartment",
+    "path": "/personal/waitingdepartment/:hosOrgCode",
     "page": "/personal/waitingdepartment"
   }, {
     "id": "24",

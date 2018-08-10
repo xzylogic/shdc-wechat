@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { WhiteSpace, List } from 'antd-mobile'
+import { WhiteSpace, WingBlank, List } from 'antd-mobile'
 
 import './personal.scss'
 
@@ -33,6 +33,11 @@ class Index extends React.Component {
             extra={`${balanceDetail}元`}
           >我的余额</List.Item>
         </List>
+        <WhiteSpace size='lg' />
+        <WingBlank size='lg'>
+          <p style={{color: '#999', lineHeight: 1.5}}>本页面展示余额为医联银医通充值账户的余额，如您未开通，则显示余额为0。</p>
+        </WingBlank>
+        <WhiteSpace size='lg' />
       </div>
     )
   }
