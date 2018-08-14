@@ -6,7 +6,7 @@ import '../Appointment/appointment.scss'
 
 import WaitingHospitalList from './WaitingHospitalList'
 import { checkNullArr } from '../../utilities/common'
-import { updateWaitingHospitalsTabAction, updateWaitingHospitalsParamAction } from '../../store/actions/personal/waiting.action'
+import { updateWaitingHospitalsTabAction, updateWaitingHospitalsParamAction, loadWaitingHospitalsAction } from '../../store/actions/personal/waiting.action'
 
 class Index extends React.Component {
   handleTabClick = (value, i) => {
@@ -14,14 +14,15 @@ class Index extends React.Component {
     store.dispatch(updateWaitingHospitalsTabAction(i))
   }
  
-  handleSearch = (value) => {
+  handleSearch = async (value) => {
     const store = this.props
-    store.dispatch(updateWaitingHospitalsParamAction(value))
+    await store.dispatch(updateWaitingHospitalsParamAction(value))
+    await store.dispatch(loadWaitingHospitalsAction())
   }
 
   render() {
     const { waitingReducer } = this.props
-    const { waitingHospitals, waitingSearchHospitals, hospitalTab, hospitalParam, pageType } = waitingReducer
+    const { waitingHospitals, hospitalTab, hospitalParam, pageType } = waitingReducer
     const tabs = [
       { title: '全部' },
       { title: '综合' },
@@ -37,7 +38,7 @@ class Index extends React.Component {
           onChange={this.handleSearch}
           maxLength={20} 
         />
-        { !hospitalParam ? (
+        {/* { !hospitalParam ? ( */}
           <Tabs tabs={tabs}
             initialPage={hospitalTab}
             onChange={this.handleTabClick}
@@ -63,8 +64,8 @@ class Index extends React.Component {
               ) : ''
             }</div>
           </Tabs> 
-        ) : ''
-        }
+        {/* ) : '' */}
+        {/* } */}
       </div>
     )
   }

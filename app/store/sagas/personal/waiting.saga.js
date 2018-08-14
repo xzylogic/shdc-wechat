@@ -11,17 +11,22 @@ const PATH = {
   getHospitals: '/api/queue/getHospitals'
 }
 
-const getHospitals = (accessToken) => {
-  return HttpService.get(`${PATH.getHospitals}`, {headers: { 'access-token': accessToken || ''}})
+const getHospitals = (accessToken, name) => {
+  let query
+  if (name) {
+    query = `?name=${name}`
+  }
+  return HttpService.get(`${PATH.getHospitals}${query ? query : ''}`, {headers: { 'access-token': accessToken || ''}})
 }
 
 function* loadWaitingHospitals() {
   try {
     startLoading('Loading')
     const { accessToken } = yield select((state) => state.globalReducer)
+    const { hospitalParam } = yield select((state) => state.waitingReducer)
     
     if (accessToken) {
-      const data = yield call(getHospitals, accessToken)
+      const data = yield call(getHospitals, accessToken, hospitalParam)
       if (data) {
         yield put(updateWaitingHospitalsAction(data))
         endLoading()
@@ -37,5 +42,5 @@ function* loadWaitingHospitals() {
 }
 
 export const waitingSaga = [
-  takeLatest(actionTypes.LOAD_WAITING_HOSPITALS, loadWaitingHospitals),
+  takeLatest(actionTypes.LOAD_WAITING_HOSPITALS, loadWaitingHospitals)
 ]
