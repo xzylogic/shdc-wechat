@@ -8,11 +8,6 @@ export const waitingReducer = (state = initialWaitingState, action = {}) => {
         ...state,
         ...{ waitingHospitals: action.data }
       }
-    case actionTypes.UPDATE_WAITING_HOSPITALS_SEARCH:
-      return {
-        ...state,
-        ...{ waitingSearchHospitals: action.data }
-      }
     case actionTypes.UPDATE_WAITING_HOSPITALS_PARAM:
       return {
         ...state,
@@ -27,6 +22,11 @@ export const waitingReducer = (state = initialWaitingState, action = {}) => {
       return {
         ...state,
         ...{ pageType: action.data }
+      }
+    case actionTypes.UPDATE_WAITING_MINE_PARAM:
+      return {
+        ...state,
+        ...{ waitingMineParam: action.data }
       }
     default:
       return state
