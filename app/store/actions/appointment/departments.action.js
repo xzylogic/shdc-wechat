@@ -4,7 +4,10 @@ export const actionTypes = {
   LOAD_DEPARTMENTS: 'LOAD_DEPARTMENTS',
   INIT_DEPARTMENTS_CODE: 'INIT_DEPARTMENTS_CODE',
   LOAD_DEPARTMENTS_CHILD: 'LOAD_DEPARTMENTS_CHILD',
-  UPDATE_TOHOSDEPTCODE: 'UPDATE_TOHOSDEPTCODE'
+  UPDATE_TOHOSDEPTCODE: 'UPDATE_TOHOSDEPTCODE',
+  UPDATE_DEPARTMENTS_PARAM: 'UPDATE_DEPARTMENTS_PARAM',
+  LOAD_DEPARTMENTS_SEARCH: 'LOAD_DEPARTMENTS_SEARCH',
+  UPDATE_DEPARTMENTS_SEARCH: 'UPDATE_DEPARTMENTS_SEARCH',
 }
 
 export const initDepartmentsCodeAction = (data) => {
@@ -49,6 +52,26 @@ export const updateDepartmentsChild = (data, toHosDeptCode, index) => {
 export const updateToHosDeptCode = (data) => {
   return {
     type: actionTypes.UPDATE_TOHOSDEPTCODE,
+    data: data
+  }
+}
+
+export const updateDepartmentsParamAction = (data) => {
+  return {
+    type: actionTypes.UPDATE_DEPARTMENTS_PARAM,
+    data: data
+  }
+}
+
+export const loadDepartmentsSearchAction = () => {
+  return {
+    type: actionTypes.LOAD_DEPARTMENTS_SEARCH
+  }
+}
+
+export const updateDepartmentsSearchAction = (data) => {
+  return {
+    type: actionTypes.UPDATE_DEPARTMENTS_SEARCH,
     data: data
   }
 }

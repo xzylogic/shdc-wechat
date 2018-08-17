@@ -4,5 +4,6 @@ export const initialDepartmentsState = {
   hosOrgCode: '',
   deptType: '',
   pageType: '',
-  searchParam: ''
+  searchParam: '',
+  searchDepartments: []
 }

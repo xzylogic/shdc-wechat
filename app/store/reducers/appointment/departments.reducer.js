@@ -36,6 +36,16 @@ export const departmentsReducer = (state = initialDepartmentsState, action = {})
         ...state,
         ...{toHosDeptCode: action.data},
       }
+    case actionTypes.UPDATE_DEPARTMENTS_PARAM:
+      return {
+        ...state,
+        ...{searchParam: action.data},
+      }
+    case actionTypes.UPDATE_DEPARTMENTS_SEARCH:
+      return {
+        ...state,
+        ...{searchDepartments: action.data},
+      }
     default:
       return state
   }

@@ -6,7 +6,7 @@ import { SearchBar } from 'antd-mobile'
 import { Tabs, Tab } from '../Common/Tabs'
 import { NullContent } from '../Common/Null'
 import { checkNullArr } from '../../utilities/common'
-import { loadDepartmentsChildAction } from '../../store/actions/appointment/departments.action'
+import { loadDepartmentsChildAction, updateDepartmentsParamAction, loadDepartmentsSearchAction } from '../../store/actions/appointment/departments.action'
 
 import './appointment.scss'
 
@@ -40,6 +40,12 @@ const RenderLink = ({hosOrgCode, hosDeptCode, toHosDeptCode, pageType, children}
 
 class Index extends React.Component {
 
+  handleChange = async (value) => {
+    const store = this.props
+    await store.dispatch(updateDepartmentsParamAction(value))
+    await store.dispatch(loadDepartmentsSearchAction())
+  }
+
   handleTabClick = (index) => {
     const store = this.props
     const { departmentsReducer } = store
@@ -52,28 +58,55 @@ class Index extends React.Component {
 
   render() {
     const { departmentsReducer } = this.props
-    const { departmentsParent, pageType, hosOrgCode, toHosDeptCode } = departmentsReducer
+    const { departmentsParent, pageType, hosOrgCode, toHosDeptCode, searchParam, searchDepartments } = departmentsReducer
     return (
       <div>
-        <SearchBar placeholder='请输入子科室名称进行搜索' maxLength={8} />
-        <Tabs handleTabClick={this.handleTabClick}>{
-          departmentsParent && Array.isArray(departmentsParent) && departmentsParent.map((departments,indexP) => 
-            <Tab title={departments.deptName} key={indexP}>{
-              checkNullArr(departments.children) ? <NullContent msg='暂无子科室' /> : 
-                departments.children && Array.isArray(departments.children) && departments.children.map(
-                  (content, indexC) => (
-                    <RenderLink 
-                      key={indexC}
-                      pageType={pageType} 
-                      hosOrgCode={hosOrgCode} 
-                      hosDeptCode={content.hosDeptCode} 
-                      toHosDeptCode={toHosDeptCode}
-                    >
-                      <div className='department__content'>{content.deptName}</div>
-                    </RenderLink>
-                  ))
-            }</Tab>)
-        }</Tabs>
+        <SearchBar placeholder='请输入子科室名称进行搜索' maxLength={8} value={searchParam} onChange={this.handleChange} />
+        {
+          searchParam === '' ? (
+            <Tabs handleTabClick={this.handleTabClick}>
+            {
+              departmentsParent && Array.isArray(departmentsParent) && departmentsParent.map((departments,indexP) => 
+                <Tab title={departments.deptName} key={indexP}>
+                {
+                  checkNullArr(departments.children) ? <NullContent msg='暂无子科室' /> : 
+                    departments.children && Array.isArray(departments.children) && departments.children.map(
+                      (content, indexC) => (
+                        <RenderLink 
+                          key={indexC}
+                          pageType={pageType} 
+                          hosOrgCode={hosOrgCode} 
+                          hosDeptCode={content.hosDeptCode} 
+                          toHosDeptCode={toHosDeptCode}
+                        >
+                          <div className='department__content'>{content.deptName}</div>
+                        </RenderLink>
+                      )
+                    )
+                }</Tab>)
+            }</Tabs>) : (
+            <Tabs>{
+              searchDepartments && Array.isArray(searchDepartments) && searchDepartments.map((departments,indexP) => 
+                <Tab title={departments.deptName} key={indexP}>
+                {
+                  checkNullArr(departments.children) ? <NullContent msg='暂无子科室' /> : 
+                    departments.children && Array.isArray(departments.children) && departments.children.map(
+                      (content, indexC) => (
+                        <RenderLink 
+                          key={indexC}
+                          pageType={pageType} 
+                          hosOrgCode={hosOrgCode} 
+                          hosDeptCode={content.hosDeptCode} 
+                          toHosDeptCode={toHosDeptCode}
+                        >
+                          <div className='department__content'>{content.deptName}</div>
+                        </RenderLink>
+                      )
+                    )
+                }</Tab>)
+            }</Tabs>
+          )
+        }
       </div>
     )
   }
