@@ -25,7 +25,7 @@ const getHospitalsService = (accessToken, name) => {
 
 function* loadWaitingHospitals() {
   try {
-    startLoading('Loading')
+    yield startLoading('Loading')
     const { accessToken } = yield select((state) => state.globalReducer)
     const { hospitalParam } = yield select((state) => state.waitingReducer)
     
@@ -33,7 +33,7 @@ function* loadWaitingHospitals() {
       const data = yield call(getHospitalsService, accessToken, hospitalParam)
       if (data) {
         yield put(updateWaitingHospitalsAction(data))
-        endLoading()
+        yield endLoading()
       }
     }
   } catch (error) {
@@ -51,7 +51,7 @@ const getWaitingMineService = (accessToken, hosOrgCode, medicineCardType, medici
 
 function* loadWaitingMine(actions) {
   try {
-    startLoading('Loading')
+    yield startLoading('Loading')
     const { accessToken } = yield select((state) => state.globalReducer)
     const { waitingMineParam } = yield select((state) => state.waitingReducer)
     const { accountList } = yield select((state) => state.accountReducer)
@@ -65,7 +65,7 @@ function* loadWaitingMine(actions) {
       const data = yield call(getWaitingMineService, accessToken, actions.hosOrgCode, search.medicineCardType, search.medicineCardTypeId)
       if (data) {
         yield put(updateWaitingMineAction(data))
-        endLoading()
+        yield endLoading()
       }
     } else {
       if (typeof window !== 'undefined') {
@@ -95,11 +95,11 @@ function* loadDepartments() {
     const { departmentParam } = yield select((state) => state.waitingReducer)
     
     if (accessToken && query.hosOrgCode) {
-      startLoading('Loading')
+      yield startLoading('Loading')
       const data = yield call(getDepartmentsService, accessToken, query.hosOrgCode, departmentParam)
       if (data) {
         yield put(updateWaitingDepartmentsAction(data))
-        endLoading()
+        yield endLoading()
       }
     }
 
@@ -123,11 +123,11 @@ function* loadDetail() {
     yield put(updateWaitingContentAction(''))
 
     if (accessToken && query.hosOrgCode && query.hosDeptCode) {
-      startLoading('Loading')
+      yield startLoading('Loading')
       const data = yield call(getDetailService, accessToken, query.hosOrgCode, query.hosDeptCode)
       if (data) {
         yield put(updateWaitingContentAction(data))
-        endLoading()
+        yield endLoading()
       }
     }
 

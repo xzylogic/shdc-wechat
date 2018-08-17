@@ -24,7 +24,7 @@ const getBalanceService = (data, accessToken) => {
 
 function* loadBalanceDetail() {
   try {
-    startLoading('Loading')
+    yield startLoading('Loading')
     const { accessToken } = yield select((state) => state.globalReducer)
     const { searchParam } = yield select((state) => state.balanceReducer)
     const { accountList } = yield select((state) => state.accountReducer)
@@ -38,7 +38,7 @@ function* loadBalanceDetail() {
       const data = yield call(getBalanceService, search, accessToken)
       if (data) {
         yield put(updateBalanceDetailAction(data))
-        endLoading()
+        yield endLoading()
       }
     }
   } catch (error) {

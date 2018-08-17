@@ -52,7 +52,7 @@ class Index extends React.Component {
           userPhone: value.userPhone,
           validateCode: value.validateCode
         }
-        console.log(formData)
+        // console.log(formData)
         store.dispatch(getbackPasswordAction(formData))
       }
     })

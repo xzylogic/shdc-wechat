@@ -19,7 +19,7 @@ const getMyReportsService = (idno, cardType, cardValue, type, accessToken) => {
 
 function* loadMyReports() {
   try {
-    startLoading('Loading')
+    yield startLoading('Loading')
     const { accessToken } = yield select((state) => state.globalReducer)
     const { searchParam } = yield select((state) => state.reportsReducer)
     const { accountList } = yield select((state) => state.accountReducer)
@@ -35,7 +35,7 @@ function* loadMyReports() {
       const dataInspection = yield call(getMyReportsService, search.cardId, search.medicineCardType || '', search.medicineCardId || '', 'inspection', accessToken)
       if (dataSurvey && dataInspection) {
         yield put(updateMyReportsAction(dataSurvey, dataInspection))
-        endLoading()
+        yield endLoading()
       }
     }
   } catch (error) {

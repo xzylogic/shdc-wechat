@@ -96,7 +96,7 @@ class Index extends React.Component {
         }
         submitInfo.userName = name
         submitInfo.validateCode = value.validateCode
-        console.log(submitInfo)
+        // console.log(submitInfo)
         store.dispatch(submitOrderAction(submitInfo))
       }
     })
