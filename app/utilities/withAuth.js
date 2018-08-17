@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'next/router'
 import { initGlobalQuery } from './common'
+import { updateQueryAction } from '../store/actions/global.action'
 
 export default function withAuth(AuthComponent, InitFunction) {
 
@@ -16,7 +17,13 @@ export default function withAuth(AuthComponent, InitFunction) {
       return query
     }
 
-    componentDidUpdate () {
+    componentWillMount() {
+      const store = this.props
+      const { router } = this.props
+      store.dispatch(updateQueryAction(router.query))
+    }
+
+    componentDidUpdate() {
       const { globalReducer, router } = this.props
       if (globalReducer && false === globalReducer.authState) {
         router.replace('/login')
@@ -33,6 +40,6 @@ export default function withAuth(AuthComponent, InitFunction) {
     }    
   }
 
-  return connect(state => state)(withRouter(Authenticated))
+  return withRouter(connect(state => state)(Authenticated))
 
 }

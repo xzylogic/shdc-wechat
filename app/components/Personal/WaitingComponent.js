@@ -19,7 +19,7 @@ class Index extends React.Component {
             onClick={() => Router.push('/personal/waitinghospital?pageType=2', '/personal/waitinghospital/2')}
           >
             <img src='/static/images/icon-hosqueue.png' style={{width: '50px', height: '50px', marginRight: '15px'}} />
-            医院队列
+            科室队列
           </List.Item>
         </List>
       </React.Fragment>

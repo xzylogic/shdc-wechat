@@ -39,6 +39,11 @@ export const globalReducer = (state = initialGlobalState, action = {}) => {
         ...state,
         ...{currentPage: currentPage}
       }
+    case actionTypes.UPDATE_QUERY:
+      return {
+        ...state,
+        ...{query: action.data}
+      }
     default:
       return state
   }

@@ -33,7 +33,7 @@ utilities.setRedirectUrl = (url, state) => {
 utilities.setCookies = (res, key, value) => {
   logger.info(`[SetSignedCookie] - key:${key} - value:${value}`)
   res.cookie(key, value, {
-    maxAge: 72000000,
+    maxAge: 604800000,
     httpOnly: true, 
     signed: true
   })

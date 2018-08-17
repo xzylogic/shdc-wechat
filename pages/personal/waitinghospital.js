@@ -18,14 +18,14 @@ class Index extends React.Component {
   componentWillMount() {
     const store = this.props
     store.dispatch(updateWaitingPageTypeAction(this.props.pageType))
-    recordCurrentPage(store, `/personal/appointment`)
+    recordCurrentPage(store, `/personal/waiting`)
     InitFunction(store)
   }
 
   render() {
     return (
       <div>
-        <Head title='候诊' />
+        <Head title='我的候诊-医院列表' />
         <WaitingHospitalComponent />
       </div>
     )

@@ -1,28 +1,31 @@
 import React from 'react'
 
 import Head from '../../app/components/Common/Head'
-
-import { initGlobalQuery, recordCurrentPage } from '../../app/utilities/common'
+import WaitingDepartmentComponent from '../../app/components/Personal/WaitingDepartmentComponent'
+import { recordCurrentPage, checkNullArr } from '../../app/utilities/common'
 import withAuth from '../../app/utilities/withAuth'
+import { loadWaitingDepartmentsAction } from '../../app/store/actions/personal/waiting.action'
 
 const InitFunction = (store) => {
   let myStore = 'function' === typeof store.getState ? store.getState() : store
-  // if (myStore.successReducer && checkNullObj(myStore.successReducer.orderDetail)) {
-  // }
+  if (myStore.waitingReducer && checkNullArr(myStore.waitingReducer.waitingDepartments)) {
+    store.dispatch(loadWaitingDepartmentsAction())
+  }
 }
 
 class Index extends React.Component {
 
   componentWillMount() {
     const store = this.props
-    recordCurrentPage(store, `/personal/waitingdepartment`)
+    recordCurrentPage(store, `/personal/waiting`)
+    InitFunction(store)
   }
 
   render() {
     return (
       <div>
-        <Head title='候诊' />
-        候诊
+        <Head title='科室队列-科室列表' />
+        <WaitingDepartmentComponent />
       </div>
     )
   }

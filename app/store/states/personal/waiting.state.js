@@ -1,9 +1,11 @@
 export const initialWaitingState = {
+  pageType: '',
   waitingHospitals: [],
   hospitalTab: 0,
   hospitalParam: '',
-  waitingDepartments: [],
-  waitingMine: [],
+  waitingMine: '',
   waitingMineParam: '',
-  pageType: ''
+  waitingDepartments: [],
+  departmentParam: '',
+  waitingContent: ''
 }

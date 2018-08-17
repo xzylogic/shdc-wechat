@@ -107,21 +107,26 @@
     "page": "/personal/waitinghospital"
   }, {
     "id": "22",
-    "desc": "我的候诊",
+    "desc": "我的队列",
     "path": "/personal/waitingmine/:hosOrgCode",
     "page": "/personal/waitingmine"
   }, {
     "id": "23",
-    "desc": "医院候诊-科室列表",
+    "desc": "科室队列-科室列表",
     "path": "/personal/waitingdepartment/:hosOrgCode",
     "page": "/personal/waitingdepartment"
   }, {
     "id": "24",
+    "desc": "科室队列-队列详情",
+    "path": "/personal/waitingdetail/:hosOrgCode/:hosDeptCode",
+    "page": "/personal/waitingdetail"
+  }, {
+    "id": "25",
     "desc": "我的报告",
     "path": "/personal/reports",
     "page": "/personal/reports"
   }, {
-    "id": "25",
+    "id": "26",
     "desc": "余额查询",
     "path": "/personal/balance",
     "page": "/personal/balance"

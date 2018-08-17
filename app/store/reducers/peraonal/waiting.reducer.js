@@ -3,6 +3,11 @@ import { initialWaitingState } from '../../states/personal/waiting.state'
 
 export const waitingReducer = (state = initialWaitingState, action = {}) => {
   switch (action.type) {
+    case actionTypes.UPDATE_WAITING_PAGETYPE:
+      return {
+        ...state,
+        ...{ pageType: action.data }
+      }
     case actionTypes.UPDATE_WAITING_HOSPITALS:
       return {
         ...state,
@@ -18,15 +23,30 @@ export const waitingReducer = (state = initialWaitingState, action = {}) => {
         ...state,
         ...{ hospitalTab: action.data }
       }
-    case actionTypes.UPDATE_WAITING_PAGETYPE:
+    case actionTypes.UPDATE_WAITING_MINE:
       return {
         ...state,
-        ...{ pageType: action.data }
+        ...{ waitingMine: action.data }
       }
     case actionTypes.UPDATE_WAITING_MINE_PARAM:
       return {
         ...state,
         ...{ waitingMineParam: action.data }
+      }
+    case actionTypes.UPDATE_WAITING_DEPARTMENTS:
+      return {
+        ...state,
+        ...{ waitingDepartments: action.data }
+      }
+    case actionTypes.UPDATE_WAITING_DEPARTMENTS_PARAM:
+      return {
+        ...state,
+        ...{ departmentParam: action.data }
+      }
+    case actionTypes.UPDATE_WAITING_CONTENT:
+      return {
+        ...state,
+        ...{ waitingContent: action.data }
       }
     default:
       return state

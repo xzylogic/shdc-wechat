@@ -4,5 +4,6 @@ export const initialGlobalState = {
   weChatId: '',
   accessToken: '',
   errorMsg: '',
-  currentPage: '/'
+  currentPage: '/',
+  query: {}
 }
