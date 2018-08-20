@@ -45,7 +45,7 @@ class Index extends React.Component {
                   <p className='desc'>{obj.doctInfo}</p>
                 </MainContainer>
               </FlexList>
-              <AppointmentList appointments={obj.schedules} loadSchedules={this.loadSchedules.bind(this, j)} />
+              {obj.show ? <AppointmentList appointments={obj.schedules} loadSchedules={this.loadSchedules.bind(this, j)} /> : ''}
             </div>
           ))
       }</div>

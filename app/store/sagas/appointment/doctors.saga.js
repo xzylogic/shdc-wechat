@@ -1,6 +1,6 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 
-import { actionTypes, updateDoctorsByName, updateDoctorsByDate, modifyDoctorsSchedule, modifyDoctorsSShow } from '../../actions/appointment/doctors.action'
+import { actionTypes, updateDoctorsByName, updateDoctorsByDate, modifyDoctorsSchedule, modifyDoctorsSShow, updateDoctorsSearchAction } from '../../actions/appointment/doctors.action'
 import { authError, authNotLogin } from '../../actions/global.action'
 import { HttpService } from '../../../utilities/httpService'
 
@@ -13,8 +13,11 @@ const PATH = {
   querySchedule: '/api/schedule/query-number-source'
 }
 
-const getDoctorsByName = (hosOrgCode, deptCode, toHosDeptCode) => {
-  const query = `?hosOrgCode=${hosOrgCode}&hosDeptCode=${deptCode}&topHosDeptCode=${toHosDeptCode}`
+const getDoctorsByName = (hosOrgCode, deptCode, toHosDeptCode, doctName) => {
+  let query = `?hosOrgCode=${hosOrgCode}&hosDeptCode=${deptCode}&topHosDeptCode=${toHosDeptCode}`
+  if (doctName) {
+    query += `&doctName=${doctName}`
+  }
   return HttpService.get(`${PATH.queryDoctors}${query}`)
 }
 
@@ -28,6 +31,7 @@ function* loadDoctorsByName() {
       yield put(updateDoctorsByName(data))
       yield endLoading()
     }
+    yield endLoading()
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
       yield put(authNotLogin())
@@ -37,6 +41,27 @@ function* loadDoctorsByName() {
   }
 }
 
+function* searchDoctors() {
+  try {
+    yield put(updateDoctorsSearchAction([]))
+    const { hosOrgCode, hosDeptCode, toHosDeptCode, searchParam } = yield select(state => state.doctorsReducer)
+    if (searchParam) {
+      yield startLoading('Loading')
+      const data = yield call(getDoctorsByName, hosOrgCode, hosDeptCode, toHosDeptCode, searchParam)
+      if (data) {
+        yield put(updateDoctorsSearchAction(data))
+        yield endLoading()
+      }
+    }
+    yield endLoading()
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
+  }
+}
 
 const getDoctorsByDate = (hosOrgCode, deptCode, toHosDeptCode) => {
   const query = `?hosOrgCode=${hosOrgCode}&hosDeptCode=${deptCode}&topHosDeptCode=${toHosDeptCode}&registerType=1`
@@ -54,6 +79,7 @@ function* loadDoctorsByDate() {
       yield put(updateDoctorsByDate(data))
       yield endLoading()
     }
+    yield endLoading()
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
       yield put(authNotLogin())
@@ -92,5 +118,6 @@ function* querySchedule(actions) {
 export const doctorsSaga = [
   takeLatest(actionTypes.LOAD_DOCTORS_BYNAME, loadDoctorsByName),
   takeLatest(actionTypes.LOAD_DOCTORS_BYDATE, loadDoctorsByDate),
-  takeLatest(actionTypes.LOAD_SCHEDULE, querySchedule)
+  takeLatest(actionTypes.LOAD_SCHEDULE, querySchedule),
+  takeLatest(actionTypes.LOAD_DOCTORES_SEARCH, searchDoctors)
 ]

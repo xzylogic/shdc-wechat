@@ -50,6 +50,16 @@ export const doctorsReducer = (state = initialDoctorsState, action = {}) => {
         ...state,
         ...{doctorsByDate: mData3},
       }
+    case actionTypes.UPDATE_DOCTORS_SEARCH_PARAM:
+      return {
+        ...state,
+        ...{searchParam: action.data}
+      }
+    case actionTypes.UPDATE_DOCTORS_SEARCH:
+      return {
+        ...state,
+        ...{doctorsSearch: action.data}
+      }
     default:
       return state
   }

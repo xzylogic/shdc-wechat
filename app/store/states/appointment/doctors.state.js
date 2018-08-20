@@ -4,5 +4,6 @@ export const initialDoctorsState = {
   hosOrgCode: '',
   hosDeptCode: '',
   toHosDeptCode: '',
-  searchParam: ''
+  searchParam: '',
+  doctorsSearch: []
 }

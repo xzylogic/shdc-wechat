@@ -7,7 +7,10 @@ export const actionTypes = {
   MODIFY_DOCTORS_SHOW: 'MODIFY_DOCTORS_SHOW',
   MODIFY_DOCTORS_S_SHOW: 'MODIFY_DOCTORS_S_SHOW',
   LOAD_SCHEDULE: 'LOAD_SCHEDULE',
-  MODIFY_DOCTORS_SCHEDULE: 'MODIFY_DOCTORS_SCHEDULE'
+  MODIFY_DOCTORS_SCHEDULE: 'MODIFY_DOCTORS_SCHEDULE',
+  UPDATE_DOCTORS_SEARCH_PARAM: 'UPDATE_DOCTORS_SEARCH_PARAM',
+  LOAD_DOCTORES_SEARCH: 'LOAD_DOCTORES_SEARCH',
+  UPDATE_DOCTORS_SEARCH: 'UPDATE_DOCTORS_SEARCH'
 }
 
 export const initDoctorsCodeAction = (data) => {
@@ -79,5 +82,25 @@ export const loadScheduleAction = (id, i, j, k) => {
     i: i,
     j: j,
     k: k
+  }
+}
+
+export const updateDoctorsSearchParamAction = (data) => {
+  return {
+    type: actionTypes.UPDATE_DOCTORS_SEARCH_PARAM,
+    data: data
+  }
+}
+
+export const loadDoctorsSearchAction = () => {
+  return {
+    type: actionTypes.LOAD_DOCTORES_SEARCH
+  }
+}
+
+export const updateDoctorsSearchAction = (data) => {
+  return {
+    type: actionTypes.UPDATE_DOCTORS_SEARCH,
+    data: data
   }
 }
