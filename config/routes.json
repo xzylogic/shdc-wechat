@@ -135,5 +135,10 @@
     "desc": "文章列表",
     "path": "/service/articles/:type",
     "page": "/service/articles"
+  }, {
+    "id": "27",
+    "desc": "医院地图",
+    "path": "/appointment/map/:hosOrgName/:address/:latitude/:longitude",
+    "page": "/appointment/map"
   }]
 }

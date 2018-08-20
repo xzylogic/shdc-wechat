@@ -30,7 +30,12 @@ class Index extends React.Component {
               config={config}>
               <MainContainer mainClass='hospital__desc'>
                 <p>{obj.hosName}</p>
-                <p>地址：{obj.hospitalAdd} <i className='anticon icon-enviroment hospital__location' /></p>
+                <p>地址：{obj.hospitalAdd} 
+                  <Link 
+                    href={`/appointment/map?hosOrgName=${obj.hosName}&address=${obj.hospitalAdd}&latitude=${obj.latitude}&longitude=${obj.longitude}`}
+                    as={`/appointment/map/${obj.hosName}/${obj.hospitalAdd}/${obj.latitude}/${obj.longitude}`}
+                ><i className='anticon icon-enviroment hospital__location' /></Link>
+                </p>
               </MainContainer>
             </FlexList>
           </Link>
