@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { BaiduMap, Marker, InfoWindow, Label, Circle } from 'react-baidu-maps'
+import { BaiduMap, Marker, InfoWindow, NavigationControl,  ScaleControl } from 'react-baidu-maps'
 
 class Index extends React.Component {
 
@@ -25,6 +25,11 @@ class Index extends React.Component {
           <InfoWindow
             position={{ lng: Number(longitude), lat: Number(latitude) }}
             content={`<div><h2>${hosOrgName}</h2><br/><p>地址：${address}</p></div>`} offset={{ width: 0, height: -30 }} />
+          <NavigationControl
+            type='small'
+            anchor='top_right"'            
+            offset={{ width: 15, height: 30 }} />
+          <ScaleControl />
         </BaiduMap>
       </div>
     )
