@@ -5,7 +5,7 @@ import Head from '../../app/components/Common/Head'
 import RenderError from '../../app/components/Common/RenderError'
 import HospitalsComponent from '../../app/components/Appointment/HospitalsComponent'
 
-import { initGlobalQuery, checkNullArr } from '../../app/utilities/common'
+import { initGlobalQuery, checkNullArr, encodeData } from '../../app/utilities/common'
 import { loadHospitalsAction } from '../../app/store/actions/appointment/hospitals.action'
 
 class Index extends React.Component {
@@ -15,6 +15,10 @@ class Index extends React.Component {
     if (checkNullArr(store.getState().hospitalsReducer.hospitalsAll)) {
       store.dispatch(loadHospitalsAction())
     }
+  }
+
+  componentDidMount() {
+    console.log(encodeData(JSON.stringify({a:'123'})))
   }
 
   render() {

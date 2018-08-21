@@ -2,7 +2,10 @@ import * as axios from 'axios'
 import * as CODE from '../status-code'
 
 function getStrategy(url, config = {}) {
-  return axios.get(encodeURI(url), config).then(res => res && res.data).then(res => {
+  let headers = {headers: {client: 'A868E677C04F42B6840B0D58D7D27DDE'}}
+  return axios.get(encodeURI(url), {
+    ...config, ...{headers: {...config.headers, ...headers.headers}}
+  }).then(res => res && res.data).then(res => {
     if (res.code == CODE.SUCCESS) {
       return res.data || res.msg || true
     } else if (res.code == CODE.NOT_LOGIN) {
@@ -14,7 +17,10 @@ function getStrategy(url, config = {}) {
 }
 
 function postStrategy(url, data, config = {}) {
-  return axios.post(url, data, config).then(res => res && res.data).then(res => {
+  let headers = {headers: {client: 'A868E677C04F42B6840B0D58D7D27DDE'}}
+  return axios.post(url, data, {
+    ...config, ...{headers: {...config.headers, ...headers.headers}}
+  }).then(res => res && res.data).then(res => {
     if (res.code == CODE.SUCCESS) {
       return res.data || res.msg || true
     } else if (res.code == CODE.NOT_LOGIN) {
