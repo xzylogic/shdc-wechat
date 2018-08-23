@@ -104,7 +104,8 @@ module.exports = {
     http.HttpService.post(`${PATH.resetPassword}`, postData, {
       headers: {
         'access-token': accessToken, 
-        client: 'A868E677C04F42B6840B0D58D7D27DDE'
+        client: 'A868E677C04F42B6840B0D58D7D27DDE',
+        'Content-Type': 'application/json'
       }
     }).then(sres => {
       logger.info(sres)
