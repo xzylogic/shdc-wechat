@@ -7,13 +7,13 @@ import { recordCurrentPage, checkNullArr, checkNullObj } from '../../app/utiliti
 import { loadAccountListAction, loadAccountInfoAction } from '../../app/store/actions/personal/account.action'
 import withAuth from '../../app/utilities/withAuth'
 
-const InitFunction = (store) => {
-  let myStore = 'function' === typeof store.getState ? store.getState() : store
+const InitFunction = async (store) => {
+  let myStore = await 'function' === typeof store.getState ? store.getState() : store
   if (checkNullArr(myStore.accountReducer.accountList)) {
-    store.dispatch(loadAccountListAction())
+    await store.dispatch(loadAccountListAction())
   }
   if (checkNullObj(myStore.accountReducer.accountInfo)) {
-    store.dispatch(loadAccountInfoAction())
+    await store.dispatch(loadAccountInfoAction())
   }
 }
 

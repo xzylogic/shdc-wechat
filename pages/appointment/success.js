@@ -7,10 +7,10 @@ import { recordCurrentPage, checkNullObj } from '../../app/utilities/common'
 import withAuth from '../../app/utilities/withAuth'
 import { loadSuccessOrderAction } from '../../app/store/actions/appointment/success.action'
 
-const InitFunction = (store) => {
-  let myStore = 'function' === typeof store.getState ? store.getState() : store
+const InitFunction = async (store) => {
+  let myStore = await 'function' === typeof store.getState ? store.getState() : store
   if (myStore.successReducer && checkNullObj(myStore.successReducer.orderDetail)) {
-    store.dispatch(loadSuccessOrderAction())
+    await store.dispatch(loadSuccessOrderAction())
   }
 }
 

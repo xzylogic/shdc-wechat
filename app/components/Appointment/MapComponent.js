@@ -6,7 +6,6 @@ class Index extends React.Component {
 
   render() { 
     const { hosOrgName, address, latitude, longitude } = this.props
-    console.log(address, latitude, longitude)
     return (
       <div style={{height: '100vh', width: '100%'}}>
         <BaiduMap

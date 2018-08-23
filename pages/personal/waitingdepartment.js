@@ -6,10 +6,10 @@ import { recordCurrentPage, checkNullArr } from '../../app/utilities/common'
 import withAuth from '../../app/utilities/withAuth'
 import { loadWaitingDepartmentsAction } from '../../app/store/actions/personal/waiting.action'
 
-const InitFunction = (store) => {
-  let myStore = 'function' === typeof store.getState ? store.getState() : store
+const InitFunction = async (store) => {
+  let myStore = await 'function' === typeof store.getState ? store.getState() : store
   if (myStore.waitingReducer && checkNullArr(myStore.waitingReducer.waitingDepartments)) {
-    store.dispatch(loadWaitingDepartmentsAction())
+    await store.dispatch(loadWaitingDepartmentsAction())
   }
 }
 

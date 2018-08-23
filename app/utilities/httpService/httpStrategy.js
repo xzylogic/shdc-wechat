@@ -26,7 +26,7 @@ function getStrategy(url, params, config = {}) {
 function postStrategy(url, data, config = {}) {
   let headers = {headers: {client: 'A868E677C04F42B6840B0D58D7D27DDE'}}
   let postData = encodeData(JSON.stringify(data))
-  console.log(postData)
+  // console.log(postData)
   return axios.post(url, postData, {
     ...config, 
     ...{headers: {...config.headers, ...headers.headers, ...{'Content-Type': 'application/json'}}},
@@ -44,7 +44,7 @@ function postStrategy(url, data, config = {}) {
 function postHostStrategy(url, data, config = {}) {
   let headers = {headers: {client: 'A868E677C04F42B6840B0D58D7D27DDE'}}
   let postData = encodeData(JSON.stringify(data))
-  console.log(postData)
+  // console.log(postData)
   return axios.post(url, {data: postData}, {
     ...config, 
     ...{headers: {...config.headers, ...headers.headers, ...{'Content-Type': 'application/json'}}},

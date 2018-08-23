@@ -7,10 +7,10 @@ import { recordCurrentPage, checkNullArr } from '../../app/utilities/common'
 import { loadAccountListAction, updateFaimlyKeyAction } from '../../app/store/actions/personal/account.action'
 import withAuth from '../../app/utilities/withAuth'
 
-const InitFunction = (store) => {
-  let myStore = 'function' === typeof store.getState ? store.getState() : store
+const InitFunction = async (store) => {
+  let myStore = await 'function' === typeof store.getState ? store.getState() : store
   if (myStore.accountReducer && checkNullArr(myStore.accountReducer.accountList)) {
-    store.dispatch(loadAccountListAction())
+    await store.dispatch(loadAccountListAction())
   }
 }
 

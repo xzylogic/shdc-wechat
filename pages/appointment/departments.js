@@ -11,9 +11,9 @@ import { initDepartmentsCodeAction, loadDepartmentsAction } from '../../app/stor
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
-    initGlobalQuery(store, query)
-    store.dispatch(initDepartmentsCodeAction(query))
-    store.dispatch(loadDepartmentsAction())
+    await initGlobalQuery(store, query)
+    await store.dispatch(initDepartmentsCodeAction(query))
+    await store.dispatch(loadDepartmentsAction())
   }
 
   render() {

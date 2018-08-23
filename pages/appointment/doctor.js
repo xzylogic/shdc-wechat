@@ -11,10 +11,10 @@ import { initDoctorCodeAction, loadDoctorDetailAction, loadAppointmentListAction
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
-    initGlobalQuery(store, query)
-    store.dispatch(initDoctorCodeAction(query))
-    store.dispatch(loadDoctorDetailAction())
-    store.dispatch(loadAppointmentListAction())
+    await initGlobalQuery(store, query)
+    await store.dispatch(initDoctorCodeAction(query))
+    await store.dispatch(loadDoctorDetailAction())
+    await store.dispatch(loadAppointmentListAction())
   }
 
   render() {

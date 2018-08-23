@@ -8,13 +8,13 @@ import { loadAccountListAction } from '../../app/store/actions/personal/account.
 import { loadMyAppointmentsAction, updateAppointmentParamAction } from '../../app/store/actions/personal/appointment.action'
 import withAuth from '../../app/utilities/withAuth'
 
-const InitFunction = (store) => {
-  let myStore = 'function' === typeof store.getState ? store.getState() : store
+const InitFunction = async (store) => {
+  let myStore = await 'function' === typeof store.getState ? store.getState() : store
   if (myStore.accountReducer && checkNullArr(myStore.accountReducer.accountList)) {
-    store.dispatch(loadAccountListAction())
+    await store.dispatch(loadAccountListAction())
   }
   if (myStore.appointmentReducer && checkNullArr(myStore.appointmentReducer.appointmentList)) {
-    store.dispatch(loadMyAppointmentsAction())
+    await store.dispatch(loadMyAppointmentsAction())
   }
 }
 

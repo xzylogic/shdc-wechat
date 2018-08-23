@@ -7,8 +7,8 @@ import { recordCurrentPage } from '../../app/utilities/common'
 import withAuth from '../../app/utilities/withAuth'
 import { loadBalanceDetailAction } from '../../app/store/actions/personal/balance.action'
 
-const InitFunction = (store) => {
-  store.dispatch(loadBalanceDetailAction())
+const InitFunction = async (store) => {
+  await store.dispatch(loadBalanceDetailAction())
 }
 
 class Index extends React.Component {

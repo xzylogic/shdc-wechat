@@ -11,9 +11,9 @@ import { initConsultationCodeAction, loadConsultationListAction } from '../../ap
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
-    initGlobalQuery(store, query)
-    store.dispatch(initConsultationCodeAction(query))
-    store.dispatch(loadConsultationListAction())
+    await initGlobalQuery(store, query)
+    await store.dispatch(initConsultationCodeAction(query))
+    await store.dispatch(loadConsultationListAction())
   }
 
   render() {

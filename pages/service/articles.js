@@ -7,7 +7,6 @@ import ArticlesComponent from '../../app/components/Service/ArticlesComponent'
 
 import { initGlobalQuery, checkNullArr } from '../../app/utilities/common'
 import { loadArticlesAction } from '../../app/store/actions/service/articles.action'
-import { List } from 'antd-mobile';
 
 class Index extends React.Component {
   state = {
@@ -16,9 +15,9 @@ class Index extends React.Component {
 
   static async getInitialProps(props) {
     const {store, query} = props.ctx
-    initGlobalQuery(store, query)
+    await initGlobalQuery(store, query)
     if (store.getState().articlesReducer && checkNullArr(store.getState().articlesReducer.articles)) {
-      store.dispatch(loadArticlesAction(query.type))
+      await store.dispatch(loadArticlesAction(query.type))
     }
     return query
   }

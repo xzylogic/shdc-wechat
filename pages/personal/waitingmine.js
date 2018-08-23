@@ -8,10 +8,10 @@ import { loadAccountListAction } from '../../app/store/actions/personal/account.
 import { updateWaitingMineParamAction } from '../../app/store/actions/personal/waiting.action'
 import withAuth from '../../app/utilities/withAuth'
 
-const InitFunction = (store) => {
+const InitFunction = async (store) => {
   let myStore = 'function' === typeof store.getState ? store.getState() : store
   if (myStore.accountReducer && checkNullArr(myStore.accountReducer.accountList)) {
-    store.dispatch(loadAccountListAction())
+    await store.dispatch(loadAccountListAction())
   }
 }
 
