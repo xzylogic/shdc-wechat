@@ -1,4 +1,6 @@
+import Router from 'next/router'
 import { Toast } from 'antd-mobile'
+
 import * as CODE from '../status-code'
 
 export const CatchError = async (error) => {
@@ -8,5 +10,8 @@ export const CatchError = async (error) => {
     console.log(error.message)
     await Toast.hide()
     await Toast.info(error.message == CODE.NOT_LOGIN ? '未登录': error.message)
+    if (error.message == CODE.NOT_LOGIN) {
+      await Router.replace('/login')
+    }
   }
 }
