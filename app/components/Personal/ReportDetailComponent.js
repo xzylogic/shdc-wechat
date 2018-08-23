@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import './personal.scss'
+import './reportdetail.scss'
 
 class Index extends React.Component {
   render() {

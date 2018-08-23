@@ -1,0 +1,146 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
+body { line-height: 1; }
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+/* remember to define focus styles! */
+:focus { outline: 0; }
+/* remember to highlight inserts somehow! */
+ins { text-decoration: none; }
+del { text-decoration: line-through; }
+/* tables still need 'cellspacing="0"' in the markup */
+table { border-collapse: collapse; border-spacing: 0; }
+.clear { height:0; clear:both; font-size:0; line-height:0; overflow:hidden; visibility:hidden;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.clearfix{*zoom:1;}
+em,i {font-style:normal;}
+
+html,
+body {
+  *overflow: auto;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.cor_1 {
+  color: #0960ab
+}
+
+.cor_2 {
+  color: #747474
+}
+
+.cor_3 {
+  color: #d62508
+}
+
+.aly_r {
+  text-align: right
+}
+
+.aly_l {
+  text-align: left
+}
+
+.aly_c {
+  text-align: center
+}
+
+.padl {
+  padding-left: 8px;
+}
+
+.padr {
+  padding-right: 8px;
+}
+
+.fz_t {
+  font: 18px/48px "Microsoft YaHei", Tahoma, Geneva, sans-serif;
+}
+
+.border_b {
+  border-bottom: solid 1px #d8d8d8
+}
+
+.tableWrapper {}
+
+.tdsty_1 {
+  height: 46px;
+  font-size: 12px;
+  line-height: 23px;
+  vertical-align: top;
+  width: 50%
+}
+
+.bg_1 {
+  background: url(https://shdcapp.wondersgroup.com/mobilemedicalplatform/image/20130315173202.gif) no-repeat left top;
+  padding-left: 46px;
+}
+
+.font_1,
+.font_2 {
+  font-family: "Microsoft YaHei", Tahoma, Geneva, sans-serif;
+  color: #0960ab
+}
+
+.font_1 {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+.font_2 {
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.userdetal {}
+
+.userdetal td {
+  font: 12px/25px "Microsoft YaHei", Tahoma, Geneva, sans-serif;
+  color: #787878;
+}
+
+.dataListTh th {
+  background: #eee;
+  border-bottom: solid 1px #d8d8d8;
+  border-top: solid 2px #c9c9c9;
+  height: 30px;
+  font: 14px/30px "Microsoft YaHei", Tahoma, Geneva, sans-serif;
+  font-weight: normal;
+  color: #666
+}
+
+.dataListTd td {
+  border-bottom: dashed 1px #e4e4e4;
+  vertical-align: middle;
+  font: 12px/29px "Microsoft YaHei", Tahoma, Geneva, sans-serif;
+  color: #0960ab
+}
+
+img.arow {
+  vertical-align: middle;
+  margin-left: 4px;
+  margin-top: -3px;
+}
+
+#interHead {
+  height: 33px;
+  position: relative;
+  overflow: hidden;
+}
+
+#interBody table {
+  margin-top: -0px
+}
+
+#interBody {
+  overflow-y: auto;
+  overflow-x: hidden
+}
+
+.tabheader,
+.tabfooter {}
+
+.tabfooter td {
+  font: 12px/24px Tahoma, Geneva, sans-serif
+}
