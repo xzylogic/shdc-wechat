@@ -30,7 +30,7 @@ class Index extends React.Component {
         this.setState({title: '最新公告'})
         return
       case '103':
-        this.setState({title: '最新新闻'})
+        this.setState({title: '新闻动态'})
         return
       case '107':
         this.setState({title: '常见问题'})
