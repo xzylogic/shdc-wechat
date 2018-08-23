@@ -7,9 +7,10 @@ class Index extends React.Component {
   render() {
     const { reportsReducer } = this.props
     const { reportDetail } = reportsReducer
+    const detail = reportDetail.split('<body>')[1]
     return (
       <React.Fragment>
-        <div dangerouslySetInnerHTML={{__html: reportDetail}} style={{padding: '15px', background: '#fff'}} />
+        <div dangerouslySetInnerHTML={{__html: detail}} style={{padding: '15px', background: '#fff'}} />
       </React.Fragment>
     )
   }

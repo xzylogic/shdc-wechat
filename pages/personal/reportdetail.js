@@ -12,8 +12,9 @@ class Index extends React.Component {
     const store = this.props
     const { router } = this.props
     recordCurrentPage(store, `/personal/reports`)
-    if (router && router.query && router.query.url) {
-      store.dispatch(loadReportDetailAction(router.query.url))
+    const url = router.query.url || router.asPath.split('=')[1]
+    if (router && router.query && url) {
+      store.dispatch(loadReportDetailAction(url))
     }
   }
 

@@ -58,7 +58,7 @@ class Index extends React.Component {
                               type='ghost' 
                               size='small' 
                               style={{float: 'right', width: '80px'}}
-                              onClick={() => router.push(`/personal/reportdetail?url=${encodeURI(obj.repUrl)}`, `/personal/reportdetail/${encodeURI(obj.repUrl)}`)}
+                              onClick={() => router.push(`/personal/reportdetail?url=${encodeURI(obj.repUrl)}`)}
                             >查看</Button>
                           </div>
                         </Card.Body>

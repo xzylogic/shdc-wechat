@@ -128,7 +128,7 @@
   }, {
     "id": "26",
     "desc": "我的报告",
-    "path": "/personal/reportdetail/:url",
+    "path": "/personal/reportdetail",
     "page": "/personal/reportdetail"
   }, {
     "id": "27",
