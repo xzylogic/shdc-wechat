@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'next/router'
 import { WhiteSpace, List, Card, Button } from 'antd-mobile'
 import * as moment from 'moment'
 
@@ -17,7 +18,8 @@ class Index extends React.Component {
   } 
   render() {
     const store = this.props
-    const { searchParam, reportsSurvey, reportsInspection } = store.reportsReducer
+    const { router, reportsReducer } = this.props
+    const { searchParam, reportsSurvey, reportsInspection } = reportsReducer
     return (
       <div>
         <UserCard ifKey value={searchParam} onChange={(value)=> {
@@ -56,7 +58,7 @@ class Index extends React.Component {
                               type='ghost' 
                               size='small' 
                               style={{float: 'right', width: '80px'}}
-                              onClick={() => location.href = obj.repUrl}
+                              onClick={() => router.push(`/personal/reportdetail?url=${encodeURI(obj.repUrl)}`, `/personal/reportdetail/${encodeURI(obj.repUrl)}`)}
                             >查看</Button>
                           </div>
                         </Card.Body>
@@ -96,7 +98,7 @@ class Index extends React.Component {
                               type='ghost' 
                               size='small' 
                               style={{float: 'right', width: '80px'}}
-                              onClick={() => location.href = obj.repUrl}
+                              onClick={() => router.push(`/personal/reportdetail?url=${encodeURI(obj.repUrl)}`, `/personal/reportdetail/${encodeURI(obj.repUrl)}`)}
                             >查看</Button>
                           </div>
                         </Card.Body>
@@ -114,4 +116,4 @@ class Index extends React.Component {
   }
 }
 
-export default connect(state => state)(Index)
+export default withRouter(connect(state => state)(Index))

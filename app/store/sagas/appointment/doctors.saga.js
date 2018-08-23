@@ -14,11 +14,11 @@ const PATH = {
 }
 
 const getDoctorsByName = (hosOrgCode, deptCode, toHosDeptCode, doctName) => {
-  let query = `?hosOrgCode=${hosOrgCode}&hosDeptCode=${deptCode}&topHosDeptCode=${toHosDeptCode}`
+  let query = `hosOrgCode=${hosOrgCode}&hosDeptCode=${deptCode}&topHosDeptCode=${toHosDeptCode}`
   if (doctName) {
     query += `&doctName=${doctName}`
   }
-  return HttpService.get(`${PATH.queryDoctors}${query}`)
+  return HttpService.get(PATH.queryDoctors, query)
 }
 
 function* loadDoctorsByName() {
@@ -64,8 +64,8 @@ function* searchDoctors() {
 }
 
 const getDoctorsByDate = (hosOrgCode, deptCode, toHosDeptCode) => {
-  const query = `?hosOrgCode=${hosOrgCode}&hosDeptCode=${deptCode}&topHosDeptCode=${toHosDeptCode}&registerType=1`
-  return HttpService.get(`${PATH.queryDoctorsByDate}${query}`)
+  const query = `hosOrgCode=${hosOrgCode}&hosDeptCode=${deptCode}&topHosDeptCode=${toHosDeptCode}&registerType=1`
+  return HttpService.get(PATH.queryDoctorsByDate, query)
 }
 
 function* loadDoctorsByDate() {
@@ -90,8 +90,8 @@ function* loadDoctorsByDate() {
 }
 
 const queryScheduleService = (hosOrgCode, scheduleId) => {
-  const query = `?hosOrgCode=${hosOrgCode}&scheduleId=${scheduleId}`
-  return HttpService.get(`${PATH.querySchedule}${query}`)
+  const query = `hosOrgCode=${hosOrgCode}&scheduleId=${scheduleId}`
+  return HttpService.get(PATH.querySchedule, query)
 }
 
 function* querySchedule(actions) {

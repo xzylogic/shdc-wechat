@@ -3,6 +3,7 @@ import Router from 'next/router'
 import { Toast } from 'antd-mobile'
 
 import { actionTypes, updateOrderInfoAction } from '../../actions/appointment/detail.action'
+import { authNotLogin, authError } from '../../actions/global.action'
 import { HttpService } from '../../../utilities/httpService'
 
 import { startLoading, endLoading } from '../../../utilities/common'

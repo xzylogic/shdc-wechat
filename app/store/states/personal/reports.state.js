@@ -1,5 +1,6 @@
 export const initialReportsState = {
   reportsSurvey: [],
   reportsInspection: [],
-  searchParam: 0
+  searchParam: 0,
+  reportDetail: ''
 }

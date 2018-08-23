@@ -17,8 +17,8 @@ export class HttpHandler {
     })
   }
 
-  get(url, config = {}, handle) {
-    return this.httpHandler.get(this.configUrl + url, config).catch(err => {
+  get(url, params, config = {}, handle) {
+    return this.httpHandler.get(this.configUrl + url, params, config).catch(err => {
       this.errorHandler(err, handle)
     })
   }

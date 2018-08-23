@@ -1,4 +1,4 @@
-import { put, takeLatest, call, select } from 'redux-saga/effects'
+import { put, takeLatest, takeEvery, call, select } from 'redux-saga/effects'
 import Router from 'next/router'
 
 import { actionTypes, updateAccountInfo, updateAccountList, loadAccountListAction } from '../../actions/personal/account.action'
@@ -16,7 +16,7 @@ const PATH = {
 }
 
 const getAccountInfoService = (accessToken) => {
-  return HttpService.get(`${PATH.getAccountInfo}`, {headers: { 'access-token': accessToken || ''}})
+  return HttpService.get(PATH.getAccountInfo, '', {headers: { 'access-token': accessToken || ''}})
 }
 
 function* loadAccountInfo() {
@@ -40,7 +40,7 @@ function* loadAccountInfo() {
 }
 
 const getAccountListService = (accessToken) => {
-  return HttpService.get(`${PATH.getAccountList}`, {headers: { 'access-token': accessToken || ''}})
+  return HttpService.get(PATH.getAccountList, '', {headers: { 'access-token': accessToken || ''}})
 }
 
 export function* loadAccountList() {
@@ -109,8 +109,8 @@ function* resetPassword(actions) {
 }
 
 export const accountSaga = [
-  takeLatest(actionTypes.LOAD_ACCOUNT_INFO, loadAccountInfo),
-  takeLatest(actionTypes.LOAD_ACCOUNT_LIST, loadAccountList),
+  takeEvery(actionTypes.LOAD_ACCOUNT_INFO, loadAccountInfo),
+  takeEvery(actionTypes.LOAD_ACCOUNT_LIST, loadAccountList),
   takeLatest(actionTypes.RESET_PASSWORD, resetPassword),
   takeLatest(actionTypes.FAMILY_ADD, familyAdd)
 ]

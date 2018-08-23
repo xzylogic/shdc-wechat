@@ -1,8 +1,7 @@
 import { put, takeLatest, call } from 'redux-saga/effects'
 
 import { 
-  actionTypes, updateHospitalsAll, updateHospitalsZH, 
-  updateHospitalsZY, updateHospitalsZK, updateSearchList 
+  actionTypes, updateHospitalsAll, updateSearchList 
 } from '../../actions/appointment/hospitals.action'
 import { authError, authNotLogin } from '../../actions/global.action'
 import { HttpService } from '../../../utilities/httpService'
@@ -18,29 +17,19 @@ const PATH = {
 const getHospitalsService = (cityCode) => {
   let query = ''
   if (cityCode) {
-    query += `?cityCode=${cityCode}`
+    query += `cityCode=${cityCode}`
   }
-  return HttpService.get(`${PATH.queryHospitals}${query}`)
+  return HttpService.get(PATH.queryHospitals, query)
 }
 
 function* loadHospitals() {
   try {
     yield startLoading('Loading')
-    const [ dataAll, dataZH, dataZY, dataZK] = yield [
-      call(getHospitalsService),
-      call(getHospitalsService, 'zhyy'),
-      call(getHospitalsService, 'zyyy'),
-      call(getHospitalsService, 'zkyy')
-    ]
-    if (dataAll && dataZH && dataZY && dataZK) {
-      yield [
-        put(updateHospitalsAll(dataAll)),
-        put(updateHospitalsZH(dataZH)),
-        put(updateHospitalsZY(dataZY)),
-        put(updateHospitalsZK(dataZK)),
-      ]
-      yield endLoading()
+    const data = yield call(getHospitalsService)
+    if (data) {
+      yield put(updateHospitalsAll(data))
     }
+    yield endLoading()
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
       yield put(authNotLogin())
@@ -51,7 +40,8 @@ function* loadHospitals() {
 }
 
 const querySearchService = (data) => {
-  return HttpService.get(`${PATH.querySearch}?searchParams=${data}`)
+  let query = `searchParams=${data}`
+  return HttpService.get(PATH.querySearch, query)
 }
 
 function* loadSearch(actions) {

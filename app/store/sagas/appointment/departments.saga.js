@@ -14,11 +14,11 @@ const PATH = {
 }
 
 const getDepartmentsService = (hosOrgCode, deptType, parentId) => {
-  const query = `?hosOrgCode=${hosOrgCode}&deptType=${deptType}`
+  let query = `hosOrgCode=${hosOrgCode}&deptType=${deptType}`
   if (parentId) {
     query += `&parentId=${parentId}`
   }
-  return HttpService.get(`${PATH.queryDepartments}${query}`)
+  return HttpService.get(PATH.queryDepartments, query)
 }
 
 function* loadDepartments() {
@@ -45,8 +45,8 @@ function* loadDepartments() {
 }
 
 const getDepartmentsChildService = (hosOrgCode, deptType, parentId) => {
-  const query = `?hosOrgCode=${hosOrgCode}&deptType=${deptType}&parentId=${parentId}`
-  return HttpService.get(`${PATH.queryDepartmentsChild}${query}`)
+  const query = `hosOrgCode=${hosOrgCode}&deptType=${deptType}&parentId=${parentId}`
+  return HttpService.get(PATH.queryDepartmentsChild, query)
 }
 
 function* loadDepartmentsChild(actions) {
@@ -71,8 +71,8 @@ function* loadDepartmentsChild(actions) {
 }
 
 const searchDepartmentsService = (hosOrgCode, deptType, deptName) => {
-  const query = `?hosOrgCode=${hosOrgCode}&deptType=${deptType}&deptName=${deptName}`
-  return HttpService.get(`${PATH.searchDepartments}${query}`)
+  const query = `hosOrgCode=${hosOrgCode}&deptType=${deptType}&deptName=${deptName}`
+  return HttpService.get(PATH.searchDepartments, query)
 }
 
 function* searchDepartments() {

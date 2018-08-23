@@ -13,7 +13,7 @@ const PATH = {
 }
 
 const getAppointmentListService = (accessToken) => {
-  return HttpService.get(`${PATH.getAppointmentList}`, {headers: { 'access-token': accessToken || ''}})
+  return HttpService.get(PATH.getAppointmentList, '', {headers: { 'access-token': accessToken || ''}})
 }
 
 function* loadAppointmentList() {

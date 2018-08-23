@@ -15,11 +15,11 @@ const PATH = {
 const getBalanceService = (data, accessToken) => {
   let query = ''
   if (data.medicineCardId) {
-    query = `?medicineCard=${data.medicineCardId}`
+    query = `medicineCard=${data.medicineCardId}`
   } else {
-    query = `?cardType=${data.cardType}&cardId=${data.cardId}`
+    query = `cardType=${data.cardType}&cardId=${data.cardId}`
   }
-  return HttpService.get(`${PATH.getBalance}${query}`, {headers: { 'access-token': accessToken || ''}})
+  return HttpService.get(PATH.getBalance, query, {headers: { 'access-token': accessToken || ''}})
 }
 
 function* loadBalanceDetail() {

@@ -1,6 +1,6 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 
-import { actionTypes, updateMyReportsAction } from '../../actions/personal/reports.action'
+import { actionTypes, updateMyReportsAction, updateReportDetailAction } from '../../actions/personal/reports.action'
 import { authNotLogin, authError } from '../../actions/global.action'
 import { HttpService } from '../../../utilities/httpService'
 import { checkNotNullArr, checkNullArr, startLoading, endLoading } from '../../../utilities/common'
@@ -9,17 +9,17 @@ import { loadAccountList } from './account.saga'
 import * as CODE from '../../../utilities/status-code'
 
 const PATH = {
-  getReports: '/api/report/v1/getRecords'
+  getReports: '/api/report/v1/getRecords',
+  getReportDetail: '/api/report/detail'
 }
 
 const getMyReportsService = (idno, cardType, cardValue, type, accessToken) => {
-  let query = `?idno=${idno}&cardType=${cardType}&cardValue=${cardValue}&type=${type}`
-  return HttpService.get(`${PATH.getReports}${query}`, {headers: { 'access-token': accessToken || ''}})
+  let query = `idno=${idno}&cardType=${cardType}&cardValue=${cardValue}&type=${type}`
+  return HttpService.get(PATH.getReports, query, {headers: { 'access-token': accessToken || ''}})
 }
 
 function* loadMyReports() {
   try {
-    yield startLoading('Loading')
     const { accessToken } = yield select((state) => state.globalReducer)
     const { searchParam } = yield select((state) => state.reportsReducer)
     const { accountList } = yield select((state) => state.accountReducer)
@@ -28,6 +28,7 @@ function* loadMyReports() {
     }
     const accountReducer = yield select((state) => state.accountReducer)
     if (accessToken && checkNotNullArr(accountReducer.accountList) && accountReducer.accountList[searchParam]) {
+      yield startLoading('Loading')
       const search = accountReducer.accountList[searchParam]
       yield put(updateMyReportsAction([], []))
 
@@ -47,6 +48,36 @@ function* loadMyReports() {
   }
 }
 
+const getReportDetailService = (url, accessToken) => {
+  let query = `url=${url}`
+  return HttpService.get(PATH.getReportDetail, query, {headers: { 'access-token': accessToken || ''}})
+}
+
+function* loadReportDetail(actions) {
+  try {
+    const { accessToken } = yield select((state) => state.globalReducer)
+
+    if (accessToken) {
+      yield startLoading('Loading')
+
+      const data = yield call(getReportDetailService, actions.url, accessToken)
+      if (data) {
+        yield put(updateReportDetailAction(data))
+        yield endLoading()
+      }
+    }
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
+  }
+}
+
+
+
 export const reportsSaga = [
   takeLatest(actionTypes.LOAD_MY_REPORTS, loadMyReports),
+  takeLatest(actionTypes.LOAD_REPORT_DETAIL, loadReportDetail),
 ]

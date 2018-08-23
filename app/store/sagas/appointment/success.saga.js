@@ -12,7 +12,7 @@ const PATH = {
 }
 
 const getOrderService = (accessToken) => {
-  return HttpService.get(`${PATH.getOrder}`, {headers: {'access-token': accessToken}})
+  return HttpService.get(PATH.getOrder, '', {headers: {'access-token': accessToken}})
 }
 
 function* loadOrder() {

@@ -16,11 +16,11 @@ const PATH = {
 }
 
 const getHospitalsService = (accessToken, name) => {
-  let query
+  let query = ''
   if (name) {
-    query = `?name=${name}`
+    query = `name=${name}`
   }
-  return HttpService.get(`${PATH.getHospitals}${query ? query : ''}`, {headers: { 'access-token': accessToken || ''}})
+  return HttpService.get(PATH.getHospitals, query, {headers: { 'access-token': accessToken || ''}})
 }
 
 function* loadWaitingHospitals() {
@@ -46,7 +46,8 @@ function* loadWaitingHospitals() {
 }
 
 const getWaitingMineService = (accessToken, hosOrgCode, medicineCardType, medicineCardId) => {
-  return HttpService.get(`${PATH.getWaitingMine}?hospitalCode=${hosOrgCode}&medicineCardType=${medicineCardType}&medicineCardId=${medicineCardId}`, {headers: {'access-token': accessToken}})
+  const query = `hospitalCode=${hosOrgCode}&medicineCardType=${medicineCardType}&medicineCardId=${medicineCardId}`
+  return HttpService.get(PATH.getWaitingMine, query, {headers: {'access-token': accessToken}})
 }
 
 function* loadWaitingMine(actions) {
@@ -82,11 +83,11 @@ function* loadWaitingMine(actions) {
 }
 
 const getDepartmentsService = (accessToken, hosOrgCode, name) => {
-  let query = `?hospitalCode=${hosOrgCode}`
+  let query = `hospitalCode=${hosOrgCode}`
   if (name) {
     query += `&deptName=${name}`
   }
-  return HttpService.get(`${PATH.getDepartments}${query}`, {headers: {'access-token': accessToken}})
+  return HttpService.get(PATH.getDepartments, query, {headers: {'access-token': accessToken}})
 }
 
 function* loadDepartments() {
@@ -113,8 +114,8 @@ function* loadDepartments() {
 }
 
 const getDetailService = (accessToken, hosOrgCode, hosDeptCode) => {
-  const query = `?hospitalCode=${hosOrgCode}&deptCode=${hosDeptCode}`
-  return HttpService.get(`${PATH.getDetail}${query}`, {headers: {'access-token': accessToken}})
+  const query = `hospitalCode=${hosOrgCode}&deptCode=${hosDeptCode}`
+  return HttpService.get(PATH.getDetail, query, {headers: {'access-token': accessToken}})
 }
 
 function* loadDetail() {

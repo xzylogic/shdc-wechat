@@ -12,7 +12,8 @@ const PATH = {
 }
 
 const getArticlesService = (channelId) => {
-  return HttpService.get(`${PATH.getArticles}?channelId=${channelId}`)
+  const query = `channelId=${channelId}`
+  return HttpService.get(PATH.getArticles, query)
 }
 
 function* loadArticles(actions) {

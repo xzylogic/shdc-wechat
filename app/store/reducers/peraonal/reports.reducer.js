@@ -14,6 +14,11 @@ export const reportsReducer = (state = initialReportsState, action = {}) => {
         ...state,
         ...{ searchParam: action.data }
       }
+    case actionTypes.UPDATE_REPORT_DETAIL:
+      return {
+        ...state,
+        ...{ reportDetail: action.data }
+      }
     default:
       return state
   }

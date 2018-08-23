@@ -127,16 +127,21 @@
     "page": "/personal/reports"
   }, {
     "id": "26",
+    "desc": "我的报告",
+    "path": "/personal/reportdetail/:url",
+    "page": "/personal/reportdetail"
+  }, {
+    "id": "27",
     "desc": "余额查询",
     "path": "/personal/balance",
     "page": "/personal/balance"
   }, {
-    "id": "26",
+    "id": "28",
     "desc": "文章列表",
     "path": "/service/articles/:type",
     "page": "/service/articles"
   }, {
-    "id": "27",
+    "id": "29",
     "desc": "医院地图",
     "path": "/appointment/map/:hosOrgName/:address/:latitude/:longitude",
     "page": "/appointment/map"

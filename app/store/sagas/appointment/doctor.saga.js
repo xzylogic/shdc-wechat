@@ -15,8 +15,8 @@ const PATH = {
 }
 
 const getDoctorDetailService = (hosOrgCode, hosDoctCode, hosDeptCode, toHosDeptCode) => {
-  const query = `?hosOrgCode=${hosOrgCode}&hosDoctCode=${hosDoctCode}&hosDeptCode=${hosDeptCode}&topHosDeptCode=${toHosDeptCode}`
-  return HttpService.get(`${PATH.getDoctorDetail}${query}`)
+  const query = `hosOrgCode=${hosOrgCode}&hosDoctCode=${hosDoctCode}&hosDeptCode=${hosDeptCode}&topHosDeptCode=${toHosDeptCode}`
+  return HttpService.get(PATH.getDoctorDetail, query)
 }
 
 function* loadDoctorDetail() {
@@ -38,8 +38,8 @@ function* loadDoctorDetail() {
 }
 
 const getAppointmentListService = (hosOrgCode, hosDoctCode, hosDeptCode, toHosDeptCode) => {
-  const query = `?hosOrgCode=${hosOrgCode}&hosDoctCode=${hosDoctCode}&hosDeptCode=${hosDeptCode}&topHosDeptCode=${toHosDeptCode}&registerType=1`
-  return HttpService.get(`${PATH.getAppointmentList}${query}`)
+  const query = `hosOrgCode=${hosOrgCode}&hosDoctCode=${hosDoctCode}&hosDeptCode=${hosDeptCode}&topHosDeptCode=${toHosDeptCode}&registerType=1`
+  return HttpService.get(PATH.getAppointmentList, query)
 }
 
 function* loadAppointmentList() {
@@ -61,8 +61,8 @@ function* loadAppointmentList() {
 }
 
 const queryScheduleService = (hosOrgCode, scheduleId) => {
-  const query = `?hosOrgCode=${hosOrgCode}&scheduleId=${scheduleId}`
-  return HttpService.get(`${PATH.querySchedule}${query}`)
+  const query = `hosOrgCode=${hosOrgCode}&scheduleId=${scheduleId}`
+  return HttpService.get(PATH.querySchedule, query)
 }
 
 function* querySchedule(actions) {

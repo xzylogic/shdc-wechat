@@ -13,8 +13,8 @@ const PATH = {
 }
 
 const getConsultationListService = (hosOrgCode, hosDeptCode, toHosDeptCode, registerType) => {
-  const query = `?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&topHosDeptCode=${toHosDeptCode}&registerType=${registerType}`
-  return HttpService.get(`${PATH.queryConsultations}${query}`)
+  const query = `hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&topHosDeptCode=${toHosDeptCode}&registerType=${registerType}`
+  return HttpService.get(PATH.queryConsultations, query)
 }
 
 function* loadConsultationList() {
@@ -38,8 +38,8 @@ function* loadConsultationList() {
 }
 
 const queryScheduleService = (hosOrgCode, scheduleId) => {
-  const query = `?hosOrgCode=${hosOrgCode}&scheduleId=${scheduleId}`
-  return HttpService.get(`${PATH.querySchedule}${query}`)
+  const query = `hosOrgCode=${hosOrgCode}&scheduleId=${scheduleId}`
+  return HttpService.get(PATH.querySchedule, query)
 }
 
 function* querySchedule(actions) {
