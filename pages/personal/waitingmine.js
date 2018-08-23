@@ -5,7 +5,7 @@ import WaitingMineComponent from '../../app/components/Personal/WaitingMineCompo
 
 import { recordCurrentPage, checkNullArr } from '../../app/utilities/common'
 import { loadAccountListAction } from '../../app/store/actions/personal/account.action'
-import { updateWaitingMineParamAction } from '../../app/store/actions/personal/waiting.action'
+import { updateWaitingMineParamAction, updateWaitingMineAction } from '../../app/store/actions/personal/waiting.action'
 import withAuth from '../../app/utilities/withAuth'
 
 const InitFunction = async (store) => {
@@ -13,6 +13,8 @@ const InitFunction = async (store) => {
   if (myStore.accountReducer && checkNullArr(myStore.accountReducer.accountList)) {
     await store.dispatch(loadAccountListAction())
   }
+  store.dispatch(updateWaitingMineParamAction(''))
+  store.dispatch(updateWaitingMineAction(''))
 }
 
 class Index extends React.Component {
@@ -20,7 +22,6 @@ class Index extends React.Component {
   componentWillMount() {
     const store = this.props
     recordCurrentPage(store, `/personal/waiting`)
-    store.dispatch(updateWaitingMineParamAction(''))
     InitFunction(store)
   }
 

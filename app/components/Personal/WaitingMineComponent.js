@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'next/router'
-import { Toast } from 'antd-mobile'
+import { Toast, WhiteSpace } from 'antd-mobile'
 
 import UserCard from './UserCard'
 
@@ -27,7 +27,8 @@ class Index extends React.Component {
     return (
       <React.Fragment>
         <UserCard ifKey value={waitingMineParam} onChange={this.handleChange} />
-        <div dangerouslySetInnerHTML={{__html: waitingMine}} style={{padding: '15px', background: '#fff'}} />
+        { waitingMine ? <div dangerouslySetInnerHTML={{__html: waitingMine.split('<body>')[1]}} style={{background: '#fff', padding: '15px'}} /> : ''}
+        <WhiteSpace size='lg' />
       </React.Fragment>
     )
   }
