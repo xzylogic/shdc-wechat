@@ -15,7 +15,7 @@ class Index extends React.Component {
 
   static async getInitialProps(props) {
     const {store, query} = props.ctx
-    await initGlobalQuery(store, query)
+    initGlobalQuery(store, query)
     if (store.getState().articlesReducer && checkNullArr(store.getState().articlesReducer.articles)) {
       await store.dispatch(loadArticlesAction(query.type))
     }

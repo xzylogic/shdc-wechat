@@ -9,7 +9,7 @@ import { initGlobalQuery } from '../../app/utilities/common'
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
-    await initGlobalQuery(store, query)
+    initGlobalQuery(store, query)
   }
 
   render() {

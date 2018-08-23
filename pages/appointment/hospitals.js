@@ -11,7 +11,7 @@ import { loadHospitalsAction } from '../../app/store/actions/appointment/hospita
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query} = props.ctx
-    await initGlobalQuery(store, query)
+    initGlobalQuery(store, query)
     if (checkNullArr(store.getState().hospitalsReducer.hospitalsAll)) {
       await store.dispatch(loadHospitalsAction())
     }

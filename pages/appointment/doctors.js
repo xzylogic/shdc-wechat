@@ -11,7 +11,7 @@ import { initDoctorsCodeAction, loadDoctorsByNameAction, loadDoctorsByDateAction
 class Index extends React.Component {
   static async getInitialProps(props) {
     const {store, query, isServer} = props.ctx
-    await initGlobalQuery(store, query, isServer)
+    initGlobalQuery(store, query, isServer)
     await store.dispatch(initDoctorsCodeAction(query))
     await store.dispatch(loadDoctorsByNameAction())
     await store.dispatch(loadDoctorsByDateAction())
