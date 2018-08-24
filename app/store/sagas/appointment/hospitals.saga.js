@@ -28,8 +28,8 @@ function* loadHospitals() {
     const data = yield call(getHospitalsService)
     if (data) {
       yield put(updateHospitalsAll(data))
+      yield endLoading()
     }
-    yield endLoading()
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
       yield put(authNotLogin())

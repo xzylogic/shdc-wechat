@@ -3,10 +3,11 @@ import Router from 'next/router'
 import { connect } from 'react-redux'
 import { Flex, Button } from 'antd-mobile'
 
-import { formatTime } from '../../utilities/common'
+import { formatTime, checkNotNullArr } from '../../utilities/common'
 import { storeOrderInfoAction } from '../../store/actions/appointment/detail.action'
 
 class Index extends React.Component {
+
   loadSchedules = (k, id) => {
     if (this.props.loadSchedules) {
       this.props.loadSchedules(k, id)
@@ -34,12 +35,12 @@ class Index extends React.Component {
   } 
   
   render() {
-    const appointments = this.props.appointments
+    const { appointments, style = {borderTop: '1px solid #eee'} } = this.props
     return (
-      <div>{
-        appointments && Array.isArray(appointments) && appointments.map((schedule, k) => {
+      <React.Fragment>{
+        checkNotNullArr(appointments) && appointments.map((schedule, k) => {
           return (
-            <div key={k} style={{borderBottom: '1px solid #eee'}}>
+            <div key={k} style={style}>
               <Flex align='baseline'>
                 <Flex.Item>
                   <div className='appointment__item'>{schedule.deptName}</div>
@@ -90,7 +91,7 @@ class Index extends React.Component {
           )
         })
       }
-      </div>
+      </React.Fragment>
     )
   }
 }

@@ -1,6 +1,5 @@
 export const initialDepartmentsState = {
   departmentsParent: [],
-  toHosDeptCode: '',
   hosOrgCode: '',
   deptType: '',
   pageType: '',

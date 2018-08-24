@@ -4,7 +4,6 @@ export const actionTypes = {
   LOAD_DEPARTMENTS: 'LOAD_DEPARTMENTS',
   INIT_DEPARTMENTS_CODE: 'INIT_DEPARTMENTS_CODE',
   LOAD_DEPARTMENTS_CHILD: 'LOAD_DEPARTMENTS_CHILD',
-  UPDATE_TOHOSDEPTCODE: 'UPDATE_TOHOSDEPTCODE',
   UPDATE_DEPARTMENTS_PARAM: 'UPDATE_DEPARTMENTS_PARAM',
   LOAD_DEPARTMENTS_SEARCH: 'LOAD_DEPARTMENTS_SEARCH',
   UPDATE_DEPARTMENTS_SEARCH: 'UPDATE_DEPARTMENTS_SEARCH',
@@ -46,13 +45,6 @@ export const updateDepartmentsChild = (data, toHosDeptCode, index) => {
     data: data,
     toHosDeptCode: toHosDeptCode,
     index: index
-  }
-}
-
-export const updateToHosDeptCode = (data) => {
-  return {
-    type: actionTypes.UPDATE_TOHOSDEPTCODE,
-    data: data
   }
 }
 

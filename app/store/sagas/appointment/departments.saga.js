@@ -1,6 +1,9 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 
-import { actionTypes, updateDepartmentsParent, updateDepartmentsChild, updateToHosDeptCode, updateDepartmentsSearchAction } from '../../actions/appointment/departments.action'
+import { 
+  actionTypes, updateDepartmentsParent, 
+  updateDepartmentsChild, updateDepartmentsSearchAction 
+} from '../../actions/appointment/departments.action'
 import { authError, authNotLogin } from '../../actions/global.action'
 import { HttpService } from '../../../utilities/httpService'
 
@@ -27,10 +30,12 @@ function* loadDepartments() {
     yield put(updateDepartmentsParent([]))
 
     const { hosOrgCode, deptType } = yield select((state) => state.departmentsReducer)
+
     const data = yield call(getDepartmentsService, hosOrgCode, deptType)
     if (data && data[0] && !data[0].children) {
       yield data[0].children = []
     }
+
     if (data) {
       yield put(updateDepartmentsParent(data))
       yield endLoading()
@@ -52,7 +57,7 @@ const getDepartmentsChildService = (hosOrgCode, deptType, parentId) => {
 function* loadDepartmentsChild(actions) {
   try {
     const { hosOrgCode, deptType, departmentsParent } = yield select((state) => state.departmentsReducer)
-    yield put(updateToHosDeptCode(actions.parentId))
+
     if (departmentsParent && departmentsParent[actions.index] && !departmentsParent[actions.index].children) {
       yield startLoading('Loading')
       const data = yield call(getDepartmentsChildService, hosOrgCode, deptType, actions.parentId)

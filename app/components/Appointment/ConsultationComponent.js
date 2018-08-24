@@ -4,7 +4,7 @@ import * as moment from 'moment'
 
 import { Tabs, Tab } from '../Common/Tabs'
 import { NullContent } from '../Common/Null'
-import { checkNullArr } from '../../utilities/common'
+import { checkNotNullArr } from '../../utilities/common'
 import AppointmentList from './AppointmentList'
 import { loadConsultationScheduleAction } from '../../store/actions/appointment/consultation.action'
 
@@ -26,7 +26,7 @@ class Index extends React.Component {
     return (
       <div>
         {
-          checkNullArr(consultationList) ? <NullContent msg='暂无排班记录' /> : (
+          checkNotNullArr(consultationList) ? (
             <Tabs containerClass='tabs__container-full' contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
               {
                 consultationList.map((data, j) => {
@@ -38,7 +38,7 @@ class Index extends React.Component {
                 })
               }
             </Tabs>
-          )
+          ) : <NullContent msg='暂无排班记录' />
         }
       </div>
     )

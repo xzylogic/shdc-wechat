@@ -1,42 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Link from 'next/link'
+import Router from 'next/router'
 import { SearchBar } from 'antd-mobile'
 
 import { Tabs, Tab } from '../Common/Tabs'
 import { NullContent } from '../Common/Null'
-import { checkNullArr } from '../../utilities/common'
+import { checkNotNullArr } from '../../utilities/common'
 import { loadDepartmentsChildAction, updateDepartmentsParamAction, loadDepartmentsSearchAction } from '../../store/actions/appointment/departments.action'
 
 import './appointment.scss'
 
-const RenderLink = ({hosOrgCode, hosDeptCode, toHosDeptCode, pageType, children}) => {
-    switch(pageType) {
-      case '1':
-        return (
-          <Link 
-            href={`/appointment/doctors?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}`} 
-            as={`/appointment/doctors/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}`}>
-            {children}
-          </Link>)
-      case '2':
-        return (
-          <Link 
-            href={`/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}&pageType=${pageType}`} 
-            as={`/appointment/consultation/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}/${pageType}`}>
-            {children}
-          </Link>)
-      case '3':
-      return (
-        <Link 
-          href={`/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}&pageType=${pageType}`} 
-          as={`/appointment/consultation/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}/${pageType}`}>
-          {children}
-        </Link>)
-      default:
-        return ''
-    }
-}
 
 class Index extends React.Component {
 
@@ -56,53 +29,67 @@ class Index extends React.Component {
     store.dispatch(loadDepartmentsChildAction(departmentsParent[index].hosDeptCode, index))
   }
 
+  handleClick = (pageType, hosOrgCode, parent, child) => {
+    switch(pageType) {
+      case '1':
+        Router.push(
+          `/appointment/doctors?hosOrgCode=${hosOrgCode}&hosDeptCode=${child.hosDeptCode}&toHosDeptCode=${parent.hosDeptCode}`,
+          `/appointment/doctors/${hosOrgCode}/${child.hosDeptCode}/${parent.hosDeptCode}`
+        )
+        return
+      case '2':
+        Router.push(
+          `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${child.hosDeptCode}&toHosDeptCode=${parent.hosDeptCode}&pageType=${pageType}`,
+          `/appointment/consultation/${hosOrgCode}/${child.hosDeptCode}/${parent.hosDeptCode}/${pageType}`
+        )
+        return
+      case '3':
+        Router.push(
+          `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${child.hosDeptCode}&toHosDeptCode=${parent.hosDeptCode}&pageType=${pageType}`, 
+          `/appointment/consultation/${hosOrgCode}/${child.hosDeptCode}/${parent.hosDeptCode}/${pageType}`
+        )
+        return
+      default:
+        return ''
+    }
+  }
+
   render() {
     const { departmentsReducer } = this.props
-    const { departmentsParent, pageType, hosOrgCode, toHosDeptCode, searchParam, searchDepartments } = departmentsReducer
+    const { departmentsParent, pageType, hosOrgCode, searchParam, searchDepartments } = departmentsReducer
     return (
       <div>
         <SearchBar placeholder='请输入子科室名称进行搜索' maxLength={8} value={searchParam} onChange={this.handleChange} />
         {
           searchParam === '' ? (
-            <Tabs handleTabClick={this.handleTabClick}>
-            {
-              departmentsParent && Array.isArray(departmentsParent) && departmentsParent.map((departments,indexP) => 
+            <Tabs handleTabClick={this.handleTabClick}>{
+              checkNotNullArr(departmentsParent) && departmentsParent.map((departments,indexP) => 
                 <Tab title={departments.deptName} key={indexP}>
                 {
-                  checkNullArr(departments.children) ? <NullContent msg='暂无子科室' /> : 
-                    departments.children && Array.isArray(departments.children) && departments.children.map(
-                      (content, indexC) => (
-                        <RenderLink 
-                          key={indexC}
-                          pageType={pageType} 
-                          hosOrgCode={hosOrgCode} 
-                          hosDeptCode={content.hosDeptCode} 
-                          toHosDeptCode={toHosDeptCode}
-                        >
-                          <div className='department__content'>{content.deptName}</div>
-                        </RenderLink>
-                      )
+                  checkNotNullArr(departments.children) ? departments.children.map(
+                    (children, indexC) => (
+                      <div 
+                        key={indexC} 
+                        className='department__content'
+                        onClick={this.handleClick.bind(this, pageType, hosOrgCode, departments, children)}
+                      >{children.deptName}</div>
                     )
+                  ) : <NullContent msg='暂无子科室' /> 
                 }</Tab>)
             }</Tabs>) : (
             <Tabs>{
-              searchDepartments && Array.isArray(searchDepartments) && searchDepartments.map((departments,indexP) => 
-                <Tab title={departments.deptName} key={indexP}>
-                {
-                  checkNullArr(departments.children) ? <NullContent msg='暂无子科室' /> : 
+              checkNotNullArr(searchDepartments) && searchDepartments.map((departments,indexP) => 
+                <Tab title={departments.deptName} key={indexP}>{
+                  checkNotNullArr(departments.children) ? 
                     departments.children && Array.isArray(departments.children) && departments.children.map(
-                      (content, indexC) => (
-                        <RenderLink 
-                          key={indexC}
-                          pageType={pageType} 
-                          hosOrgCode={hosOrgCode} 
-                          hosDeptCode={content.hosDeptCode} 
-                          toHosDeptCode={toHosDeptCode}
-                        >
-                          <div className='department__content'>{content.deptName}</div>
-                        </RenderLink>
+                      (children, indexC) => (
+                        <div 
+                        key={indexC} 
+                        className='department__content'
+                        onClick={this.handleClick.bind(this, pageType, hosOrgCode, departments, children)}
+                      >{children.deptName}</div>
                       )
-                    )
+                    ) : <NullContent msg='暂无子科室' />
                 }</Tab>)
             }</Tabs>
           )

@@ -1,46 +1,44 @@
 import React from 'react'
-import Link from 'next/link'
+import Router from 'next/router'
 import { connect } from 'react-redux'
 
-import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
-
-const renderList = ({doctName, doctTile, doctInfo, hosOrgCode, hosDoctCode}, index, hosDeptCode, toHosDeptCode) => {
-  const config = new FlexListConfigEntity({
-    leftWidth: '100px',
-    rightWidth: '15px',
-    minHeight: '80px',
-    withBorder: 'href'
-  })
-
-  return (
-    <Link 
-      key={index}
-      href={`/appointment/doctor?hosDoctCode=${hosDoctCode}&hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}`} 
-      as={`/appointment/doctor/${hosDoctCode}/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}`}
-    >
-      <FlexList
-        sub={<ImageContainer
-          imageUrl={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${hosOrgCode}_${hosDoctCode}.jpg`}
-          containerClass={'image__container-round'}
-          containerStyle={{width: '70px', height: '70px', margin: '15px'}}
-        />}
-        config={config} key={index}>
-        <MainContainer mainClass='doctor__desc'>
-          <p className='title'>{doctName} {doctTile}</p>
-          <p className='desc'>{doctInfo}</p>
-        </MainContainer>
-      </FlexList>
-    </Link>
-  )
-}
+import { FlexItem, ImgContainer, MainContainer } from '../Common/FlexList'
+import { NullList } from '../Common/Null'
+import { checkNotNullArr } from '../../utilities/common'
 
 class Index extends React.Component {
+
+  handleClick = (obj) => {
+    Router.push(
+      `/appointment/doctor?hosDoctCode=${obj.hosDoctCode}&hosOrgCode=${obj.hosOrgCode}&hosDeptCode=${obj.hosDeptCode}&toHosDeptCode=${obj.topHosDeptCode}`,
+      `/appointment/doctor/${obj.hosDoctCode}/${obj.hosOrgCode}/${obj.hosDeptCode}/${obj.topHosDeptCode}`
+    )
+  }
+
   render() {
-    const { hosDeptCode, toHosDeptCode } = this.props.doctorsReducer
     const data = this.props.doctors || []
     return (
       <div>{
-        data.map((obj, index) => renderList(obj, index, hosDeptCode, toHosDeptCode))
+      checkNotNullArr(data) ? data.map((obj, index) => (
+        <div key={index} className='flex__list__border'>
+          <FlexItem
+            sub={
+              <ImgContainer 
+                style={{margin: '15px', width: '70px', height: '70px', borderRadius: '50%', overflow: 'hidden'}} 
+                src={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}_${obj.hosDoctCode}.jpg`} />
+            }
+            extra=''
+            widthSub='100px'
+            widthExtra='15px'
+            onClick={this.handleClick.bind(this, obj)}
+          >
+            <MainContainer className='doctor__desc'>
+              <p className='title'>{obj.doctName} {obj.doctTile}</p>
+              <p className='desc'>{obj.doctInfo}</p>
+            </MainContainer>
+          </FlexItem>
+        </div>
+      )) : <NullList />
       }</div>
     )
   }

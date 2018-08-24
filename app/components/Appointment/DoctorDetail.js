@@ -1,31 +1,25 @@
 import React from 'react'
 
-import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
+import { FlexItem, ImgContainer, MainContainer } from '../Common/FlexList'
 
 class DoctorDetail extends React.Component {
   render() {
     const { doctor, schedules } = this.props
-    const config = new FlexListConfigEntity({
-      leftWidth: '100px',
-      rightWidth: '15px',
-      minHeight: '80px',
-      withBorder: 'href'
-    })
+    
     return (
-      <div>
-        <FlexList
-          sub={<ImageContainer
-            imageUrl={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${doctor.hosOrgCode}_${doctor.hosDoctCode}.jpg`}
-            containerClass={'image__container-round'}
-            containerStyle={{width: '70px', height: '70px', margin: '15px'}}
+      <div style={{background: '#18a6e0'}}>
+        <FlexItem
+          sub={
+            <ImgContainer
+              style={{width: '70px', height: '70px', margin: '15px', borderRedius: '50%', overflow: 'hidden'}}
+              src={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${doctor.hosOrgCode}_${doctor.hosDoctCode}.jpg`}
           />}
-          mainClass='doctor__detail'
-          config={config}>
-          <MainContainer mainClass='doctor__desc__detail'>
+        >
+          <MainContainer className='doctor__desc__detail'>
             <p>{doctor.doctName}</p>
             <p>{doctor.doctTile}</p>
           </MainContainer>
-        </FlexList>
+        </FlexItem>
         <div className='doctor__detail__desc'>专家简介：{doctor.doctInfo}</div>
         <div className='doctor__detail__desc'>门诊时间：{schedules}</div>
       </div>

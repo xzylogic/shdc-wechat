@@ -4,7 +4,8 @@ import Router from 'next/router'
 import { connect } from 'react-redux'
 import { List, WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
-import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
+import { FlexItem, ImgContainer, MainContainer } from '../Common/FlexList'
+import { checkNotNullArr } from '../../utilities/common'
 
 import './personal.scss'
 
@@ -14,24 +15,6 @@ class Index extends React.Component {
   }
 
   render() {
-    const configAccount = new FlexListConfigEntity({
-      leftWidth: '85px',
-      rightWidth: '35px', 
-      minHeight: '50px',
-      withBorder: false
-    })
-    const configFamily = new FlexListConfigEntity({
-      leftWidth: '100px',
-      rightWidth: '35px', 
-      minHeight: '100px',
-      withBorder: 'dash'
-    })
-    const configFamilyLast = new FlexListConfigEntity({
-      leftWidth: '100px',
-      rightWidth: '35px', 
-      minHeight: '100px',
-      withBorder: 'border'
-    })
     const { accountReducer } = this.props
     const { accountInfo } = accountReducer
     const { accountList } = accountReducer
@@ -39,20 +22,22 @@ class Index extends React.Component {
       <div>
         <Link href={`/personal/detail`}>
           <List>
-            <FlexList
-              sub={<ImageContainer
-                imageUrl={accountInfo && accountInfo.portrait || '/static/images/avatar_user.png'}
-                imageClass='user__avatar'
-                containerStyle={{ padding: '18px 12px' }}
+            <FlexItem
+              sub={
+                <ImgContainer
+                src={accountInfo && accountInfo.portrait || '/static/images/avatar_user.png'}
+                style={{ padding: '18px 12px' }}
               />}
               extra={<i className='anticon icon-right user__arraw' />}
-              config={configAccount}>
-              <MainContainer mainClass='user__desc'>
+              widthSub='85px'
+              widthExtra='35px'
+            >
+              <MainContainer className='user__desc'>
                 <p className='name'>{accountInfo && accountInfo.username}</p>
                 <p>身份证号：{accountInfo && accountInfo.cardId}</p>
                 <p>联系电话：{accountInfo && accountInfo.mobile}</p>
               </MainContainer>
-            </FlexList>
+            </FlexItem>
           </List>
         </Link>
         <WhiteSpace />
@@ -61,20 +46,23 @@ class Index extends React.Component {
             我的家庭成员
           </List.Item>
         </List>
-        <div style={{background: '#fff'}}>{
-          Array.isArray(accountList) && accountList.map((data, index) => (
-            <FlexList
-              key={index}
-              sub={<MainContainer mainClass='user__accounts'><p>姓名</p><p>证件号</p><p>卡号</p></MainContainer>}
+        <div className='flex__list__dash__container' style={{background: '#fff'}}>{
+          checkNotNullArr(accountList) && accountList.map((data, index) => (
+          <div key={index} className='flex__list__dash'>
+            <FlexItem
+              sub={<MainContainer className='user__accounts'><p>姓名</p><p>证件号</p><p>卡号</p></MainContainer>}
               extra={<i className='anticon icon-right user__arraw' />}
               onClick={() => Router.push(`/personal/familydetail?id=${index}`, `/personal/familydetail/${index}`)}
-              config={(index + 1) === accountList.length ? configFamilyLast : configFamily}>
-              <MainContainer mainClass='user__accounts'>
+              widthSub='100px'
+              widthExtra='35px'
+            >
+              <MainContainer className='user__accounts'>
                 <p>{data.name}</p>
                 <p>{data.cardId}</p>
                 <p>{data.medicineCardId}</p>
               </MainContainer>
-            </FlexList>
+            </FlexItem>
+          </div>
           ))
         }</div>
         <WhiteSpace />

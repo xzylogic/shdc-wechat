@@ -46,9 +46,6 @@ class Index extends React.Component {
                       <AppointmentList appointments={data.doctors} loadSchedules={this.loadSchedules.bind(this, j)} />
                     </Tab>
                   )
-                   {/* <Tab key={j} title={`${data.date}（${data.weekDays}）`}>
-                    <AppointmentList appointments={data.doctors} loadSchedules={this.loadSchedules.bind(this, j)} />
-                  </Tab> */}
                 }
                 )
               }

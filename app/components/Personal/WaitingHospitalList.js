@@ -1,61 +1,53 @@
 import React from 'react'
-import Link from 'next/link'
+import Router from 'next/router'
 
-import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
+import { FlexItem, ImgContainer, MainContainer } from '../Common/FlexList'
 import { NullList } from '../Common/Null'
-import { checkNullArr } from '../../utilities/common'
-
-const renderLink = (pageType, hosOrgCode) => {
-  switch(pageType) {
-    case '1':
-     return {
-       href: `/personal/waitingmine?hosOrgCode=${hosOrgCode}`,
-       as: `/personal/waitingmine/${hosOrgCode}`
-     }
-    case '2':
-      return {
-        href: `/personal/waitingdepartment?hosOrgCode=${hosOrgCode}`,
-        as: `/personal/waitingdepartment/${hosOrgCode}`
-      }
-    default:
-      return {
-        href: '',
-        as: ''
-      }
-  }
-}
+import { checkNotNullArr } from '../../utilities/common'
 
 class Index extends React.Component {
+
+  handleClick = (pageType, hosOrgCode) => {
+    switch(pageType) {
+      case '1':
+        Router.push(
+         `/personal/waitingmine?hosOrgCode=${hosOrgCode}`,
+         `/personal/waitingmine/${hosOrgCode}`
+        )
+        return
+      case '2':
+        Router.push(
+          `/personal/waitingdepartment?hosOrgCode=${hosOrgCode}`,
+          `/personal/waitingdepartment/${hosOrgCode}`
+        )
+        return
+      default:
+        return ''
+    }
+  }
+
   render() {
     const hospitals = this.props.hospitals || []
     const pageType = this.props.pageType
-    const config = new FlexListConfigEntity({
-      leftWidth: '100px',
-      rightWidth: '15px', 
-      minHeight: '80px',
-      withBorder: 'href'
-    })
     return (
       <div>{
-        checkNullArr(hospitals) ? <NullList /> : hospitals.map((obj, index) => (
-          <Link 
-            key={index}
-            href={renderLink(pageType, obj.hosOrgCode).href} 
-            as={renderLink(pageType, obj.hosOrgCode).as}
-          >
-            <FlexList 
-              sub={<ImageContainer 
-                imageUrl={`https://shdcapp.wondersgroup.com/mobilemedicalplatform${obj.hosImage}`} 
-                containerStyle={{margin: '15px'}}
+        checkNotNullArr(hospitals) ? hospitals.map((obj, index) => (
+          <div key={index} className='flex__list__border'>
+            <FlexItem 
+              sub={
+                <ImgContainer 
+                  src={`https://shdcapp.wondersgroup.com/mobilemedicalplatform${obj.hosImage}`} 
+                  style={{margin: '15px'}}
               />}
-              config={config}>
-              <MainContainer mainClass='hospital__desc'>
+              onClick={this.handleClick.bind(this, pageType, obj.hosOrgCode)}
+            >
+              <MainContainer className='hospital__desc'>
                 <p>{obj.hosName}</p>
                 <p>地址：{obj.hospitalAdd}</p>
               </MainContainer>
-            </FlexList>
-          </Link>
-        ))
+            </FlexItem>
+          </div>
+        )) : <NullList />
       }</div>
     )
   }

@@ -31,11 +31,6 @@ export const departmentsReducer = (state = initialDepartmentsState, action = {})
         ...state,
         ...{toHosDeptCode: action.toHosDeptCode},
       }
-    case actionTypes.UPDATE_TOHOSDEPTCODE:
-      return {
-        ...state,
-        ...{toHosDeptCode: action.data},
-      }
     case actionTypes.UPDATE_DEPARTMENTS_PARAM:
       return {
         ...state,

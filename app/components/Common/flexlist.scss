@@ -1,33 +1,49 @@
 @import '../theme';
-
-.flex__list {
+.flex__container {
   position: relative;
-  background: inherit;
-  .list__main,
-  .list__left,
-  .list__right {
+  .flex__main,
+  .flex__sub,
+  .flex__extra {
     float: left;
   }
-  .list__main {
+  .flex__main {
     width: 100%;
   }
 }
 
-.flex__list::before,
-.flex__list::after {
+.flex__container::before,
+.flex__container::after {
   content: '';
   display: table;
   height: 0;
   clear: both;
 }
 
-.flex__list.flex__list__border::after {
-  width: 100%;
-  height: 1px !important;
-  background: $color-border;
+.img__container {
+  position: relative;
+  img {
+    display: inline-block;
+    width: 100%;
+  }
 }
 
-.flex__list.flex__list__href::after {
+.image__container__round {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.main__container {
+  position: relative;
+  padding: 15px 15px 15px 0;
+}
+
+.flex__list__border {
+  background: $color-white;
+}
+
+.flex__list__border::after {
+  content: '';
+  display: block;
   width: 100%;
   height: 1px !important;
   transform-origin: 50% 100%;
@@ -35,19 +51,18 @@
   background: $color-border;
 }
 
-.flex__list.flex__list__dash::after {
-  width: 100%;
-  border-bottom: 1px $color-border dashed;
-}
-
-.image__container {
-  img {
+.flex__list__dash__container {
+  .flex__list__dash::after {
+    content: '';
     display: block;
     width: 100%;
+    height: 0;
+    border-bottom: 1px $color-border dashed;
+    transform-origin: 50% 100%;
+    transform: scaleY(.5);
+    background: $color-border;
   }
-}
-
-.image__container-round {
-  border-radius: 50%;
-  overflow: hidden;
+  .flex__list__dash:last-child::after {
+    border-bottom: 1px $color-border solid;
+  }
 }

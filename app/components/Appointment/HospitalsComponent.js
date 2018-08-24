@@ -6,7 +6,8 @@ import HospitalList from './HospitalList'
 import SearchList from './SearchList'
 
 import { updateTab, updateSearchParam, loadSearchAction } from '../../store/actions/appointment/hospitals.action'
-import { checkNullArr } from '../../utilities/common'
+import { checkNotNullArr } from '../../utilities/common'
+import { NullList } from '../Common/Null'
 
 import './appointment.scss'
 
@@ -50,16 +51,16 @@ class Index extends React.Component {
             onChange={this.handleTabClick}
           >
             <div>{
-              !checkNullArr(hospitalsAll) ?  (<HospitalList hospitals={hospitalsAll} />) : ''
+              checkNotNullArr(hospitalsAll) ?  (<HospitalList hospitals={hospitalsAll} />) : <NullList />
             }</div>
             <div>{
-              !checkNullArr(hospitalsZH) ?  (<HospitalList hospitals={hospitalsZH} />) : ''
+              checkNotNullArr(hospitalsZH) ?  (<HospitalList hospitals={hospitalsZH} />) : <NullList />
             }</div>
             <div>{
-              !checkNullArr(hospitalsZY) ?  (<HospitalList hospitals={hospitalsZY} />) : ''
+              checkNotNullArr(hospitalsZY) ?  (<HospitalList hospitals={hospitalsZY} />) : <NullList />
             }</div>
             <div>{
-              !checkNullArr(hospitalsZK) ?  (<HospitalList hospitals={hospitalsZK} />) : ''
+              checkNotNullArr(hospitalsZK) ?  (<HospitalList hospitals={hospitalsZK} />) : <NullList />
             }</div>
           </Tabs> 
         ) : <SearchList searchList={hospitalsSearch} />}

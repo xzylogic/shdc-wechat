@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { FlexList, ImageContainer, MainContainer, FlexListConfigEntity } from '../Common/FlexList'
+import { FlexItem, ImgContainer, MainContainer } from '../Common/FlexList'
 import AppointmentList from './AppointmentList'
 import { NullImageContent } from '../Common/Null'
-import { checkNullArr } from '../../utilities/common'
+import { checkNotNullArr } from '../../utilities/common'
 
 class Index extends React.Component {
   loadSchedules = (j, k, id) => {
@@ -20,34 +20,28 @@ class Index extends React.Component {
 
   render() {
     const data = this.props.doctors || []
-    const config = new FlexListConfigEntity({
-      leftWidth: '100px',
-      rightWidth: '15px',
-      minHeight: '80px',
-      withBorder: 'href'
-    })
     return (
       <div>{
-        checkNullArr(data) ?
-          <NullImageContent image={'/static/images/avatar_doctor.png'} msg={'暂无可预约专家、医生信息'} /> :
-          data && Array.isArray(data) && data.map((obj, j) => (
-            <div key={j}>
-              <FlexList
-                onClick={this.modifyShow.bind(this, j)}
-                sub={<ImageContainer
-                  imageUrl={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}_${obj.hosDoctCode}.jpg`}
-                  containerStyle={{margin: '15px', width: '70px', height: '70px'}}
-                  containerClass='image__container-round'
+        checkNotNullArr(data) ?
+          data.map((obj, j) => (
+            <div key={j} className='flex__list__border'>
+              <FlexItem
+                sub={
+                  <ImgContainer
+                    style={{margin: '15px', width: '70px', height: '70px', borderRadius: '50%', overflow: 'hidden'}} 
+                    src={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}_${obj.hosDoctCode}.jpg`}
                 />}
-                config={config}>
-                <MainContainer mainClass='doctor__desc'>
+                extra=''
+                onClick={this.modifyShow.bind(this, j)}
+              >
+                <MainContainer className='doctor__desc'>
                   <p className='title'>{obj.doctName} {obj.doctTile}</p>
                   <p className='desc'>{obj.doctInfo}</p>
                 </MainContainer>
-              </FlexList>
-              {obj.show ? <AppointmentList appointments={obj.schedules} loadSchedules={this.loadSchedules.bind(this, j)} /> : ''}
+              </FlexItem>
+              {obj.show ? <AppointmentList appointments={obj.schedules} loadSchedules={this.loadSchedules.bind(this, j)} style={{borderTop: '1px solid #eee'}}/> : ''}
             </div>
-          ))
+          )) : <NullImageContent image={'/static/images/avatar_doctor.png'} msg={'暂无可预约专家、医生信息'} />
       }</div>
     )
   }

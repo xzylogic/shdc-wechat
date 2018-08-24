@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { BaiduMap, Marker, InfoWindow, NavigationControl,  ScaleControl } from 'react-baidu-maps'
+import { BaiduMap, Marker, InfoWindow, NavigationControl, ScaleControl } from 'react-baidu-maps'
 
 class Index extends React.Component {
 
@@ -13,8 +13,6 @@ class Index extends React.Component {
           mapContainer={<div style={{ height: '100%' }} />}
           defaultZoom={15}
           defaultCenter={{ lng: Number(longitude), lat: Number(latitude) }}
-          enableScrollWheelZoom
-          enableDragging
         >
           <Marker position={{ lng: Number(longitude), lat: Number(latitude) }}>
             <InfoWindow
