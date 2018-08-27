@@ -32,8 +32,8 @@ function* login(actions) {
   }
 }
 
-const logoutService = (accessToken) => {
-  return HttpHostService.post(`${PATH.logout}`, {accessToken: accessToken})
+const logoutService = () => {
+  return HttpHostService.post(`${PATH.logout}`, {})
 }
 
 function* logout() {

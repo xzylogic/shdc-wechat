@@ -70,10 +70,11 @@ module.exports = {
    */
   logout: (req, res) => {
     logger.info(`[logout request body]`, req.body)
+    let accessToken = req.signedCookies.accessToken || ''
     let postData = req.body.data
-    http.HttpService.post(`${PATH.logout}`, {}, {
+    http.HttpService.post(`${PATH.logout}`, postData, {
       headers: {
-        'access-token': postData.accessToken, 
+        'access-token': accessToken, 
         client: 'A868E677C04F42B6840B0D58D7D27DDE', 
         'Content-Type': 'application/json'
       }
