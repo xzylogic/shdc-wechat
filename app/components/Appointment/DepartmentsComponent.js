@@ -12,6 +12,10 @@ import './appointment.scss'
 
 
 class Index extends React.Component {
+  state = {
+    tabIndex: 0,
+    searchTabIndex: 0
+  }
 
   handleChange = async (value) => {
     const store = this.props
@@ -24,9 +28,15 @@ class Index extends React.Component {
     const { departmentsReducer } = store
     const { departmentsParent } = departmentsReducer
     this.setState({
-      index: departmentsParent[index].hosDeptCode
+      tabIndex: index
     })
     store.dispatch(loadDepartmentsChildAction(departmentsParent[index].hosDeptCode, index))
+  }
+
+  handleSearchTabClick = (index) => {
+    this.setState({
+      searchTabIndex: index
+    })
   }
 
   handleClick = (pageType, hosOrgCode, parent, child) => {
@@ -62,7 +72,7 @@ class Index extends React.Component {
         <SearchBar placeholder='请输入子科室名称进行搜索' maxLength={8} value={searchParam} onChange={this.handleChange} />
         {
           searchParam === '' ? (
-            <Tabs handleTabClick={this.handleTabClick}>{
+            <Tabs index={this.state.tabIndex}  handleTabClick={this.handleTabClick}>{
               checkNotNullArr(departmentsParent) && departmentsParent.map((departments,indexP) => 
                 <Tab title={departments.deptName} key={indexP}>
                 {
@@ -77,7 +87,7 @@ class Index extends React.Component {
                   ) : <NullContent msg='暂无子科室' /> 
                 }</Tab>)
             }</Tabs>) : (
-            <Tabs>{
+            <Tabs index={this.state.searchTabIndex} handleTabClick={this.handleSearchTabClick} >{
               checkNotNullArr(searchDepartments) && searchDepartments.map((departments,indexP) => 
                 <Tab title={departments.deptName} key={indexP}>{
                   checkNotNullArr(departments.children) ? 

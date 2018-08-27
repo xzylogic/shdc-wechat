@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Router from 'next/router'
 import { List, WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
 import './appointment.scss'
@@ -28,7 +29,7 @@ class Index extends React.Component {
         <WhiteSpace size='lg' />
         <WhiteSpace size='lg' />
         <WingBlank size='lg'>
-          <Button type='primary'>我的预约</Button>
+          <Button type='primary' onClick={() => Router.push('/personal/appointment')}>我的预约</Button>
         </WingBlank>
         <WhiteSpace size='lg' />
       </div>

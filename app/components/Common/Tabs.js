@@ -6,17 +6,22 @@ export const Tab =({title, children}) => (<div className='tab__content'>{childre
 
 export class Tabs extends React.Component {
   state = {
-    currentIndex: this.props.index || 0
+    currentIndex: 0
   }
 
+
   getTabTitleClass = (index) => {
-    return this.state.currentIndex === index ? 'title active' : 'title'
+    let currentIndex = this.props.index || this.state.currentIndex || 0
+    return currentIndex === index ? 'title active' : 'title'
   }
 
   handleTabClick = (index) => {
-    this.setState({currentIndex: index})
     if (this.props.handleTabClick) {
       this.props.handleTabClick(index)
+    } else {
+      this.setState({
+        currentIndex: index
+      })
     }
   }
 
@@ -38,7 +43,8 @@ export class Tabs extends React.Component {
         <div className={this.props.contentClass || 'tabs__content'} style={this.props.contentStyle || {}}>
           {
             React.Children.map(this.props.children, (element, index) => {
-              return this.state.currentIndex === index ? element : ''
+              let currentIndex = this.props.index || this.state.currentIndex || 0 
+              return currentIndex === index ? element : ''
             })
           }
         </div>
