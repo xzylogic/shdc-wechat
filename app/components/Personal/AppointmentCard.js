@@ -3,7 +3,7 @@ import { Card, Button, WhiteSpace } from 'antd-mobile'
 
 export const AppointmentCard = ({data, handleCancel}) => (
   <div>
-    <Card>
+    <Card style={{height: '165px'}}>
       <Card.Header title='2018-06-18' 
         thumb={<i className='anticon icon-calendar user__tipicon' />} 
         extra={<span className='user__primary'>{data && data.orderStatus}</span>} />

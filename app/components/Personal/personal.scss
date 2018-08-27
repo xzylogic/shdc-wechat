@@ -50,6 +50,7 @@
 }
 
 .user__resettips {
+  position: relative;
   font-size: 14px;
   color: $color-text-third;
   line-height: 1.75;
@@ -60,6 +61,7 @@
   width: 100%;
   border: 1px solid $color-p-light;
   background: $color-p-light;
+  overflow: hidden;
 }
 
 .animate {
