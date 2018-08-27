@@ -6,6 +6,7 @@ import './personal.scss'
 
 import UserCard from './UserCard'
 import { loadBalanceDetailAction, updateBalanceParamAction } from '../../store/actions/personal/balance.action'
+import { encodeCard } from '../../utilities/common'
 
 class Index extends React.Component {
 
@@ -26,7 +27,7 @@ class Index extends React.Component {
         <List>
           <List.Item
             thumb={<i className='anticon icon-idcard icon__balance'></i>}
-            extra={accountList[searchParam] && (accountList[searchParam].medicineCardId || accountList[searchParam].cardId)}
+            extra={accountList[searchParam] && encodeCard((accountList[searchParam].medicineCardId) || encodeCard(accountList[searchParam].cardId))}
           >用户</List.Item>
           <List.Item
             thumb={<i className='anticon icon-bank icon__balance'></i>}

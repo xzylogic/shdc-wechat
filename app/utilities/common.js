@@ -204,3 +204,9 @@ export const encodeData = (data) => {
 
   return result || data
 }
+
+export const encodeCard = (card) => {
+  card = card.toString()
+  let newCard = card.replace(/^(.{3})(.*)(.{4})(?=\b)$/, '$1\*\*\*\*\*\*\*\*$3')
+  return newCard
+}
