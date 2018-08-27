@@ -40,3 +40,9 @@ textarea {
 .am-search-input .am-search-clear {
   box-sizing: content-box;
 }
+
+:global {
+  .am-tabs {
+    display: inherit !important;
+  }
+}
