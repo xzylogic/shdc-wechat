@@ -24,7 +24,7 @@ export class NullImageContent extends React.Component {
     return (
       <div style={{textAlign: 'center', padding: '15px', color: '#999'}}>
         <img src={image} style={{width: '10%', height: '10%'}} />
-        {msg}
+        <p style={{padding: '15px'}}>{msg}</p>
       </div>
     )
   }

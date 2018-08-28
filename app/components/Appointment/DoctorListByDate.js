@@ -41,7 +41,7 @@ class Index extends React.Component {
               </FlexItem>
               {obj.show ? <AppointmentList appointments={obj.schedules} loadSchedules={this.loadSchedules.bind(this, j)} style={{borderTop: '1px solid #eee'}}/> : ''}
             </div>
-          )) : <NullImageContent image={'/static/images/avatar_doctor.png'} msg={'暂无可预约专家、医生信息'} />
+          )) : <NullImageContent msg='暂无可预约专家、医生信息' image='/static/images/icon-null-doctor.png' />
       }</div>
     )
   }

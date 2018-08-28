@@ -3,7 +3,7 @@ import Router from 'next/router'
 import { connect } from 'react-redux'
 
 import { FlexItem, ImgContainer, MainContainer } from '../Common/FlexList'
-import { NullList } from '../Common/Null'
+import { NullList, NullImageContent } from '../Common/Null'
 import { checkNotNullArr } from '../../utilities/common'
 
 class Index extends React.Component {
@@ -38,7 +38,7 @@ class Index extends React.Component {
             </MainContainer>
           </FlexItem>
         </div>
-      )) : <NullList />
+      )) : <NullImageContent msg='暂无可预约专家、医生信息' image='/static/images/icon-null-doctor.png' />
       }</div>
     )
   }
