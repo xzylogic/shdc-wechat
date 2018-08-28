@@ -6,6 +6,25 @@ import { List, WhiteSpace, WingBlank, Button } from 'antd-mobile'
 import './appointment.scss'
  
 class Index extends React.Component {
+
+  renderLevel = (type) => {
+    switch(type) {
+      case 1: 
+        return '专家门诊'
+      case '1': 
+        return '专家门诊'
+      case 2: 
+        return '专病门诊'
+      case '2': 
+        return '专病门诊'
+      case 3: 
+        return '普通门诊'
+      case '3': 
+        return '普通门诊'
+      default:
+        return ''
+    }
+  }
   render() {
     const { successReducer } = this.props
     const { orderDetail } = successReducer
@@ -15,8 +34,8 @@ class Index extends React.Component {
           <List.Item extra={orderDetail.scheduleDate}>预约时间:</List.Item>
           <List.Item extra={orderDetail.hosOrgName}>预约医院:</List.Item>
           <List.Item extra={orderDetail.deptName}>预约科室:</List.Item>
-          <List.Item extra={orderDetail.numSourceId}>预约号:</List.Item>
-          <List.Item extra={orderDetail.orderStatus}>预约类型:</List.Item>
+          <List.Item extra={orderDetail.hosNumSourceId}>预约号:</List.Item>
+          <List.Item extra={this.renderLevel(orderDetail.visitLevelCode)}>预约类型:</List.Item>
           <List.Item extra={orderDetail.patientName}>预约患者:</List.Item>
           <List.Item extra={orderDetail.patientCardId}>就诊卡号:</List.Item>
         </List>

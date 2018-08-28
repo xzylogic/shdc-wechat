@@ -34,12 +34,15 @@ class Index extends React.Component {
   componentWillMount() {
     const store = this.props
     store.dispatch(getOrderInfoAction())
+  }
+
+  componentDidMount() {
     this.props.form.validateFields()
   }
 
   componentWillUnmount() {
     if(this.state.codeTimer) {
-      clearInterval(this.setState.codeTimer)
+      clearInterval(this.state.codeTimer)
     }
   }
 
