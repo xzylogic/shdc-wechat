@@ -57,7 +57,7 @@ app.prepare().then(() => {
   myRoutes.routes.forEach(route => {
     server.use(router.get(route.path, (req, res) => {
       // utilities.setCookies(res, 'accessToken', '03c70b0fdc974baa87df17b3f806496a')
-      // utilities.setCookies(res, 'weChatId', '')
+      // utilities.setCookies(res, 'weChatId', 'ff808081644015950164401a406b0000')
 
       // 从 query 获取微信返回的 code 和 state
       const code = req.query.code || ''
