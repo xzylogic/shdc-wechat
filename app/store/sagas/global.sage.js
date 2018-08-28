@@ -24,10 +24,10 @@ function* loadJssdk() {
       if (data) {
         window.wx.config({
           debug: false, 
-          appId: res.appId, 
-          timestamp: res.timestamp,
-          nonceStr: res.nonceStr,
-          signature: res.signature,
+          appId: data.appId, 
+          timestamp: data.timestamp,
+          nonceStr: data.nonceStr,
+          signature: data.signature,
           jsApiList: ['closeWindow', 'openLocation', 'getLocation', 'hideAllNonBaseMenuItem']
         })
 
@@ -35,11 +35,12 @@ function* loadJssdk() {
       }
     }
   } catch (error) {
-    if (error && error.message == CODE.NOT_LOGIN) {
-      yield put(authNotLogin())
-    } else {
-      yield put(authError({errorMsg: error.message}))
-    }
+    console.log(error)
+    // if (error && error.message == CODE.NOT_LOGIN) {
+    //   yield put(authNotLogin())
+    // } else {
+    //   yield put(authError({errorMsg: error.message}))
+    // }
   }
 }
 
