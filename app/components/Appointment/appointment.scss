@@ -156,3 +156,7 @@
 .appointment__success .am-list-extra {
   flex-basis: 70% !important;
 }
+
+.appointment__detail .am-list-item.am-input-disabled .am-input-label {
+  color: $color-text-primary !important;
+}

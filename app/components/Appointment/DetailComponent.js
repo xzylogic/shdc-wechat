@@ -31,7 +31,7 @@ class Index extends React.Component {
     show: false
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const store = this.props
     store.dispatch(getOrderInfoAction())
     this.props.form.validateFields()
@@ -108,7 +108,7 @@ class Index extends React.Component {
     const { orderInfo } = store.detailReducer
     const { accountList, accountInfo } = store.accountReducer
     return (
-      <div>
+      <div className='appointment__detail'>
         {
           checkNotNullArr(accountList) && (
             <Picker 
@@ -129,7 +129,7 @@ class Index extends React.Component {
             labelNumber={7}
             value={orderInfo && orderInfo.hosName || ''}
             style={{color: '#18a6e0'}}
-            readOnly
+            disabled
           ><i className='anticon icon-home detail__icon' />医院名称:</InputItem>
           <InputItem 
             name='password'
@@ -137,7 +137,7 @@ class Index extends React.Component {
             labelNumber={7}
             value={orderInfo && orderInfo.deptName || ''}
             style={{color: '#18a6e0'}}
-            readOnly
+            disabled
           ><i className='anticon icon-inbox detail__icon' />预约科室:</InputItem>
           {
             orderInfo && orderInfo.visitLevelCode == 1 ? (
@@ -147,7 +147,7 @@ class Index extends React.Component {
                 labelNumber={7}
                 value={orderInfo && orderInfo.doctName || ''}
                 style={{color: '#18a6e0'}}
-                readOnly
+                disabled
               ><i className='anticon icon-user detail__icon' />医生姓名:</InputItem>
             ) : ''
           }
@@ -157,7 +157,7 @@ class Index extends React.Component {
             labelNumber={7}
             value={orderInfo && orderInfo.orderTime || ''}
             style={{color: '#18a6e0'}}
-            readOnly
+            disabled
           ><i className='anticon icon-clockcircleo detail__icon' />门诊时间:</InputItem>
           <InputItem
             name='username' 
@@ -165,15 +165,15 @@ class Index extends React.Component {
             labelNumber={7}
             value={`¥${orderInfo && orderInfo.visitCost || 0}元`}
             style={{color: '#18a6e0'}}
-            readOnly
+            disabled
           ><i className='anticon icon-pay-circle-o1 detail__icon' />挂号费用:</InputItem>
           <InputItem
-            {...getFieldProps('mobile', {initialValue: accountInfo && accountInfo.mobile || ''})}
+            {...getFieldProps('mobile', {initialValue: accountInfo && accountInfo.mobile})}
             name='mobile' 
             type='text' 
             labelNumber={7}
             style={{color: '#18a6e0'}}
-            readOnly
+            disabled
           ><i className='anticon icon-mobile1 detail__icon' />手机号:</InputItem>
           <InputItem 
             {...getFieldProps('validateCode', {rules: [{required: true, message: '请输入验证码'}]})}
