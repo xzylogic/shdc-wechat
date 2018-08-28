@@ -41,6 +41,22 @@ function postStrategy(url, data, config = {}) {
   })
 }
 
+function postUnSecretStrategy(url, data, config = {}) {
+  let headers = {headers: {client: 'A868E677C04F42B6840B0D58D7D27DDE'}}
+  return axios.post(url, data, {
+    ...config, 
+    ...{headers: {...config.headers, ...headers.headers, ...{'Content-Type': 'application/json'}}},
+  }).then(res => res && res.data).then(res => {
+    if (res.code == CODE.SUCCESS) {
+      return res.data || res.msg || true
+    } else if (res.code == CODE.NOT_LOGIN) {
+      throw new Error(CODE.NOT_LOGIN)
+    } else {
+      throw new Error(res.msg || '未知错误')
+    }
+  })
+}
+
 function postHostStrategy(url, data, config = {}) {
   let headers = {headers: {client: 'A868E677C04F42B6840B0D58D7D27DDE'}}
   let postData = encodeData(JSON.stringify(data))
@@ -67,4 +83,9 @@ export const HttpStrategy = {
 export const HttpHostStrategy = {
   get: getStrategy,
   post: postHostStrategy
+}
+
+export const HttpUnSecretStrategy = {
+  get: getStrategy,
+  post: postUnSecretStrategy
 }

@@ -15,6 +15,7 @@ import { reportsSaga } from './personal/reports.saga'
 import { balanceSaga } from './personal/balance.saga'
 import { waitingSaga } from './personal/waiting.saga'
 import { articlesSaga } from './service/articles.saga'
+import { globalSaga } from './global.sage'
 
 es6promise.polyfill()
 
@@ -34,6 +35,7 @@ function* rootSaga() {
     ...balanceSaga,
     ...waitingSaga,
     ...articlesSaga,
+    ...globalSaga,
   ])
 }
 

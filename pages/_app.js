@@ -6,6 +6,8 @@ import withReduxSaga from 'next-redux-saga'
 
 import createStore from '../app/store'
 
+import { loadJssdkAction } from '../app/store/actions/global.action'
+
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
@@ -15,6 +17,11 @@ class MyApp extends App {
     }
 
     return { pageProps }
+  }
+
+  componentDidMount() {
+    const { store } = this.props
+    store.dispatch(loadJssdkAction())
   }
 
   render() {

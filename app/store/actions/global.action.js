@@ -4,7 +4,8 @@ export const actionTypes = {
   AUTH_ERROR: 'AUTH_ERROR',
   UPDATE_CURRENT_PAGE: 'UPDATE_CURRENT_PAGE',
   GET_CURRENT_PAGE: 'GET_CURRENT_PAGE',
-  UPDATE_QUERY: 'UPDATE_QUERY'
+  UPDATE_QUERY: 'UPDATE_QUERY',
+  LOAD_JS_SDK: 'LOAD_JS_SDK'
 }
 
 /**
@@ -64,5 +65,11 @@ export const updateQueryAction = (data) => {
   return {
     type: actionTypes.UPDATE_QUERY,
     data: data
+  }
+}
+
+export const loadJssdkAction = () => {
+  return {
+    type: actionTypes.LOAD_JS_SDK
   }
 }
