@@ -72,8 +72,18 @@
   animation: 20s wordsLoop linear infinite normal;
 }
 
-
 @keyframes wordsLoop {
+  0% {
+    transform: translateX(85%);
+    -webkit-transform: translateX(85%);
+  }
+  100% {
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+  }
+}
+
+@-moz-keyframes wordsLoop {
   0% {
     transform: translateX(85%);
     -webkit-transform: translateX(85%);
@@ -90,8 +100,19 @@
     -webkit-transform: translateX(85%);
   }
   100% {
-      transform: translateX(-100%);
-      -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+  }
+}
+
+@-o-keyframes wordsLoop {
+  0% {
+    transform: translateX(85%);
+    -webkit-transform: translateX(85%);
+  }
+  100% {
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
   }
 }
 
