@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { List, InputItem, WingBlank, WhiteSpace, Button, Picker } from 'antd-mobile'
+import { List, InputItem, WingBlank, WhiteSpace, Button, Toast } from 'antd-mobile'
 import { createForm } from 'rc-form'
 
 import { hasErrors } from '../../utilities/common'
