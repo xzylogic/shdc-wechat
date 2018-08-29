@@ -1,15 +1,13 @@
 import React from 'react'
 import Router from 'next/router'
+import { connect } from 'react-redux'
 
 import { FlexItem, ImgContainer, MainContainer } from '../Common/FlexList'
 import { NullList } from '../Common/Null'
 import { checkNotNullArr, calcDistance, Convert_BD09_To_GCJ02 } from '../../utilities/common'
+import { updateGlobalLocation } from '../../store/actions/global.action'
 
 class Index extends React.Component {
-  state = {
-    lat: null,
-    lng: null
-  }
 
   handleClick = (obj) => {
     Router.push(
@@ -33,7 +31,8 @@ class Index extends React.Component {
       })
   }
 
-  componentWillUpdate() {
+  componentDidMount() {
+    const store = this.props
     window.wx.ready(() => {
       window.wx.getLocation({
         type: 'wgs84', 
@@ -42,19 +41,19 @@ class Index extends React.Component {
           let longitude = res.longitude // 经度，浮点数，范围为180 ~ -180。
           let speed = res.speed // 速度，以米/每秒计
           let accuracy = res.accuracy // 位置精度
-          this.setState({
-            lat: latitude,
-            lng: longitude
-          })
+
+          store.dispatch(updateGlobalLocation(latitude, longitude))
         }
       })
     })
   }
 
   getDistance = (lat, lng) => {
+    const { globalReducer } = this.props
+    const { globalLat, globalLng } = globalReducer
     let distence = ''
-    if (lat && lng && this.state.lat !== null && this.state.lng !== null) {
-      distence = calcDistance(lat, lng, this.state.lat, this.state.lng)
+    if (lat && lng && globalLat !== null && globalLng !== null) {
+      distence = calcDistance(lat, lng, globalLat, globalLng)
     }
     return distence
   }
@@ -93,4 +92,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index
+export default connect(state => state)(Index)

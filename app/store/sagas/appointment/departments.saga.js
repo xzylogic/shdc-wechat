@@ -21,6 +21,7 @@ const getDepartmentsService = (hosOrgCode, deptType, parentId) => {
   if (parentId) {
     query += `&parentId=${parentId}`
   }
+  console.log(query)
   return HttpService.get(PATH.queryDepartments, query)
 }
 
