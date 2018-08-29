@@ -22,7 +22,7 @@ function* loadJssdk() {
       const url = window.location.href
       const data = yield call(getJSSDKService, url)
       if (data) {
-        yield call([window, wx.config], {
+        window.wx.config({
           debug: false, 
           appId: data.appId, 
           timestamp: data.timestamp,
@@ -30,7 +30,7 @@ function* loadJssdk() {
           signature: data.signature,
           jsApiList: ['closeWindow', 'openLocation', 'getLocation', 'hideAllNonBaseMenuItem']
         })
-        yield call([window, wx.ready], () => {
+        window.wx.ready(() => {
           window.wx.hideAllNonBaseMenuItem() 
         })
       }
