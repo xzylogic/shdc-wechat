@@ -1,10 +1,10 @@
-import { put, takeLatest, call } from 'redux-saga/effects'
+import { put, takeLatest, call, select } from 'redux-saga/effects'
 
-import { actionTypes } from '../actions/global.action'
-import { authError, authNotLogin } from '../actions/global.action'
+import { actionTypes, updateGlobalLocation } from '../actions/global.action'
 import { HttpUnSecretService } from '../../utilities/httpService'
 
 import * as CODE from '../../utilities/status-code'
+import { resolve } from 'url';
 
 const PATH = {
   getJSSDK: '/api/weChat/jsTicket',
@@ -22,7 +22,7 @@ function* loadJssdk() {
       const url = window.location.href
       const data = yield call(getJSSDKService, url)
       if (data) {
-        yield window.wx.config({
+        yield call([window, wx.config], {
           debug: false, 
           appId: data.appId, 
           timestamp: data.timestamp,
@@ -30,17 +30,13 @@ function* loadJssdk() {
           signature: data.signature,
           jsApiList: ['closeWindow', 'openLocation', 'getLocation', 'hideAllNonBaseMenuItem']
         })
-
-        yield window.wx.hideAllNonBaseMenuItem()
+        yield call([window, wx.ready], () => {
+          window.wx.hideAllNonBaseMenuItem() 
+        })
       }
     }
   } catch (error) {
     console.log(error)
-    // if (error && error.message == CODE.NOT_LOGIN) {
-    //   yield put(authNotLogin())
-    // } else {
-    //   yield put(authError({errorMsg: error.message}))
-    // }
   }
 }
 

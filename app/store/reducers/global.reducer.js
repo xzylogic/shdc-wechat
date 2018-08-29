@@ -44,6 +44,12 @@ export const globalReducer = (state = initialGlobalState, action = {}) => {
         ...state,
         ...{query: action.data}
       }
+    case actionTypes.UPDATE_GLOBAL_LOCATION:
+      return {
+        ...state,
+        ...{globalLat: action.lat},
+        ...{globalLng: action.lng}
+      }
     default:
       return state
   }

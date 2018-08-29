@@ -5,7 +5,8 @@ export const actionTypes = {
   UPDATE_CURRENT_PAGE: 'UPDATE_CURRENT_PAGE',
   GET_CURRENT_PAGE: 'GET_CURRENT_PAGE',
   UPDATE_QUERY: 'UPDATE_QUERY',
-  LOAD_JS_SDK: 'LOAD_JS_SDK'
+  LOAD_JS_SDK: 'LOAD_JS_SDK',
+  UPDATE_GLOBAL_LOCATION: 'UPDATE_GLOBAL_LOCATION'
 }
 
 /**
@@ -71,5 +72,13 @@ export const updateQueryAction = (data) => {
 export const loadJssdkAction = () => {
   return {
     type: actionTypes.LOAD_JS_SDK
+  }
+}
+
+export const updateGlobalLocation = (lat, lng) => {
+  return {
+    type: actionTypes.UPDATE_GLOBAL_LOCATION,
+    lat: lat,
+    lng: lng
   }
 }

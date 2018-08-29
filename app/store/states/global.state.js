@@ -5,5 +5,7 @@ export const initialGlobalState = {
   accessToken: '',
   errorMsg: '',
   currentPage: '/',
-  query: {}
+  query: {},
+  globalLat: null,
+  globalLng: null
 }

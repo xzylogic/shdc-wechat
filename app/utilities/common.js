@@ -1,7 +1,15 @@
 import * as moment from 'moment'
-import { Toast } from 'antd-mobile'
-import { authLogin, authNotLogin, updateCurrentPage } from '../store/actions/global.action'
-import { JSEncrypt } from './jsencrypt'
+import {
+  Toast
+} from 'antd-mobile'
+import {
+  authLogin,
+  authNotLogin,
+  updateCurrentPage
+} from '../store/actions/global.action'
+import {
+  JSEncrypt
+} from './jsencrypt'
 
 export const initGlobalQuery = (store, query) => {
   return new Promise((resolve, reject) => {
@@ -52,6 +60,29 @@ export const renderMedicineCardType = (cardType) => {
       return ''
   }
 }
+
+export const cardList = [{
+  label: '身份证',
+  value: 1
+}, {
+  label: '军官证（士兵证）',
+  value: 2
+}, {
+  label: '护照',
+  value: 3
+}, {
+  label: '港澳居民来往内地通行证',
+  value: 4
+// }, {
+//   label: '居民户口簿',
+//   value: 5
+// }, {
+//   label: '驾驶执照',
+//   value: 6
+// }, {
+//   label: '台湾居民来往内地通行证',
+//   value: 7
+}]
 
 export const renderCardType = (cardType) => {
   switch (cardType) {
@@ -136,7 +167,7 @@ export const getCardList = (accountList, ifKey) => {
 
 export const getInitialMember = (accountList) => {
   let initialValue = ''
-  if(accountList && Array.isArray(accountList) && accountList[0]){
+  if (accountList && Array.isArray(accountList) && accountList[0]) {
     initialValue = `${accountList[0].name}+${accountList[0].memberId || ''}`
   }
   return [initialValue]
@@ -183,13 +214,13 @@ export const startLoading = async (content = '') => {
     await Toast.hide()
     await Toast.loading(content, 0)
   }
-} 
+}
 
 export const endLoading = () => {
   if (typeof window !== 'undefined') {
     Toast.hide()
   }
-} 
+}
 
 export const encodeData = (data) => {
   const publicKey = `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCXvSMcKoqxOdpWt/XWJdOWJtsWtuQh6/mPoFOC\nnp0cbcytIF9iDWT3h+kNIsDTWIsL6hiDZx8V6eYe0nDY5jjI9LgNPmL+whNCLa80m6yergMS4/iv\nV2ymvbfWP+Arko9w/+u2hNJN6Puzw+UQki+yQeAUeA3VIgOZVr7J36F5HQIDAQAB`
@@ -209,4 +240,29 @@ export const encodeCard = (card) => {
   card = card.toString()
   let newCard = card.replace(/^(.{3})(.*)(.{4})(?=\b)$/, '$1\*\*\*\*\*\*\*\*$3')
   return newCard
+}
+
+export const calcDistance = (lat1, lng1, lat2, lng2) => {
+  var radLat1 = lat1 * Math.PI / 180.0
+  var radLat2 = lat2 * Math.PI / 180.0
+  var a = radLat1 - radLat2
+  var b = lng1 * Math.PI / 180.0 - lng2 * Math.PI / 180.0
+  var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)))
+  s = s * 6378.137
+  s = Math.round(s * 10000) / 10000
+  return s
+}
+
+export const Convert_BD09_To_GCJ02 = ($lat,$lng) =>{
+  let $x_pi = 3.14159265358979324 * 3000.0 / 180.0
+  let $x = $lng - 0.0065
+  let $y = $lat - 0.006
+  let $z = Math.sqrt($x * $x + $y * $y) - 0.00002 * Math.sin($y * $x_pi)
+  let $theta = Math.atan2($y, $x) - 0.000003 * Math.cos($x * $x_pi)
+  let lng = $z * Math.cos($theta)
+  let lat = $z * Math.sin($theta)
+  return {
+    lat: lat, 
+    lng: lng
+  }
 }

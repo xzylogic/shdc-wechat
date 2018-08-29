@@ -32,8 +32,9 @@ class Index extends React.Component {
       { title: '中医' },
       { title: '专科' }
     ]
-    const { hospitalsReducer } = this.props
+    const { hospitalsReducer, globalReducer } = this.props
     const { tab, hospitalsAll, searchParam, hospitalsSearch } = hospitalsReducer
+    const { globalLat, globalLng } = globalReducer
     const hospitalsZH = hospitalsAll.filter(obj => obj.cityCode === 'zhyy')
     const hospitalsZY = hospitalsAll.filter(obj => obj.cityCode === 'zyyy')
     const hospitalsZK = hospitalsAll.filter(obj => obj.cityCode === 'zkyy')

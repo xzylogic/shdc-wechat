@@ -4,6 +4,7 @@ import { List, InputItem, WingBlank, WhiteSpace, Button, Picker, Toast } from 'a
 import { createForm } from 'rc-form'
 
 import { familyAddAction } from '../../store/actions/personal/account.action'
+import { cardList } from '../../utilities/common'
 
 import '../Login/login.scss'
 
@@ -54,7 +55,7 @@ class Index extends React.Component {
           </Picker>
           <Picker
             {...getFieldProps('cardType', {initialValue: [1]})}
-            data={[[{label:'身份证',value:1},{label:'军官证（士兵证）',value:2},{label:'护照',value:3},{label:'港澳居民来往内地通行证',value:4},{label:'居民户口簿',value:5},{label:'驾驶执照',value:6},{label:'台湾居民来往内地通行证',value:7}]]}
+            data={[cardList]}
             cols={1}
             cascade={false}
           >
