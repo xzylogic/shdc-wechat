@@ -60,6 +60,23 @@ class Index extends React.Component {
     }
   }
 
+  onCardChange = (value) => {
+    const form =  this.props.form
+    form.setFieldsValue({
+      cardId: value
+    })
+    if (form.getFieldValue('cardType')[0] === 1 && value.length === 18) {
+      let date = value.replace(/.{6}(.{4})(.{2})(.{2}).{4}/, '$1-$2-$3')
+      let gender = value.substring(16, 17)
+      form.setFieldsValue({
+        birthday: new Date(date)
+      })
+      form.setFieldsValue({
+        sex: Number(gender) % 2 === 0 ? [2] : [1]
+      })
+    }
+  }
+
   handleRegister = () => {
     const store = this.props
     this.props.form.validateFields((error, value) => {
@@ -85,7 +102,7 @@ class Index extends React.Component {
   render() {
     const { getFieldProps, getFieldError, getFieldsError, isFieldTouched } = this.props.form
     return (
-      <div>
+      <div className='register__container'>
         <List>
           <InputItem 
             {...getFieldProps('username', {rules: [{required: true, message: '请输入真实姓名'}]})}
@@ -126,6 +143,7 @@ class Index extends React.Component {
             labelNumber={7}
             error={isFieldTouched('cardId')&&getFieldError('cardId')}
             onErrorClick={() => Toast.info(getFieldError('cardId'))}
+            onChange={this.onCardChange}
           ><i className='anticon icon-idcard login__icon' />证件号</InputItem>
         </List>
         <WhiteSpace size='md' />
@@ -143,7 +161,7 @@ class Index extends React.Component {
             type='number' 
             placeholder='请输入验证码'
             labelNumber={7}
-            extra={this.state.codeMsg}
+            extra={<Button type='primary' style={{padding: '0'}} size='small'>{this.state.codeMsg}</Button>}
             onExtraClick={this.getCode}
             error={isFieldTouched('validateCode')&&getFieldError('validateCode')}
             onErrorClick={() => Toast.info(getFieldError('validateCode'))}
@@ -157,7 +175,7 @@ class Index extends React.Component {
             <List.Item arrow='horizontal'><i className='anticon icon-smileo login__icon' />性别</List.Item>
           </Picker>
           <DatePicker
-            {...getFieldProps('birthday', {initialValue: new Date()})}
+            {...getFieldProps('birthday', {rules: [{required: true, message: '请选择出生日期'}]})}
             mode='date'
             minDate={new Date(`${new Date().getFullYear() - 150}-01-01`)}
             maxDate={new Date()}
@@ -165,7 +183,7 @@ class Index extends React.Component {
             <List.Item arrow='horizontal'><i className='anticon icon-gift login__icon' />生日</List.Item>
           </DatePicker>
           <TextareaItem 
-            {...getFieldProps('address', {rules: [{required: true, message: '请输入联系地址'}]})}
+            {...getFieldProps('address', {rules: [{required: false, message: '请输入联系地址'}]})}
             title={<div><i className='anticon icon-enviromento login__icon' />联系地址</div>}
             type='text'
             placeholder='请输入联系地址'
@@ -178,7 +196,9 @@ class Index extends React.Component {
         <WingBlank size='lg'>
           <div className='register__error'>* 同一手机号和证件号只能绑定一个用户</div>
           <WhiteSpace size='md' />
-          <Checkbox.AgreeItem {...getFieldProps('check', {rules: [{required: true}]})}>
+          <Checkbox.AgreeItem 
+            {...getFieldProps('check', {initialValue: false, rules: [{pattern: /true/}]})}
+          >
             <div className='register__agreement'>
              我已阅读并同意 <Link href='/agreement'><span>《用户注册协议》</span></Link>
             </div>
