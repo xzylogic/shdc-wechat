@@ -24,6 +24,7 @@ class Index extends React.Component {
             hosOrgCode={query && query.hosOrgCode || 0} 
             hosDeptCode={query && query.hosDeptCode || 0} 
             toHosDeptCode={query && query.toHosDeptCode || 0} 
+            deptName={query && query.deptName || null} 
           />
         </RenderError>
       </div>

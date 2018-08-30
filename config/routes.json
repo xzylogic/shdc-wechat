@@ -33,7 +33,7 @@
   }, {
     "id": "7",
     "desc": "进入门诊",
-    "path": "/appointment/entrance/:hosOrgCode/:hosDeptCode/:toHosDeptCode",
+    "path": "/appointment/entrance/:hosOrgCode/:hosDeptCode/:toHosDeptCode/:deptName",
     "page": "/appointment/entrance"
   }, {
     "id": "8",
@@ -53,7 +53,7 @@
   }, {
     "id": "11",
     "desc": "预约就诊-门诊预约",
-    "path": "/appointment/consultation/:hosOrgCode/:hosDeptCode/:toHosDeptCode/:pageType",
+    "path": "/appointment/consultation/:hosOrgCode/:hosDeptCode/:toHosDeptCode/:pageType/:deptName",
     "page": "/appointment/consultation"
   }, {
     "id": "12",

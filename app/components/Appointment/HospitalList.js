@@ -11,8 +11,8 @@ class Index extends React.Component {
 
   handleClick = (obj) => {
     Router.push(
-      `/appointment/entrance?hosOrgCode=${obj.hosOrgCode}&hosDeptCode=0&toHosDeptCode=0`,
-      `/appointment/entrance/${obj.hosOrgCode}/0/0`
+      `/appointment/entrance?hosOrgCode=${obj.hosOrgCode}&hosDeptCode=0&toHosDeptCode=0&deptName=null`,
+      `/appointment/entrance/${obj.hosOrgCode}/0/0/null`
     )
   }
 

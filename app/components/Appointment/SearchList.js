@@ -11,14 +11,14 @@ class Index extends React.Component {
     switch(obj.sign) {
       case '1':
         Router.push(
-          `/appointment/entrance?hosOrgCode=${obj.hosOrgCode}&hosDeptCode=0&toHosDeptCode=0`,
-          `/appointment/entrance/${obj.hosOrgCode}/0/0`
+          `/appointment/entrance?hosOrgCode=${obj.hosOrgCode}&hosDeptCode=0&toHosDeptCode=0&deptName=${obj.deptName}`,
+          `/appointment/entrance/${obj.hosOrgCode}/0/0/${obj.deptName}`
         )
         return
       case '2':
         Router.push(
-          `/appointment/entrance?hosOrgCode=${obj.hosOrgCode}&hosDeptCode=${obj.hosDeptCode}&toHosDeptCode=${obj.topHosDeptCode}`,
-          `/appointment/entrance/${obj.hosOrgCode}/${obj.hosDeptCode}/${obj.topHosDeptCode}`
+          `/appointment/entrance?hosOrgCode=${obj.hosOrgCode}&hosDeptCode=${obj.hosDeptCode}&toHosDeptCode=${obj.topHosDeptCode}&deptName=${obj.deptName}`,
+          `/appointment/entrance/${obj.hosOrgCode}/${obj.hosDeptCode}/${obj.topHosDeptCode}/${obj.deptName}`
         )
         return
       case '3':

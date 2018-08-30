@@ -13,7 +13,8 @@ export const initConsultationCodeAction = (data) => {
     hosOrgCode: data.hosOrgCode,
     hosDeptCode: data.hosDeptCode,
     toHosDeptCode: data.toHosDeptCode,
-    pageType: data.pageType
+    pageType: data.pageType,
+    deptName: data.deptName
   }
 }
 

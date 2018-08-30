@@ -9,7 +9,8 @@ export const consultationReducer = (state = initialConsultationState, action = {
         ...{hosOrgCode: action.hosOrgCode},
         ...{hosDeptCode: action.hosDeptCode},
         ...{toHosDeptCode: action.toHosDeptCode},
-        ...{pageType: action.pageType}
+        ...{pageType: action.pageType},
+        ...{deptName: action.deptName},
       }
     }
     case actionTypes.UPDATE_CONSULTATION_LIST:

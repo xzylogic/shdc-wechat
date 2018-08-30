@@ -3,5 +3,6 @@ export const initialConsultationState = {
   hosOrgCode: '',
   hosDeptCode: '',
   toHosDeptCode: '',
-  pageType: ''
+  pageType: '',
+  deptName: ''
 }

@@ -49,14 +49,14 @@ class Index extends React.Component {
         return
       case '2':
         Router.push(
-          `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${child.hosDeptCode}&toHosDeptCode=${parent.hosDeptCode}&pageType=${pageType}`,
-          `/appointment/consultation/${hosOrgCode}/${child.hosDeptCode}/${parent.hosDeptCode}/${pageType}`
+          `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${child.hosDeptCode}&toHosDeptCode=${parent.hosDeptCode}&pageType=${pageType}&deptName=${child.deptName}`,
+          `/appointment/consultation/${hosOrgCode}/${child.hosDeptCode}/${parent.hosDeptCode}/${pageType}/${child.deptName}`
         )
         return
       case '3':
         Router.push(
-          `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${child.hosDeptCode}&toHosDeptCode=${parent.hosDeptCode}&pageType=${pageType}`, 
-          `/appointment/consultation/${hosOrgCode}/${child.hosDeptCode}/${parent.hosDeptCode}/${pageType}`
+          `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${child.hosDeptCode}&toHosDeptCode=${parent.hosDeptCode}&pageType=${pageType}&deptName=${child.deptName}`, 
+          `/appointment/consultation/${hosOrgCode}/${child.hosDeptCode}/${parent.hosDeptCode}/${pageType}/${child.deptName}`
         )
         return
       default:

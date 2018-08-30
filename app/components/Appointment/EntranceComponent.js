@@ -17,7 +17,7 @@ class Index extends React.Component {
       { title: '中医' },
       { title: '专科' }
     ]
-    const { hosOrgCode, hosDeptCode, toHosDeptCode } = this.props
+    const { hosOrgCode, hosDeptCode, toHosDeptCode, deptName } = this.props
     return (
       <div>
         <WhiteSpace size='lg' />
@@ -44,13 +44,13 @@ class Index extends React.Component {
               }>专家门诊</List.Item>
               <List.Item arrow='horizontal' onClick={
                 () => Router.push(
-                  `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}&pageType=2`, 
-                  `/appointment/consultation/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}/2`)
+                  `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}&pageType=2&deptName=${deptName}`, 
+                  `/appointment/consultation/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}/2/${deptName}`)
               }>专病门诊</List.Item>
               <List.Item arrow='horizontal' onClick={
                 () => Router.push(
-                  `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}&pageType=3`, 
-                  `/appointment/consultation/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}/3`)
+                  `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${hosDeptCode}&toHosDeptCode=${toHosDeptCode}&pageType=3&deptName=${deptName}`, 
+                  `/appointment/consultation/${hosOrgCode}/${hosDeptCode}/${toHosDeptCode}/3/${deptName}`)
               }>普通门诊</List.Item>
             </List>
            )

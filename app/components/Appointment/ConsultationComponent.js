@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as moment from 'moment'
 
 import { Tabs, Tab } from '../Common/Tabs'
-import { NullContent } from '../Common/Null'
+import { NullImageContent } from '../Common/Null'
 import { checkNotNullArr } from '../../utilities/common'
 import AppointmentList from './AppointmentList'
 import { loadConsultationScheduleAction } from '../../store/actions/appointment/consultation.action'
@@ -22,9 +22,10 @@ class Index extends React.Component {
 
   render() {
     const { consultationReducer } = this.props
-    const { consultationList } =  consultationReducer
+    const { consultationList, deptName } =  consultationReducer
     return (
-      <div>
+      <React.Fragment>
+        <h2 style={{textAlign: 'center', fontSize: '16px', padding: '15px', background: '#fff', color: '#666'}}>{deptName}</h2>
         {
           checkNotNullArr(consultationList) ? (
             <Tabs containerClass='tabs__container-full' contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
@@ -38,9 +39,9 @@ class Index extends React.Component {
                 })
               }
             </Tabs>
-          ) : <NullContent msg='暂无排班记录' />
+          ) : <NullImageContent msg='暂无门诊预约信息' image='/static/images/icon-null-doctor.png' />
         }
-      </div>
+      </React.Fragment>
     )
   }
 }
