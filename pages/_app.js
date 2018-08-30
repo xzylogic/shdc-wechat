@@ -24,9 +24,9 @@ class MyApp extends App {
     const { store } = this.props
     store.dispatch(loadJssdkAction())
 
-    Router.onRouteChangeComplete = () => {
-      store.dispatch(loadJssdkAction())
-    }
+    // Router.onRouteChangeComplete = () => {
+    //   store.dispatch(loadJssdkAction())
+    // }
   }
 
   render() {
