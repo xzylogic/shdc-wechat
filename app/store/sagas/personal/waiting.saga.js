@@ -94,6 +94,7 @@ function* loadDepartments() {
   try {
     const { accessToken, query } = yield select((state) => state.globalReducer)
     const { departmentParam } = yield select((state) => state.waitingReducer)
+    yield put(updateWaitingDepartmentsAction([]))
     
     if (accessToken && query.hosOrgCode) {
       yield startLoading('Loading')

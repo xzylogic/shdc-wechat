@@ -24,10 +24,11 @@ class Index extends React.Component {
   render() {
     const { waitingReducer } = this.props
     const { waitingMineParam, waitingMine } = waitingReducer
+    let detail = waitingMine.replace(/(.*)<base(.*)/, '$1<meta$2')
     return (
       <React.Fragment>
         <UserCard ifKey value={waitingMineParam} onChange={this.handleChange} />
-        { waitingMine ? <div dangerouslySetInnerHTML={{__html: waitingMine.split('<body>')[1]}} style={{background: '#fff', padding: '15px'}} /> : ''}
+        { waitingMine ? <div dangerouslySetInnerHTML={{__html: detail}} style={{background: '#fff', padding: '15px'}} /> : ''}
         <WhiteSpace size='lg' />
       </React.Fragment>
     )
