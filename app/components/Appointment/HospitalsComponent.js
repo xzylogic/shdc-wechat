@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Link from 'next/link'
 import { Tabs, SearchBar } from 'antd-mobile'
 
 import HospitalList from './HospitalList'
@@ -40,12 +41,19 @@ class Index extends React.Component {
     const hospitalsZK = hospitalsAll.filter(obj => obj.cityCode === 'zkyy')
     return (
       <div>
-        <SearchBar 
-          placeholder='请输入医院名称、科室、专家姓名' 
-          value={searchParam}
-          onChange={this.handleSearch}
-          maxLength={20} 
-        />
+        <div style={{paddingRight: '30px'}}>
+          <SearchBar 
+            placeholder='请输入医院名称、科室、专家姓名' 
+            value={searchParam}
+            onChange={this.handleSearch}
+            maxLength={20} 
+          />
+        </div>
+        <div style={{position: 'absolute', top: 0, right: 0, padding: '10px 3px', background: '#efeff4'}}>
+          <Link href='/appointment/map'>
+            <i className='anticon icon-enviroment hospital__icon' style={{fontSize: '20px'}} />
+          </Link>
+        </div>
         { !searchParam ? (
           <Tabs tabs={tabs}
             initialPage={tab}

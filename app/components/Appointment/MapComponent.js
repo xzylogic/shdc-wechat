@@ -1,34 +1,57 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { BaiduMap, Marker, InfoWindow, NavigationControl, ScaleControl } from 'react-baidu-maps'
 
 class Index extends React.Component {
+  componentDidMount() {
+    const { hospitalsReducer } = this.props
+    const { hospitalsAll } = hospitalsReducer
 
-  render() { 
-    const { hosOrgName, address, latitude, longitude } = this.props
+    let hosNames = []
+    Array.isArray(hospitalsAll) && hospitalsAll.map(hospital => {
+      hosNames.push([hospital.longitude, hospital.latitude, hospital.hospitalAdd.split(',')[0]])
+    })
+    
+    let map = new BMap.Map('container')
+    map.centerAndZoom(new BMap.Point(121.535894, 31.316075), 10)
+    map.addControl(new BMap.MapTypeControl()) //添加地图类型控件
+    map.addControl(new BMap.NavigationControl())
+    map.enableScrollWheelZoom(true) //开启鼠标滚轮缩放
+    map.setCurrentCity('上海') // 设置地图显示的城市 此项是必须设置的
+
+    let opts = {
+      width: 250,     // 信息窗口宽度
+      height: 80,     // 信息窗口高度
+      title: "信息窗口", // 信息窗口标题
+      enableMessage: true//设置允许信息窗发送短息
+    }
+
+    hosNames.map(data => {
+      let marker = new BMap.Marker(new BMap.Point(data[0], data[1])) // 创建标注
+      let content = data[2]
+      map.addOverlay(marker) // 将标注添加到地图中
+      this.addClickHandler(map, content, marker)
+    })
+  }
+
+  addClickHandler = (map, content, marker) => {
+    marker.addEventListener('click',  (e) => {
+      var local = new BMap.LocalSearch(map, {
+        renderOptions: { map: map, panel: "r-result" }
+      })
+      local.search(content)
+    })
+  }
+
+  openInfo = (map, content, e) => {
+    let p = e.target;
+    let point = new BMap.Point(p.getPosition().lng, p.getPosition().lat)
+    let infoWindow = new BMap.InfoWindow(content, opts) // 创建信息窗口对象 
+    map.openInfoWindow(infoWindow, point) //开启信息窗口
+  }
+
+  render() {
     return (
-      <div style={{height: '100vh', width: '100%'}}>
-        <BaiduMap
-          loadingElement={<div>Loading.....</div>}
-          mapContainer={<div style={{ height: '100%' }} />}
-          defaultZoom={15}
-          defaultCenter={{ lng: Number(longitude), lat: Number(latitude) }}
-        >
-          <Marker position={{ lng: Number(longitude), lat: Number(latitude) }}>
-            <InfoWindow
-              position={{ lng: Number(longitude), lat: Number(latitude) }}
-              content={`<div><h2>${hosOrgName}</h2><br/><p>${address}</p></div>`} offset={{ width: 0, height: -30 }} />
-          </Marker>
-          <InfoWindow
-            position={{ lng: Number(longitude), lat: Number(latitude) }}
-            content={`<div><h2>${hosOrgName}</h2><br/><p>地址：${address}</p></div>`} offset={{ width: 0, height: -30 }} />
-          <NavigationControl
-            type='small'
-            anchor='top_right"'            
-            offset={{ width: 15, height: 30 }} />
-          <ScaleControl />
-        </BaiduMap>
-      </div>
+      <div id='container' style={{height: '100vh', width: '100%'}}></div>
     )
   }
 }

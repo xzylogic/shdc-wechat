@@ -148,7 +148,7 @@
   }, {
     "id": "30",
     "desc": "医院地图",
-    "path": "/appointment/map/:hosOrgName/:address/:latitude/:longitude",
+    "path": "/appointment/map",
     "page": "/appointment/map"
   }]
 }

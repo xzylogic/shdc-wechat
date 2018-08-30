@@ -1,23 +1,32 @@
 import React from 'react'
-import { withRouter } from 'next/router'
+import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
 import RenderError from '../../app/components/Common/RenderError'
 import MapComponent from '../../app/components/Appointment/MapComponent'
 
+import { initGlobalQuery, checkNullArr } from '../../app/utilities/common'
+import { loadHospitalsAction } from '../../app/store/actions/appointment/hospitals.action'
+
 class Index extends React.Component {
+  static async getInitialProps(props) {
+    const {store, query} = props.ctx
+    initGlobalQuery(store, query)
+    if (checkNullArr(store.getState().hospitalsReducer.hospitalsAll)) {
+      await store.dispatch(loadHospitalsAction())
+    }
+  }
 
   render() {
-    const { hosOrgName, address,  latitude, longitude } = this.props.router.query
     return (
       <div>
         <Head title='医院地图' />
         <RenderError>
-          <MapComponent hosOrgName={hosOrgName} address={address} latitude={latitude} longitude={longitude} />
+          <MapComponent />
         </RenderError>
       </div>
     )
   }
 }
 
-export default withRouter(Index)
+export default connect(state => state)(Index)
