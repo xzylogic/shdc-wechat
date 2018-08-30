@@ -4,14 +4,15 @@ import { List, InputItem, WingBlank, WhiteSpace, Button, Picker, Toast } from 'a
 import { createForm } from 'rc-form'
 
 import { familyAddAction } from '../../store/actions/personal/account.action'
-import { cardList } from '../../utilities/common'
+import { cardList, hasErrors } from '../../utilities/common'
 
 import '../Login/login.scss'
 
 class Index extends React.Component {
 
-  hasErrors = (fieldsError) => {
-    return Object.keys(fieldsError).some(field => fieldsError[field])
+  componentDidMount() {
+    // To disabled submit button at the beginning.
+    this.props.form.validateFields()
   }
 
   handleSubmit = () => {
@@ -87,7 +88,7 @@ class Index extends React.Component {
           </Picker>
           <InputItem
             {...getFieldProps('medicineCardId', {rules: [{required: true, message: '请输入卡号'}]})}
-            type='number'
+            type='text'
             placeholder='请输入卡号（必填）'
             labelNumber={7}
             error={isFieldTouched('medicineCardId')&&getFieldError('medicineCardId')}
@@ -96,7 +97,7 @@ class Index extends React.Component {
         </List>
         <WhiteSpace size='xl' />
         <WingBlank size='lg'>
-          <Button type='primary' disabled={this.hasErrors(getFieldsError())} onClick={this.handleSubmit}>提交</Button>
+          <Button type='primary' disabled={hasErrors(getFieldsError())} onClick={this.handleSubmit}>提交</Button>
         </WingBlank>
         <WhiteSpace size='xl' />
       </div>
