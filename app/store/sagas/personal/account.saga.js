@@ -68,11 +68,9 @@ export function* loadAccount() {
     const { accessToken } = yield select((state) => state.globalReducer)
     if (accessToken) {
       yield startLoading('Loading')
-      const [data1, data2] = yield all([
-        call(getAccountInfoService, accessToken),
-        call(getAccountListService, accessToken)
-      ])
-      if (data1&&data2) {
+      const data1 = yield call(getAccountInfoService, accessToken)
+      const data2 = yield call(getAccountListService, accessToken)
+      if (data1 && data2) {
         yield endLoading()
         yield put(updateAccountInfo(data1))
         yield put(updateAccountList(data2))
