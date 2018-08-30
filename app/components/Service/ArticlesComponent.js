@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { List } from 'antd-mobile'
 import * as momnet from 'moment'
 
+import './articles.scss'
+
 import { checkNotNullArr } from '../../utilities/common'
 
 class Index extends React.Component {
@@ -19,6 +21,7 @@ class Index extends React.Component {
               extra={article.pubdate ? momnet(article.pubdate).format('YYYY-MM-DD') : ''}
               style={{height: '55px'}}
               onClick={() => { window.location.href = article.newsUrl }}
+              className={article.pubdate ? '' : 'article__content'}
             >{article.title}</List.Item>
           ))
         }</List>
