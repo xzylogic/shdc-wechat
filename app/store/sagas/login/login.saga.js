@@ -42,10 +42,13 @@ function* logout() {
     yield startLoading('正在退出')
     const res = yield call(logoutService, accessToken)
     if (res) {
-      yield put(authNotLogin({weChatId: weChatId}))
       yield endLoading()
       yield Modal.alert('提示信息', '退出登录成功', [
-        { text: '确定', onPress: () => Router.replace('/login') },
+        { text: '确定', onPress: () => {
+            authNotLogin({weChatId: weChatId})
+            Router.replace('/login') 
+          }
+        },
       ])
     }
   } else {
