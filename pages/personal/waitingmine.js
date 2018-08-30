@@ -13,8 +13,8 @@ const InitFunction = async (store) => {
   if (myStore.accountReducer && checkNullArr(myStore.accountReducer.accountList)) {
     await store.dispatch(loadAccountListAction())
   }
-  store.dispatch(updateWaitingMineParamAction(''))
-  store.dispatch(updateWaitingMineAction(''))
+  await store.dispatch(updateWaitingMineParamAction(''))
+  await store.dispatch(updateWaitingMineAction(''))
 }
 
 class Index extends React.Component {

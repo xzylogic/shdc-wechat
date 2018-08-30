@@ -7,7 +7,7 @@ import withAuth from '../../app/utilities/withAuth'
 import { loadWaitingHospitalsAction, updateWaitingPageTypeAction } from '../../app/store/actions/personal/waiting.action'
 
 const InitFunction = async (store) => {
-  let myStore = await 'function' === typeof store.getState ? store.getState() : store
+  let myStore = 'function' === typeof store.getState ? store.getState() : store
   if (myStore.waitingReducer && checkNullArr(myStore.waitingReducer.waitingHospitals)) {
     await store.dispatch(loadWaitingHospitalsAction())
   }

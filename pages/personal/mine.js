@@ -8,7 +8,7 @@ import { loadAccountInfoAction, loadAccountListAction } from '../../app/store/ac
 import withAuth from '../../app/utilities/withAuth'
 
 const InitFunction = async (store) => {
-  let myStore = await 'function' === typeof store.getState ? store.getState() : store
+  let myStore = 'function' === typeof store.getState ? store.getState() : store
   if (myStore.accountReducer && checkNullObj(myStore.accountReducer.accountInfo)) {
     await store.dispatch(loadAccountInfoAction())
   }

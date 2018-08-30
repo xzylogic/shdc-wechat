@@ -8,7 +8,7 @@ import withAuth from '../../app/utilities/withAuth'
 import { loadSuccessOrderAction } from '../../app/store/actions/appointment/success.action'
 
 const InitFunction = async (store) => {
-  let myStore = await 'function' === typeof store.getState ? store.getState() : store
+  let myStore = 'function' === typeof store.getState ? store.getState() : store
   if (myStore.successReducer && checkNullObj(myStore.successReducer.orderDetail)) {
     await store.dispatch(loadSuccessOrderAction())
   }

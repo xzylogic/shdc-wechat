@@ -7,7 +7,7 @@ import { loadMyReportsAction } from '../../app/store/actions/personal/reports.ac
 import withAuth from '../../app/utilities/withAuth'
 
 const InitFunction = async (store) => {
-  let myStore = await 'function' === typeof store.getState ? store.getState() : store
+  let myStore = 'function' === typeof store.getState ? store.getState() : store
   if (myStore.reportsReducer && checkNullArr(myStore.reportsReducer.reportsSurvey) && checkNullArr(myStore.reportsReducer.reportsInspection)) {
     await store.dispatch(loadMyReportsAction())
   }
