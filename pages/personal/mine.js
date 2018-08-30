@@ -4,16 +4,13 @@ import Head from '../../app/components/Common/Head'
 import AccountComponent from '../../app/components/Personal/AccountComponent'
 
 import { recordCurrentPage, checkNullObj, checkNullArr } from '../../app/utilities/common'
-import { loadAccountInfoAction, loadAccountListAction } from '../../app/store/actions/personal/account.action'
+import { loadAccountAction } from '../../app/store/actions/personal/account.action'
 import withAuth from '../../app/utilities/withAuth'
 
 const InitFunction = async (store) => {
   let myStore = 'function' === typeof store.getState ? store.getState() : store
-  if (myStore.accountReducer && checkNullObj(myStore.accountReducer.accountInfo)) {
-    await store.dispatch(loadAccountInfoAction())
-  }
-  if (myStore.accountReducer && checkNullArr(myStore.accountReducer.accountList)) {
-    await store.dispatch(loadAccountListAction())
+  if (myStore.accountReducer && (checkNullObj(myStore.accountReducer.accountInfo) || checkNullArr(myStore.accountReducer.accountList))) {
+    await store.dispatch(loadAccountAction())
   }
 }
 

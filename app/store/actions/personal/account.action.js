@@ -6,7 +6,14 @@ export const actionTypes = {
   UPDATE_ACCOUNT_DETAIL:'UPDATE_ACCOUNT_DETAIL',
   RESET_PASSWORD: 'RESET_PASSWORD',
   FAMILY_ADD: 'FAMILY_ADD',
-  UPDATE_FAMILY_KEY: 'UPDATE_FAMILY_KEY'
+  UPDATE_FAMILY_KEY: 'UPDATE_FAMILY_KEY',
+  LOAD_ACCOUNT: 'LOAD_ACCOUNT'
+}
+
+export const loadAccountAction = () => {
+  return {
+    type: actionTypes.LOAD_ACCOUNT
+  }
 }
 
 export const loadAccountInfoAction = () => {

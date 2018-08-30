@@ -1,7 +1,7 @@
-import { put, takeLatest, takeEvery, call, select } from 'redux-saga/effects'
+import { put, takeLatest, call, select, all } from 'redux-saga/effects'
 import Router from 'next/router'
 
-import { actionTypes, updateAccountInfo, updateAccountList, loadAccountListAction } from '../../actions/personal/account.action'
+import { actionTypes, updateAccountInfo, updateAccountList } from '../../actions/personal/account.action'
 import { authNotLogin, authError } from '../../actions/global.action'
 import { HttpService, HttpHostService } from '../../../utilities/httpService'
 
@@ -63,19 +63,45 @@ export function* loadAccountList() {
   }
 }
 
+export function* loadAccount() {
+  try {
+    const { accessToken } = yield select((state) => state.globalReducer)
+    if (accessToken) {
+      yield startLoading('Loading')
+      const [data1, data2] = yield all([
+        call(getAccountInfoService, accessToken),
+        call(getAccountListService, accessToken)
+      ])
+      if (data1&&data2) {
+        yield endLoading()
+        yield put(updateAccountInfo(data1))
+        yield put(updateAccountList(data2))
+      }
+    }
+  } catch (error) {
+    if (error && error.message == CODE.NOT_LOGIN) {
+      yield put(authNotLogin())
+    } else {
+      yield put(authError({errorMsg: error.message}))
+    }
+  }
+}
+
 const familyAddService = (data, accessToken) => {
   HttpService.post(`${PATH.familyAdd}`, data, {headers: {'access-token':accessToken}})
 }
 
 function* familyAdd(actions) {
   try {
-    yield startLoading()
     const { accessToken } = yield select((state) => state.globalReducer)
-    const res = yield call(familyAddService, actions.data, accessToken)
-    if (res) {
-      yield put(loadAccountListAction())
-      yield endLoading()
-      yield Router.push(`/personal/mine`)
+    if (accessToken) {
+      yield startLoading()
+      const res = yield call(familyAddService, actions.data, accessToken)
+      if (res) {
+        yield endLoading()
+        yield call(loadAccountList)
+        yield Router.push(`/personal/mine`)
+      }
     }
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
@@ -109,8 +135,9 @@ function* resetPassword(actions) {
 }
 
 export const accountSaga = [
-  takeEvery(actionTypes.LOAD_ACCOUNT_INFO, loadAccountInfo),
-  takeEvery(actionTypes.LOAD_ACCOUNT_LIST, loadAccountList),
+  takeLatest(actionTypes.LOAD_ACCOUNT_INFO, loadAccountInfo),
+  takeLatest(actionTypes.LOAD_ACCOUNT_LIST, loadAccountList),
   takeLatest(actionTypes.RESET_PASSWORD, resetPassword),
-  takeLatest(actionTypes.FAMILY_ADD, familyAdd)
+  takeLatest(actionTypes.FAMILY_ADD, familyAdd),
+  takeLatest(actionTypes.LOAD_ACCOUNT, loadAccount),
 ]
