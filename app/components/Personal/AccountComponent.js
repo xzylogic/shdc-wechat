@@ -84,7 +84,7 @@ class Index extends React.Component {
         <WhiteSpace size='lg' />
         <WingBlank>
           <Link href={`/personal/familyadd`}>
-            <Button type='primary'>添加家庭关系</Button>
+            <Button type='primary' disabled={accountList.length > 2}>添加家庭关系</Button>
           </Link>
         </WingBlank>
         <WhiteSpace size='lg' />
