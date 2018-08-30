@@ -8,9 +8,7 @@ import { loadWaitingDepartmentsAction } from '../../app/store/actions/personal/w
 
 const InitFunction = async (store) => {
   let myStore = 'function' === typeof store.getState ? store.getState() : store
-  if (myStore.waitingReducer && checkNullArr(myStore.waitingReducer.waitingDepartments)) {
-    await store.dispatch(loadWaitingDepartmentsAction())
-  }
+  await store.dispatch(loadWaitingDepartmentsAction())
 }
 
 class Index extends React.Component {
