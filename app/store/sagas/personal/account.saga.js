@@ -86,7 +86,7 @@ export function* loadAccount() {
 }
 
 const familyAddService = (data, accessToken) => {
-  HttpService.post(`${PATH.familyAdd}`, data, {headers: {'access-token':accessToken}})
+  return HttpService.post(`${PATH.familyAdd}`, data, {headers: {'access-token':accessToken}})
 }
 
 function* familyAdd(actions) {
