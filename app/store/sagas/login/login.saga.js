@@ -1,6 +1,6 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 import Router from 'next/router'
-import { Toast } from 'antd-mobile'
+import { Toast, Modal } from 'antd-mobile'
 
 import { actionTypes } from '../../actions/login.action'
 import { authLogin, authNotLogin, getCurrentPage } from '../../actions/global.action'
@@ -44,7 +44,9 @@ function* logout() {
     if (res) {
       yield put(authNotLogin({weChatId: weChatId}))
       yield endLoading()
-      yield Router.replace('/login')
+      yield Modal.alert('提示信息', '退出登录成功', [
+        { text: '确定', onPress: () => Router.replace('/login') },
+      ])
     }
   } else {
     Toast.info('当前无法退出')

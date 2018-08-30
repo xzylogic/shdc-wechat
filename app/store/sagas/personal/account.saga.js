@@ -1,4 +1,4 @@
-import { put, takeLatest, call, select, all } from 'redux-saga/effects'
+import { put, takeLatest, call, select } from 'redux-saga/effects'
 import Router from 'next/router'
 
 import { actionTypes, updateAccountInfo, updateAccountList } from '../../actions/personal/account.action'

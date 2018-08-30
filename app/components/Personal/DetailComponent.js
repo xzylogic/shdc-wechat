@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Router from 'next/router'
-import { WhiteSpace, WingBlank, Button } from 'antd-mobile'
+import { WhiteSpace, WingBlank, Button, Modal } from 'antd-mobile'
 
 import { FlexItem, MainContainer, SubContent } from '../Common/FlexList'
 import { logoutAction } from '../../store/actions/login.action'
@@ -13,7 +13,10 @@ class Index extends React.Component {
 
   logout = () => {
     const store = this.props
-    store.dispatch(logoutAction())
+    Modal.alert('提示信息', '每日最多退出登录10次，是否确定退出登录？', [
+      { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
+      { text: '确定', onPress: () => store.dispatch(logoutAction()) },
+    ])
   }
   
   render() {
