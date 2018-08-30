@@ -105,7 +105,7 @@ class Index extends React.Component {
                       </Card>
                       <WhiteSpace size='lg' />
                     </React.Fragment>
-                  )) : <NullContent msg='没有查询到您的检验报告' />
+                  )) : <NullContent msg='没有查询到您的检查报告' />
                 }
               </List.Item>
             ) : ''

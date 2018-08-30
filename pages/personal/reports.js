@@ -24,7 +24,7 @@ class Index extends React.Component {
   render() {
     return (
       <div>
-        <Head title='我的报告' />
+        <Head title='报告查询' />
         <ReportsComponent />
       </div>
     )
