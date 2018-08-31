@@ -4,7 +4,7 @@ import { FlexItem, MainContainer } from '../Common/FlexList'
 
 import './personal.scss'
 
-import { renderSex, renderCardType, renderMedicineCardType } from '../../utilities/common'
+import { renderSex, renderCardType, renderMedicineCardType, encodeCard, encodeName } from '../../utilities/common'
 import { NullContent } from '../../components/Common/Null'
 
 const SubContent = ({title, icon}) => (
@@ -30,7 +30,7 @@ class Index extends React.Component {
                 widthExtra='0'  
               >
                 <MainContainer className='user__ownlist'>
-                  <p>{accountList[familyKey].name}</p>
+                  <p>{encodeName(accountList[familyKey].name)}</p>
                 </MainContainer>
               </FlexItem>
             </div>
@@ -63,7 +63,7 @@ class Index extends React.Component {
                 widthExtra='0'  
               >
                 <MainContainer className='user__ownlist'>
-                  <p>{accountList[familyKey].cardId}</p>
+                  <p>{encodeCard(accountList[familyKey].cardId)}</p>
                 </MainContainer>
               </FlexItem>
             </div>
@@ -74,7 +74,7 @@ class Index extends React.Component {
                 widthExtra='0'  
               >
                 <MainContainer className='user__ownlist'>
-                  <p>{accountList[familyKey].mobile}</p>
+                  <p>{encodeCard(accountList[familyKey].mobile)}</p>
                 </MainContainer>
               </FlexItem>
             </div>
@@ -96,7 +96,7 @@ class Index extends React.Component {
                 widthExtra='0'  
               >
                 <MainContainer className='user__ownlist'>
-                  <p>{accountList[familyKey].medicineCardId}</p>
+                  <p>{encodeCard(accountList[familyKey].medicineCardId)}</p>
                 </MainContainer>
               </FlexItem>
             </div>

@@ -5,7 +5,7 @@ import { WhiteSpace, WingBlank, Button, Modal } from 'antd-mobile'
 
 import { FlexItem, MainContainer, SubContent } from '../Common/FlexList'
 import { logoutAction } from '../../store/actions/login.action'
-import { renderSex } from '../../utilities/common'
+import { renderSex, encodeCard, encodeName, encodeDate } from '../../utilities/common'
 
 import './personal.scss'
 
@@ -31,7 +31,7 @@ class Index extends React.Component {
             widthExtra='0'  
           >
             <MainContainer className='user__ownlist'>
-              <p>{accountInfo && accountInfo.username}</p>
+              <p>{accountInfo && accountInfo.username && encodeName(accountInfo.username)}</p>
             </MainContainer>
           </FlexItem>
         </div>
@@ -42,7 +42,7 @@ class Index extends React.Component {
             widthExtra='0'  
           >
             <MainContainer className='user__ownlist'>
-              <p>{accountInfo && accountInfo.cardId}</p>
+              <p>{accountInfo && accountInfo.cardId && encodeCard(accountInfo.cardId)}</p>
             </MainContainer>
           </FlexItem>
         </div>
@@ -53,7 +53,7 @@ class Index extends React.Component {
             widthExtra='0'  
           >
             <MainContainer className='user__ownlist'>
-              <p>{accountInfo && accountInfo.mobile}</p>
+              <p>{accountInfo && accountInfo.mobile && encodeCard(accountInfo.mobile)}</p>
             </MainContainer>
           </FlexItem>
         </div>
@@ -78,7 +78,7 @@ class Index extends React.Component {
             widthExtra='0'  
           >
             <MainContainer className='user__ownlist'>
-              <p>{accountInfo && accountInfo.birthday}</p>
+              <p>{accountInfo && accountInfo.birthday && encodeDate(accountInfo.birthday)}</p>
             </MainContainer>
           </FlexItem>
         </div>

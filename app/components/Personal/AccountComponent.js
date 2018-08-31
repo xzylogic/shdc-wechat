@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { List, WhiteSpace, WingBlank, Button } from 'antd-mobile'
 
 import { FlexItem, ImgContainer, MainContainer } from '../Common/FlexList'
-import { checkNotNullArr } from '../../utilities/common'
+import { checkNotNullArr, encodeCard, encodeName } from '../../utilities/common'
 
 import './personal.scss'
 
@@ -33,9 +33,9 @@ class Index extends React.Component {
               widthExtra='35px'
             >
               <MainContainer className='user__desc'>
-                <p className='name'>{accountInfo && accountInfo.username}</p>
-                <p>身份证号：{accountInfo && accountInfo.cardId}</p>
-                <p>联系电话：{accountInfo && accountInfo.mobile}</p>
+                <p className='name'>{accountInfo && accountInfo.username && encodeName(accountInfo.username)}</p>
+                <p>身份证号：{accountInfo && accountInfo.cardId && encodeCard(accountInfo.cardId)}</p>
+                <p>联系电话：{accountInfo && accountInfo.mobile && encodeCard(accountInfo.mobile)}</p>
               </MainContainer>
             </FlexItem>
           </List>
@@ -57,9 +57,9 @@ class Index extends React.Component {
               widthExtra='35px'
             >
               <MainContainer className='user__accounts'>
-                <p>{data.name}</p>
-                <p>{data.cardId}</p>
-                <p>{data.medicineCardId}</p>
+                <p>{data && data.name && encodeName(data.name)}</p>
+                <p>{data && data.cardId && encodeCard(data.cardId)}</p>
+                <p>{data && data.medicineCardId && encodeCard(data.medicineCardId)}</p>
               </MainContainer>
             </FlexItem>
           </div>

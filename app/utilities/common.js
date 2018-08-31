@@ -130,9 +130,9 @@ export const getMembers = (accountList) => {
       let label = ''
       let value = ''
       if (account.medicineCardType) {
-        label = `【${renderMedicineCardType(account.medicineCardType)}】${account.name}(尾号${getLastFour(account.medicineCardId)})`
+        label = `【${renderMedicineCardType(account.medicineCardType)}】${encodeName(account.name)}(尾号${getLastFour(account.medicineCardId)})`
       } else if (account.cardType) {
-        label = `【${renderCardType(account.cardType)}】${account.name}(尾号${getLastFour(account.cardId)})`
+        label = `【${renderCardType(account.cardType)}】${encodeName(account.name)}(尾号${getLastFour(account.cardId)})`
       }
       value = `${account.name}+${account.memberId || ''}`
       return {
@@ -151,9 +151,9 @@ export const getCardList = (accountList, ifKey) => {
       let label = ''
       let value = ''
       if (account.medicineCardType) {
-        label = `【${renderMedicineCardType(account.medicineCardType)}】${account.name}(尾号${getLastFour(account.medicineCardId)})`
+        label = `【${renderMedicineCardType(account.medicineCardType)}】${encodeName(account.name)}(尾号${getLastFour(account.medicineCardId)})`
       } else if (account.cardType) {
-        label = `【${renderCardType(account.cardType)}】${account.name}(尾号${getLastFour(account.cardId)})`
+        label = `【${renderCardType(account.cardType)}】${encodeName(account.name)}(尾号${getLastFour(account.cardId)})`
       }
       value = ifKey ? index : account.medicineCardId || account.cardId
       return {
@@ -237,9 +237,25 @@ export const encodeData = (data) => {
 }
 
 export const encodeCard = (card) => {
-  card = card.toString()
-  let newCard = card.replace(/^(.{3})(.*)(.{4})(?=\b)$/, '$1\*\*\*\*\*\*\*\*$3')
+  card = card && card.toString() || ''
+  let star = ''
+  for (let i = 0; i < card.length - 7; i++) {
+    star += '*'
+  }
+  let newCard = card.replace(/^(.{3})(.*)(.{4})(?=\b)$/, `$1${star}$3`)
   return newCard
+}
+
+export const encodeName = (name) => {
+  name = name && name.toString() || ''
+  let newName = name.replace(/^(.{1})(.*)$/, `*$2`)
+  return newName
+}
+
+export const encodeDate = (date) => {
+  date = date && date.toString() || ''
+  let newDate = date.replace(/^(.{2}).{2}(.{1}).{2}(.{1}).{1}(.{1})$/, `$1**$2**$3*$4`)
+  return newDate
 }
 
 export const calcDistance = (lat1, lng1, lat2, lng2) => {
