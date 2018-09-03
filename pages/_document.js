@@ -18,10 +18,10 @@ export default class MyDocument extends Document {
           <link rel='shortcut icon' type='image/x-icon' href='/static/favicon.ico' />
           <link rel='stylesheet' href='/static/styles/app.css' />
           <link rel='stylesheet' href='/_next/static/style.css' />
-          <script src='https://res.wx.qq.com/open/js/jweixin-1.2.0.js' />
           <script src='https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js' />
           <script src='https://api.map.baidu.com/api?v=2.0&ak=2g6Ot3jfb2OM20OVREbVdpmPE21Nmzon' />
-          <script src='/static/vconsole.min.js' />
+          <script src='https://res.wx.qq.com/open/js/jweixin-1.2.0.js' />
+          {/* <script src='/static/vconsole.min.js' /> */}
           <script src='/static/initial.js' />
         </Head>
         <body className='custom_class'>
