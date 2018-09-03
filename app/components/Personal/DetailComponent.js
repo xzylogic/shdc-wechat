@@ -13,7 +13,7 @@ class Index extends React.Component {
 
   logout = () => {
     const store = this.props
-    Modal.alert('提示信息', '每日最多退出登录10次，是否确定退出登录？', [
+    Modal.alert('提示信息', '每月最多退出登录10次，是否确定退出登录？', [
       { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
       { text: '确定', onPress: () => store.dispatch(logoutAction()) },
     ])
