@@ -25,7 +25,7 @@ const getHospitalsService = (accessToken, name) => {
 
 function* loadWaitingHospitals() {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
     const { accessToken } = yield select((state) => state.globalReducer)
     const { hospitalParam } = yield select((state) => state.waitingReducer)
     
@@ -52,7 +52,7 @@ const getWaitingMineService = (accessToken, hosOrgCode, medicineCardType, medici
 
 function* loadWaitingMine(actions) {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
     const { accessToken } = yield select((state) => state.globalReducer)
     const { waitingMineParam } = yield select((state) => state.waitingReducer)
     const { accountList } = yield select((state) => state.accountReducer)
@@ -97,7 +97,7 @@ function* loadDepartments() {
     yield put(updateWaitingDepartmentsAction([]))
     
     if (accessToken && query.hosOrgCode) {
-      yield startLoading('Loading')
+      yield startLoading('加载中')
       const data = yield call(getDepartmentsService, accessToken, query.hosOrgCode, departmentParam)
       if (data) {
         yield put(updateWaitingDepartmentsAction(data))
@@ -125,7 +125,7 @@ function* loadDetail() {
     yield put(updateWaitingContentAction(''))
 
     if (accessToken && query.hosOrgCode && query.hosDeptCode) {
-      yield startLoading('Loading')
+      yield startLoading('加载中')
       const data = yield call(getDetailService, accessToken, query.hosOrgCode, query.hosDeptCode)
       if (data) {
         yield put(updateWaitingContentAction(data))

@@ -18,7 +18,7 @@ const getArticlesService = (channelId) => {
 
 function* loadArticles(actions) {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
 
     const data = yield call(getArticlesService, actions.data)
     if (data) {

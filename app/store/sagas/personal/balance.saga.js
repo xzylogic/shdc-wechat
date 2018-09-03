@@ -24,7 +24,7 @@ const getBalanceService = (data, accessToken) => {
 
 function* loadBalanceDetail() {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
     const { accessToken } = yield select((state) => state.globalReducer)
     const { searchParam } = yield select((state) => state.balanceReducer)
     const { accountList } = yield select((state) => state.accountReducer)

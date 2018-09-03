@@ -24,7 +24,7 @@ const getHospitalsService = (cityCode) => {
 
 function* loadHospitals() {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
     const data = yield call(getHospitalsService)
     if (data) {
       yield put(updateHospitalsAll(data))
@@ -46,7 +46,7 @@ const querySearchService = (data) => {
 
 function* loadSearch(actions) {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
     const data = yield call(querySearchService, actions.data)
     if (data) {
       yield put(updateSearchList(data))

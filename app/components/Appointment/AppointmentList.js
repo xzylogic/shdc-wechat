@@ -49,7 +49,7 @@ class Index extends React.Component {
                   <div className='appointment__item'>{formatTime(schedule.startTime, schedule.endTime)}</div>
                 </Flex.Item>
                 <Flex.Item>
-                  <div className='appointment__item'>{schedule.visitCost}元</div>
+                  <div className='appointment__item' style={{color: '#f44336'}}>{schedule.visitCost}元</div>
                 </Flex.Item>
                 <Flex.Item>
                   <div className='appointment__item'>

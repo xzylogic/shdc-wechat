@@ -19,7 +19,7 @@ function* loadOrder() {
   try {
     const { accessToken } = yield select(state => state.globalReducer)
     if (accessToken) {
-      yield startLoading('Loading')
+      yield startLoading('加载中')
       const data = yield call(getOrderService, accessToken)
       if (data && data[0]) {
         yield put(updateSuccessOrderAction(data[0]))

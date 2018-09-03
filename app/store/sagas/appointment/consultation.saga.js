@@ -19,7 +19,7 @@ const getConsultationListService = (hosOrgCode, hosDeptCode, toHosDeptCode, regi
 
 function* loadConsultationList() {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
     yield put(updateConsultationList([]))
 
     const { hosOrgCode, hosDeptCode, toHosDeptCode, pageType } = yield select((state) => state.consultationReducer)
@@ -47,7 +47,7 @@ function* querySchedule(actions) {
     yield put(modifyConsultationShow(actions.j, actions.k))
     const { hosOrgCode, consultationList } = yield select(state => state.consultationReducer)
     if (!consultationList[actions.j]['doctors'][actions.k]['children'] && consultationList[actions.j]['doctors'][actions.k]['show']) {
-      yield startLoading('Loading')
+      yield startLoading('加载中')
       const data = yield call(queryScheduleService, hosOrgCode, actions.id)
       if (data) {
         yield put(modifyConsultationSchedule(data, actions.j, actions.k))

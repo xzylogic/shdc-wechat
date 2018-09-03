@@ -23,7 +23,7 @@ function* loadAccountInfo() {
   try {
     const { accessToken } = yield select((state) => state.globalReducer)
     if (accessToken) {
-      yield startLoading('Loading')
+      yield startLoading('加载中')
       const data = yield call(getAccountInfoService, accessToken)
       if (data) {
         yield endLoading()
@@ -47,7 +47,7 @@ export function* loadAccountList() {
   try {
     const { accessToken } = yield select((state) => state.globalReducer)
     if (accessToken) {
-      yield startLoading('Loading')
+      yield startLoading('加载中')
       const data = yield call(getAccountListService, accessToken)
       if (data) {
         yield endLoading()
@@ -67,7 +67,7 @@ export function* loadAccount() {
   try {
     const { accessToken } = yield select((state) => state.globalReducer)
     if (accessToken) {
-      yield startLoading('Loading')
+      yield startLoading('加载中')
       const data1 = yield call(getAccountInfoService, accessToken)
       const data2 = yield call(getAccountListService, accessToken)
       if (data1 && data2) {

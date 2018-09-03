@@ -18,7 +18,7 @@ const getAppointmentListService = (accessToken) => {
 
 function* loadAppointmentList() {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
     const { accessToken } = yield select((state) => state.globalReducer)
     if (accessToken) {
       const data = yield call(getAppointmentListService, accessToken)

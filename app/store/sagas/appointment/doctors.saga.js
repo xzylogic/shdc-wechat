@@ -23,7 +23,7 @@ const getDoctorsByName = (hosOrgCode, deptCode, toHosDeptCode, doctName) => {
 
 function* loadDoctorsByName() {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
     yield put(updateDoctorsByName([]))
     const { hosOrgCode, hosDeptCode, toHosDeptCode } = yield select(state => state.doctorsReducer)
     const data = yield call(getDoctorsByName, hosOrgCode, hosDeptCode, toHosDeptCode)
@@ -46,7 +46,7 @@ function* searchDoctors() {
     yield put(updateDoctorsSearchAction([]))
     const { hosOrgCode, hosDeptCode, toHosDeptCode, searchParam } = yield select(state => state.doctorsReducer)
     if (searchParam) {
-      yield startLoading('Loading')
+      yield startLoading('加载中')
       const data = yield call(getDoctorsByName, hosOrgCode, hosDeptCode, toHosDeptCode, searchParam)
       if (data) {
         yield put(updateDoctorsSearchAction(data))
@@ -70,7 +70,7 @@ const getDoctorsByDate = (hosOrgCode, deptCode, toHosDeptCode) => {
 
 function* loadDoctorsByDate() {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
     yield put(updateDoctorsByDate([]))
 
     const { hosOrgCode, hosDeptCode, toHosDeptCode } = yield select(state => state.doctorsReducer)
@@ -99,7 +99,7 @@ function* querySchedule(actions) {
     yield put(modifyDoctorsSShow(actions.i, actions.j, actions.k))
     const { hosOrgCode, doctorsByDate } = yield select(state => state.doctorsReducer)
     if (!doctorsByDate[actions.i]['doctors'][actions.j]['schedules'][actions.k]['children'] && doctorsByDate[actions.i]['doctors'][actions.j]['schedules'][actions.k]['show']) {
-      yield startLoading('Loading')
+      yield startLoading('加载中')
       const data = yield call(queryScheduleService, hosOrgCode, actions.id)
       if (data) {
         yield put(modifyDoctorsSchedule(data, actions.i, actions.j, actions.k))

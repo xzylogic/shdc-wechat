@@ -21,7 +21,7 @@ const getDoctorDetailService = (hosOrgCode, hosDoctCode, hosDeptCode, toHosDeptC
 
 function* loadDoctorDetail() {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
     const { hosOrgCode, hosDoctCode, hosDeptCode, toHosDeptCode } = yield select(data => data.doctorReducer) 
     const data = yield call(getDoctorDetailService, hosOrgCode, hosDoctCode, hosDeptCode, toHosDeptCode)
     if (data) {
@@ -44,7 +44,7 @@ const getAppointmentListService = (hosOrgCode, hosDoctCode, hosDeptCode, toHosDe
 
 function* loadAppointmentList() {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
     const { hosOrgCode, hosDoctCode, hosDeptCode, toHosDeptCode } = yield select(data => data.doctorReducer) 
     const data = yield call(getAppointmentListService, hosOrgCode, hosDoctCode, hosDeptCode, toHosDeptCode)
     if (data) {
@@ -70,7 +70,7 @@ function* querySchedule(actions) {
     yield put(modifyDoctorShow(actions.j, actions.k))
     const { hosOrgCode, appointmentList } = yield select(state => state.doctorReducer)
     if (!appointmentList[actions.j]['doctors'][actions.k]['children'] && appointmentList[actions.j]['doctors'][actions.k]['show']) {
-      yield startLoading('Loading')
+      yield startLoading('加载中')
       const data = yield call(queryScheduleService, hosOrgCode, actions.id)
       if (data) {
         yield put(modifyDoctorSchedule(data, actions.j, actions.k))

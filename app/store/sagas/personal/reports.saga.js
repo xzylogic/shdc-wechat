@@ -28,7 +28,7 @@ function* loadMyReports() {
     }
     const accountReducer = yield select((state) => state.accountReducer)
     if (accessToken && checkNotNullArr(accountReducer.accountList) && accountReducer.accountList[searchParam]) {
-      yield startLoading('Loading')
+      yield startLoading('加载中')
       const search = accountReducer.accountList[searchParam]
       yield put(updateMyReportsAction([], []))
 
@@ -58,7 +58,7 @@ function* loadReportDetail(actions) {
     const { accessToken } = yield select((state) => state.globalReducer)
 
     if (accessToken) {
-      yield startLoading('Loading')
+      yield startLoading('加载中')
 
       const data = yield call(getReportDetailService, actions.url, accessToken)
       if (data) {

@@ -27,7 +27,7 @@ const getDepartmentsService = (hosOrgCode, deptType, parentId) => {
 
 function* loadDepartments() {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
     yield put(updateDepartmentsParent([]))
 
     const { hosOrgCode, deptType } = yield select((state) => state.departmentsReducer)
@@ -60,7 +60,7 @@ function* loadDepartmentsChild(actions) {
     const { hosOrgCode, deptType, departmentsParent } = yield select((state) => state.departmentsReducer)
 
     if (departmentsParent && departmentsParent[actions.index] && !departmentsParent[actions.index].children) {
-      yield startLoading('Loading')
+      yield startLoading('加载中')
       const data = yield call(getDepartmentsChildService, hosOrgCode, deptType, actions.parentId)
       if (data) {
         yield put(updateDepartmentsChild(data, actions.parentId, actions.index))
@@ -83,7 +83,7 @@ const searchDepartmentsService = (hosOrgCode, deptType, deptName) => {
 
 function* searchDepartments() {
   try {
-    yield startLoading('Loading')
+    yield startLoading('加载中')
     yield put(updateDepartmentsSearchAction([]))
 
     const { hosOrgCode, deptType, searchParam } = yield select((state) => state.departmentsReducer)
