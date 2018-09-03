@@ -67,7 +67,7 @@ class Index extends React.Component {
               </Flex>
               {
                 schedule && schedule.show && schedule.children && Array.isArray(schedule.children) && schedule.children.map((child, l) => (
-                  <div key={l} style={{borderTop: '1px solid #eee'}}>
+                  <div key={l} style={{borderTop: '1px solid #eee', background: '#f5f5f9'}}>
                     <Flex align='baseline'>
                       <Flex.Item style={{flex: 2}}>
                         <div className='appointment__item'>{formatTime(child.startTime, child.endTime)}</div>
