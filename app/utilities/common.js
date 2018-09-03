@@ -239,6 +239,26 @@ export const encodeData = (data) => {
 export const encodeCard = (card) => {
   card = card && card.toString() || ''
   let star = ''
+  for (let i = 0; i < card.length - 8; i++) {
+    star += '*'
+  }
+  let newCard = card.replace(/^(.{4})(.*)(.{4})(?=\b)$/, `$1${star}$3`)
+  return newCard
+}
+
+export const encodeMCard = (card) => {
+  card = card && card.toString() || ''
+  let star = ''
+  for (let i = 0; i < card.length - 5; i++) {
+    star += '*'
+  }
+  let newCard = card.replace(/^(.{3})(.*)(.{2})(?=\b)$/, `$1${star}$3`)
+  return newCard
+}
+
+export const encodeTel = (card) => {
+  card = card && card.toString() || ''
+  let star = ''
   for (let i = 0; i < card.length - 7; i++) {
     star += '*'
   }

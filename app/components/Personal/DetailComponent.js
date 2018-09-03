@@ -5,7 +5,7 @@ import { WhiteSpace, WingBlank, Button, Modal } from 'antd-mobile'
 
 import { FlexItem, MainContainer, SubContent } from '../Common/FlexList'
 import { logoutAction } from '../../store/actions/login.action'
-import { renderSex, encodeCard, encodeName, encodeDate } from '../../utilities/common'
+import { renderSex, encodeCard, encodeName, encodeTel } from '../../utilities/common'
 
 import './personal.scss'
 
@@ -53,7 +53,7 @@ class Index extends React.Component {
             widthExtra='0'  
           >
             <MainContainer className='user__ownlist'>
-              <p>{accountInfo && accountInfo.mobile && encodeCard(accountInfo.mobile)}</p>
+              <p>{accountInfo && accountInfo.mobile && encodeTel(accountInfo.mobile)}</p>
             </MainContainer>
           </FlexItem>
         </div>
@@ -78,7 +78,7 @@ class Index extends React.Component {
             widthExtra='0'  
           >
             <MainContainer className='user__ownlist'>
-              <p>{accountInfo && accountInfo.birthday && encodeDate(accountInfo.birthday)}</p>
+              <p>{accountInfo && accountInfo.birthday}</p>
             </MainContainer>
           </FlexItem>
         </div>

@@ -4,7 +4,7 @@ import { FlexItem, MainContainer } from '../Common/FlexList'
 
 import './personal.scss'
 
-import { renderSex, renderCardType, renderMedicineCardType, encodeCard, encodeName } from '../../utilities/common'
+import { renderSex, renderCardType, renderMedicineCardType, encodeCard, encodeName, encodeMCard, encodeTel } from '../../utilities/common'
 import { NullContent } from '../../components/Common/Null'
 
 const SubContent = ({title, icon}) => (
@@ -74,7 +74,7 @@ class Index extends React.Component {
                 widthExtra='0'  
               >
                 <MainContainer className='user__ownlist'>
-                  <p>{encodeCard(accountList[familyKey].mobile)}</p>
+                  <p>{encodeTel(accountList[familyKey].mobile)}</p>
                 </MainContainer>
               </FlexItem>
             </div>
@@ -96,7 +96,7 @@ class Index extends React.Component {
                 widthExtra='0'  
               >
                 <MainContainer className='user__ownlist'>
-                  <p>{encodeCard(accountList[familyKey].medicineCardId)}</p>
+                  <p>{encodeMCard(accountList[familyKey].medicineCardId)}</p>
                 </MainContainer>
               </FlexItem>
             </div>
