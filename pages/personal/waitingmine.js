@@ -28,7 +28,7 @@ class Index extends React.Component {
   render() {
     return (
       <div>
-        <Head title='我的队列' />
+        <Head title='我的候诊' />
         <WaitingMineComponent />
       </div>
     )
