@@ -16,6 +16,16 @@ class Index extends React.Component {
     store.dispatch(loadBalanceDetailAction())
   }
 
+  getCard = (data) => {
+    let card = ''
+    if (data && data.medicineCardId) {
+      card = encodeMCard(data.medicineCardId)
+    } else if (data && data.cardId) {
+      card = encodeCard(data.cardId)
+    }
+    return card
+  }
+
   render() {
     const { balanceReducer, accountReducer } = this.props
     const { accountList } = accountReducer
@@ -27,7 +37,7 @@ class Index extends React.Component {
         <List>
           <List.Item
             thumb={<i className='anticon icon-idcard icon__balance'></i>}
-            extra={accountList[searchParam] && (accountList[searchParam].medicineCardId && encodeMCard(accountList[searchParam].medicineCardId)) || (accountList[searchParam].cardId && encodeCard(accountList[searchParam].cardId))}
+            extra={this.getCard(accountList[searchParam])}
           >用户</List.Item>
           <List.Item
             thumb={<i className='anticon icon-bank icon__balance'></i>}
