@@ -1,5 +1,6 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 import Router from 'next/router'
+import { Modal } from 'antd-mobile'
 
 import { actionTypes, updateAccountInfo, updateAccountList } from '../../actions/personal/account.action'
 import { authNotLogin, authError } from '../../actions/global.action'
@@ -11,7 +12,8 @@ import { startLoading, endLoading } from '../../../utilities/common'
 const PATH = {
   getAccountInfo: '/api/user/getPersonalInfo',
   getAccountList: '/api/user/card/list',
-  resetPassword: '/api/resetPassword',
+  // resetPassword: '/api/resetPassword',
+  resetPassword: '/api/user/resetPassword',
   familyAdd: '/api/user/card/add'
 }
 
@@ -111,7 +113,8 @@ function* familyAdd(actions) {
 }
 
 const resetPasswordService = (data, accessToken) => {
-  return HttpHostService.post(`${PATH.resetPassword}`, data, {headers: { 'access-token': accessToken}})
+  // return HttpHostService.post(`${PATH.resetPassword}`, data, {headers: { 'access-token': accessToken}})
+  return HttpService.post(`${PATH.resetPassword}`, data, {headers: { 'access-token': accessToken}})
 }
 
 function* resetPassword(actions) {
@@ -121,7 +124,10 @@ function* resetPassword(actions) {
     const res = yield call(resetPasswordService, actions.data, accessToken)
     if (res) {
       yield endLoading()
-      Router.push('/login')
+      // Router.push('/login')
+      yield Modal.alert('提示信息', '修改密码成功', [
+        { text: '确定', onPress: () => {}},
+      ])
     }
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {
