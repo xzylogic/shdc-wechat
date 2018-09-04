@@ -57,7 +57,7 @@ function* loadWaitingMine(actions) {
     const { waitingMineParam } = yield select((state) => state.waitingReducer)
     const { accountList } = yield select((state) => state.accountReducer)
     if (accountList && checkNullArr(accountList)) {
-      yield* loadAccountList() 
+      yield call(loadAccountList)
     }
     const accountReducer = yield select((state) => state.accountReducer)
     if (actions.hosOrgCode && accessToken && checkNotNullArr(accountReducer.accountList) && accountReducer.accountList[waitingMineParam]) {

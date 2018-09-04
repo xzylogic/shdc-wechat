@@ -24,7 +24,7 @@ function* loadMyReports() {
     const { searchParam } = yield select((state) => state.reportsReducer)
     const { accountList } = yield select((state) => state.accountReducer)
     if (accountList && checkNullArr(accountList)) {
-      yield* loadAccountList() 
+      yield call(loadAccountList)
     }
     const accountReducer = yield select((state) => state.accountReducer)
     if (accessToken && checkNotNullArr(accountReducer.accountList) && accountReducer.accountList[searchParam]) {

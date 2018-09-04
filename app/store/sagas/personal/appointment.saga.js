@@ -1,11 +1,12 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 
-import { actionTypes, updateMyAppointmentsAction, loadMyAppointmentsAction } from '../../actions/personal/appointment.action'
+import { actionTypes, updateMyAppointmentsAction, loadMyAppointmentsAction, updateAppointmentParamAction } from '../../actions/personal/appointment.action'
 import { authNotLogin, authError } from '../../actions/global.action'
 import { HttpService } from '../../../utilities/httpService'
+import { loadAccountList } from './account.saga'
 
 import * as CODE from '../../../utilities/status-code'
-import { startLoading, endLoading } from '../../../utilities/common'
+import { startLoading, endLoading, checkNullArr, checkNotNullArr } from '../../../utilities/common'
 
 const PATH = {
   getAppointmentList: '/api/user/reservation/getReservationRecord',
@@ -18,9 +19,17 @@ const getAppointmentListService = (accessToken) => {
 
 function* loadAppointmentList() {
   try {
-    yield startLoading('加载中')
     const { accessToken } = yield select((state) => state.globalReducer)
-    if (accessToken) {
+    const { accountList } = yield select((state) => state.accountReducer)
+    if (accountList && checkNullArr(accountList)) {
+      yield call(loadAccountList) 
+    }
+    const accountReducer = yield select((state) => state.accountReducer)
+    if (accessToken && checkNotNullArr(accountReducer.accountList)) {
+      const param = accountReducer.accountList[0]
+      yield put(updateAppointmentParamAction(param.medicineCardId || param.cardId))
+
+      yield startLoading('加载中')
       const data = yield call(getAppointmentListService, accessToken)
       if (data) {
         yield put(updateMyAppointmentsAction(data))
