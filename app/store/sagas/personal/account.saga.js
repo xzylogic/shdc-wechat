@@ -126,7 +126,7 @@ function* resetPassword(actions) {
       yield endLoading()
       // Router.push('/login')
       yield Modal.alert('提示信息', '修改密码成功', [
-        { text: '确定', onPress: () => {}},
+        { text: '确定', onPress: () => { Router.push('/personal/mine')}},
       ])
     }
   } catch (error) {
