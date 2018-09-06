@@ -28,7 +28,7 @@ export class Tabs extends React.Component {
   render() {
     const children = this.props.children || []
     return (
-      <div className={this.props.containerClass || 'tabs__container'}>
+      <div className={this.props.containerClass || 'tabs__container'} style={this.props.style || {}}>
         <div className={this.props.titlesClass || 'tabs__titles'}>
           {
             React.Children.map(children, (element, index) => {

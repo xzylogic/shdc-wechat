@@ -28,7 +28,7 @@ class Index extends React.Component {
         <h2 style={{textAlign: 'center', fontSize: '16px', padding: '15px', background: '#fff', color: '#666'}}>{deptName}</h2>
         {
           checkNotNullArr(consultationList) ? (
-            <Tabs containerClass='tabs__container-full' contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
+            <Tabs style={{minHeight: 'calc(100vh - 48px)'}} containerClass='tabs__container-common' contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
               {
                 consultationList.map((data, j) => {
                   return (
