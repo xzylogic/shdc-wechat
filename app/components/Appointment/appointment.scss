@@ -161,3 +161,8 @@
 .appointment__detail .am-list-item.am-input-disabled .am-input-label {
   color: $color-text-primary !important;
 }
+
+.appointment__detail .am-list-item.am-input-disabled input:disabled, input[disabled] {
+  -webkit-opacity:1; 
+  opacity: 1; 
+}
