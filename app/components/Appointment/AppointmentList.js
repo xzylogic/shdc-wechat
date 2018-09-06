@@ -35,7 +35,7 @@ class Index extends React.Component {
   } 
   
   render() {
-    const { appointments, style = {borderTop: '1px solid #eee'} } = this.props
+    const { appointments, type, style = {borderTop: '1px solid #eee'} } = this.props
     return (
       <React.Fragment>{
         checkNotNullArr(appointments) && appointments.map((schedule, k) => {
@@ -43,7 +43,7 @@ class Index extends React.Component {
             <div key={k} style={style}>
               <Flex align='baseline'>
                 <Flex.Item>
-                  <div className='appointment__item'>{schedule.deptName}</div>
+                  <div className='appointment__item' style={{paddingLeft: '5px'}}>{schedule[type]}</div>
                 </Flex.Item>
                 <Flex.Item style={{flex: 2}}>
                   <div className='appointment__item'>{formatTime(schedule.startTime, schedule.endTime)}</div>

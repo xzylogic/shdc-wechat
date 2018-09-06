@@ -39,7 +39,7 @@ class Index extends React.Component {
                   <p className='desc'>{obj.doctInfo}</p>
                 </MainContainer>
               </FlexItem>
-              {obj.show ? <AppointmentList appointments={obj.schedules} loadSchedules={this.loadSchedules.bind(this, j)} style={{borderTop: '1px solid #eee'}}/> : ''}
+              {obj.show ? <AppointmentList type={'deptName'} appointments={obj.schedules} loadSchedules={this.loadSchedules.bind(this, j)} style={{borderTop: '1px solid #eee'}}/> : ''}
             </div>
           )) : <NullImageContent msg='暂无可预约专家、医生信息' image='/static/images/icon-null-doctor.png' />
       }</div>

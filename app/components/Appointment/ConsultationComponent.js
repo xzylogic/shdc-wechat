@@ -22,7 +22,7 @@ class Index extends React.Component {
 
   render() {
     const { consultationReducer } = this.props
-    const { consultationList, deptName } =  consultationReducer
+    const { consultationList, deptName, pageType } =  consultationReducer
     return (
       <React.Fragment>
         <h2 style={{textAlign: 'center', fontSize: '16px', padding: '15px', background: '#fff', color: '#666'}}>{deptName}</h2>
@@ -33,7 +33,7 @@ class Index extends React.Component {
                 consultationList.map((data, j) => {
                   return (
                     <Tab title={moment(data.date).format('MM月DD日 （dddd）')} key={j}>
-                      <AppointmentList appointments={data.doctors} loadSchedules={this.loadSchedules.bind(this, j)} />
+                      <AppointmentList type={pageType == 2 ? 'doctName' : 'deptName'} appointments={data.doctors} loadSchedules={this.loadSchedules.bind(this, j)} />
                     </Tab>
                   )
                 })

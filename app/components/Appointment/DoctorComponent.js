@@ -43,7 +43,7 @@ class Index extends React.Component {
                 appointmentList.map((data, j) => {
                   return (
                     <Tab key={j} title={`${data.date}（${data.weekDays}）`}>
-                      <AppointmentList appointments={data.doctors} loadSchedules={this.loadSchedules.bind(this, j)} />
+                      <AppointmentList type={'deptName'} appointments={data.doctors} loadSchedules={this.loadSchedules.bind(this, j)} />
                     </Tab>
                   )
                 }
