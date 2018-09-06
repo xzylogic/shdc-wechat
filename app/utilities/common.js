@@ -10,6 +10,7 @@ import {
 import {
   JSEncrypt
 } from './jsencrypt'
+import * as uuid from 'uuid/v1'
 
 export const initGlobalQuery = (store, query) => {
   return new Promise((resolve, reject) => {
@@ -301,4 +302,11 @@ export const Convert_BD09_To_GCJ02 = ($lat,$lng) =>{
     lat: lat, 
     lng: lng
   }
+}
+
+export const getSignature = () => {
+  let myuuid = uuid()
+  myuuid = myuuid.split('-').reduce((a, b) => a + b)
+  let timestamp = new Date().valueOf()
+  return encodeData(`${myuuid}+${timestamp}`)
 }

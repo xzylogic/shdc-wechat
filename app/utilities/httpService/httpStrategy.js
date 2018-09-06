@@ -1,10 +1,17 @@
 import * as axios from 'axios'
 
-import { encodeData } from '../common'
+import { encodeData, getSignature } from '../common'
 import * as CODE from '../status-code'
 
+const headers = {
+  headers: {
+    client: 'A868E677C04F42B6840B0D58D7D27DDE',
+    version: '1.3.1',
+    signature: getSignature()
+  }
+}
+
 function getStrategy(url, params, config = {}) {
-  let headers = {headers: {client: 'A868E677C04F42B6840B0D58D7D27DDE'}}
   let query = ''
   if (params) {
     query = `?${encodeData(params)}`
@@ -24,7 +31,6 @@ function getStrategy(url, params, config = {}) {
 }
 
 function postStrategy(url, data, config = {}) {
-  let headers = {headers: {client: 'A868E677C04F42B6840B0D58D7D27DDE'}}
   let postData = encodeData(JSON.stringify(data))
   // console.log(postData)
   return axios.post(url, postData, {
@@ -42,7 +48,6 @@ function postStrategy(url, data, config = {}) {
 }
 
 function postUnSecretStrategy(url, data, config = {}) {
-  let headers = {headers: {client: 'A868E677C04F42B6840B0D58D7D27DDE'}}
   return axios.post(url, data, {
     ...config, 
     ...{headers: {...config.headers, ...headers.headers, ...{'Content-Type': 'application/json'}}},
@@ -58,7 +63,6 @@ function postUnSecretStrategy(url, data, config = {}) {
 }
 
 function postHostStrategy(url, data, config = {}) {
-  let headers = {headers: {client: 'A868E677C04F42B6840B0D58D7D27DDE'}}
   let postData = encodeData(JSON.stringify(data))
   // console.log(postData)
   return axios.post(url, {data: postData}, {

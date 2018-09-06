@@ -3,12 +3,27 @@
 const logger = require('log4js').getLogger('login.controller.js')
 const http = require('../httpService')
 const utilities = require('../utilities')
+const uuid = require('uuid/v1')
 
 const PATH = {
   login: '/api/user/login',
   logout: '/api/user/logout',
   register: '/api/user/register',
   resetPassword: '/api/user/resetPassword'
+}
+
+function getSignature() {
+  let myuuid = uuid()
+  myuuid = myuuid.split('-').reduce((a, b) => a + b)
+  let timestamp = new Date().valueOf()
+  return utilities.encodeData(`${myuuid}+${timestamp}`)
+}
+
+const headers = {
+  'Content-Type': 'application/json',
+  client: 'A868E677C04F42B6840B0D58D7D27DDE', 
+  version: '1.3.1',
+  signature: getSignature()
 }
 
 module.exports = {
@@ -20,10 +35,7 @@ module.exports = {
     logger.info(`[login request body]`, req.body)
     let postData = req.body.data
     http.HttpService.post(`${PATH.login}`, postData, {
-      headers: {
-        client: 'A868E677C04F42B6840B0D58D7D27DDE', 
-        'Content-Type': 'application/json'
-      }
+      headers: headers
     }).then(sres => {
       if (sres) {
         utilities.setCookies(res, 'accessToken', sres.data && sres.data.accessToken || '')
@@ -46,10 +58,7 @@ module.exports = {
     logger.info(`[register request body]`, req.body)
     let postData = req.body.data
     http.HttpService.post(`${PATH.register}`, postData, {
-      headers: {
-        client: 'A868E677C04F42B6840B0D58D7D27DDE', 
-        'Content-Type': 'application/json'
-      }
+      headers: headers
     }).then(sres => {
       if (sres) {
         utilities.setCookies(res, 'accessToken', sres.data && sres.data.accessToken || '')
@@ -74,9 +83,8 @@ module.exports = {
     let postData = req.body.data
     http.HttpService.post(`${PATH.logout}`, postData, {
       headers: {
+        ...headers,
         'access-token': accessToken, 
-        client: 'A868E677C04F42B6840B0D58D7D27DDE', 
-        'Content-Type': 'application/json'
       }
     }).then(sres => {
       if (sres && sres.code === 200) {
@@ -104,9 +112,8 @@ module.exports = {
     let accessToken = req.headers['access-token']
     http.HttpService.post(`${PATH.resetPassword}`, postData, {
       headers: {
+        ...headers,
         'access-token': accessToken, 
-        client: 'A868E677C04F42B6840B0D58D7D27DDE',
-        'Content-Type': 'application/json'
       }
     }).then(sres => {
       logger.info(sres)
