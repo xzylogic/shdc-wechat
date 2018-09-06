@@ -131,7 +131,7 @@ class Index extends React.Component {
             type='text' 
             labelNumber={7}
             value={orderInfo && orderInfo.hosName || ''}
-            style={{color: '#18a6e0'}}
+            style={{color: '#35b2f2'}}
             disabled
           ><i className='anticon icon-home detail__icon' />医院名称:</InputItem>
           <InputItem 
@@ -139,7 +139,7 @@ class Index extends React.Component {
             type='text'
             labelNumber={7}
             value={orderInfo && orderInfo.deptName || ''}
-            style={{color: '#18a6e0'}}
+            style={{color: '#35b2f2'}}
             disabled
           ><i className='anticon icon-inbox detail__icon' />预约科室:</InputItem>
           {
@@ -149,7 +149,7 @@ class Index extends React.Component {
                 type='text' 
                 labelNumber={7}
                 value={orderInfo && orderInfo.doctName || ''}
-                style={{color: '#18a6e0'}}
+                style={{color: '#35b2f2'}}
                 disabled
               ><i className='anticon icon-user detail__icon' />医生姓名:</InputItem>
             ) : ''
@@ -159,7 +159,7 @@ class Index extends React.Component {
             type='text'
             labelNumber={7}
             value={orderInfo && orderInfo.orderTime || ''}
-            style={{color: '#18a6e0'}}
+            style={{color: '#35b2f2'}}
             disabled
           ><i className='anticon icon-clockcircleo detail__icon' />门诊时间:</InputItem>
           <InputItem
@@ -167,7 +167,7 @@ class Index extends React.Component {
             type='text' 
             labelNumber={7}
             value={`¥${orderInfo && orderInfo.visitCost || 0}元`}
-            style={{color: '#18a6e0'}}
+            style={{color: '#35b2f2'}}
             disabled
           ><i className='anticon icon-pay-circle-o1 detail__icon' />挂号费用:</InputItem>
           <InputItem
@@ -175,7 +175,7 @@ class Index extends React.Component {
             name='mobile' 
             type='text' 
             labelNumber={7}
-            style={{color: '#18a6e0'}}
+            style={{color: '#35b2f2'}}
             disabled
           ><i className='anticon icon-mobile1 detail__icon' />手机号:</InputItem>
           <InputItem 

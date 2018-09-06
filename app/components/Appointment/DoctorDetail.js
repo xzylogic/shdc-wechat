@@ -7,7 +7,7 @@ class DoctorDetail extends React.Component {
     const { doctor, schedules } = this.props
     
     return (
-      <div style={{background: '#18a6e0'}}>
+      <div style={{background: '#35b2f2'}}>
         <FlexItem
           sub={
             <ImgContainer
