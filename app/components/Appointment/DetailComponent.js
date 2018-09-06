@@ -105,6 +105,11 @@ class Index extends React.Component {
     })
   }
 
+  getOrderTime = (time) => {
+    let orderTime = time.toString()
+    return orderTime.replace(/^(.{16}).{3}(.{6}).{3}/, '$1$2')
+  } 
+
   render() {
     const { getFieldProps, getFieldError, getFieldsError, isFieldTouched } = this.props.form
     const store = this.props
@@ -158,7 +163,7 @@ class Index extends React.Component {
             name='password'
             type='text'
             labelNumber={7}
-            value={orderInfo && orderInfo.orderTime || ''}
+            value={orderInfo && orderInfo.orderTime && this.getOrderTime(orderInfo.orderTime) || ''}
             style={{color: '#35b2f2'}}
             disabled
           ><i className='anticon icon-clockcircleo detail__icon' />门诊时间:</InputItem>
@@ -183,7 +188,7 @@ class Index extends React.Component {
             type='number' 
             placeholder='请输入验证码'
             labelNumber={7}
-            extra={this.state.codeMsg}
+            extra={<Button type='primary' style={{padding: '0'}} size='small'>{this.state.codeMsg}</Button>}
             onExtraClick={this.getCode}
             error={isFieldTouched('validateCode')&&getFieldError('validateCode')}
             onErrorClick={() => Toast.info(getFieldError('validateCode'))}
