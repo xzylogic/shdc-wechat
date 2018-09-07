@@ -10,7 +10,7 @@ import {
 import {
   JSEncrypt
 } from './jsencrypt'
-import * as uuid from 'uuid/v1'
+import * as uuid from 'uuid/v4'
 
 export const initGlobalQuery = (store, query) => {
   return new Promise((resolve, reject) => {

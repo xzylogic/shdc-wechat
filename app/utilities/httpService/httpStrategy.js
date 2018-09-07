@@ -6,8 +6,7 @@ import * as CODE from '../status-code'
 const headers = {
   headers: {
     client: 'A868E677C04F42B6840B0D58D7D27DDE',
-    version: '1.3.1',
-    signature: getSignature()
+    version: '1.3.1'
   }
 }
 
@@ -18,7 +17,13 @@ function getStrategy(url, params, config = {}) {
   }
   return axios.get(encodeURI(url + query), {
     ...config, 
-    ...{headers: {...config.headers, ...headers.headers}}
+    ...{
+      headers: {
+        ...config.headers, 
+        ...headers.headers, 
+        signature: getSignature()
+      }
+    }
   }).then(res => res && res.data).then(res => {
     if (res.code == CODE.SUCCESS) {
       return res.data || res.msg || true
@@ -35,7 +40,14 @@ function postStrategy(url, data, config = {}) {
   // console.log(postData)
   return axios.post(url, postData, {
     ...config, 
-    ...{headers: {...config.headers, ...headers.headers, ...{'Content-Type': 'application/json'}}},
+    ...{
+      headers: {
+        ...config.headers, 
+        ...headers.headers, 
+        signature: getSignature(),
+        'Content-Type': 'application/json'
+      }
+    },
   }).then(res => res && res.data).then(res => {
     if (res.code == CODE.SUCCESS) {
       return res.data || res.msg || true
@@ -50,7 +62,14 @@ function postStrategy(url, data, config = {}) {
 function postUnSecretStrategy(url, data, config = {}) {
   return axios.post(url, data, {
     ...config, 
-    ...{headers: {...config.headers, ...headers.headers, ...{'Content-Type': 'application/json'}}},
+    ...{
+      headers: {
+        ...config.headers, 
+        ...headers.headers, 
+        signature: getSignature(),
+        'Content-Type': 'application/json'
+      }
+    },
   }).then(res => res && res.data).then(res => {
     if (res.code == CODE.SUCCESS) {
       return res.data || res.msg || true
@@ -67,7 +86,14 @@ function postHostStrategy(url, data, config = {}) {
   // console.log(postData)
   return axios.post(url, {data: postData}, {
     ...config, 
-    ...{headers: {...config.headers, ...headers.headers, ...{'Content-Type': 'application/json'}}},
+    ...{
+      headers: {
+        ...config.headers, 
+        ...headers.headers, 
+        signature: getSignature(),
+        'Content-Type': 'application/json'
+      }
+    },
   }).then(res => res && res.data).then(res => {
     if (res.code == CODE.SUCCESS) {
       return res.data || res.msg || true

@@ -22,8 +22,7 @@ function getSignature() {
 const headers = {
   'Content-Type': 'application/json',
   client: 'A868E677C04F42B6840B0D58D7D27DDE', 
-  version: '1.3.1',
-  signature: getSignature()
+  version: '1.3.1'
 }
 
 module.exports = {
@@ -35,7 +34,10 @@ module.exports = {
     logger.info(`[login request body]`, req.body)
     let postData = req.body.data
     http.HttpService.post(`${PATH.login}`, postData, {
-      headers: headers
+      headers: {
+        ...headers,
+        signature: getSignature()
+      }
     }).then(sres => {
       if (sres) {
         utilities.setCookies(res, 'accessToken', sres.data && sres.data.accessToken || '')
@@ -58,7 +60,10 @@ module.exports = {
     logger.info(`[register request body]`, req.body)
     let postData = req.body.data
     http.HttpService.post(`${PATH.register}`, postData, {
-      headers: headers
+      headers: {
+        ...headers,
+        signature: getSignature()
+      }
     }).then(sres => {
       if (sres) {
         utilities.setCookies(res, 'accessToken', sres.data && sres.data.accessToken || '')
@@ -85,6 +90,7 @@ module.exports = {
       headers: {
         ...headers,
         'access-token': accessToken, 
+        signature: getSignature()
       }
     }).then(sres => {
       if (sres && sres.code === 200) {
@@ -114,6 +120,7 @@ module.exports = {
       headers: {
         ...headers,
         'access-token': accessToken, 
+        signature: getSignature()
       }
     }).then(sres => {
       logger.info(sres)

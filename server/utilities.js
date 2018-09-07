@@ -3,7 +3,7 @@
 const logger = require('log4js').getLogger('utilities.js')
 const config = require('./config')
 const axios = require('axios')
-const JSEncrypt = require('./jsencrypt')
+const JSEncrypt = require('./jsencrypt').JSEncrypt
 
 const PATH = {
   getAccessTokenFromCode: '/api/weChat/auth'
