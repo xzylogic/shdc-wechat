@@ -2,13 +2,13 @@
 .tabs__container {
   background: $color-white;
   overflow: hidden;
-  height: $height-without-search-bar;
+  min-height: $height-without-search-bar;
 }
 
 .tabs__container-full {
   background: $color-white;
   overflow: hidden;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .tabs__container-common {
@@ -44,6 +44,10 @@
 .tab__content {
   position: relative;
   height: auto;
+}
+
+.tab__content div:first-child {
+  border: 0 !important;
 }
 
 .tabs__titles-common {

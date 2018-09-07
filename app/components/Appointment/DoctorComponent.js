@@ -20,7 +20,7 @@ class Index extends React.Component {
     let orderTime = ''
     if (list && Array.isArray(list) && !checkNullArr(list) && list.length !== 1) {
       orderTime = list.reduce((objOld, obj) => {
-        obj.orderTime = `${objOld.orderTime || ''}` + `${obj.date}（${obj.weekDays}）`
+        obj.orderTime = `${objOld.orderTime || `${objOld.date}（${objOld.weekDays}）`}${obj.date}（${obj.weekDays}）`
         return obj
       }).orderTime
     } else if (list && Array.isArray(list) && !checkNullArr(list) && list.length === 1) {
@@ -35,15 +35,19 @@ class Index extends React.Component {
     return (
       <div>
         <DoctorDetail doctor={doctorDetail} schedules={this.getSchedules(appointmentList)} />
-        <WhiteSpace size='lg' />
+        <WhiteSpace size='md' />
         {
           appointmentList && Array.isArray(appointmentList) && (
-            <Tabs contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
+            <Tabs style={{minHeight: 'calc(100vh - 293px)'}} contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
               {
                 appointmentList.map((data, j) => {
                   return (
                     <Tab key={j} title={`${data.date}（${data.weekDays}）`}>
-                      <AppointmentList type={'deptName'} appointments={data.doctors} loadSchedules={this.loadSchedules.bind(this, j)} />
+                      <AppointmentList 
+                        type={'deptName'}
+                        appointments={data.doctors} 
+                        loadSchedules={this.loadSchedules.bind(this, j)}
+                      />
                     </Tab>
                   )
                 }

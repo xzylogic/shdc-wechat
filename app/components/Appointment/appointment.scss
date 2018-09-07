@@ -40,11 +40,11 @@
 
 .doctor__desc__detail {
   font-size: 16px;
-  padding: 20px 0;
-  line-height: 2;
+  padding: 25px 0;
+  line-height: 1.75;
   color: $color-white;
   p:first-child {
-    font-size: 17px;
+    font-size: 18px;
   }
 }
 
@@ -78,7 +78,7 @@
 }
 
 .doctor__detail__desc {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.5;
   padding: 10px 15px;
   background: $color-white;
@@ -119,8 +119,12 @@
 }
 
 .appointment__item {
+  font-size: 15px;
   text-align: center;
-  padding: 16px 0;
+  padding: 10px 0;
+  .am-button-icon {
+    color: $color-text-third;
+  }
 }
 
 .appointment__list {
@@ -170,4 +174,10 @@
 .appointment__detail .am-list-item .am-input-extra {
   width: 100px !important;
   max-height: 44px !important;
+}
+
+@media (min-resolution: 2dppx){
+  .am-button-icon:before {
+    border: 0 !important;
+  }
 }

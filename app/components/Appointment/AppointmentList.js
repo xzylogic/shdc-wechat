@@ -41,7 +41,7 @@ class Index extends React.Component {
         checkNotNullArr(appointments) && appointments.map((schedule, k) => {
           return (
             <div key={k} style={style}>
-              <Flex align='baseline'>
+              <Flex>
                 <Flex.Item>
                   <div className='appointment__item' style={{paddingLeft: '5px'}}>{schedule[type]}</div>
                 </Flex.Item>
@@ -68,19 +68,22 @@ class Index extends React.Component {
               {
                 schedule && schedule.show && schedule.children && Array.isArray(schedule.children) && schedule.children.map((child, l) => (
                   <div key={l} style={{borderTop: '1px solid #eee', background: '#f5f5f9'}}>
-                    <Flex align='baseline'>
+                    <Flex>
                       <Flex.Item style={{flex: 2}}>
-                        <div className='appointment__item'>{formatTime(child.startTime, child.endTime)}</div>
+                        <div className='appointment__item' style={{fontSize: '12px'}}>{formatTime(child.startTime, child.endTime)}</div>
                       </Flex.Item>
                       <Flex.Item>
-                        <div className='appointment__item'>{schedule.visitCost}元</div>
+                        <div className='appointment__item' style={{fontSize: '12px'}}>{schedule.visitCost}元</div>
                       </Flex.Item>
                       <Flex.Item>
-                        <div className='appointment__item'>剩余{child.reserveOrderNum}</div>
+                        <div className='appointment__item' style={{fontSize: '12px'}}>剩余{child.reserveOrderNum}</div>
                       </Flex.Item>
-                      <Flex.Item style={{flex: 2}}>
-                        <div className='appointment__item'>
-                          <Button size='small' type='primary' style={{padding: '0', margin: '0 20px'}} onClick={this.handleClick.bind(this, {...schedule, ...child})}>预约</Button>
+                      <Flex.Item>
+                        <div className='appointment__item' style={{fontSize: '12px'}}>
+                          <Button 
+                            type='ghost' 
+                            style={{fontSize: '12px', padding: '0', width: '50px', height: '25px', lineHeight: '25px', background: '#fff'}} 
+                            onClick={this.handleClick.bind(this, {...schedule, ...child})}>预约</Button>
                         </div>
                       </Flex.Item>
                     </Flex>

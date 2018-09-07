@@ -11,9 +11,10 @@ class DoctorDetail extends React.Component {
         <FlexItem
           sub={
             <ImgContainer
-              style={{width: '70px', height: '70px', margin: '15px', borderRadius: '50%', overflow: 'hidden'}}
+              style={{width: '70px', height: '70px', margin: '20px', borderRadius: '50%', overflow: 'hidden'}}
               src={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${doctor.hosOrgCode}_${doctor.hosDoctCode}.jpg`}
           />}
+          widthSub='110px'
         >
           <MainContainer className='doctor__desc__detail'>
             <p>{doctor.doctName}</p>

@@ -29,7 +29,7 @@ class Index extends React.Component {
               containerClass='tabs__container-common' 
               contentClass='tabs__content-common' 
               titlesClass='tabs__titles-common'
-              contentStyle={{height: 'calc(100vh - 178px)'}}>
+              contentStyle={{height: 'calc(100vh - 157px)'}}>
               {
                 doctorsByDate.map((data, i) =>
                   <Tab key={i} title={`${data.date}（${data.weekDays}）`}>
