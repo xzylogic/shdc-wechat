@@ -54,7 +54,7 @@ utilities.getAccessTokenFromCode = (code) => {
         'Content-Type': 'application/json',
         client: 'A868E677C04F42B6840B0D58D7D27DDE', 
         version: '1.3.1',
-        signature: getSignature()
+        signature: utilities.getSignature()
       }
     }
   ).then(res => res.data)
