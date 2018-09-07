@@ -18,6 +18,7 @@ class Index extends React.Component {
     this.props.form.validateFields((error, value) => {
       if(!error) {
         const formData = {
+          deviceType: window.navigator.userAgent,
           origin: 'wx',
           password: value.password,
           username: value.username,

@@ -82,6 +82,7 @@ class Index extends React.Component {
     this.props.form.validateFields((error, value) => {
       if(!error) {
         const formData = {
+          deviceType: window.navigator.userAgent,
           address: value.address,
           birthday: moment(value.birthday).format('YYYY-MM-DD'),
           cardId: value.cardId,
