@@ -72,7 +72,7 @@ class Index extends React.Component {
         <SearchBar placeholder='请输入子科室名称进行搜索' maxLength={8} value={searchParam} onChange={this.handleChange} />
         {
           searchParam === '' ? (
-            <Tabs style={{height: 'calc(100vh - 44px)'}} index={this.state.tabIndex}  handleTabClick={this.handleTabClick}>{
+            <Tabs style={{height: 'calc(100vh - 44px)', fontSize: '16px'}} index={this.state.tabIndex}  handleTabClick={this.handleTabClick}>{
               checkNotNullArr(departmentsParent) && departmentsParent.map((departments,indexP) => 
                 <Tab title={departments.deptName} key={indexP}>
                 {
@@ -87,7 +87,7 @@ class Index extends React.Component {
                   ) : <NullContent msg='暂无子科室' /> 
                 }</Tab>)
             }</Tabs>) : (
-            <Tabs index={this.state.searchTabIndex} handleTabClick={this.handleSearchTabClick} >{
+            <Tabs style={{height: 'calc(100vh - 44px)', fontSize: '16px'}} index={this.state.searchTabIndex} handleTabClick={this.handleSearchTabClick} >{
               checkNotNullArr(searchDepartments) && searchDepartments.map((departments,indexP) => 
                 <Tab title={departments.deptName} key={indexP}>{
                   checkNotNullArr(departments.children) ? 
