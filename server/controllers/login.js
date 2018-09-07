@@ -12,13 +12,6 @@ const PATH = {
   resetPassword: '/api/user/resetPassword'
 }
 
-function getSignature() {
-  let myuuid = uuid()
-  myuuid = myuuid.split('-').reduce((a, b) => a + b)
-  let timestamp = new Date().valueOf()
-  return utilities.encodeData(`${myuuid}+${timestamp}`)
-}
-
 const headers = {
   'Content-Type': 'application/json',
   client: 'A868E677C04F42B6840B0D58D7D27DDE', 
@@ -36,7 +29,7 @@ module.exports = {
     http.HttpService.post(`${PATH.login}`, postData, {
       headers: {
         ...headers,
-        signature: getSignature()
+        signature: utilities.getSignature()
       }
     }).then(sres => {
       if (sres) {
@@ -62,7 +55,7 @@ module.exports = {
     http.HttpService.post(`${PATH.register}`, postData, {
       headers: {
         ...headers,
-        signature: getSignature()
+        signature: utilities.getSignature()
       }
     }).then(sres => {
       if (sres) {
@@ -90,7 +83,7 @@ module.exports = {
       headers: {
         ...headers,
         'access-token': accessToken, 
-        signature: getSignature()
+        signature: utilities.getSignature()
       }
     }).then(sres => {
       if (sres && sres.code === 200) {
@@ -120,7 +113,7 @@ module.exports = {
       headers: {
         ...headers,
         'access-token': accessToken, 
-        signature: getSignature()
+        signature: utilities.getSignature()
       }
     }).then(sres => {
       logger.info(sres)

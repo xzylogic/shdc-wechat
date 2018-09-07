@@ -4,6 +4,7 @@ const logger = require('log4js').getLogger('utilities.js')
 const config = require('./config')
 const axios = require('axios')
 const JSEncrypt = require('./jsencrypt').JSEncrypt
+const uuid = require('uuid/v1')
 
 const PATH = {
   getAccessTokenFromCode: '/api/weChat/auth'
@@ -46,7 +47,17 @@ utilities.setCookies = (res, key, value) => {
  * @returns data {accessToken, weChatId}
  */
 utilities.getAccessTokenFromCode = (code) => {
-  return axios.post(`${config.apiUrl}${PATH.getAccessTokenFromCode}?code=${code}`).then(res => res.data)
+  return axios.post(
+    `${config.apiUrl}${PATH.getAccessTokenFromCode}?code=${code}`, {},
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        client: 'A868E677C04F42B6840B0D58D7D27DDE', 
+        version: '1.3.1',
+        signature: getSignature()
+      }
+    }
+  ).then(res => res.data)
 }
 
 utilities.encodeData =  (data) => {
@@ -61,6 +72,13 @@ utilities.encodeData =  (data) => {
   result = encrypt.encrypt(data) || encrypt.encryptLong(data)
   
   return result || data
+}
+
+utilities.getSignature = () => {
+  let myuuid = uuid()
+  myuuid = myuuid.split('-').reduce((a, b) => a + b)
+  let timestamp = new Date().valueOf()
+  return utilities.encodeData(`${myuuid}+${timestamp}`)
 }
 
 module.exports = utilities
