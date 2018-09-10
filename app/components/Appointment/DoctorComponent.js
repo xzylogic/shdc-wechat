@@ -38,7 +38,7 @@ class Index extends React.Component {
         <WhiteSpace size='md' />
         {
           appointmentList && Array.isArray(appointmentList) && (
-            <Tabs style={{minHeight: 'calc(100vh - 293px)'}} contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
+            <Tabs style={{minHeight: 'inherit'}} contentClass='tabs__content-common' titlesClass='tabs__titles-common'>
               {
                 appointmentList.map((data, j) => {
                   return (
