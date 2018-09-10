@@ -3,7 +3,6 @@
 const logger = require('log4js').getLogger('login.controller.js')
 const http = require('../httpService')
 const utilities = require('../utilities')
-const uuid = require('uuid/v1')
 
 const PATH = {
   login: '/api/user/login',
@@ -24,12 +23,16 @@ module.exports = {
    * @param res
    */
   login: (req, res) => {
+    logger.info(`[login request headers]`, req.headers)
     logger.info(`[login request body]`, req.body)
+    let headers = req.headers
     let postData = req.body.data
     http.HttpService.post(`${PATH.login}`, postData, {
       headers: {
-        ...headers,
-        signature: utilities.getSignature()
+        'Content-Type': 'application/json',
+        client: headers['client'], 
+        version: headers['version'],
+        signature: headers['signature']
       }
     }).then(sres => {
       if (sres) {
@@ -50,12 +53,16 @@ module.exports = {
    * @param res
    */
   register: (req, res) => {
+    logger.info(`[register request headers]`, req.headers)
     logger.info(`[register request body]`, req.body)
+    let headers = req.headers
     let postData = req.body.data
     http.HttpService.post(`${PATH.register}`, postData, {
       headers: {
-        ...headers,
-        signature: utilities.getSignature()
+        'Content-Type': 'application/json',
+        client: headers['client'], 
+        version: headers['version'],
+        signature: headers['signature']
       }
     }).then(sres => {
       if (sres) {
@@ -76,14 +83,17 @@ module.exports = {
    * @param res
    */
   logout: (req, res) => {
+    logger.info(`[logout request headers]`, req.headers)
     logger.info(`[logout request body]`, req.body)
-    let accessToken = req.signedCookies.accessToken || ''
+    let headers = req.headers
     let postData = req.body.data
     http.HttpService.post(`${PATH.logout}`, postData, {
       headers: {
-        ...headers,
-        'access-token': accessToken, 
-        signature: utilities.getSignature()
+        'Content-Type': 'application/json',
+        'access-token': headers['access-token'],
+        client: headers['client'], 
+        version: headers['version'],
+        signature: headers['signature']
       }
     }).then(sres => {
       if (sres && sres.code === 200) {
@@ -106,14 +116,17 @@ module.exports = {
    * @param res
    */
   resetPassword: (req, res) => {
+    logger.info(`[resetPassword request headers]`, req.headers)
     logger.info(`[resetPassword request body]`, req.body)
+    let headers = req.headers
     let postData = req.body.data
-    let accessToken = req.headers['access-token']
     http.HttpService.post(`${PATH.resetPassword}`, postData, {
       headers: {
-        ...headers,
-        'access-token': accessToken, 
-        signature: utilities.getSignature()
+        'Content-Type': 'application/json',
+        'access-token': headers['access-token'],
+        client: headers['client'], 
+        version: headers['version'], 
+        signature: headers['signature']
       }
     }).then(sres => {
       logger.info(sres)
