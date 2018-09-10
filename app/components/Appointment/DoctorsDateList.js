@@ -41,7 +41,11 @@ class Index extends React.Component {
                   </Tab>
               )}
             </Tabs>
-          ) : <NullImageContent msg='暂无可预约专家、医生信息' image='/static/images/icon-null-doctor.png' />
+          ) :  (
+            <div className='content-center'>
+              <NullImageContent msg='暂无可预约专家、医生信息' image='/static/images/icon-null-doctor.png' />
+            </div>
+          )
         }
       </div>
     )

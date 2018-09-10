@@ -4,7 +4,7 @@ import * as moment from 'moment'
 
 import { Tabs, Tab } from '../Common/Tabs'
 import { NullImageContent } from '../Common/Null'
-import { checkNotNullArr } from '../../utilities/common'
+import { checkNotNullArr, calcDistance } from '../../utilities/common'
 import AppointmentList from './AppointmentList'
 import { loadConsultationScheduleAction } from '../../store/actions/appointment/consultation.action'
 
@@ -39,7 +39,13 @@ class Index extends React.Component {
                 })
               }
             </Tabs>
-          ) : <NullImageContent msg='暂无门诊预约信息' image='/static/images/icon-null-doctor.png' />
+          ) : (
+            <div style={{height: 'calc(100vh - 100px)'}}>
+              <div className='content-center'>
+                <NullImageContent msg='暂无门诊预约信息' image='/static/images/icon-null-doctor.png' />
+              </div>
+            </div>
+          )
         }
       </React.Fragment>
     )

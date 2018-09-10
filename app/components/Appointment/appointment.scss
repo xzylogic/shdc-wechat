@@ -176,6 +176,13 @@
   max-height: 44px !important;
 }
 
+.content-center {
+  position: absolute;
+  top: 50%;
+  margin-top: -55px;
+  width: 100%;
+}
+
 @media (min-resolution: 2dppx){
   .am-button-icon:before {
     border: 0 !important;

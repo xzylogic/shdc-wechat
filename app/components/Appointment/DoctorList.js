@@ -18,7 +18,7 @@ class Index extends React.Component {
   render() {
     const data = this.props.doctors || []
     return (
-      <div>{
+      <React.Fragment>{
       checkNotNullArr(data) ? data.map((obj, index) => (
         <div key={index} className='flex__list__border'>
           <FlexItem
@@ -38,8 +38,12 @@ class Index extends React.Component {
             </MainContainer>
           </FlexItem>
         </div>
-      )) : <NullImageContent msg='暂无可预约专家、医生信息' image='/static/images/icon-null-doctor.png' />
-      }</div>
+      )) : (
+        <div className='content-center'>
+          <NullImageContent msg='暂无可预约专家、医生信息' image='/static/images/icon-null-doctor.png' />
+        </div>
+      )
+      }</React.Fragment>
     )
   }
 }
