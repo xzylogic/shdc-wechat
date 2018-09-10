@@ -55,7 +55,7 @@ class Index extends React.Component {
     if (lat && lng && globalLat !== null && globalLng !== null) {
       distence = calcDistance(lat, lng, globalLat, globalLng)
     }
-    return Number(distence).toFixed(2)
+    return distence && Number(distence).toFixed(2) || ''
   }
 
   render() {
