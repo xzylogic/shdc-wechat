@@ -11,7 +11,7 @@ const headers = {
 }
 
 function getStrategy(url, params, config = {}) {
-  console.log(params)
+  // console.log(params)
   let query = ''
   if (params) {
     query = `?${encodeData(params)}`
@@ -37,9 +37,9 @@ function getStrategy(url, params, config = {}) {
 }
 
 function postStrategy(url, data, config = {}) {
-  console.log(data)
+  // console.log(data)
   let postData = encodeData(JSON.stringify(data))
-  console.log(postData)
+  // console.log(postData)
   return axios.post(url, postData, {
     ...config, 
     ...{
@@ -62,7 +62,7 @@ function postStrategy(url, data, config = {}) {
 }
 
 function postUnSecretStrategy(url, data, config = {}) {
-  console.log(data)
+  // console.log(data)
   return axios.post(url, data, {
     ...config, 
     ...{
@@ -85,9 +85,9 @@ function postUnSecretStrategy(url, data, config = {}) {
 }
 
 function postHostStrategy(url, data, config = {}) {
-  console.log(data)
+  // console.log(data)
   let postData = encodeData(JSON.stringify(data))
-  console.log(postData)
+  // console.log(postData)
   return axios.post(url, {data: postData}, {
     ...config, 
     ...{

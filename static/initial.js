@@ -8,5 +8,5 @@ if (!window.Promise) {
 }
 
 // init vConsole
-var vConsole = new VConsole();
+// var vConsole = new VConsole();
 // console.log('Hello world');
