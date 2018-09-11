@@ -24,7 +24,7 @@ module.exports = {
    */
   login: (req, res) => {
     logger.info(`[login request headers]`, req.headers)
-    logger.info(`[login request body]`, req.body)
+    logger.info(`[login request body]`, req.body.data)
     let headers = req.headers
     let postData = req.body.data
     http.HttpService.post(`${PATH.login}`, postData, {
@@ -54,7 +54,7 @@ module.exports = {
    */
   register: (req, res) => {
     logger.info(`[register request headers]`, req.headers)
-    logger.info(`[register request body]`, req.body)
+    logger.info(`[register request body]`, req.body.data)
     let headers = req.headers
     let postData = req.body.data
     http.HttpService.post(`${PATH.register}`, postData, {
@@ -84,7 +84,7 @@ module.exports = {
    */
   logout: (req, res) => {
     logger.info(`[logout request headers]`, req.headers)
-    logger.info(`[logout request body]`, req.body)
+    logger.info(`[logout request body]`, req.body.data)
     let headers = req.headers
     let postData = req.body.data
     http.HttpService.post(`${PATH.logout}`, postData, {
@@ -117,7 +117,7 @@ module.exports = {
    */
   resetPassword: (req, res) => {
     logger.info(`[resetPassword request headers]`, req.headers)
-    logger.info(`[resetPassword request body]`, req.body)
+    logger.info(`[resetPassword request body]`, req.body.data)
     let headers = req.headers
     let postData = req.body.data
     http.HttpService.post(`${PATH.resetPassword}`, postData, {
