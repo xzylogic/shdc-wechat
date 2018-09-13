@@ -67,7 +67,7 @@ class Index extends React.Component {
           <FlexItem
             sub={<ImgContainer 
               style={{padding: '15px'}} 
-              src={`https://shdcapp.wondersgroup.com/mobilemedicalplatform${obj.hosImage}`} 
+              src={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}.jpg`} 
             />}
             extra=''
             widthSub='100px'
