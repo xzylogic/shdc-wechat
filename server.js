@@ -108,7 +108,7 @@ app.prepare().then(() => {
         })
 
       } else {
-        const originUrl = `${req.protocol}://${config.domain}${req.path}`
+        const originUrl = `${config.domain}${req.path}`
         const redirectUrl = utilities.setRedirectUrl(originUrl, state)
         res.redirect(redirectUrl)
       }
