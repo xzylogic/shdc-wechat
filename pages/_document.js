@@ -15,7 +15,6 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no' />
-          <meta http-equiv='Content-Security-Policy' content='upgrade-insecure-requests' />
           <link rel='shortcut icon' type='image/x-icon' href='/static/favicon.ico' />
           <link rel='stylesheet' href='/static/styles/app.css' />
           <link rel='stylesheet' href='/_next/static/style.css' />
