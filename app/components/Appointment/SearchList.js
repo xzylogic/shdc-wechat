@@ -82,17 +82,20 @@ class Index extends React.Component {
     switch(obj.sign) {
       case '1':
         img.src = `/static/images/avatar_hospital.jpg`
+        img.onError = null
         return
       case '2':
         img.src = `/static/images/avatar_hospital.jpg`
+        img.onError = null
         return
       case '3':
-        img.src = `/static/images/avatar_doctor.jpg`
+        img.src = `/static/images/avatar_doctor.png`
+        img.onError = null
         return
       default:
-        return ''
+        img.onError = null
+        return
     }
-    img.onError = null
   }
 
   render() {
