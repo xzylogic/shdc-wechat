@@ -86,7 +86,7 @@ class Index extends React.Component {
           orderTime: orderInfo.orderTime,
           scheduleId: orderInfo.scheduleId,
           visitCost: orderInfo.visitCost,
-          visitLevelCode: orderInfo.visitLevelCode,
+          visitLevelCode: orderInfo.visitLevelCode
         }
         if (orderInfo.visitNo) {
           submitInfo.visitNo = orderInfo.visitNo
@@ -98,6 +98,7 @@ class Index extends React.Component {
           submitInfo.memberId = memberId
         }
         submitInfo.userName = name
+        submitInfo.patientName = name
         submitInfo.validateCode = value.validateCode
         // console.log(submitInfo)
         store.dispatch(submitOrderAction(submitInfo))

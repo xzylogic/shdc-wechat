@@ -61,7 +61,7 @@ class Index extends React.Component {
   render() {
     const { getFieldProps, getFieldError, getFieldsError, isFieldTouched } = this.props.form
     return (
-      <div>
+      <div className='register__container'>
         <List>
           <Picker 
             {...getFieldProps('userCardType', {initialValue: [1]})}
@@ -92,7 +92,7 @@ class Index extends React.Component {
             type='number' 
             placeholder='请输入验证码'
             labelNumber={7}
-            extra={this.state.codeMsg}
+            extra={<Button type='primary' style={{padding: '0'}} size='small'>{this.state.codeMsg}</Button>}
             onExtraClick={this.getCode}
             error={isFieldTouched('validateCode')&&getFieldError('validateCode')}
             onErrorClick={() => Toast.info(getFieldError('validateCode'))}
