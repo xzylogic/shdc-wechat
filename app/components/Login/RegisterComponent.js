@@ -13,7 +13,7 @@ import { getCodeAction, registerAction } from '../../store/actions/login.action'
 
 import './login.scss'
 
-class Index extends React.Component {
+class Index extends React.PureComponent {
   state = {
     codeMsg: `获取验证码`
   }
