@@ -35,11 +35,11 @@ class Index extends React.Component {
   renderImg = (obj) => {
     switch(obj.sign) {
       case '1':
-        return `/static/images/avatar_hospital.png`
+        return `http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}.jpg`
       case '2':
-        return `/static/images/avatar_department.png`
+        return `http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}.jpg`
       case '3':
-        return `/static/images/avatar_doctor.png`
+        return `http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}_${obj.hosDoctCode}.jpg`
       default:
         return ''
     }
@@ -77,6 +77,24 @@ class Index extends React.Component {
     }
   }
 
+  nofind = (event, obj) => {
+    let img = event.target
+    switch(obj.sign) {
+      case '1':
+        img.src = `/static/images/avatar_hospital.jpg`
+        return
+      case '2':
+        img.src = `/static/images/avatar_hospital.jpg`
+        return
+      case '3':
+        img.src = `/static/images/avatar_doctor.jpg`
+        return
+      default:
+        return ''
+    }
+    img.onError = null
+  }
+
   render() {
     const searchList = this.props.searchList
     return (
@@ -87,6 +105,7 @@ class Index extends React.Component {
               sub={<ImgContainer 
                 style={{padding: '15px'}} 
                 src={this.renderImg(obj)} 
+                onError={(event) => this.nofind(event, obj)}
               />}
               extra=''
               widthSub='100px'

@@ -4,10 +4,13 @@ import { connect } from 'react-redux'
 
 import { FlexItem, ImgContainer, MainContainer } from '../Common/FlexList'
 import { NullList } from '../Common/Null'
-import { checkNotNullArr, calcDistance, Convert_BD09_To_GCJ02 } from '../../utilities/common'
+import { checkNotNullArr, calcDistance, Convert_BD09_To_GCJ02, checkNullArr } from '../../utilities/common'
 import { updateGlobalLocation } from '../../store/actions/global.action'
 
 class Index extends React.Component {
+  state = {
+    imageSrc: ''
+  }
 
   handleClick = (obj) => {
     Router.push(
@@ -58,36 +61,50 @@ class Index extends React.Component {
     return distence && Number(distence).toFixed(2) || ''
   }
 
+  nofind = (event) => {
+    let img = event.target
+    img.src = `/static/images/avatar_hospital.jpg`
+    img.onError = null
+  }
+
   render() {
     const hospitals = this.props.hospitals || []
+    let hospitalList = ''
+    if (typeof window !== 'undefined' && checkNotNullArr(hospitals)) {
+            hospitalList = hospitals.map((obj, index) => (
+              <div key={index} className='flex__list__border'>
+                <FlexItem
+                  sub={<ImgContainer 
+                    style={{padding: '15px'}} 
+                    src={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}.jpg`} 
+                    onError={this.nofind}
+                  />}
+                  extra=''
+                  widthSub='100px'
+                  widthExtra='15px'
+                  onClick={this.handleClick.bind(this, obj)}
+                >
+                  <MainContainer className='hospital__desc'>
+                    <p>{obj.hosName}<span style={{fontSize: '11px', color: '#999', padding: '0 5px'}}>{
+                      this.getDistance(obj.latitude, obj.longitude) ? 
+                      `${this.getDistance(obj.latitude, obj.longitude)}km` : ''
+                    }</span></p>
+                    <p>
+                      地址：{obj.hospitalAdd} 
+                      <i className='anticon icon-enviroment hospital__icon' onClick={this.handleMapClick.bind(this, obj)} />
+                    </p>
+                  </MainContainer>
+                </FlexItem>
+              </div>
+            ))
+    }
+
+    if (checkNullArr(hospitals)) {
+      hospitalList = <NullList />
+    }
+
     return (
-      <div style={{background: '#fff'}}>{
-      checkNotNullArr(hospitals) ? hospitals.map((obj, index) => (
-        <div key={index} className='flex__list__border'>
-          <FlexItem
-            sub={<ImgContainer 
-              style={{padding: '15px'}} 
-              src={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}.jpg`} 
-            />}
-            extra=''
-            widthSub='100px'
-            widthExtra='15px'
-            onClick={this.handleClick.bind(this, obj)}
-          >
-            <MainContainer className='hospital__desc'>
-              <p>{obj.hosName}<span style={{fontSize: '11px', color: '#999', padding: '0 5px'}}>{
-                this.getDistance(obj.latitude, obj.longitude) ? 
-                `${this.getDistance(obj.latitude, obj.longitude)}km` : ''
-              }</span></p>
-              <p>
-                地址：{obj.hospitalAdd} 
-                <i className='anticon icon-enviroment hospital__icon' onClick={this.handleMapClick.bind(this, obj)} />
-              </p>
-            </MainContainer>
-          </FlexItem>
-        </div>
-      )) : <NullList />
-      }</div>
+      <div style={{background: '#fff'}}>{hospitalList}</div>
     )
   }
 }

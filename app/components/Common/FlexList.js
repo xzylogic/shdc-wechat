@@ -25,10 +25,10 @@ export class FlexItem extends React.Component {
 
 export class ImgContainer extends React.Component {
   render() {
-    const { className, style, src } = this.props
+    const { className, style, src, ...rest } = this.props
     return (
       <div className={`img__container ${className || ''}`} style={style}>
-        <img src={src} />
+        <img src={src} {...rest} />
       </div>
     )
   }
