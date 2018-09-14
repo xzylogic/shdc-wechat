@@ -98,6 +98,7 @@ class Index extends React.Component {
             </div>
           </div>
         </WingBlank>
+        <WhiteSpace size='lg' />
       </div>
     )
   }
