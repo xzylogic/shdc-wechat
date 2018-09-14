@@ -25,6 +25,12 @@ class Index extends React.Component {
         return ''
     }
   }
+  
+  nofind = (event) => {
+    let img = event.target
+    img.src = `/static/images/avatar_hospital.jpg`
+    img.onError = null
+  }
 
   render() {
     const hospitals = this.props.hospitals || []
@@ -36,8 +42,9 @@ class Index extends React.Component {
             <FlexItem 
               sub={
                 <ImgContainer 
-                  src={`https://shdcapp.wondersgroup.com/mobilemedicalplatform${obj.hosImage}`} 
+                  src={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}.jpg`} 
                   style={{margin: '15px'}}
+                  onError={this.nofind}
               />}
               onClick={this.handleClick.bind(this, pageType, obj.hosOrgCode)}
             >
