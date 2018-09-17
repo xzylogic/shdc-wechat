@@ -75,7 +75,7 @@ class Index extends React.Component {
               <div key={index} className='flex__list__border'>
                 <FlexItem
                   sub={<ImgContainer 
-                    style={{padding: '15px'}} 
+                    style={{margin: '15px', width: '70px', maxHeight: '70px', overflow: 'hidden'}} 
                     src={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}.jpg`} 
                     onError={this.nofind}
                   />}

@@ -36,9 +36,24 @@ class Index extends React.Component {
   
   render() {
     const { appointments, type, style = {borderTop: '1px solid #eee'} } = this.props
+
     return (
       <React.Fragment>{
         checkNotNullArr(appointments) && appointments.map((schedule, k) => {
+
+          let buttonStatus = ''
+          if (schedule.status == 2) {
+            buttonStatus = <Button size='small' style={{padding: '0', width: '90%'}} disabled>停诊</Button>
+          } else {
+            buttonStatus = schedule.reserveOrderNum == 0 ? (
+              <Button size='small' style={{padding: '0', width: '90%'}} disabled>约满</Button>
+            ) : (
+              <Button size='small' style={{padding: '0', width: '90%', border: 'none'}} 
+                icon={<i className={`anticon icon-downcircleo icon_reverse ${schedule.show ? 'reverse' : ''}`} style={{margin: '0'}} />}
+                onClick={this.loadSchedules.bind(this, k, schedule.scheduleId)} />
+            )
+          }
+          
           return (
             <div key={k} style={style}>
               <Flex>
@@ -52,17 +67,7 @@ class Index extends React.Component {
                   <div className='appointment__item' style={{color: '#f44336'}}>{schedule.visitCost}元</div>
                 </Flex.Item>
                 <Flex.Item>
-                  <div className='appointment__item'>
-                    {
-                      schedule.reserveOrderNum == 0 ? (
-                        <Button size='small' style={{padding: '0', width: '90%'}} disabled>约满</Button>
-                        ) : (
-                          <Button size='small' style={{padding: '0', width: '90%', border: 'none'}} 
-                            icon={<i className={`anticon icon-downcircleo icon_reverse ${schedule.show ? 'reverse' : ''}`} style={{margin: '0'}} />}
-                            onClick={this.loadSchedules.bind(this, k, schedule.scheduleId)} />
-                        )
-                    }
-                  </div>
+                  <div className='appointment__item'>{buttonStatus}</div>
                 </Flex.Item>
               </Flex>
               {
