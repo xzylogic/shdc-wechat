@@ -12,7 +12,7 @@ class DoctorDetail extends React.Component {
           sub={
             <ImgContainer
               style={{width: '70px', height: '70px', margin: '20px', borderRadius: '50%', overflow: 'hidden'}}
-              src={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${doctor.hosOrgCode}_${doctor.hosDoctCode}.jpg`}
+              src={`https://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${doctor.hosOrgCode}_${doctor.hosDoctCode}.jpg`}
           />}
           widthSub='110px'
         >

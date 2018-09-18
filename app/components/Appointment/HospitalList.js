@@ -76,7 +76,7 @@ class Index extends React.Component {
                 <FlexItem
                   sub={<ImgContainer 
                     style={{margin: '15px', width: '70px', maxHeight: '70px', overflow: 'hidden'}} 
-                    src={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}.jpg`} 
+                    src={`https://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}.jpg`} 
                     onError={this.nofind}
                   />}
                   extra=''

@@ -42,7 +42,7 @@ class Index extends React.Component {
             <FlexItem 
               sub={
                 <ImgContainer 
-                  src={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}.jpg`} 
+                  src={`https://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}.jpg`} 
                   style={{margin: '15px'}}
                   onError={this.nofind}
               />}

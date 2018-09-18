@@ -25,7 +25,7 @@ class Index extends React.Component {
             sub={
               <ImgContainer 
                 style={{margin: '15px', width: '70px', height: '70px', borderRadius: '50%', overflow: 'hidden'}} 
-                src={`http://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}_${obj.hosDoctCode}.jpg`} />
+                src={`https://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${obj.hosOrgCode}_${obj.hosDoctCode}.jpg`} />
             }
             extra=''
             widthSub='100px'
