@@ -88,12 +88,16 @@ class Index extends React.Component {
           visitCost: orderInfo.visitCost,
           visitLevelCode: orderInfo.visitLevelCode,
           hosName: orderInfo.hosName,
+          deptName: orderInfo.deptName
         }
         if (orderInfo.visitNo) {
           submitInfo.visitNo = orderInfo.visitNo
         }
         if (orderInfo.hosDoctCode) {
           submitInfo.hosDoctCode = orderInfo.hosDoctCode
+        }
+        if (orderInfo.doctName) {
+          submitInfo.doctName = orderInfo.doctName
         }
         if (memberId) {
           submitInfo.memberId = memberId
