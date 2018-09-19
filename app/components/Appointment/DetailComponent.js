@@ -78,7 +78,9 @@ class Index extends React.Component {
     this.props.form.validateFields((error, value) => {
       if(!error) {
         const name = value.member[0].split('+')[0]
-        const memberId = value.member[0].split('+')[1]
+        const cardType = value.member[0].split('+')[1]
+        const cardId = value.member[0].split('+')[2]
+        const memberId = value.member[0].split('+')[3]
         let submitInfo = {
           hosDeptCode: orderInfo.hosDeptCode,
           hosOrgCode: orderInfo.hosOrgCode,
@@ -104,6 +106,8 @@ class Index extends React.Component {
         }
         submitInfo.userName = name
         submitInfo.patientName = name
+        submitInfo.patientCardId = cardId
+        submitInfo.patientCardType = cardType
         submitInfo.validateCode = value.validateCode
         // console.log(submitInfo)
         store.dispatch(submitOrderAction(submitInfo))
@@ -138,7 +142,7 @@ class Index extends React.Component {
         <WhiteSpace />
         <List>
           <InputItem
-            name='username' 
+            name='hosName' 
             type='text' 
             labelNumber={7}
             value={orderInfo && orderInfo.hosName || ''}
@@ -146,7 +150,7 @@ class Index extends React.Component {
             disabled
           ><i className='anticon icon-home detail__icon' />医院名称:</InputItem>
           <InputItem 
-            name='password'
+            name='deptName'
             type='text'
             labelNumber={7}
             value={orderInfo && orderInfo.deptName || ''}
@@ -156,7 +160,7 @@ class Index extends React.Component {
           {
             orderInfo && orderInfo.visitLevelCode == 1 ? (
               <InputItem
-                name='username' 
+                name='doctName' 
                 type='text' 
                 labelNumber={7}
                 value={orderInfo && orderInfo.doctName || ''}
@@ -166,7 +170,7 @@ class Index extends React.Component {
             ) : ''
           }
           <InputItem 
-            name='password'
+            name='orderTime'
             type='text'
             labelNumber={7}
             value={orderInfo && orderInfo.orderTime && this.getOrderTime(orderInfo.orderTime) || ''}
@@ -174,7 +178,7 @@ class Index extends React.Component {
             disabled
           ><i className='anticon icon-clockcircleo detail__icon' />门诊时间:</InputItem>
           <InputItem
-            name='username' 
+            name='visitCost' 
             type='text' 
             labelNumber={7}
             value={`¥${orderInfo && orderInfo.visitCost || 0}元`}
@@ -183,7 +187,6 @@ class Index extends React.Component {
           ><i className='anticon icon-pay-circle-o1 detail__icon' />挂号费用:</InputItem>
           <InputItem
             {...getFieldProps('mobile', {initialValue: accountInfo && accountInfo.mobile})}
-            name='mobile' 
             type='text' 
             labelNumber={7}
             style={{color: '#35b2f2'}}
