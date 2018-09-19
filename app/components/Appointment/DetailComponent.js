@@ -87,7 +87,7 @@ class Index extends React.Component {
           scheduleId: orderInfo.scheduleId,
           visitCost: orderInfo.visitCost,
           visitLevelCode: orderInfo.visitLevelCode,
-          hosOrgName: orderInfo.hosName
+          hosOrgName: orderInfo.hosName,
         }
         if (orderInfo.visitNo) {
           submitInfo.visitNo = orderInfo.visitNo

@@ -16,13 +16,13 @@ class Index extends React.Component {
       <React.Fragment>
         <List style={{background: '#fff'}}>{
           articles && checkNotNullArr(articles) && articles.map((article, i) => (
-            <List.Item 
-              key={i} 
-              extra={article.pubdate ? momnet(article.pubdate).format('YYYY-MM-DD') : ''}
-              style={{height: '55px'}}
-              onClick={() => { window.location.href = article.newsUrl }}
-              className={article.pubdate ? '' : 'article__content'}
-            >{article.title}</List.Item>
+            <a href={article.newsUrl} referrer='origin' target='_blank' key={i} >
+              <List.Item 
+                extra={article.pubdate ? momnet(article.pubdate).format('YYYY-MM-DD') : ''}
+                style={{height: '55px'}}
+                className={article.pubdate ? '' : 'article__content'}
+              >{article.title}</List.Item>
+            </a>
           ))
         }</List>
       </React.Fragment>

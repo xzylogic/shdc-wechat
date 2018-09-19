@@ -34,7 +34,9 @@ function* loadDepartments() {
 
     const data = yield call(getDepartmentsService, hosOrgCode, deptType)
     if (data && data[0] && !data[0].children) {
-      yield data[0].children = []
+      const children = [{...data[0]}]
+      // console.log(children)
+      yield data[0].children = children
     }
 
     if (data) {
@@ -62,10 +64,14 @@ function* loadDepartmentsChild(actions) {
     if (departmentsParent && departmentsParent[actions.index] && !departmentsParent[actions.index].children) {
       yield startLoading('加载中')
       const data = yield call(getDepartmentsChildService, hosOrgCode, deptType, actions.parentId)
-      if (data) {
+      // console.log(data)
+      if (data && Array.isArray(data)) {
         yield put(updateDepartmentsChild(data, actions.parentId, actions.index))
         yield endLoading()
-      }  
+      } else if (data) {
+        yield put(updateDepartmentsChild([{...departmentsParent[actions.index]}], actions.parentId, actions.index))
+        yield endLoading()
+      }
     }
   } catch (error) {
     if (error && error.message == CODE.NOT_LOGIN) {

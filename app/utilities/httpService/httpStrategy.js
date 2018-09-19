@@ -10,6 +10,15 @@ const headers = {
   }
 }
 
+function objKeySort(obj) {
+  var newkey = Object.keys(obj).sort()
+  var newObj = {}
+  for (var i = 0; i < newkey.length; i++) {
+    newObj[newkey[i]] = obj[newkey[i]]
+  }
+  return newObj
+}
+
 function getStrategy(url, params, config = {}) {
   // console.log(params)
   let query = ''
@@ -37,28 +46,30 @@ function getStrategy(url, params, config = {}) {
 }
 
 function postStrategy(url, data, config = {}) {
-  // console.log(data)
-  let postData = encodeData(JSON.stringify(data))
-  // console.log(postData)
-  return axios.post(url, postData, {
-    ...config, 
-    ...{
-      headers: {
-        ...config.headers, 
-        ...headers.headers, 
-        signature: getSignature(),
-        'Content-Type': 'application/json'
+  if (typeof data === 'object') {
+    console.log(JSON.stringify(objKeySort(data)))
+    let postData = encodeData(JSON.stringify(objKeySort(data)))
+    // console.log(postData)
+    return axios.post(url, postData, {
+      ...config, 
+      ...{
+        headers: {
+          ...config.headers, 
+          ...headers.headers, 
+          signature: getSignature(),
+          'Content-Type': 'application/json'
+        }
+      },
+    }).then(res => res && res.data).then(res => {
+      if (res.code == CODE.SUCCESS) {
+        return res.data || res.msg || true
+      } else if (res.code == CODE.NOT_LOGIN) {
+        throw new Error(CODE.NOT_LOGIN)
+      } else {
+        throw new Error(res.msg || '未知错误')
       }
-    },
-  }).then(res => res && res.data).then(res => {
-    if (res.code == CODE.SUCCESS) {
-      return res.data || res.msg || true
-    } else if (res.code == CODE.NOT_LOGIN) {
-      throw new Error(CODE.NOT_LOGIN)
-    } else {
-      throw new Error(res.msg || '未知错误')
-    }
-  })
+    })
+  }
 }
 
 function postUnSecretStrategy(url, data, config = {}) {
@@ -85,8 +96,8 @@ function postUnSecretStrategy(url, data, config = {}) {
 }
 
 function postHostStrategy(url, data, config = {}) {
-  // console.log(data)
-  let postData = encodeData(JSON.stringify(data))
+  console.log(JSON.stringify(objKeySort(data)))
+  let postData = encodeData(JSON.stringify(objKeySort(data)))
   // console.log(postData)
   return axios.post(url, {data: postData}, {
     ...config, 
