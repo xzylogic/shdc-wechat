@@ -80,7 +80,9 @@ class Index extends React.Component {
         const name = value.member[0].split('+')[0]
         const cardType = value.member[0].split('+')[1]
         const cardId = value.member[0].split('+')[2]
-        const memberId = value.member[0].split('+')[3]
+        const mcardType = value.member[0].split('+')[3]
+        const mcardId = value.member[0].split('+')[4]
+        const memberId = value.member[0].split('+')[5]
         let submitInfo = {
           hosDeptCode: orderInfo.hosDeptCode,
           hosOrgCode: orderInfo.hosOrgCode,
@@ -103,6 +105,10 @@ class Index extends React.Component {
         }
         if (memberId) {
           submitInfo.memberId = memberId
+        }
+        if (mcardType && mcardId) {
+          submitInfo.medicineCardIdType = mcardType
+          submitInfo.medicineCardId = mcardId
         }
         submitInfo.userName = name
         submitInfo.patientName = name

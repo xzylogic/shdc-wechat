@@ -135,7 +135,7 @@ export const getMembers = (accountList) => {
       } else if (account.cardType) {
         label = `【${renderCardType(account.cardType)}】${encodeName(account.name)}(尾号${getLastFour(account.cardId)})`
       }
-      value = `${account.name}+${account.medicineCardType || account.cardType}+${account.medicineCardId || account.cardId}+${account.memberId || ''}`
+      value = `${account.name}+${account.cardType || ''}+${account.cardId || ''}+${account.medicineCardType || ''}+${account.medicineCardId || ''}+${account.memberId || ''}`
       return {
         label: label,
         value: value
@@ -169,7 +169,7 @@ export const getCardList = (accountList, ifKey) => {
 export const getInitialMember = (accountList) => {
   let initialValue = ''
   if (accountList && Array.isArray(accountList) && accountList[0]) {
-    initialValue = `${accountList[0].name}+${accountList[0].medicineCardType || accountList[0].cardType}+${accountList[0].medicineCardId || accountList[0].cardId}+${accountList[0].memberId || ''}`
+    initialValue = `${accountList[0].name}+${accountList[0].cardType || ''}+${accountList[0].cardId || ''}+${accountList[0].medicineCardType || ''}+${accountList[0].medicineCardId || ''}+${accountList[0].memberId || ''}`
   }
   return [initialValue]
 }
