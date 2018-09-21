@@ -178,8 +178,6 @@ class Index extends React.PureComponent {
           <DatePicker
             {...getFieldProps('birthday', {rules: [{required: true, message: '请选择出生日期'}]})}
             mode='date'
-            minDate={new Date(`${new Date().getFullYear() - 120}-01-01`)}
-            maxDate={new Date()}
           >
             <List.Item arrow='horizontal'><i className='anticon icon-gift login__icon' />生日</List.Item>
           </DatePicker>
