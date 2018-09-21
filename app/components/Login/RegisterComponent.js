@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 import Link from 'next/link'
 import { 
   List, InputItem, WingBlank, WhiteSpace, Button, 
-  Picker, DatePicker, TextareaItem, Checkbox, Toast 
+  Picker, TextareaItem, Checkbox, Toast 
 } from 'antd-mobile'
 import { createForm } from 'rc-form'
 import * as moment from 'moment'
 
 import { hasErrors, cardList } from '../../utilities/common'
 import { getCodeAction, registerAction } from '../../store/actions/login.action'
+import MyDatePicker from './DatePicker'
 
 import './login.scss'
 
@@ -175,12 +176,7 @@ class Index extends React.PureComponent {
           >
             <List.Item arrow='horizontal'><i className='anticon icon-smileo login__icon' />性别</List.Item>
           </Picker>
-          <DatePicker
-            {...getFieldProps('birthday', {rules: [{required: true, message: '请选择出生日期'}]})}
-            mode='date'
-          >
-            <List.Item arrow='horizontal'><i className='anticon icon-gift login__icon' />生日</List.Item>
-          </DatePicker>
+          <MyDatePicker {...getFieldProps('birthday', {rules: [{required: true, message: '请选择出生日期'}]})} />
           <TextareaItem 
             {...getFieldProps('address', {rules: [{required: false, message: '请输入联系地址'}]})}
             title={<div><i className='anticon icon-enviromento login__icon' />联系地址</div>}
