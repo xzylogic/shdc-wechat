@@ -11,7 +11,7 @@ export const AppointmentCard = ({data, handleCancel}) => (
       <Card.Body className='user__resettips'>
         <p>预约时间： {data && data.scheduleDate}</p>
         <p>预约医院： {data && data.hosOrgName}</p>
-        <p>预约科室： {data && data.deptName}</p>
+        <p>预约科室： {data && data.deptName}{ (data && data.doctName) ? `（${data.doctName}）` : '' }</p>
         <p>预约编号： {data && data.hosNumSourceId}</p>
         <WhiteSpace />
         {
