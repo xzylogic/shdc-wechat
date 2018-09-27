@@ -72,13 +72,14 @@ function* register(actions) {
   }
 }
 
-const getCodeService = (data) => {
-  return HttpService.post(`${PATH.getCode}`, data)
+const getCodeService = (data, accessToken) => {
+  return HttpService.post(`${PATH.getCode}`, data, {headers: { 'access-token': accessToken || ''}})
 }
 
 function* getCode(actions) {
+  const { accessToken } = yield select(state=> state.globalReducer)
   yield startLoading()
-  const codeRes = yield call(getCodeService, actions.data)
+  const codeRes = yield call(getCodeService, actions.data, accessToken)
   if (codeRes) {
     yield Toast.info(codeRes)
   }
