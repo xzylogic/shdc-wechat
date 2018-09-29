@@ -238,45 +238,50 @@ export const encodeData = (data) => {
 }
 
 export const encodeCard = (card) => {
-  card = card && card.toString() || ''
-  let star = ''
-  for (let i = 0; i < card.length - 8; i++) {
-    star += '*'
-  }
-  let newCard = card.replace(/^(.{4})(.*)(.{4})(?=\b)$/, `$1${star}$3`)
-  return newCard
+  // card = card && card.toString() || ''
+  // let star = ''
+  // for (let i = 0; i < card.length - 8; i++) {
+  //   star += '*'
+  // }
+  // let newCard = card.replace(/^(.{4})(.*)(.{4})(?=\b)$/, `$1${star}$3`)
+  // return newCard
+  return card
 }
 
 export const encodeMCard = (card) => {
-  card = card && card.toString() || ''
-  let star = ''
-  for (let i = 0; i < card.length - 5; i++) {
-    star += '*'
-  }
-  let newCard = card.replace(/^(.{3})(.*)(.{2})(?=\b)$/, `$1${star}$3`)
-  return newCard
+  // card = card && card.toString() || ''
+  // let star = ''
+  // for (let i = 0; i < card.length - 5; i++) {
+  //   star += '*'
+  // }
+  // let newCard = card.replace(/^(.{3})(.*)(.{2})(?=\b)$/, `$1${star}$3`)
+  // return newCard
+  return card
 }
 
 export const encodeTel = (card) => {
-  card = card && card.toString() || ''
-  let star = ''
-  for (let i = 0; i < card.length - 7; i++) {
-    star += '*'
-  }
-  let newCard = card.replace(/^(.{3})(.*)(.{4})(?=\b)$/, `$1${star}$3`)
-  return newCard
+  // card = card && card.toString() || ''
+  // let star = ''
+  // for (let i = 0; i < card.length - 7; i++) {
+  //   star += '*'
+  // }
+  // let newCard = card.replace(/^(.{3})(.*)(.{4})(?=\b)$/, `$1${star}$3`)
+  // return newCard
+  return card
 }
 
 export const encodeName = (name) => {
-  name = name && name.toString() || ''
-  let newName = name.replace(/^(.{1})(.*)$/, `*$2`)
-  return newName
+  // name = name && name.toString() || ''
+  // let newName = name.replace(/^(.{1})(.*)$/, `*$2`)
+  // return newName
+  return name
 }
 
 export const encodeDate = (date) => {
-  date = date && date.toString() || ''
-  let newDate = date.replace(/^(.{2}).{2}(.{1}).{2}(.{1}).{1}(.{1})$/, `$1**$2**$3*$4`)
-  return newDate
+  // date = date && date.toString() || ''
+  // let newDate = date.replace(/^(.{2}).{2}(.{1}).{2}(.{1}).{1}(.{1})$/, `$1**$2**$3*$4`)
+  // return newDate
+  return date
 }
 
 export const calcDistance = (lat1, lng1, lat2, lng2) => {

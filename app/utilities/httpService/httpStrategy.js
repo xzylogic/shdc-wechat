@@ -47,7 +47,7 @@ function getStrategy(url, params, config = {}) {
 
 function postStrategy(url, data, config = {}) {
   if (typeof data === 'object') {
-    console.log(JSON.stringify(objKeySort(data)))
+    // console.log(JSON.stringify(objKeySort(data)))
     let postData = encodeData(JSON.stringify(objKeySort(data)))
     // console.log(postData)
     return axios.post(url, postData, {
@@ -96,7 +96,7 @@ function postUnSecretStrategy(url, data, config = {}) {
 }
 
 function postHostStrategy(url, data, config = {}) {
-  console.log(JSON.stringify(objKeySort(data)))
+  // console.log(JSON.stringify(objKeySort(data)))
   let postData = encodeData(JSON.stringify(objKeySort(data)))
   // console.log(postData)
   return axios.post(url, {data: postData}, {
