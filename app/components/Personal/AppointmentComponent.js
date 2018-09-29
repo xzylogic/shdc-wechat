@@ -27,7 +27,7 @@ class Index extends React.Component {
   render() {
     const store = this.props
     const { appointmentList, searchParam } = store.appointmentReducer
-    const filterAppointmentList = appointmentList.filter(obj => obj.mediCardId === searchParam)
+    const filterAppointmentList = appointmentList.filter(obj => obj.patientCardId === searchParam)
     return (
       <div>
         <UserCard value={searchParam} onChange={(value)=> store.dispatch(updateAppointmentParamAction(value[0]))} />

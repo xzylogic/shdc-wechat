@@ -156,7 +156,7 @@ export const getCardList = (accountList, ifKey) => {
       } else if (account.cardType) {
         label = `【${renderCardType(account.cardType)}】${encodeName(account.name)}(尾号${getLastFour(account.cardId)})`
       }
-      value = ifKey ? index : account.medicineCardId || account.cardId
+      value = ifKey ? index : account.cardId
       return {
         label: label,
         value: value
