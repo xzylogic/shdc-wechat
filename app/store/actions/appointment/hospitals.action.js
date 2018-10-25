@@ -51,14 +51,14 @@ export const updateHospitalsZK = (data) => {
   }
 }
 
-export const updateTab = (data) => {
+export const updateTabAction = (data) => {
   return {
     type: actionTypes.UPDATE_TAB,
     data: data
   }
 }
 
-export const updateSearchParam = (data) => {
+export const updateSearchParamAction = (data) => {
   return {
     type: actionTypes.UPDATE_SEARCH_PARAM,
     data: data

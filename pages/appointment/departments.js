@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
 import RenderError from '../../app/components/Common/RenderError'
-import DepartmentsComponent from '../../app/components/Appointment/DepartmentsComponent'
+import DepartmentsComponent from '../../app/components/Appointment/DepartmentsComponent/DepartmentsComponent'
 
 import { initGlobalQuery, checkNullArr } from '../../app/utilities/common'
 import { initDepartmentsCodeAction, loadDepartmentsAction } from '../../app/store/actions/appointment/departments.action'

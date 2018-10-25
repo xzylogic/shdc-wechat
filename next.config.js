@@ -25,6 +25,12 @@ module.exports = withSass({
   // You may only need to add assetPrefix in the production.
   // assetPrefix: dev ? 'https://cdn.mydomain.com' : '',
 
+  cssModules: {
+    importLoaders: 1,
+    modules: true,
+    localIdentName: '[name]__[local]__[hash:base64:5]'
+  },
+
   webpack: (config, {
     buildId,
     dev,

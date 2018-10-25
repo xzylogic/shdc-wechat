@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
 import RenderError from '../../app/components/Common/RenderError'
-import EntranceComponent from '../../app/components/Appointment/EntranceComponent'
+import EntranceComponent from '../../app/components/Appointment/EntranceComponent/EntranceComponent'
 
 import { initGlobalQuery } from '../../app/utilities/common'
 

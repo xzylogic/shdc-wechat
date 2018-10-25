@@ -42,7 +42,7 @@ class Index extends React.Component {
     return (
       <div>
         <div style={{paddingRight: '30px'}}>
-          <SearchBar 
+          <SearchBar
             placeholder='请输入医院名称、科室、专家姓名' 
             value={searchParam}
             onChange={this.handleSearch}

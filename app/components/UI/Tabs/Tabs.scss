@@ -1,0 +1,78 @@
+@import '../../theme';
+
+.TabsContainer {
+  background: $color-white;
+  overflow: hidden;
+}
+
+.TabsContainer:before,
+.TabsContainer:after {
+  content: '';
+  display: table;
+  height: 0;
+  clear: both;
+}
+
+.TabsTitlesHorizontal {
+  position: relative;
+  width: 100%;
+  background: $color-white;
+  overflow: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-top: 1px solid $color-border-light;
+  border-bottom: 1px solid $color-border-light;
+  color: $color-primary;
+  .title {
+    line-height: 1.5;
+    display: inline-block;
+    padding: 10px 5px;
+    border-right: 1px solid $color-border-light;
+    text-align: center;
+    white-space: normal;
+  }
+  .title:first-child {
+    border-left: 1px solid $color-border-light;
+  }
+  .title.active {
+    background: $color-primary;
+    color: $color-white;
+  }
+}
+
+.TabsContentHorizontal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+.TabsTitlesVertical,
+.TabsContnetVertical {
+  position: relative;
+  float: left;
+  height: 100%;
+  overflow: scroll;
+}
+
+.TabsTitlesVertical {
+  width: 35%;
+  background: $color-background;
+  .Title {
+    padding: 10px;
+    border-bottom: 1px solid $color-border-light;
+    text-align: center;
+  }
+  .Title.Active {
+    background: $color-white;
+  }
+}
+
+.TabsContnetVertical {
+  width: 65%;
+}
+
+.TabContent {
+  position: relative;
+  height: auto;
+}

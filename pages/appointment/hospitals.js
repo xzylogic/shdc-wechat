@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
 import RenderError from '../../app/components/Common/RenderError'
-import HospitalsComponent from '../../app/components/Appointment/HospitalsComponent'
+import HospitalsComponent from '../../app/components/Appointment/HospitalsComponent/HospitalsComponent'
 
 import { initGlobalQuery, checkNullArr } from '../../app/utilities/common'
 import { loadHospitalsAction } from '../../app/store/actions/appointment/hospitals.action'

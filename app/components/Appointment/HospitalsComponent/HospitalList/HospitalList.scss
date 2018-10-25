@@ -1,0 +1,28 @@
+@import '../../../theme';
+
+.HospitalList {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.HospitalContent {
+  padding: 15px 15px 15px 0;
+  line-height: 1.75;
+  .Title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .Content {
+    font-size: 15px;
+  }
+}
+
+.Distance {
+  font-size: 12px;
+  color: $color-text-third;
+}
+
+.Icon {
+  color: $color-green;
+  margin: 0 5px;
+}

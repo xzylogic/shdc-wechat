@@ -1,0 +1,37 @@
+.FlexItem {
+  position: relative;
+  width: 100%;
+}
+
+.FlexItem:before,
+.FlexItem:after {
+  content: '';
+  display: table;
+  height: 0;
+  clear: both;
+}
+
+.MainContainer,
+.SubContainer,
+.ExtraContainer {
+  position: relative;
+  float: left;
+}
+
+.MainContainer {
+  width: 100%;
+}
+
+.MainContent {
+  padding: 0 30px 0 80px;
+}
+
+.SubContainer {
+  width: 80px;
+  margin-left: -100%;
+}
+
+.ExtraContainer {
+  width: 30px;
+  margin-left: -30px;
+}
