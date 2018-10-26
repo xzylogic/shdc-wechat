@@ -1,0 +1,30 @@
+@import '../../../theme';
+
+.DoctorList {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.DoctorInfoContent {
+  padding: 16px 16px 16px 0;
+  line-height: 1.75;
+  font-size: 16px;
+  .Title {
+    padding-bottom: 10px;
+    color: $color-text-second;
+  }
+  .Content {
+    width: 100%;
+    height: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.CenterContent {
+  position: absolute;
+  top: 45%;
+  margin-top: -55px;
+  width: 100%;
+}

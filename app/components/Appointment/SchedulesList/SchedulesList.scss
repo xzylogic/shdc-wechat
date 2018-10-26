@@ -1,0 +1,19 @@
+@import '../../theme';
+
+.ScheduleList {
+  border-bottom: 1px solid #eee;
+}
+
+.ScheduleItem {
+  font-size: 15px;
+  text-align: center;
+  padding: 10px 0;
+  .am-button-icon {
+    color: $color-text-third;
+  }
+}
+
+.ScheduleChildren {
+  border-top: 1px solid #eee;
+  background: $color-background;
+}

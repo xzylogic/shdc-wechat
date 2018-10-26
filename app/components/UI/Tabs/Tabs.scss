@@ -3,6 +3,7 @@
 .TabsContainer {
   background: $color-white;
   overflow: hidden;
+  font-size: 16px;
 }
 
 .TabsContainer:before,
@@ -18,23 +19,22 @@
   width: 100%;
   background: $color-white;
   overflow: hidden;
-  overflow-x: auto;
+  overflow-x: auto; 
   white-space: nowrap;
-  border-top: 1px solid $color-border-light;
-  border-bottom: 1px solid $color-border-light;
   color: $color-primary;
-  .title {
-    line-height: 1.5;
+  line-height: 1.5;
+  border-bottom: 1px solid #eee;
+  .Title {
     display: inline-block;
     padding: 10px 5px;
     border-right: 1px solid $color-border-light;
     text-align: center;
     white-space: normal;
   }
-  .title:first-child {
-    border-left: 1px solid $color-border-light;
+  .Title:last-child {
+    border-right: 0;
   }
-  .title.active {
+  .Title.Active {
     background: $color-primary;
     color: $color-white;
   }

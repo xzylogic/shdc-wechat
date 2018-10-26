@@ -2,7 +2,7 @@ import React from 'react'
 
 import classes from './Tabs.scss'
 
-export const Tab =({title, children}) => (<div className={classes.TabContent}>{children}</div>)
+export const Tab =({title, children, style}) => (<div className={classes.TabContent}>{children}</div>)
 
 export class Tabs extends React.Component {
   state = {

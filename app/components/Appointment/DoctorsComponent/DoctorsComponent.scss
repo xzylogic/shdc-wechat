@@ -1,0 +1,13 @@
+.DoctorsContent {
+  position: relative;
+  min-height: 300px;
+  height: calc(100vh - 114px);
+  overflow-y: scroll;
+}
+
+.SearchContent {
+  position: relative;
+  min-height: 300px;
+  height: calc(100vh - 44px);
+  overflow-y: scroll;
+}

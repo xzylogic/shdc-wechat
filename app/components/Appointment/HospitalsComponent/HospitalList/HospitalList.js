@@ -14,11 +14,11 @@ const hospitalList = (props) => {
       const iconClass = ['anticon', 'icon-enviroment', classes.Icon]
       const distance = props.getDistance && props.getDistance(hospital.latitude, hospital.longitude)
       let imgUrl = ''
-      let defalutImgIrl = ''
+      let defalutImgUrl = ''
       let mainContent = ''
       if (!hospital.sign) {
         imgUrl = `https://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${hospital.hosOrgCode}.jpg`
-        defalutImgIrl = '/static/images/avatar_hospital.png'
+        defalutImgUrl = '/static/images/avatar_hospital.png'
         mainContent = (
           <div className={classes.HospitalContent}>
             <p className={classes.Title}>
@@ -32,7 +32,7 @@ const hospitalList = (props) => {
       }
       if (hospital.sign && hospital.sign === '1') {
         imgUrl = `https://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${hospital.hosOrgCode}.jpg`
-        defalutImgIrl = '/static/images/avatar_hospital.png'
+        defalutImgUrl = '/static/images/avatar_hospital.png'
         mainContent = (
           <div className={classes.HospitalContent}>
             <p className={classes.Title}>{hospital.hosName}</p>
@@ -43,7 +43,7 @@ const hospitalList = (props) => {
       }
       if (hospital.sign && hospital.sign === '2') {
         imgUrl = `https://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${hospital.hosOrgCode}.jpg`
-        defalutImgIrl = '/static/images/avatar_hospital.png'
+        defalutImgUrl = '/static/images/avatar_hospital.png'
         mainContent = (
           <div className={classes.HospitalContent}>
             <p className={classes.Title}>{hospital.deptName}</p>
@@ -54,7 +54,7 @@ const hospitalList = (props) => {
       }
       if (hospital.sign && hospital.sign === '3') {
         imgUrl = `https://yuyue.shdc.org.cn:9080/uploadImage/docImgSmall/${hospital.hosOrgCode}_${hospital.hosDoctCode}.jpg`
-        defalutImgIrl = '/static/images/avatar_doctor.png'
+        defalutImgUrl = '/static/images/avatar_doctor.png'
         mainContent = (
           <div className={classes.HospitalContent}>
             <p className={classes.Title}>{hospital.doctName}</p>
@@ -71,7 +71,7 @@ const hospitalList = (props) => {
           subWidth='100px'
           subContent={
             <div style={{padding: '15px', height: '100px'}}>
-              <ImageContainer src={imgUrl} defalutImage={defalutImgIrl} /> 
+              <ImageContainer src={imgUrl} defalutImage={defalutImgUrl} /> 
             </div>
           }
           extraWidth='0'

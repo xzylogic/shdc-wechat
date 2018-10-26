@@ -87,23 +87,22 @@ export class DepartmentComponent extends Component {
         </Tabs>
       )
     } else if (this.props.searchDepartments && checkNotNullArr(this.props.searchDepartments)) {
+      const departmentsChildren = this.props.searchDepartments.map((departments,indexP) => {
+        return (
+          <Tab title={departments.deptName} key={indexP}>
+            <DepartmentChildren
+              departmentChildren={departments.children} 
+              onClick={(event, child) => this.handleClick(event, child, departments)} />
+          </Tab>
+        )
+      })
       departments = (
         <Tabs
           mode='vertical'
           containerStyle={{height: 'calc(100vh - 44px)'}}
           index={this.state.tabIndex}
           handleTabClick={this.handleTabClick}>
-          {
-            this.props.searchDepartments.map((departments,indexP) => {
-              return (
-                <Tab title={departments.deptName} key={indexP}>
-                  <DepartmentChildren
-                    departmentChildren={departments.children} 
-                    onClick={(event, child) => this.handleClick(event, child, departments)} />
-                </Tab>
-              )
-            })
-          }
+          {departmentsChildren}
         </Tabs>
       )
     }
