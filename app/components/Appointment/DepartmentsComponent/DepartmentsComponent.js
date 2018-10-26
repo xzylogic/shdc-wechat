@@ -5,15 +5,13 @@ import { SearchBar } from 'antd-mobile'
 import * as debounce from 'lodash.debounce'
 
 import { Tabs, Tab } from '../../UI/Tabs/Tabs'
-import { NullContent} from '../../Common/Null'
+import DepartmentChildren from './DepartmentChildren/DepartmentChildren'
 import {
   loadDepartmentsChildAction,
   updateDepartmentsParamAction,
   loadDepartmentsSearchAction
 } from '../../../store/actions/appointment/departments.action'
 import { checkNotNullArr } from '../../../utilities/common'
-
-import classes from './DepartmentsComponent.scss'
 
 export class DepartmentComponent extends Component {
   state = {
@@ -39,35 +37,36 @@ export class DepartmentComponent extends Component {
     await this.props.onLoadDepartmentsSearch()
   }
 
-  // handleClick = (pageType, hosOrgCode, parent, child) => {
-  //   switch(pageType) {
-  //     case '1':
-  //       Router.push(
-  //         `/appointment/doctors?hosOrgCode=${hosOrgCode}&hosDeptCode=${child.hosDeptCode}&toHosDeptCode=${parent.hosDeptCode}`,
-  //         `/appointment/doctors/${hosOrgCode}/${child.hosDeptCode}/${parent.hosDeptCode}`
-  //       )
-  //       return
-  //     case '2':
-  //       Router.push(
-  //         `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${child.hosDeptCode}&toHosDeptCode=${parent.hosDeptCode}&pageType=${pageType}&deptName=${child.deptName}`,
-  //         `/appointment/consultation/${hosOrgCode}/${child.hosDeptCode}/${parent.hosDeptCode}/${pageType}/${child.deptName}`
-  //       )
-  //       return
-  //     case '3':
-  //       Router.push(
-  //         `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${child.hosDeptCode}&toHosDeptCode=${parent.hosDeptCode}&pageType=${pageType}&deptName=${child.deptName}`, 
-  //         `/appointment/consultation/${hosOrgCode}/${child.hosDeptCode}/${parent.hosDeptCode}/${pageType}/${child.deptName}`
-  //       )
-  //       return
-  //     default:
-  //       return ''
-  //   }
-  // }
+  handleClick = (event, child, parent) => {
+    const { pageType, hosOrgCode } = this.props
+    console.log(event, child, parent)
+    switch(pageType) {
+      case '1':
+        Router.push(
+          `/appointment/doctors?hosOrgCode=${hosOrgCode}&hosDeptCode=${child.hosDeptCode}&toHosDeptCode=${parent.hosDeptCode}`,
+          `/appointment/doctors/${hosOrgCode}/${child.hosDeptCode}/${parent.hosDeptCode}`
+        )
+        return
+      case '2':
+        Router.push(
+          `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${child.hosDeptCode}&toHosDeptCode=${parent.hosDeptCode}&pageType=${pageType}&deptName=${child.deptName}`,
+          `/appointment/consultation/${hosOrgCode}/${child.hosDeptCode}/${parent.hosDeptCode}/${pageType}/${child.deptName}`
+        )
+        return
+      case '3':
+        Router.push(
+          `/appointment/consultation?hosOrgCode=${hosOrgCode}&hosDeptCode=${child.hosDeptCode}&toHosDeptCode=${parent.hosDeptCode}&pageType=${pageType}&deptName=${child.deptName}`, 
+          `/appointment/consultation/${hosOrgCode}/${child.hosDeptCode}/${parent.hosDeptCode}/${pageType}/${child.deptName}`
+        )
+        return
+      default:
+        return ''
+    }
+  }
 
   render() {
-    const departmentsParent = [...this.props.departmentsParent]
     let departments = ''
-    if (!this.props.searchParam && checkNotNullArr(departmentsParent)) {
+    if (!this.props.searchParam && checkNotNullArr(this.props.departmentsParent)) {
       departments = (
         <Tabs
           mode='vertical'
@@ -75,24 +74,32 @@ export class DepartmentComponent extends Component {
           index={this.state.tabIndex}
           handleTabClick={this.handleTabClick}>
           {
-            departmentsParent.map((departments,indexP) => {
-              let children = ''
-              if(checkNotNullArr(departments.children)) {
-                const departmentsChildren = [...departments.children]
-                children = departmentsChildren.map((children, indexC) => (
-                  <div
-                    key={indexC}
-                    className={classes.DepartmentList}
-                    onClick={(event) => this.handleClick.bind(event, children)}>
-                    {children.deptName}
-                  </div>
-                ))
-              } else {
-                children = <NullContent msg='暂无子科室' /> 
-              }
+            this.props.departmentsParent.map((departments,indexP) => {
               return (
                 <Tab title={departments.deptName} key={indexP}>
-                {children}
+                  <DepartmentChildren
+                    departmentChildren={departments.children} 
+                    onClick={(event, child) => this.handleClick(event, child, departments)} />
+                </Tab>
+              )
+            })
+          }
+        </Tabs>
+      )
+    } else if (this.props.searchDepartments && checkNotNullArr(this.props.searchDepartments)) {
+      departments = (
+        <Tabs
+          mode='vertical'
+          containerStyle={{height: 'calc(100vh - 44px)'}}
+          index={this.state.tabIndex}
+          handleTabClick={this.handleTabClick}>
+          {
+            this.props.searchDepartments.map((departments,indexP) => {
+              return (
+                <Tab title={departments.deptName} key={indexP}>
+                  <DepartmentChildren
+                    departmentChildren={departments.children} 
+                    onClick={(event, child) => this.handleClick(event, child, departments)} />
                 </Tab>
               )
             })
