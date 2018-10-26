@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Head from '../../app/components/Common/Head'
 import RenderError from '../../app/components/Common/RenderError'
-import ConsultationComponent from '../../app/components/Appointment/ConsultationComponent'
+import ConsultationComponent from '../../app/components/Appointment/ConsultationComponent/ConsultationComponent'
 
 import { initGlobalQuery } from '../../app/utilities/common'
 import { initConsultationCodeAction, loadConsultationListAction } from '../../app/store/actions/appointment/consultation.action'

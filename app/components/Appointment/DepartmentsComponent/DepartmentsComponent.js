@@ -39,7 +39,6 @@ export class DepartmentComponent extends Component {
 
   handleClick = (event, child, parent) => {
     const { pageType, hosOrgCode } = this.props
-    console.log(event, child, parent)
     switch(pageType) {
       case '1':
         Router.push(

@@ -1,12 +1,10 @@
 @import '../../theme';
 
 .EntranceList {
-  border: 1px solid $color-border;
+  border-left: 1px solid $color-border;
+  border-right: 1px solid $color-border;
   border-radius: 5px;
   overflow: hidden;
-  .am-list-body {
-    border: none !important;
-  }
 }
 
 .Icon {

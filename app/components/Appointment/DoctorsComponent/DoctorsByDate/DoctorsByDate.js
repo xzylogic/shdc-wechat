@@ -73,6 +73,12 @@ class DoctorsByDate extends Component {
       })
   
       doctorsContent = <Tabs contentStyle={{height: 'calc(100vh - 159px)'}}>{tabContent}</Tabs>
+    } else {
+      doctorsContent = (
+        <div className={classes.CenterContent}>
+          <NullImageContent msg='暂无可预约专家、医生信息' image='/static/images/icon-null-doctor.png' />
+        </div>
+      )
     }
   
     return (

@@ -67,7 +67,6 @@ export class Hospitals extends Component {
   }
 
   handleContentClick = (event, data) => {
-    console.log(event, data)
     if (!data.sign) {
       Router.push(
         `/appointment/entrance?hosOrgCode=${data.hosOrgCode}&hosDeptCode=0&toHosDeptCode=0&deptName=null`,
